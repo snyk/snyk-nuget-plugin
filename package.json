@@ -1,0 +1,39 @@
+{
+  "name": "snyk-nuget-plugin",
+  "version": "1.0.0",
+  "description": "![logo](https://res.cloudinary.com/snyk/image/upload/v1468845259/logo/snyk-dog.svg) ## Snyk: NuGet Plugin ***",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "jscs `find ./lib -name '*.js'` -v && jscs `find ./test -name '*.js'` -v",
+    "test": "npm run unit-test",
+    "unit-test": "tap `ls ./test/*.test.js`",
+    "dev": "nodemon -x 'npm run unit-test'",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snyk/snyk-nuget-plugin.git"
+  },
+  "keywords": [
+    "snyk",
+    "nuget"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/snyk/snyk-nuget-plugin/issues"
+  },
+  "homepage": "https://github.com/snyk/snyk-nuget-plugin#readme",
+  "dependencies": {
+    "es6-promise": "^4.1.1",
+    "xml2js": "^0.4.17",
+    "zip": "^1.2.0"
+  },
+  "devDependencies": {
+    "jscs": "^3.0.7",
+    "nodemon": "^1.12.1",
+    "semantic-release": "^6.3.6",
+    "tap": "^10.7.0",
+    "tap-only": "0.0.5"
+  }
+}

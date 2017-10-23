@@ -1,0 +1,7 @@
+.github
+.jscsrc
+.travis.yml
+.vscode
+.idea
+/dev-test.js
+/test

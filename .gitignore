@@ -1,0 +1,9 @@
+node_modules
+.idea
+
+tap
+
+.result.json
+.vscode
+
+package-lock.json
