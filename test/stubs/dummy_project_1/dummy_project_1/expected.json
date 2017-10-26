@@ -4,7 +4,7 @@
     "targetFile": "./test/stubs/dummy_project_1/dummy_project_1/packages.config"
   },
   "package": {
-    "name": "/Users/eavichay/dev/snyk/snyk-nuget-plugin/test/stubs/dummy_project_1",
+    "name": "____SHOULD_BE_IGNORED____",
     "version": null,
     "packageFormatVersion": "Nuget:0.0.0",
     "dependencies": {

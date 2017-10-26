@@ -11,12 +11,12 @@ test('parse packages.config and traverse packages', function (t) {
   var expectedTreeFile = fs.readFileSync(stubProjectLocation + 'expected.json');
   var expectedTree = JSON.parse(expectedTreeFile.toString());
 
-  expectedTree.package = cleanPathInformation(expectedTree.package);
+  expectedTree = cleanPathInformation(expectedTree);
 
   plugin.inspect(null, targetFile, null)
   .then(function (result) {
     t.test('traversing', function (t) {
-      result.package = cleanPathInformation(result.package);
+      result = cleanPathInformation(result);
       t.deepEqual(expectedTree, result);
       t.end();
     })
