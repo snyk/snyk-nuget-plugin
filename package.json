@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "jscs `find ./lib -name '*.js'` -v && jscs `find ./test -name '*.js'` -v",
     "test": "npm run unit-test",
-    "unit-test": "tap `ls ./test/*.test.js`",
+    "unit-test": "tap `ls ./test/*.test.js` -R=spec",
     "dev": "nodemon -x 'npm run unit-test'",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },

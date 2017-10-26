@@ -3,6 +3,7 @@ var path = require('path');
 
 var plugin = require('../lib/index');
 var targetManifestFile = './test/stubs/_1_project.json';
+var removePathInfo = require('./cleanPackagePathInformation');
 
 function createEmptyNode(name, version, targetFramework) {
   var resolvedPath = path.resolve(
@@ -47,13 +48,12 @@ function buildExpectedTree(targetFile) {
 }
 
 test('parse project.json file', function (t) {
-  var expectedTree = buildExpectedTree(targetManifestFile);
+  var expectedTree = removePathInfo(buildExpectedTree(targetManifestFile));
 
   plugin.inspect(null, targetManifestFile, null)
   .then(function (result) {
     t.test('plugin', function (t) {
-      delete result.package.name;
-      t.deepEqual(expectedTree, result);
+      t.deepEqual(expectedTree, removePathInfo(result));
       t.end();
     });
     return result;
@@ -66,13 +66,12 @@ test('parse project.json file', function (t) {
 });
 
 test('parse package.config file', function (t) {
-  var expectedTree = buildExpectedTree(targetManifestFile);
+  var expectedTree = removePathInfo(buildExpectedTree(targetManifestFile));
 
   plugin.inspect(null, targetManifestFile, null)
   .then(function (result) {
     t.test('project.json', function (t) {
-      delete result.package.name;
-      t.deepEqual(expectedTree, result);
+      t.deepEqual(expectedTree, removePathInfo(result));
       t.end();
     });
     return result;
