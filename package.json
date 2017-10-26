@@ -1,6 +1,5 @@
 {
   "name": "snyk-nuget-plugin",
-  "version": "1.0.0",
   "description": "![logo](https://res.cloudinary.com/snyk/image/upload/v1468845259/logo/snyk-dog.svg) ## Snyk: NuGet Plugin ***",
   "main": "lib/index.js",
   "scripts": {
@@ -12,13 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/snyk/snyk-nuget-plugin.git"
+    "url": "https://github.com/snyk/snyk-nuget-plugin.git"
   },
   "keywords": [
     "snyk",
     "nuget"
   ],
-  "author": "",
+  "author": "snyk.io",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/snyk/snyk-nuget-plugin/issues"
@@ -32,7 +31,7 @@
   "devDependencies": {
     "jscs": "^3.0.7",
     "nodemon": "^1.12.1",
-    "semantic-release": "^6.3.6",
+    "semantic-release": "^8.2.0",
     "tap": "^10.7.0",
     "tap-only": "0.0.5"
   }
