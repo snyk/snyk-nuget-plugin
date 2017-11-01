@@ -23,6 +23,6 @@ parser
       console.log('Error parsing ' + targetFile);
       process.exit(1);
     }
-    console.log(JSON.stringify(result, null, 2));
+    console.log(JSON.stringify(result, '', 2));
     process.exit(0);
   });
