@@ -21,9 +21,6 @@ function createEmptyNode(name, version, targetFramework) {
 
 function buildExpectedTree(targetFile) {
   return {
-    name: '____SHOULD_BE_IGNORED____',
-    version: null,
-    packageFormatVersion: 'Nuget:0.0.0',
     dependencies: {
       // jscs:disable
       'Microsoft.CodeDom.Providers.DotNetCompilerPlatform': createEmptyNode('Microsoft.CodeDom.Providers.DotNetCompilerPlatform', '1.0.0', null),
@@ -47,7 +44,7 @@ test('parse project.json file', function (t) {
   .then(function (result) {
     t.test('plugin', function (t) {
       expectedTree.name = result.name; // ignore local filesystem project path
-      t.deepEqual(result, expectedTree);
+      t.deepEqual(result.package.dependencies, expectedTree.dependencies);
       t.end();
     });
     return result;
@@ -66,7 +63,7 @@ test('parse package.config file', function (t) {
   .then(function (result) {
     t.test('project.json', function (t) {
       expectedTree.name = result.name; // ignore local filesystem project path
-      t.deepEqual(result, expectedTree);
+      t.deepEqual(result.package.dependencies, expectedTree.dependencies);
       t.end();
     });
     return result;

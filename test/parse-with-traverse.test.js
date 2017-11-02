@@ -13,8 +13,7 @@ test('parse packages.config and traverse packages', function (t) {
   plugin.inspect(null, targetFile, null)
   .then(function (result) {
     t.test('traversing', function (t) {
-      expectedTree.name = result.name; // ignore local filesystem project path
-      t.deepEqual(result, expectedTree);
+      t.deepEqual(result.package.dependencies, expectedTree.package.dependencies);
       t.end();
     })
     return result;
