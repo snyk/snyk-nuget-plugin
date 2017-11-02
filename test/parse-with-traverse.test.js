@@ -13,7 +13,9 @@ test('parse packages.config and traverse packages', function (t) {
   plugin.inspect(null, targetFile, null)
   .then(function (result) {
     t.test('traversing', function (t) {
-      t.deepEqual(result.package.dependencies, expectedTree.package.dependencies);
+      t.deepEqual(
+        result.package.dependencies,
+        expectedTree.package.dependencies);
       t.end();
     })
     return result;
