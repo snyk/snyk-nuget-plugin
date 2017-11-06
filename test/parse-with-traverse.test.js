@@ -1,5 +1,4 @@
 var test = require('tap').test;
-var path = require('path');
 var fs = require('fs');
 
 var plugin = require('../lib/index');

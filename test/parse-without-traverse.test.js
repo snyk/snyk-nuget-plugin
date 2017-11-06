@@ -12,6 +12,7 @@ function createEmptyNode(name, version, targetFramework) {
   return {
     path: resolvedPath,
     name: name,
+    from: [],
     version: version,
     targetFramework: targetFramework,
     versionSpec: 'unknown',
@@ -43,7 +44,6 @@ test('parse project.json file', function (t) {
   plugin.inspect(null, targetManifestFile, null)
   .then(function (result) {
     t.test('plugin', function (t) {
-      expectedTree.name = result.name; // ignore local filesystem project path
       t.deepEqual(result.package.dependencies, expectedTree.dependencies);
       t.end();
     });
@@ -62,7 +62,6 @@ test('parse package.config file', function (t) {
   plugin.inspect(null, targetManifestFile, null)
   .then(function (result) {
     t.test('project.json', function (t) {
-      expectedTree.name = result.name; // ignore local filesystem project path
       t.deepEqual(result.package.dependencies, expectedTree.dependencies);
       t.end();
     });
