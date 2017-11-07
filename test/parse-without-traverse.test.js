@@ -2,7 +2,7 @@ var test = require('tap').test;
 var path = require('path');
 
 var plugin = require('../lib/index');
-var targetManifestFile = './test/stubs/_1_project.json';
+var targetProjectJsonFile = './test/stubs/_1_project.json';
 
 function createEmptyNode(name, version, targetFramework) {
   var resolvedPath = path.resolve(
@@ -10,7 +10,6 @@ function createEmptyNode(name, version, targetFramework) {
     'packages',
     name + '.' + version);
   return {
-    path: resolvedPath,
     name: name,
     from: [],
     version: version,
@@ -20,7 +19,7 @@ function createEmptyNode(name, version, targetFramework) {
   }
 }
 
-function buildExpectedTree(targetFile) {
+function buildExpectedTree() {
   return {
     dependencies: {
       // jscs:disable
@@ -39,29 +38,11 @@ function buildExpectedTree(targetFile) {
 }
 
 test('parse project.json file', function (t) {
-  var expectedTree = buildExpectedTree(targetManifestFile);
+  var expectedTree = buildExpectedTree();
 
-  plugin.inspect(null, targetManifestFile, null)
+  plugin.inspect(null, targetProjectJsonFile, null)
   .then(function (result) {
     t.test('plugin', function (t) {
-      t.deepEqual(result.package.dependencies, expectedTree.dependencies);
-      t.end();
-    });
-    return result;
-  })
-  .then(function (result) {
-    if (result) {
-      t.end();
-    }
-  });
-});
-
-test('parse package.config file', function (t) {
-  var expectedTree = buildExpectedTree(targetManifestFile);
-
-  plugin.inspect(null, targetManifestFile, null)
-  .then(function (result) {
-    t.test('project.json', function (t) {
       t.deepEqual(result.package.dependencies, expectedTree.dependencies);
       t.end();
     });

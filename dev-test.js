@@ -25,4 +25,6 @@ parser
     }
     console.log(JSON.stringify(result, '', 2));
     process.exit(0);
+  })['catch'](function (err) {
+    console.error(err);
   });
