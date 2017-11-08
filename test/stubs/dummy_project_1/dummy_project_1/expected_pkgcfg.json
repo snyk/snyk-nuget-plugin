@@ -2,7 +2,7 @@
   "package": {
     "plugin": {
       "name": "snyk-nuget-plugin",
-      "targetFile": "./test/stubs/dummy_project_1/dummy_project_1/packages.config"
+      "targetFile": "packages.config"
     },
     "name": "dummy_project_1",
     "version": "0.0.0",
@@ -14,7 +14,6 @@
       "Antlr": {
         "name": "Antlr",
         "version": "3.4.1.9004",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "3.4.1.9004",
         "from": [
@@ -25,7 +24,6 @@
       "bootstrap": {
         "name": "bootstrap",
         "version": "3.0.0",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "3.0.0",
         "from": [
@@ -36,7 +34,6 @@
       "EntityFramework": {
         "name": "EntityFramework",
         "version": "6.1.3",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "6.1.3",
         "from": [
@@ -47,7 +44,6 @@
       "jQuery": {
         "name": "jQuery",
         "version": "1.10.2",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "1.10.2",
         "from": [
@@ -58,12 +54,10 @@
       "Knockout.Validation": {
         "name": "Knockout.Validation",
         "version": "1.0.1",
-        "targetFramework": "net461",
         "dependencies": {
           "knockoutjs": {
             "name": "knockoutjs",
             "version": "2.3.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "2.0.0",
             "from": [
@@ -82,7 +76,6 @@
       "knockoutjs": {
         "name": "knockoutjs",
         "version": "2.3.0",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "2.3.0",
         "from": [
@@ -93,12 +86,10 @@
       "Microsoft.ApplicationInsights": {
         "name": "Microsoft.ApplicationInsights",
         "version": "2.2.0",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
             "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
             "version": "1.1.28",
-            "targetFramework": ".NETFramework4.0",
             "dependencies": {},
             "versionSpec": "1.1.28",
             "from": [
@@ -110,7 +101,6 @@
           "Microsoft.Bcl.Async": {
             "name": "Microsoft.Bcl.Async",
             "version": "1.0.168",
-            "targetFramework": "WindowsPhone8.0",
             "dependencies": {},
             "versionSpec": "1.0.168",
             "from": [
@@ -129,12 +119,10 @@
       "Microsoft.ApplicationInsights.Agent.Intercept": {
         "name": "Microsoft.ApplicationInsights.Agent.Intercept",
         "version": "2.0.6",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
             "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
             "version": "1.1.28",
-            "targetFramework": ".NETFramework4.0",
             "dependencies": {},
             "versionSpec": "1.1.28",
             "from": [
@@ -153,17 +141,14 @@
       "Microsoft.ApplicationInsights.DependencyCollector": {
         "name": "Microsoft.ApplicationInsights.DependencyCollector",
         "version": "2.2.0",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.ApplicationInsights": {
             "name": "Microsoft.ApplicationInsights",
             "version": "2.2.0",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                 "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                 "version": "1.1.28",
-                "targetFramework": ".NETFramework4.0",
                 "dependencies": {},
                 "versionSpec": "1.1.28",
                 "from": [
@@ -176,7 +161,6 @@
               "Microsoft.Bcl.Async": {
                 "name": "Microsoft.Bcl.Async",
                 "version": "1.0.168",
-                "targetFramework": "WindowsPhone8.0",
                 "dependencies": {},
                 "versionSpec": "1.0.168",
                 "from": [
@@ -197,12 +181,10 @@
           "Microsoft.ApplicationInsights.Agent.Intercept": {
             "name": "Microsoft.ApplicationInsights.Agent.Intercept",
             "version": "2.0.6",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                 "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                 "version": "1.1.28",
-                "targetFramework": ".NETFramework4.0",
                 "dependencies": {},
                 "versionSpec": "1.1.28",
                 "from": [
@@ -230,17 +212,14 @@
       "Microsoft.ApplicationInsights.PerfCounterCollector": {
         "name": "Microsoft.ApplicationInsights.PerfCounterCollector",
         "version": "2.2.0",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.ApplicationInsights": {
             "name": "Microsoft.ApplicationInsights",
             "version": "2.2.0",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                 "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                 "version": "1.1.28",
-                "targetFramework": ".NETFramework4.0",
                 "dependencies": {},
                 "versionSpec": "1.1.28",
                 "from": [
@@ -253,7 +232,6 @@
               "Microsoft.Bcl.Async": {
                 "name": "Microsoft.Bcl.Async",
                 "version": "1.0.168",
-                "targetFramework": "WindowsPhone8.0",
                 "dependencies": {},
                 "versionSpec": "1.0.168",
                 "from": [
@@ -274,7 +252,6 @@
           "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
             "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
             "version": "1.1.28",
-            "targetFramework": ".NETFramework4.0",
             "dependencies": {},
             "versionSpec": "1.1.28",
             "from": [
@@ -293,17 +270,14 @@
       "Microsoft.ApplicationInsights.Web": {
         "name": "Microsoft.ApplicationInsights.Web",
         "version": "2.2.0",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.ApplicationInsights": {
             "name": "Microsoft.ApplicationInsights",
             "version": "2.2.0",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                 "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                 "version": "1.1.28",
-                "targetFramework": ".NETFramework4.0",
                 "dependencies": {},
                 "versionSpec": "1.1.28",
                 "from": [
@@ -316,7 +290,6 @@
               "Microsoft.Bcl.Async": {
                 "name": "Microsoft.Bcl.Async",
                 "version": "1.0.168",
-                "targetFramework": "WindowsPhone8.0",
                 "dependencies": {},
                 "versionSpec": "1.0.168",
                 "from": [
@@ -337,7 +310,6 @@
           "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
             "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
             "version": "1.1.28",
-            "targetFramework": ".NETFramework4.0",
             "dependencies": {},
             "versionSpec": "1.1.28",
             "from": [
@@ -349,17 +321,14 @@
           "Microsoft.ApplicationInsights.WindowsServer": {
             "name": "Microsoft.ApplicationInsights.WindowsServer",
             "version": "2.2.0",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.ApplicationInsights": {
                 "name": "Microsoft.ApplicationInsights",
                 "version": "2.2.0",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                     "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                     "version": "1.1.28",
-                    "targetFramework": ".NETFramework4.0",
                     "dependencies": {},
                     "versionSpec": "1.1.28",
                     "from": [
@@ -373,7 +342,6 @@
                   "Microsoft.Bcl.Async": {
                     "name": "Microsoft.Bcl.Async",
                     "version": "1.0.168",
-                    "targetFramework": "WindowsPhone8.0",
                     "dependencies": {},
                     "versionSpec": "1.0.168",
                     "from": [
@@ -396,17 +364,14 @@
               "Microsoft.ApplicationInsights.DependencyCollector": {
                 "name": "Microsoft.ApplicationInsights.DependencyCollector",
                 "version": "2.2.0",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.ApplicationInsights": {
                     "name": "Microsoft.ApplicationInsights",
                     "version": "2.2.0",
-                    "targetFramework": "net461",
                     "dependencies": {
                       "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                         "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                         "version": "1.1.28",
-                        "targetFramework": ".NETFramework4.0",
                         "dependencies": {},
                         "versionSpec": "1.1.28",
                         "from": [
@@ -421,7 +386,6 @@
                       "Microsoft.Bcl.Async": {
                         "name": "Microsoft.Bcl.Async",
                         "version": "1.0.168",
-                        "targetFramework": "WindowsPhone8.0",
                         "dependencies": {},
                         "versionSpec": "1.0.168",
                         "from": [
@@ -446,12 +410,10 @@
                   "Microsoft.ApplicationInsights.Agent.Intercept": {
                     "name": "Microsoft.ApplicationInsights.Agent.Intercept",
                     "version": "2.0.6",
-                    "targetFramework": "net461",
                     "dependencies": {
                       "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                         "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                         "version": "1.1.28",
-                        "targetFramework": ".NETFramework4.0",
                         "dependencies": {},
                         "versionSpec": "1.1.28",
                         "from": [
@@ -485,17 +447,14 @@
               "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": {
                 "name": "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel",
                 "version": "2.2.0",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.ApplicationInsights": {
                     "name": "Microsoft.ApplicationInsights",
                     "version": "2.2.0",
-                    "targetFramework": "net461",
                     "dependencies": {
                       "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                         "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                         "version": "1.1.28",
-                        "targetFramework": ".NETFramework4.0",
                         "dependencies": {},
                         "versionSpec": "1.1.28",
                         "from": [
@@ -510,7 +469,6 @@
                       "Microsoft.Bcl.Async": {
                         "name": "Microsoft.Bcl.Async",
                         "version": "1.0.168",
-                        "targetFramework": "WindowsPhone8.0",
                         "dependencies": {},
                         "versionSpec": "1.0.168",
                         "from": [
@@ -535,7 +493,6 @@
                   "Microsoft.Bcl": {
                     "name": "Microsoft.Bcl",
                     "version": "1.1.10",
-                    "targetFramework": ".NETFramework4.0",
                     "dependencies": {},
                     "versionSpec": "1.1.10",
                     "from": [
@@ -549,7 +506,6 @@
                   "Microsoft.Bcl.Async": {
                     "name": "Microsoft.Bcl.Async",
                     "version": "1.0.168",
-                    "targetFramework": ".NETFramework4.0",
                     "dependencies": {},
                     "versionSpec": "1.0.168",
                     "from": [
@@ -563,7 +519,6 @@
                   "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                     "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                     "version": "1.1.28",
-                    "targetFramework": ".NETFramework4.0",
                     "dependencies": {},
                     "versionSpec": "1.1.28",
                     "from": [
@@ -586,17 +541,14 @@
               "Microsoft.ApplicationInsights.PerfCounterCollector": {
                 "name": "Microsoft.ApplicationInsights.PerfCounterCollector",
                 "version": "2.2.0",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.ApplicationInsights": {
                     "name": "Microsoft.ApplicationInsights",
                     "version": "2.2.0",
-                    "targetFramework": "net461",
                     "dependencies": {
                       "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                         "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                         "version": "1.1.28",
-                        "targetFramework": ".NETFramework4.0",
                         "dependencies": {},
                         "versionSpec": "1.1.28",
                         "from": [
@@ -611,7 +563,6 @@
                       "Microsoft.Bcl.Async": {
                         "name": "Microsoft.Bcl.Async",
                         "version": "1.0.168",
-                        "targetFramework": "WindowsPhone8.0",
                         "dependencies": {},
                         "versionSpec": "1.0.168",
                         "from": [
@@ -636,7 +587,6 @@
                   "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                     "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                     "version": "1.1.28",
-                    "targetFramework": ".NETFramework4.0",
                     "dependencies": {},
                     "versionSpec": "1.1.28",
                     "from": [
@@ -659,7 +609,6 @@
               "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                 "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                 "version": "1.1.28",
-                "targetFramework": ".NETFramework4.0",
                 "dependencies": {},
                 "versionSpec": "1.1.28",
                 "from": [
@@ -687,17 +636,14 @@
       "Microsoft.ApplicationInsights.WindowsServer": {
         "name": "Microsoft.ApplicationInsights.WindowsServer",
         "version": "2.2.0",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.ApplicationInsights": {
             "name": "Microsoft.ApplicationInsights",
             "version": "2.2.0",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                 "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                 "version": "1.1.28",
-                "targetFramework": ".NETFramework4.0",
                 "dependencies": {},
                 "versionSpec": "1.1.28",
                 "from": [
@@ -710,7 +656,6 @@
               "Microsoft.Bcl.Async": {
                 "name": "Microsoft.Bcl.Async",
                 "version": "1.0.168",
-                "targetFramework": "WindowsPhone8.0",
                 "dependencies": {},
                 "versionSpec": "1.0.168",
                 "from": [
@@ -731,17 +676,14 @@
           "Microsoft.ApplicationInsights.DependencyCollector": {
             "name": "Microsoft.ApplicationInsights.DependencyCollector",
             "version": "2.2.0",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.ApplicationInsights": {
                 "name": "Microsoft.ApplicationInsights",
                 "version": "2.2.0",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                     "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                     "version": "1.1.28",
-                    "targetFramework": ".NETFramework4.0",
                     "dependencies": {},
                     "versionSpec": "1.1.28",
                     "from": [
@@ -755,7 +697,6 @@
                   "Microsoft.Bcl.Async": {
                     "name": "Microsoft.Bcl.Async",
                     "version": "1.0.168",
-                    "targetFramework": "WindowsPhone8.0",
                     "dependencies": {},
                     "versionSpec": "1.0.168",
                     "from": [
@@ -778,12 +719,10 @@
               "Microsoft.ApplicationInsights.Agent.Intercept": {
                 "name": "Microsoft.ApplicationInsights.Agent.Intercept",
                 "version": "2.0.6",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                     "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                     "version": "1.1.28",
-                    "targetFramework": ".NETFramework4.0",
                     "dependencies": {},
                     "versionSpec": "1.1.28",
                     "from": [
@@ -814,17 +753,14 @@
           "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": {
             "name": "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel",
             "version": "2.2.0",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.ApplicationInsights": {
                 "name": "Microsoft.ApplicationInsights",
                 "version": "2.2.0",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                     "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                     "version": "1.1.28",
-                    "targetFramework": ".NETFramework4.0",
                     "dependencies": {},
                     "versionSpec": "1.1.28",
                     "from": [
@@ -838,7 +774,6 @@
                   "Microsoft.Bcl.Async": {
                     "name": "Microsoft.Bcl.Async",
                     "version": "1.0.168",
-                    "targetFramework": "WindowsPhone8.0",
                     "dependencies": {},
                     "versionSpec": "1.0.168",
                     "from": [
@@ -861,7 +796,6 @@
               "Microsoft.Bcl": {
                 "name": "Microsoft.Bcl",
                 "version": "1.1.10",
-                "targetFramework": ".NETFramework4.0",
                 "dependencies": {},
                 "versionSpec": "1.1.10",
                 "from": [
@@ -874,7 +808,6 @@
               "Microsoft.Bcl.Async": {
                 "name": "Microsoft.Bcl.Async",
                 "version": "1.0.168",
-                "targetFramework": ".NETFramework4.0",
                 "dependencies": {},
                 "versionSpec": "1.0.168",
                 "from": [
@@ -887,7 +820,6 @@
               "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                 "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                 "version": "1.1.28",
-                "targetFramework": ".NETFramework4.0",
                 "dependencies": {},
                 "versionSpec": "1.1.28",
                 "from": [
@@ -908,17 +840,14 @@
           "Microsoft.ApplicationInsights.PerfCounterCollector": {
             "name": "Microsoft.ApplicationInsights.PerfCounterCollector",
             "version": "2.2.0",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.ApplicationInsights": {
                 "name": "Microsoft.ApplicationInsights",
                 "version": "2.2.0",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                     "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                     "version": "1.1.28",
-                    "targetFramework": ".NETFramework4.0",
                     "dependencies": {},
                     "versionSpec": "1.1.28",
                     "from": [
@@ -932,7 +861,6 @@
                   "Microsoft.Bcl.Async": {
                     "name": "Microsoft.Bcl.Async",
                     "version": "1.0.168",
-                    "targetFramework": "WindowsPhone8.0",
                     "dependencies": {},
                     "versionSpec": "1.0.168",
                     "from": [
@@ -955,7 +883,6 @@
               "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                 "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                 "version": "1.1.28",
-                "targetFramework": ".NETFramework4.0",
                 "dependencies": {},
                 "versionSpec": "1.1.28",
                 "from": [
@@ -976,7 +903,6 @@
           "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
             "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
             "version": "1.1.28",
-            "targetFramework": ".NETFramework4.0",
             "dependencies": {},
             "versionSpec": "1.1.28",
             "from": [
@@ -995,17 +921,14 @@
       "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": {
         "name": "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel",
         "version": "2.2.0",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.ApplicationInsights": {
             "name": "Microsoft.ApplicationInsights",
             "version": "2.2.0",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
                 "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
                 "version": "1.1.28",
-                "targetFramework": ".NETFramework4.0",
                 "dependencies": {},
                 "versionSpec": "1.1.28",
                 "from": [
@@ -1018,7 +941,6 @@
               "Microsoft.Bcl.Async": {
                 "name": "Microsoft.Bcl.Async",
                 "version": "1.0.168",
-                "targetFramework": "WindowsPhone8.0",
                 "dependencies": {},
                 "versionSpec": "1.0.168",
                 "from": [
@@ -1039,7 +961,6 @@
           "Microsoft.Bcl": {
             "name": "Microsoft.Bcl",
             "version": "1.1.10",
-            "targetFramework": ".NETFramework4.0",
             "dependencies": {},
             "versionSpec": "1.1.10",
             "from": [
@@ -1051,7 +972,6 @@
           "Microsoft.Bcl.Async": {
             "name": "Microsoft.Bcl.Async",
             "version": "1.0.168",
-            "targetFramework": ".NETFramework4.0",
             "dependencies": {},
             "versionSpec": "1.0.168",
             "from": [
@@ -1063,7 +983,6 @@
           "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
             "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
             "version": "1.1.28",
-            "targetFramework": ".NETFramework4.0",
             "dependencies": {},
             "versionSpec": "1.1.28",
             "from": [
@@ -1082,7 +1001,6 @@
       "Microsoft.AspNet.Identity.Core": {
         "name": "Microsoft.AspNet.Identity.Core",
         "version": "2.2.1",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "2.2.1",
         "from": [
@@ -1093,12 +1011,10 @@
       "Microsoft.AspNet.Identity.EntityFramework": {
         "name": "Microsoft.AspNet.Identity.EntityFramework",
         "version": "2.2.1",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.AspNet.Identity.Core": {
             "name": "Microsoft.AspNet.Identity.Core",
             "version": "2.2.1",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "2.2.1",
             "from": [
@@ -1110,7 +1026,6 @@
           "EntityFramework": {
             "name": "EntityFramework",
             "version": "6.1.3",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "6.1.0",
             "from": [
@@ -1129,12 +1044,10 @@
       "Microsoft.AspNet.Identity.Owin": {
         "name": "Microsoft.AspNet.Identity.Owin",
         "version": "2.2.1",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.AspNet.Identity.Core": {
             "name": "Microsoft.AspNet.Identity.Core",
             "version": "2.2.1",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "2.2.1",
             "from": [
@@ -1146,12 +1059,10 @@
           "Microsoft.Owin.Security": {
             "name": "Microsoft.Owin.Security",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -1164,12 +1075,10 @@
               "Microsoft.Owin": {
                 "name": "Microsoft.Owin",
                 "version": "3.0.1",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Owin": {
                     "name": "Owin",
                     "version": "1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0",
                     "from": [
@@ -1200,12 +1109,10 @@
           "Microsoft.Owin.Security.Cookies": {
             "name": "Microsoft.Owin.Security.Cookies",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -1218,12 +1125,10 @@
               "Microsoft.Owin": {
                 "name": "Microsoft.Owin",
                 "version": "3.0.1",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Owin": {
                     "name": "Owin",
                     "version": "1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0",
                     "from": [
@@ -1246,12 +1151,10 @@
               "Microsoft.Owin.Security": {
                 "name": "Microsoft.Owin.Security",
                 "version": "3.0.1",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Owin": {
                     "name": "Owin",
                     "version": "1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0",
                     "from": [
@@ -1265,12 +1168,10 @@
                   "Microsoft.Owin": {
                     "name": "Microsoft.Owin",
                     "version": "3.0.1",
-                    "targetFramework": "net461",
                     "dependencies": {
                       "Owin": {
                         "name": "Owin",
                         "version": "1.0",
-                        "targetFramework": "net461",
                         "dependencies": {},
                         "versionSpec": "1.0",
                         "from": [
@@ -1312,12 +1213,10 @@
           "Microsoft.Owin.Security.OAuth": {
             "name": "Microsoft.Owin.Security.OAuth",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -1330,12 +1229,10 @@
               "Microsoft.Owin": {
                 "name": "Microsoft.Owin",
                 "version": "3.0.1",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Owin": {
                     "name": "Owin",
                     "version": "1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0",
                     "from": [
@@ -1358,12 +1255,10 @@
               "Newtonsoft.Json": {
                 "name": "Newtonsoft.Json",
                 "version": "10.0.3",
-                "targetFramework": "net461",
                 "dependencies": {
                   "NETStandard.Library": {
                     "name": "NETStandard.Library",
                     "version": "1.6.1",
-                    "targetFramework": ".NETStandard1.3",
                     "dependencies": {},
                     "versionSpec": "1.6.1",
                     "from": [
@@ -1377,7 +1272,6 @@
                   "Microsoft.CSharp": {
                     "name": "Microsoft.CSharp",
                     "version": "4.3.0",
-                    "targetFramework": ".NETStandard1.3",
                     "dependencies": {},
                     "versionSpec": "4.3.0",
                     "from": [
@@ -1400,12 +1294,10 @@
               "Microsoft.Owin.Security": {
                 "name": "Microsoft.Owin.Security",
                 "version": "3.0.1",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Owin": {
                     "name": "Owin",
                     "version": "1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0",
                     "from": [
@@ -1419,12 +1311,10 @@
                   "Microsoft.Owin": {
                     "name": "Microsoft.Owin",
                     "version": "3.0.1",
-                    "targetFramework": "net461",
                     "dependencies": {
                       "Owin": {
                         "name": "Owin",
                         "version": "1.0",
-                        "targetFramework": "net461",
                         "dependencies": {},
                         "versionSpec": "1.0",
                         "from": [
@@ -1473,17 +1363,14 @@
       "Microsoft.AspNet.Mvc": {
         "name": "Microsoft.AspNet.Mvc",
         "version": "5.2.3",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.AspNet.WebPages": {
             "name": "Microsoft.AspNet.WebPages",
             "version": "3.2.3",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.Web.Infrastructure": {
                 "name": "Microsoft.Web.Infrastructure",
                 "version": "1.0.0.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0.0.0",
                 "from": [
@@ -1496,7 +1383,6 @@
               "Microsoft.AspNet.Razor": {
                 "name": "Microsoft.AspNet.Razor",
                 "version": "3.2.3",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "[3.2.3, 3.3.0)",
                 "from": [
@@ -1517,7 +1403,6 @@
           "Microsoft.AspNet.Razor": {
             "name": "Microsoft.AspNet.Razor",
             "version": "3.2.3",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "[3.2.3, 3.3.0)",
             "from": [
@@ -1536,7 +1421,6 @@
       "Microsoft.AspNet.Razor": {
         "name": "Microsoft.AspNet.Razor",
         "version": "3.2.3",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "3.2.3",
         "from": [
@@ -1547,12 +1431,10 @@
       "Microsoft.AspNet.Web.Optimization": {
         "name": "Microsoft.AspNet.Web.Optimization",
         "version": "1.1.3",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.Web.Infrastructure": {
             "name": "Microsoft.Web.Infrastructure",
             "version": "1.0.0.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0.0",
             "from": [
@@ -1564,12 +1446,10 @@
           "WebGrease": {
             "name": "WebGrease",
             "version": "1.5.2",
-            "targetFramework": "net461",
             "dependencies": {
               "Antlr": {
                 "name": "Antlr",
                 "version": "3.4.1.9004",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "3.4.1.9004",
                 "from": [
@@ -1582,12 +1462,10 @@
               "Newtonsoft.Json": {
                 "name": "Newtonsoft.Json",
                 "version": "10.0.3",
-                "targetFramework": "net461",
                 "dependencies": {
                   "NETStandard.Library": {
                     "name": "NETStandard.Library",
                     "version": "1.6.1",
-                    "targetFramework": ".NETStandard1.3",
                     "dependencies": {},
                     "versionSpec": "1.6.1",
                     "from": [
@@ -1601,7 +1479,6 @@
                   "Microsoft.CSharp": {
                     "name": "Microsoft.CSharp",
                     "version": "4.3.0",
-                    "targetFramework": ".NETStandard1.3",
                     "dependencies": {},
                     "versionSpec": "4.3.0",
                     "from": [
@@ -1639,32 +1516,26 @@
       "Microsoft.AspNet.WebApi": {
         "name": "Microsoft.AspNet.WebApi",
         "version": "5.2.3",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.AspNet.WebApi.WebHost": {
             "name": "Microsoft.AspNet.WebApi.WebHost",
             "version": "5.2.3",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.AspNet.WebApi.Core": {
                 "name": "Microsoft.AspNet.WebApi.Core",
                 "version": "5.2.3",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.AspNet.WebApi.Client": {
                     "name": "Microsoft.AspNet.WebApi.Client",
                     "version": "5.2.3",
-                    "targetFramework": "net461",
                     "dependencies": {
                       "Newtonsoft.Json": {
                         "name": "Newtonsoft.Json",
                         "version": "10.0.3",
-                        "targetFramework": "net461",
                         "dependencies": {
                           "NETStandard.Library": {
                             "name": "NETStandard.Library",
                             "version": "1.6.1",
-                            "targetFramework": ".NETStandard1.3",
                             "dependencies": {},
                             "versionSpec": "1.6.1",
                             "from": [
@@ -1680,7 +1551,6 @@
                           "Microsoft.CSharp": {
                             "name": "Microsoft.CSharp",
                             "version": "4.3.0",
-                            "targetFramework": ".NETStandard1.3",
                             "dependencies": {},
                             "versionSpec": "4.3.0",
                             "from": [
@@ -1707,7 +1577,6 @@
                       "Microsoft.Net.Http": {
                         "name": "Microsoft.Net.Http",
                         "version": "2.2.22",
-                        "targetFramework": ".NETPortable0.0-wp8+netcore45+net45+wp81+wpa81",
                         "dependencies": {},
                         "versionSpec": "2.2.22",
                         "from": [
@@ -1756,17 +1625,14 @@
       "Microsoft.AspNet.WebApi.Client": {
         "name": "Microsoft.AspNet.WebApi.Client",
         "version": "5.2.3",
-        "targetFramework": "net461",
         "dependencies": {
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "targetFramework": "net461",
             "dependencies": {
               "NETStandard.Library": {
                 "name": "NETStandard.Library",
                 "version": "1.6.1",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "1.6.1",
                 "from": [
@@ -1779,7 +1645,6 @@
               "Microsoft.CSharp": {
                 "name": "Microsoft.CSharp",
                 "version": "4.3.0",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "4.3.0",
                 "from": [
@@ -1800,7 +1665,6 @@
           "Microsoft.Net.Http": {
             "name": "Microsoft.Net.Http",
             "version": "2.2.22",
-            "targetFramework": ".NETPortable0.0-wp8+netcore45+net45+wp81+wpa81",
             "dependencies": {},
             "versionSpec": "2.2.22",
             "from": [
@@ -1819,22 +1683,18 @@
       "Microsoft.AspNet.WebApi.Core": {
         "name": "Microsoft.AspNet.WebApi.Core",
         "version": "5.2.3",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.AspNet.WebApi.Client": {
             "name": "Microsoft.AspNet.WebApi.Client",
             "version": "5.2.3",
-            "targetFramework": "net461",
             "dependencies": {
               "Newtonsoft.Json": {
                 "name": "Newtonsoft.Json",
                 "version": "10.0.3",
-                "targetFramework": "net461",
                 "dependencies": {
                   "NETStandard.Library": {
                     "name": "NETStandard.Library",
                     "version": "1.6.1",
-                    "targetFramework": ".NETStandard1.3",
                     "dependencies": {},
                     "versionSpec": "1.6.1",
                     "from": [
@@ -1848,7 +1708,6 @@
                   "Microsoft.CSharp": {
                     "name": "Microsoft.CSharp",
                     "version": "4.3.0",
-                    "targetFramework": ".NETStandard1.3",
                     "dependencies": {},
                     "versionSpec": "4.3.0",
                     "from": [
@@ -1871,7 +1730,6 @@
               "Microsoft.Net.Http": {
                 "name": "Microsoft.Net.Http",
                 "version": "2.2.22",
-                "targetFramework": ".NETPortable0.0-wp8+netcore45+net45+wp81+wpa81",
                 "dependencies": {},
                 "versionSpec": "2.2.22",
                 "from": [
@@ -1899,32 +1757,26 @@
       "Microsoft.AspNet.WebApi.HelpPage": {
         "name": "Microsoft.AspNet.WebApi.HelpPage",
         "version": "5.2.3",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.AspNet.WebApi.WebHost": {
             "name": "Microsoft.AspNet.WebApi.WebHost",
             "version": "5.2.3",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.AspNet.WebApi.Core": {
                 "name": "Microsoft.AspNet.WebApi.Core",
                 "version": "5.2.3",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.AspNet.WebApi.Client": {
                     "name": "Microsoft.AspNet.WebApi.Client",
                     "version": "5.2.3",
-                    "targetFramework": "net461",
                     "dependencies": {
                       "Newtonsoft.Json": {
                         "name": "Newtonsoft.Json",
                         "version": "10.0.3",
-                        "targetFramework": "net461",
                         "dependencies": {
                           "NETStandard.Library": {
                             "name": "NETStandard.Library",
                             "version": "1.6.1",
-                            "targetFramework": ".NETStandard1.3",
                             "dependencies": {},
                             "versionSpec": "1.6.1",
                             "from": [
@@ -1940,7 +1792,6 @@
                           "Microsoft.CSharp": {
                             "name": "Microsoft.CSharp",
                             "version": "4.3.0",
-                            "targetFramework": ".NETStandard1.3",
                             "dependencies": {},
                             "versionSpec": "4.3.0",
                             "from": [
@@ -1967,7 +1818,6 @@
                       "Microsoft.Net.Http": {
                         "name": "Microsoft.Net.Http",
                         "version": "2.2.22",
-                        "targetFramework": ".NETPortable0.0-wp8+netcore45+net45+wp81+wpa81",
                         "dependencies": {},
                         "versionSpec": "2.2.22",
                         "from": [
@@ -2009,17 +1859,14 @@
           "Microsoft.AspNet.Mvc": {
             "name": "Microsoft.AspNet.Mvc",
             "version": "5.2.3",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.AspNet.WebPages": {
                 "name": "Microsoft.AspNet.WebPages",
                 "version": "3.2.3",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.Web.Infrastructure": {
                     "name": "Microsoft.Web.Infrastructure",
                     "version": "1.0.0.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0.0.0",
                     "from": [
@@ -2033,7 +1880,6 @@
                   "Microsoft.AspNet.Razor": {
                     "name": "Microsoft.AspNet.Razor",
                     "version": "3.2.3",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "[3.2.3, 3.3.0)",
                     "from": [
@@ -2056,7 +1902,6 @@
               "Microsoft.AspNet.Razor": {
                 "name": "Microsoft.AspNet.Razor",
                 "version": "3.2.3",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "[3.2.3, 3.3.0)",
                 "from": [
@@ -2077,7 +1922,6 @@
           "Microsoft.AspNet.Razor": {
             "name": "Microsoft.AspNet.Razor",
             "version": "3.2.3",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "[3.2.3, 3.3.0)",
             "from": [
@@ -2096,27 +1940,22 @@
       "Microsoft.AspNet.WebApi.Owin": {
         "name": "Microsoft.AspNet.WebApi.Owin",
         "version": "5.2.3",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.AspNet.WebApi.Core": {
             "name": "Microsoft.AspNet.WebApi.Core",
             "version": "5.2.3",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.AspNet.WebApi.Client": {
                 "name": "Microsoft.AspNet.WebApi.Client",
                 "version": "5.2.3",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Newtonsoft.Json": {
                     "name": "Newtonsoft.Json",
                     "version": "10.0.3",
-                    "targetFramework": "net461",
                     "dependencies": {
                       "NETStandard.Library": {
                         "name": "NETStandard.Library",
                         "version": "1.6.1",
-                        "targetFramework": ".NETStandard1.3",
                         "dependencies": {},
                         "versionSpec": "1.6.1",
                         "from": [
@@ -2131,7 +1970,6 @@
                       "Microsoft.CSharp": {
                         "name": "Microsoft.CSharp",
                         "version": "4.3.0",
-                        "targetFramework": ".NETStandard1.3",
                         "dependencies": {},
                         "versionSpec": "4.3.0",
                         "from": [
@@ -2156,7 +1994,6 @@
                   "Microsoft.Net.Http": {
                     "name": "Microsoft.Net.Http",
                     "version": "2.2.22",
-                    "targetFramework": ".NETPortable0.0-wp8+netcore45+net45+wp81+wpa81",
                     "dependencies": {},
                     "versionSpec": "2.2.22",
                     "from": [
@@ -2187,12 +2024,10 @@
           "Microsoft.Owin": {
             "name": "Microsoft.Owin",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -2213,7 +2048,6 @@
           "Owin": {
             "name": "Owin",
             "version": "1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0",
             "from": [
@@ -2232,27 +2066,22 @@
       "Microsoft.AspNet.WebApi.WebHost": {
         "name": "Microsoft.AspNet.WebApi.WebHost",
         "version": "5.2.3",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.AspNet.WebApi.Core": {
             "name": "Microsoft.AspNet.WebApi.Core",
             "version": "5.2.3",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.AspNet.WebApi.Client": {
                 "name": "Microsoft.AspNet.WebApi.Client",
                 "version": "5.2.3",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Newtonsoft.Json": {
                     "name": "Newtonsoft.Json",
                     "version": "10.0.3",
-                    "targetFramework": "net461",
                     "dependencies": {
                       "NETStandard.Library": {
                         "name": "NETStandard.Library",
                         "version": "1.6.1",
-                        "targetFramework": ".NETStandard1.3",
                         "dependencies": {},
                         "versionSpec": "1.6.1",
                         "from": [
@@ -2267,7 +2096,6 @@
                       "Microsoft.CSharp": {
                         "name": "Microsoft.CSharp",
                         "version": "4.3.0",
-                        "targetFramework": ".NETStandard1.3",
                         "dependencies": {},
                         "versionSpec": "4.3.0",
                         "from": [
@@ -2292,7 +2120,6 @@
                   "Microsoft.Net.Http": {
                     "name": "Microsoft.Net.Http",
                     "version": "2.2.22",
-                    "targetFramework": ".NETPortable0.0-wp8+netcore45+net45+wp81+wpa81",
                     "dependencies": {},
                     "versionSpec": "2.2.22",
                     "from": [
@@ -2330,12 +2157,10 @@
       "Microsoft.AspNet.WebPages": {
         "name": "Microsoft.AspNet.WebPages",
         "version": "3.2.3",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.Web.Infrastructure": {
             "name": "Microsoft.Web.Infrastructure",
             "version": "1.0.0.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0.0.0",
             "from": [
@@ -2347,7 +2172,6 @@
           "Microsoft.AspNet.Razor": {
             "name": "Microsoft.AspNet.Razor",
             "version": "3.2.3",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "[3.2.3, 3.3.0)",
             "from": [
@@ -2366,7 +2190,6 @@
       "Microsoft.CodeAnalysis.Analyzers": {
         "name": "Microsoft.CodeAnalysis.Analyzers",
         "version": "1.1.0",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "1.1.0",
         "from": [
@@ -2377,12 +2200,10 @@
       "Microsoft.CodeAnalysis.Common": {
         "name": "Microsoft.CodeAnalysis.Common",
         "version": "1.3.2",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.CodeAnalysis.Analyzers": {
             "name": "Microsoft.CodeAnalysis.Analyzers",
             "version": "1.1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.1.0",
             "from": [
@@ -2401,17 +2222,14 @@
       "Microsoft.CodeAnalysis.CSharp": {
         "name": "Microsoft.CodeAnalysis.CSharp",
         "version": "1.3.2",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.CodeAnalysis.Common": {
             "name": "Microsoft.CodeAnalysis.Common",
             "version": "1.3.2",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.CodeAnalysis.Analyzers": {
                 "name": "Microsoft.CodeAnalysis.Analyzers",
                 "version": "1.1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.1.0",
                 "from": [
@@ -2439,12 +2257,10 @@
       "Microsoft.CodeDom.Providers.DotNetCompilerPlatform": {
         "name": "Microsoft.CodeDom.Providers.DotNetCompilerPlatform",
         "version": "1.0.5",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.Net.Compilers": {
             "name": "Microsoft.Net.Compilers",
             "version": "2.1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "2.1.0",
             "from": [
@@ -2463,7 +2279,6 @@
       "Microsoft.Net.Compilers": {
         "name": "Microsoft.Net.Compilers",
         "version": "2.1.0",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "2.1.0",
         "from": [
@@ -2474,17 +2289,14 @@
       "Microsoft.Orleans.Core": {
         "name": "Microsoft.Orleans.Core",
         "version": "1.4.0",
-        "targetFramework": "net461",
         "dependencies": {
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "targetFramework": "net461",
             "dependencies": {
               "NETStandard.Library": {
                 "name": "NETStandard.Library",
                 "version": "1.6.1",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "1.6.1",
                 "from": [
@@ -2497,7 +2309,6 @@
               "Microsoft.CSharp": {
                 "name": "Microsoft.CSharp",
                 "version": "4.3.0",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "4.3.0",
                 "from": [
@@ -2525,22 +2336,18 @@
       "Microsoft.Orleans.OrleansCodeGenerator": {
         "name": "Microsoft.Orleans.OrleansCodeGenerator",
         "version": "1.4.0",
-        "targetFramework": "net461",
         "dependencies": {
           "Microsoft.Orleans.Core": {
             "name": "Microsoft.Orleans.Core",
             "version": "1.4.0",
-            "targetFramework": "net461",
             "dependencies": {
               "Newtonsoft.Json": {
                 "name": "Newtonsoft.Json",
                 "version": "10.0.3",
-                "targetFramework": "net461",
                 "dependencies": {
                   "NETStandard.Library": {
                     "name": "NETStandard.Library",
                     "version": "1.6.1",
-                    "targetFramework": ".NETStandard1.3",
                     "dependencies": {},
                     "versionSpec": "1.6.1",
                     "from": [
@@ -2554,7 +2361,6 @@
                   "Microsoft.CSharp": {
                     "name": "Microsoft.CSharp",
                     "version": "4.3.0",
-                    "targetFramework": ".NETStandard1.3",
                     "dependencies": {},
                     "versionSpec": "4.3.0",
                     "from": [
@@ -2585,17 +2391,14 @@
           "Microsoft.CodeAnalysis.CSharp": {
             "name": "Microsoft.CodeAnalysis.CSharp",
             "version": "1.3.2",
-            "targetFramework": "net461",
             "dependencies": {
               "Microsoft.CodeAnalysis.Common": {
                 "name": "Microsoft.CodeAnalysis.Common",
                 "version": "1.3.2",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Microsoft.CodeAnalysis.Analyzers": {
                     "name": "Microsoft.CodeAnalysis.Analyzers",
                     "version": "1.1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.1.0",
                     "from": [
@@ -2633,12 +2436,10 @@
       "Microsoft.Owin": {
         "name": "Microsoft.Owin",
         "version": "3.0.1",
-        "targetFramework": "net461",
         "dependencies": {
           "Owin": {
             "name": "Owin",
             "version": "1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0",
             "from": [
@@ -2657,12 +2458,10 @@
       "Microsoft.Owin.Host.SystemWeb": {
         "name": "Microsoft.Owin.Host.SystemWeb",
         "version": "3.0.1",
-        "targetFramework": "net461",
         "dependencies": {
           "Owin": {
             "name": "Owin",
             "version": "1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0",
             "from": [
@@ -2674,12 +2473,10 @@
           "Microsoft.Owin": {
             "name": "Microsoft.Owin",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -2707,12 +2504,10 @@
       "Microsoft.Owin.Security": {
         "name": "Microsoft.Owin.Security",
         "version": "3.0.1",
-        "targetFramework": "net461",
         "dependencies": {
           "Owin": {
             "name": "Owin",
             "version": "1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0",
             "from": [
@@ -2724,12 +2519,10 @@
           "Microsoft.Owin": {
             "name": "Microsoft.Owin",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -2757,12 +2550,10 @@
       "Microsoft.Owin.Security.Cookies": {
         "name": "Microsoft.Owin.Security.Cookies",
         "version": "3.0.1",
-        "targetFramework": "net461",
         "dependencies": {
           "Owin": {
             "name": "Owin",
             "version": "1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0",
             "from": [
@@ -2774,12 +2565,10 @@
           "Microsoft.Owin": {
             "name": "Microsoft.Owin",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -2800,12 +2589,10 @@
           "Microsoft.Owin.Security": {
             "name": "Microsoft.Owin.Security",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -2818,12 +2605,10 @@
               "Microsoft.Owin": {
                 "name": "Microsoft.Owin",
                 "version": "3.0.1",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Owin": {
                     "name": "Owin",
                     "version": "1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0",
                     "from": [
@@ -2861,12 +2646,10 @@
       "Microsoft.Owin.Security.Facebook": {
         "name": "Microsoft.Owin.Security.Facebook",
         "version": "3.0.1",
-        "targetFramework": "net461",
         "dependencies": {
           "Owin": {
             "name": "Owin",
             "version": "1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0",
             "from": [
@@ -2878,12 +2661,10 @@
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "targetFramework": "net461",
             "dependencies": {
               "NETStandard.Library": {
                 "name": "NETStandard.Library",
                 "version": "1.6.1",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "1.6.1",
                 "from": [
@@ -2896,7 +2677,6 @@
               "Microsoft.CSharp": {
                 "name": "Microsoft.CSharp",
                 "version": "4.3.0",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "4.3.0",
                 "from": [
@@ -2917,12 +2697,10 @@
           "Microsoft.Owin": {
             "name": "Microsoft.Owin",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -2943,12 +2721,10 @@
           "Microsoft.Owin.Security": {
             "name": "Microsoft.Owin.Security",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -2961,12 +2737,10 @@
               "Microsoft.Owin": {
                 "name": "Microsoft.Owin",
                 "version": "3.0.1",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Owin": {
                     "name": "Owin",
                     "version": "1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0",
                     "from": [
@@ -3004,12 +2778,10 @@
       "Microsoft.Owin.Security.Google": {
         "name": "Microsoft.Owin.Security.Google",
         "version": "3.0.1",
-        "targetFramework": "net461",
         "dependencies": {
           "Owin": {
             "name": "Owin",
             "version": "1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0",
             "from": [
@@ -3021,12 +2793,10 @@
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "targetFramework": "net461",
             "dependencies": {
               "NETStandard.Library": {
                 "name": "NETStandard.Library",
                 "version": "1.6.1",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "1.6.1",
                 "from": [
@@ -3039,7 +2809,6 @@
               "Microsoft.CSharp": {
                 "name": "Microsoft.CSharp",
                 "version": "4.3.0",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "4.3.0",
                 "from": [
@@ -3060,12 +2829,10 @@
           "Microsoft.Owin": {
             "name": "Microsoft.Owin",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -3086,12 +2853,10 @@
           "Microsoft.Owin.Security": {
             "name": "Microsoft.Owin.Security",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -3104,12 +2869,10 @@
               "Microsoft.Owin": {
                 "name": "Microsoft.Owin",
                 "version": "3.0.1",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Owin": {
                     "name": "Owin",
                     "version": "1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0",
                     "from": [
@@ -3147,12 +2910,10 @@
       "Microsoft.Owin.Security.MicrosoftAccount": {
         "name": "Microsoft.Owin.Security.MicrosoftAccount",
         "version": "3.0.1",
-        "targetFramework": "net461",
         "dependencies": {
           "Owin": {
             "name": "Owin",
             "version": "1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0",
             "from": [
@@ -3164,12 +2925,10 @@
           "Microsoft.Owin": {
             "name": "Microsoft.Owin",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -3190,12 +2949,10 @@
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "targetFramework": "net461",
             "dependencies": {
               "NETStandard.Library": {
                 "name": "NETStandard.Library",
                 "version": "1.6.1",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "1.6.1",
                 "from": [
@@ -3208,7 +2965,6 @@
               "Microsoft.CSharp": {
                 "name": "Microsoft.CSharp",
                 "version": "4.3.0",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "4.3.0",
                 "from": [
@@ -3229,12 +2985,10 @@
           "Microsoft.Owin.Security": {
             "name": "Microsoft.Owin.Security",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -3247,12 +3001,10 @@
               "Microsoft.Owin": {
                 "name": "Microsoft.Owin",
                 "version": "3.0.1",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Owin": {
                     "name": "Owin",
                     "version": "1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0",
                     "from": [
@@ -3290,12 +3042,10 @@
       "Microsoft.Owin.Security.OAuth": {
         "name": "Microsoft.Owin.Security.OAuth",
         "version": "3.0.1",
-        "targetFramework": "net461",
         "dependencies": {
           "Owin": {
             "name": "Owin",
             "version": "1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0",
             "from": [
@@ -3307,12 +3057,10 @@
           "Microsoft.Owin": {
             "name": "Microsoft.Owin",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -3333,12 +3081,10 @@
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "targetFramework": "net461",
             "dependencies": {
               "NETStandard.Library": {
                 "name": "NETStandard.Library",
                 "version": "1.6.1",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "1.6.1",
                 "from": [
@@ -3351,7 +3097,6 @@
               "Microsoft.CSharp": {
                 "name": "Microsoft.CSharp",
                 "version": "4.3.0",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "4.3.0",
                 "from": [
@@ -3372,12 +3117,10 @@
           "Microsoft.Owin.Security": {
             "name": "Microsoft.Owin.Security",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -3390,12 +3133,10 @@
               "Microsoft.Owin": {
                 "name": "Microsoft.Owin",
                 "version": "3.0.1",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Owin": {
                     "name": "Owin",
                     "version": "1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0",
                     "from": [
@@ -3433,12 +3174,10 @@
       "Microsoft.Owin.Security.Twitter": {
         "name": "Microsoft.Owin.Security.Twitter",
         "version": "3.0.1",
-        "targetFramework": "net461",
         "dependencies": {
           "Owin": {
             "name": "Owin",
             "version": "1.0",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.0",
             "from": [
@@ -3450,12 +3189,10 @@
           "Microsoft.Owin": {
             "name": "Microsoft.Owin",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -3476,12 +3213,10 @@
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "targetFramework": "net461",
             "dependencies": {
               "NETStandard.Library": {
                 "name": "NETStandard.Library",
                 "version": "1.6.1",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "1.6.1",
                 "from": [
@@ -3494,7 +3229,6 @@
               "Microsoft.CSharp": {
                 "name": "Microsoft.CSharp",
                 "version": "4.3.0",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "4.3.0",
                 "from": [
@@ -3515,12 +3249,10 @@
           "Microsoft.Owin.Security": {
             "name": "Microsoft.Owin.Security",
             "version": "3.0.1",
-            "targetFramework": "net461",
             "dependencies": {
               "Owin": {
                 "name": "Owin",
                 "version": "1.0",
-                "targetFramework": "net461",
                 "dependencies": {},
                 "versionSpec": "1.0",
                 "from": [
@@ -3533,12 +3265,10 @@
               "Microsoft.Owin": {
                 "name": "Microsoft.Owin",
                 "version": "3.0.1",
-                "targetFramework": "net461",
                 "dependencies": {
                   "Owin": {
                     "name": "Owin",
                     "version": "1.0",
-                    "targetFramework": "net461",
                     "dependencies": {},
                     "versionSpec": "1.0",
                     "from": [
@@ -3576,7 +3306,6 @@
       "Microsoft.Web.Infrastructure": {
         "name": "Microsoft.Web.Infrastructure",
         "version": "1.0.0.0",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "1.0.0.0",
         "from": [
@@ -3587,7 +3316,6 @@
       "Modernizr": {
         "name": "Modernizr",
         "version": "2.6.2",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "2.6.2",
         "from": [
@@ -3598,12 +3326,10 @@
       "Newtonsoft.Json": {
         "name": "Newtonsoft.Json",
         "version": "10.0.3",
-        "targetFramework": "net461",
         "dependencies": {
           "NETStandard.Library": {
             "name": "NETStandard.Library",
             "version": "1.6.1",
-            "targetFramework": ".NETStandard1.3",
             "dependencies": {},
             "versionSpec": "1.6.1",
             "from": [
@@ -3615,7 +3341,6 @@
           "Microsoft.CSharp": {
             "name": "Microsoft.CSharp",
             "version": "4.3.0",
-            "targetFramework": ".NETStandard1.3",
             "dependencies": {},
             "versionSpec": "4.3.0",
             "from": [
@@ -3634,7 +3359,6 @@
       "Owin": {
         "name": "Owin",
         "version": "1.0",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "1.0",
         "from": [
@@ -3645,7 +3369,6 @@
       "Respond": {
         "name": "Respond",
         "version": "1.2.0",
-        "targetFramework": "net461",
         "dependencies": {},
         "versionSpec": "1.2.0",
         "from": [
@@ -3656,12 +3379,10 @@
       "Sammy.js": {
         "name": "Sammy.js",
         "version": "0.7.4",
-        "targetFramework": "net461",
         "dependencies": {
           "jQuery": {
             "name": "jQuery",
             "version": "1.10.2",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "1.4.1",
             "from": [
@@ -3680,12 +3401,10 @@
       "WebGrease": {
         "name": "WebGrease",
         "version": "1.5.2",
-        "targetFramework": "net461",
         "dependencies": {
           "Antlr": {
             "name": "Antlr",
             "version": "3.4.1.9004",
-            "targetFramework": "net461",
             "dependencies": {},
             "versionSpec": "3.4.1.9004",
             "from": [
@@ -3697,12 +3416,10 @@
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "targetFramework": "net461",
             "dependencies": {
               "NETStandard.Library": {
                 "name": "NETStandard.Library",
                 "version": "1.6.1",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "1.6.1",
                 "from": [
@@ -3715,7 +3432,6 @@
               "Microsoft.CSharp": {
                 "name": "Microsoft.CSharp",
                 "version": "4.3.0",
-                "targetFramework": ".NETStandard1.3",
                 "dependencies": {},
                 "versionSpec": "4.3.0",
                 "from": [
