@@ -4,7 +4,7 @@ var path = require('path');
 var plugin = require('../lib/index');
 var targetProjectJsonFile = './test/stubs/_1_project.json';
 
-function createEmptyNode(name, version, targetFramework) {
+function createEmptyNode(name, version) {
   var resolvedPath = path.resolve(
     __dirname,
     'packages',
@@ -13,7 +13,6 @@ function createEmptyNode(name, version, targetFramework) {
     name: name,
     from: [],
     version: version,
-    targetFramework: targetFramework,
     versionSpec: 'unknown',
     dependencies: {},
   }
