@@ -51,5 +51,8 @@ test('parse project.json file', function (t) {
     if (result) {
       t.end();
     }
-  });
+  })
+  .catch(function (err) {
+    t.fail(err);
+  })
 });
