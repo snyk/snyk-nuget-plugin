@@ -23,6 +23,7 @@ test('parse .csproj and traverse packages', function (t) {
       t.deepEqual(
         result.package.dependencies,
         expectedTree.package.dependencies);
+      t.ok(result.plugin);
       t.end();
     })
     return result;
@@ -46,6 +47,8 @@ test('parse packages.config and traverse packages', function (t) {
       t.deepEqual(
         result.package.dependencies,
         expectedTree.package.dependencies);
+      t.ok(result.plugin);
+      t.equal(result.plugin.name, 'snyk-nuget-plugin');
       t.end();
     })
     return result;
@@ -72,6 +75,8 @@ test('parse packages.config and traverse alternate packages folder',
         t.deepEqual(
           result.package.dependencies,
           expectedTree.package.dependencies);
+        t.ok(result.plugin);
+        t.equal(result.plugin.name, 'snyk-nuget-plugin');
         t.end();
       })
       return result;

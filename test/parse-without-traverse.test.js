@@ -43,6 +43,8 @@ test('parse project.json file', function (t) {
   .then(function (result) {
     t.test('plugin', function (t) {
       t.deepEqual(result.package.dependencies, expectedTree.dependencies);
+      t.ok(result.plugin);
+      t.equal(result.plugin.name, 'snyk-nuget-plugin');
       t.end();
     });
     return result;
