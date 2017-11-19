@@ -31,4 +31,3 @@ install:
 
 test_script:
   - npm run test-windows
-
