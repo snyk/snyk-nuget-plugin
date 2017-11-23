@@ -15,7 +15,7 @@ var targetJSONManifestData =
   require('./stubs/_2_project.json');
 
 
-test('parse assets.project.json and traverse packages', function (t) {
+test('parse project.assets.json - like and traverse packages', function (t) {
   var expectedTreeFile =
   fs.readFileSync(
     stubProjectLocation + 'dummy_project_1/expected_csproj.json');
