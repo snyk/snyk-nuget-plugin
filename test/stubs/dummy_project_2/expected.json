@@ -7,16 +7,17 @@
       "dummy_project_2@0.0.0"
     ],
     "dependencies": {
-      "knockoutjs@2.3.0": {
+      "knockoutjs": {
         "name": "knockoutjs",
         "version": "2.3.0",
         "dependencies": {},
         "versionSpec": "unknown",
         "from": [
-          "dummy_project_2@2.2.2"
+          "dummy_project_2@2.2.2",
+          "knockoutjs@2.3.0"
         ]
       },
-      "Knockout.Validation@1.0.1": {
+      "Knockout.Validation": {
         "name": "Knockout.Validation",
         "version": "1.0.1",
         "dependencies": {
@@ -27,7 +28,8 @@
             "versionSpec": "unknown",
             "from": [
               "dummy_project_2@2.2.2",
-              "Knockout.Validation@1.0.1"
+              "Knockout.Validation@1.0.1",
+              "knockoutjs@2.3.0"
             ]
           },
           "jQuery": {
@@ -37,31 +39,15 @@
             "versionSpec": "unknown",
             "from": [
               "dummy_project_2@2.2.2",
-              "Knockout.Validation@1.0.1"
+              "Knockout.Validation@1.0.1",
+              "jQuery@1.10.2"
             ]
           }
         },
         "versionSpec": "unknown",
         "from": [
-          "dummy_project_2@2.2.2"
-        ]
-      },
-      "jQuery@1.10.2": {
-        "name": "jQuery",
-        "version": "1.10.2",
-        "dependencies": {},
-        "versionSpec": "unknown",
-        "from": [
-          "dummy_project_2@2.2.2"
-        ]
-      },
-      "knockoutjs": {
-        "name": "knockoutjs",
-        "version": "2.3.0",
-        "dependencies": {},
-        "versionSpec": "unknown",
-        "from": [
-          "dummy_project_2@2.2.2"
+          "dummy_project_2@2.2.2",
+          "Knockout.Validation@1.0.1"
         ]
       },
       "jQuery": {
@@ -70,7 +56,8 @@
         "dependencies": {},
         "versionSpec": "unknown",
         "from": [
-          "dummy_project_2@2.2.2"
+          "dummy_project_2@2.2.2",
+          "jQuery@1.10.2"
         ]
       }
     }
