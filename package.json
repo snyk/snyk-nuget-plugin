@@ -3,6 +3,7 @@
   "description": "![logo](https://res.cloudinary.com/snyk/image/upload/v1468845259/logo/snyk-dog.svg) ## Snyk: NuGet Plugin ***",
   "main": "lib/index.js",
   "scripts": {
+    "build": "./node_modules/.bin/lodash -p -o ./dist/lodash-min.js include=uniq",
     "lint": "jscs `find ./lib -name '*.js'` -v && jscs `find ./test -name '*.js'` -v",
     "test": "npm run unit-test",
     "test-windows": "tap -R spec test/*.test.js --timeout=120",
@@ -31,6 +32,7 @@
     "zip": "^1.2.0"
   },
   "devDependencies": {
+    "lodash-cli": "^4.17.4",
     "jscs": "^3.0.7",
     "nodemon": "^1.12.1",
     "semantic-release": "^8.2.0",
