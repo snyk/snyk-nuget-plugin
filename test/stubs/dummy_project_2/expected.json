@@ -4,7 +4,7 @@
     "version": "2.2.2",
     "packageFormatVersion": "nuget:0.0.0",
     "from": [
-      "dummy_project_2@0.0.0"
+      "dummy_project_2@2.2.2"
     ],
     "dependencies": {
       "knockoutjs": {
