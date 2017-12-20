@@ -6,7 +6,7 @@ var expectedTree = require('./stubs/dotnet_2/expected.json');
 
 test('parse dotnet-cli 2 project and traverse packages', function (t) {
   plugin.inspect(
-    projectPath,
+    null,
     manifestFile)
     .then(function (result) {
       t.deepEqual(

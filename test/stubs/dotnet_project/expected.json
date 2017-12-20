@@ -23,13 +23,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.0.1",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Libuv@1.10.0",
-              "Microsoft.NETCore.Platforms@1.0.1"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           }
         },
@@ -45,13 +45,13 @@
         "dependencies": {
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.1",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.ApplicationInsights@2.4.0",
-              "NETStandard.Library@1.6.1"
+              "NETStandard.Library@2.0.0"
             ]
           }
         },
@@ -89,68 +89,68 @@
           },
           "Microsoft.AspNetCore.Hosting": {
             "name": "Microsoft.AspNetCore.Hosting",
-            "version": "1.0.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.ApplicationInsights.AspNetCore@2.1.1",
-              "Microsoft.AspNetCore.Hosting@1.0.0"
+              "Microsoft.AspNetCore.Hosting@2.0.0"
             ]
           },
           "Microsoft.Extensions.Configuration": {
             "name": "Microsoft.Extensions.Configuration",
-            "version": "1.0.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.ApplicationInsights.AspNetCore@2.1.1",
-              "Microsoft.Extensions.Configuration@1.0.0"
+              "Microsoft.Extensions.Configuration@2.0.0"
             ]
           },
           "Microsoft.Extensions.Configuration.Json": {
             "name": "Microsoft.Extensions.Configuration.Json",
-            "version": "1.0.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.ApplicationInsights.AspNetCore@2.1.1",
-              "Microsoft.Extensions.Configuration.Json@1.0.0"
+              "Microsoft.Extensions.Configuration.Json@2.0.0"
             ]
           },
           "Microsoft.Extensions.DiagnosticAdapter": {
             "name": "Microsoft.Extensions.DiagnosticAdapter",
-            "version": "1.0.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.ApplicationInsights.AspNetCore@2.1.1",
-              "Microsoft.Extensions.DiagnosticAdapter@1.0.0"
+              "Microsoft.Extensions.DiagnosticAdapter@2.0.0"
             ]
           },
           "Microsoft.Extensions.Logging.Abstractions": {
             "name": "Microsoft.Extensions.Logging.Abstractions",
-            "version": "1.0.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.ApplicationInsights.AspNetCore@2.1.1",
-              "Microsoft.Extensions.Logging.Abstractions@1.0.0"
+              "Microsoft.Extensions.Logging.Abstractions@2.0.0"
             ]
           },
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.1",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.ApplicationInsights.AspNetCore@2.1.1",
-              "NETStandard.Library@1.6.1"
+              "NETStandard.Library@2.0.0"
             ]
           }
         },
@@ -166,13 +166,13 @@
         "dependencies": {
           "Microsoft.ApplicationInsights": {
             "name": "Microsoft.ApplicationInsights",
-            "version": "[2.4.0]",
+            "version": "2.4.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.ApplicationInsights.DependencyCollector@2.4.1",
-              "Microsoft.ApplicationInsights@[2.4.0]"
+              "Microsoft.ApplicationInsights@2.4.0"
             ]
           },
           "Microsoft.Extensions.PlatformAbstractions": {
@@ -188,13 +188,13 @@
           },
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.1",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.ApplicationInsights.DependencyCollector@2.4.1",
-              "NETStandard.Library@1.6.1"
+              "NETStandard.Library@2.0.0"
             ]
           }
         },
@@ -5561,46 +5561,46 @@
           },
           "Microsoft.Rest.ClientRuntime": {
             "name": "Microsoft.Rest.ClientRuntime",
-            "version": "[2.3.8, 3.0.0)",
+            "version": "2.3.8",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Azure.KeyVault@2.3.2",
-              "Microsoft.Rest.ClientRuntime@[2.3.8, 3.0.0)"
+              "Microsoft.Rest.ClientRuntime@2.3.8"
             ]
           },
           "Microsoft.Rest.ClientRuntime.Azure": {
             "name": "Microsoft.Rest.ClientRuntime.Azure",
-            "version": "[3.3.7, 4.0.0)",
+            "version": "3.3.7",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Azure.KeyVault@2.3.2",
-              "Microsoft.Rest.ClientRuntime.Azure@[3.3.7, 4.0.0)"
+              "Microsoft.Rest.ClientRuntime.Azure@3.3.7"
             ]
           },
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.1",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Azure.KeyVault@2.3.2",
-              "NETStandard.Library@1.6.1"
+              "NETStandard.Library@2.0.0"
             ]
           },
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
-            "version": "9.0.1",
+            "version": "10.0.1",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Azure.KeyVault@2.3.2",
-              "Newtonsoft.Json@9.0.1"
+              "Newtonsoft.Json@10.0.1"
             ]
           }
         },
@@ -5616,35 +5616,35 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.0.2",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Azure.KeyVault.WebKey@2.0.7",
-              "Microsoft.NETCore.Platforms@1.0.2"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.1",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Azure.KeyVault.WebKey@2.0.7",
-              "NETStandard.Library@1.6.1"
+              "NETStandard.Library@2.0.0"
             ]
           },
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
-            "version": "9.0.1",
+            "version": "10.0.1",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Azure.KeyVault.WebKey@2.0.7",
-              "Newtonsoft.Json@9.0.1"
+              "Newtonsoft.Json@10.0.1"
             ]
           }
         },
@@ -5692,13 +5692,13 @@
         "dependencies": {
           "Microsoft.CodeAnalysis.Common": {
             "name": "Microsoft.CodeAnalysis.Common",
-            "version": "[2.3.1]",
+            "version": "2.3.1",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.CodeAnalysis.CSharp@2.3.1",
-              "Microsoft.CodeAnalysis.Common@[2.3.1]"
+              "Microsoft.CodeAnalysis.Common@2.3.1"
             ]
           }
         },
@@ -5778,13 +5778,13 @@
         "dependencies": {
           "Microsoft.Data.Edm": {
             "name": "Microsoft.Data.Edm",
-            "version": "[5.8.2]",
+            "version": "5.8.2",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Data.OData@5.8.2",
-              "Microsoft.Data.Edm@[5.8.2]"
+              "Microsoft.Data.Edm@5.8.2"
             ]
           }
         },
@@ -6634,13 +6634,13 @@
           },
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
-            "version": "9.0.1",
+            "version": "10.0.1",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Extensions.DependencyModel@2.0.0",
-              "Newtonsoft.Json@9.0.1"
+              "Newtonsoft.Json@10.0.1"
             ]
           }
         },
@@ -7288,13 +7288,13 @@
         "dependencies": {
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.1",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Extensions.PlatformAbstractions@1.1.0",
-              "NETStandard.Library@1.6.1"
+              "NETStandard.Library@2.0.0"
             ]
           }
         },
@@ -7353,13 +7353,13 @@
         "dependencies": {
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.IdentityModel.Clients.ActiveDirectory@3.14.1",
-              "NETStandard.Library@1.6.0"
+              "NETStandard.Library@2.0.0"
             ]
           }
         },
@@ -7428,13 +7428,13 @@
           },
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
-            "version": "9.0.1",
+            "version": "10.0.1",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.IdentityModel.Tokens@5.1.4",
-              "Newtonsoft.Json@9.0.1"
+              "Newtonsoft.Json@10.0.1"
             ]
           }
         },
@@ -7679,24 +7679,24 @@
         "dependencies": {
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.1",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Rest.ClientRuntime@2.3.8",
-              "NETStandard.Library@1.6.1"
+              "NETStandard.Library@2.0.0"
             ]
           },
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
-            "version": "9.0.1",
+            "version": "10.0.1",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Rest.ClientRuntime@2.3.8",
-              "Newtonsoft.Json@9.0.1"
+              "Newtonsoft.Json@10.0.1"
             ]
           }
         },
@@ -7712,35 +7712,35 @@
         "dependencies": {
           "Microsoft.Rest.ClientRuntime": {
             "name": "Microsoft.Rest.ClientRuntime",
-            "version": "[2.3.8, 3.0.0)",
+            "version": "2.3.8",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Rest.ClientRuntime.Azure@3.3.7",
-              "Microsoft.Rest.ClientRuntime@[2.3.8, 3.0.0)"
+              "Microsoft.Rest.ClientRuntime@2.3.8"
             ]
           },
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.1",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Rest.ClientRuntime.Azure@3.3.7",
-              "NETStandard.Library@1.6.1"
+              "NETStandard.Library@2.0.0"
             ]
           },
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
-            "version": "9.0.1",
+            "version": "10.0.1",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Rest.ClientRuntime.Azure@3.3.7",
-              "Newtonsoft.Json@9.0.1"
+              "Newtonsoft.Json@10.0.1"
             ]
           }
         },
@@ -7811,13 +7811,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Microsoft.Win32.Primitives@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -7877,13 +7877,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "NETStandard.Library@2.0.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           }
         },
@@ -7899,13 +7899,13 @@
         "dependencies": {
           "Microsoft.CSharp": {
             "name": "Microsoft.CSharp",
-            "version": "4.3.0",
+            "version": "4.4.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Newtonsoft.Json@10.0.1",
-              "Microsoft.CSharp@4.3.0"
+              "Microsoft.CSharp@4.4.0"
             ]
           }
         },
@@ -7921,13 +7921,13 @@
         "dependencies": {
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.1",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "Newtonsoft.Json.Bson@1.0.1",
-              "NETStandard.Library@1.6.1"
+              "NETStandard.Library@2.0.0"
             ]
           },
           "Newtonsoft.Json": {
@@ -8301,13 +8301,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "runtime.native.System@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -8378,13 +8378,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "runtime.native.System.IO.Compression@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -8411,13 +8411,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "runtime.native.System.Net.Http@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -8444,13 +8444,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "runtime.native.System.Net.Security@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -9006,13 +9006,13 @@
         "dependencies": {
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "SQLitePCLRaw.core@1.1.7",
-              "NETStandard.Library@1.6.0"
+              "NETStandard.Library@2.0.0"
             ]
           }
         },
@@ -9058,13 +9058,13 @@
         "dependencies": {
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "SQLitePCLRaw.provider.e_sqlite3.netstandard11@1.1.7",
-              "NETStandard.Library@1.6.0"
+              "NETStandard.Library@2.0.0"
             ]
           },
           "SQLitePCLRaw.core": {
@@ -9091,13 +9091,13 @@
         "dependencies": {
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.1",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "StackExchange.Redis.StrongName@1.2.4",
-              "NETStandard.Library@1.6.1"
+              "NETStandard.Library@2.0.0"
             ]
           }
         },
@@ -9133,13 +9133,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Collections@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -9257,13 +9257,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Console@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -9344,13 +9344,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Diagnostics.Debug@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -9398,13 +9398,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Diagnostics.FileVersionInfo@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           }
         },
@@ -9430,13 +9430,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Diagnostics.Tools@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -9474,13 +9474,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Diagnostics.Tracing@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -9528,13 +9528,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Globalization@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -9572,13 +9572,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Globalization.Calendars@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -9616,13 +9616,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Globalization.Extensions@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           }
         },
@@ -9660,13 +9660,13 @@
         "dependencies": {
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Interactive.Async@3.1.1",
-              "NETStandard.Library@1.6.0"
+              "NETStandard.Library@2.0.0"
             ]
           }
         },
@@ -9682,13 +9682,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.IO@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -9726,13 +9726,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.IO.Compression@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "runtime.native.System": {
@@ -9770,13 +9770,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.IO.FileSystem@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -9854,13 +9854,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Net.Http@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "runtime.native.System": {
@@ -9909,13 +9909,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Net.NameResolution@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "runtime.native.System": {
@@ -9942,13 +9942,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Net.Primitives@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -9986,13 +9986,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Net.Security@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.Win32.Primitives": {
@@ -10052,13 +10052,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Net.Sockets@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -10126,13 +10126,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Private.Uri@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -10159,13 +10159,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Reflection@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -10233,13 +10233,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Reflection.Extensions@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -10287,13 +10287,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Reflection.Primitives@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -10341,13 +10341,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Resources.ResourceManager@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -10385,13 +10385,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Runtime@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -10439,13 +10439,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Runtime.Extensions@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -10483,13 +10483,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Runtime.Handles@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -10527,13 +10527,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Runtime.InteropServices@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -10665,13 +10665,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Security.Cryptography.Algorithms@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "runtime.native.System.Security.Cryptography.Apple": {
@@ -10709,13 +10709,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Security.Cryptography.Cng@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           }
         },
@@ -10731,13 +10731,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Security.Cryptography.Csp@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           }
         },
@@ -10753,13 +10753,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Security.Cryptography.Encoding@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "runtime.native.System.Security.Cryptography.OpenSsl": {
@@ -10818,13 +10818,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Security.Cryptography.X509Certificates@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "runtime.native.System": {
@@ -10925,13 +10925,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Text.Encoding@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -10991,13 +10991,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Text.Encoding.Extensions@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -11065,13 +11065,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Threading.Overlapped@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           }
         },
@@ -11087,13 +11087,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Threading.Tasks@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -11171,13 +11171,13 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": {
             "name": "Microsoft.NETCore.Platforms",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "System.Threading.Timer@4.3.0",
-              "Microsoft.NETCore.Platforms@1.1.0"
+              "Microsoft.NETCore.Platforms@2.0.0"
             ]
           },
           "Microsoft.NETCore.Targets": {
@@ -11296,24 +11296,24 @@
           },
           "NETStandard.Library": {
             "name": "NETStandard.Library",
-            "version": "1.6.0",
+            "version": "2.0.0",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "WindowsAzure.Storage@8.1.4",
-              "NETStandard.Library@1.6.0"
+              "NETStandard.Library@2.0.0"
             ]
           },
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
-            "version": "9.0.1",
+            "version": "10.0.1",
             "dependencies": {},
             "versionSpec": "unknown",
             "from": [
               "dotnet_project@1.0.0",
               "WindowsAzure.Storage@8.1.4",
-              "Newtonsoft.Json@9.0.1"
+              "Newtonsoft.Json@10.0.1"
             ]
           }
         },

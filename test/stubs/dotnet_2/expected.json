@@ -10733,6 +10733,6 @@
   },
   "plugin": {
     "name": "snyk-nuget-plugin",
-    "targetFile": "obj/project.assets.json"
+    "targetFile": "./test/stubs/dotnet_2/obj/project.assets.json"
   }
 }
