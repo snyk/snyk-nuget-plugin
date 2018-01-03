@@ -64,6 +64,6 @@
   },
   "plugin": {
     "name": "snyk-nuget-plugin",
-    "targetFile": "./test/stubs/dummy_project_2/obj/project.assets.json"
+    "targetFile": "obj/project.assets.json"
   }
 }

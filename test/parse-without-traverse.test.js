@@ -2,7 +2,8 @@ var test = require('tap').test;
 var path = require('path');
 
 var plugin = require('../lib/index');
-var targetProjectJsonFile = './test/stubs/_1_project.json';
+var targetProjectJsonPath = './test/stubs';
+var targetProjectJsonFile = '_1_project.json';
 
 function createEmptyNode(name, version) {
   var resolvedPath = path.resolve(
@@ -15,7 +16,7 @@ function createEmptyNode(name, version) {
     version: version,
     versionSpec: 'unknown',
     dependencies: {},
-  }
+  };
 }
 
 function buildExpectedTree() {
@@ -39,7 +40,7 @@ function buildExpectedTree() {
 test('parse project.json file', function (t) {
   var expectedTree = buildExpectedTree();
 
-  plugin.inspect(null, targetProjectJsonFile, null)
+  plugin.inspect(targetProjectJsonPath, targetProjectJsonFile, null)
   .then(function (result) {
     t.test('plugin', function (t) {
       t.deepEqual(result.package.dependencies, expectedTree.dependencies);
