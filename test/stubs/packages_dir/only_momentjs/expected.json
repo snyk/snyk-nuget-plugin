@@ -1,0 +1,26 @@
+{
+  "package": {
+    "name": "only_momentjs",
+    "version": "0.0.0",
+    "packageFormatVersion": "nuget:0.0.0",
+    "from": [
+      "only_momentjs@0.0.0"
+    ],
+    "dependencies": {
+      "Moment.js": {
+        "name": "Moment.js",
+        "version": "2.20.1",
+        "dependencies": {},
+        "versionSpec": "2.20.1",
+        "from": [
+          "only_momentjs@0.0.0",
+          "Moment.js@2.20.1"
+        ]
+      }
+    }
+  },
+  "plugin": {
+    "name": "snyk-nuget-plugin",
+    "targetFile": "packages.config"
+  }
+}
