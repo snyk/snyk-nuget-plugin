@@ -7,8 +7,6 @@ var targetPackagesConfigFile =
   targetProjectJsonFile + 'dummy_project_1/packages.config';
 var alternatePackagesFolder =
   targetProjectJsonFile + 'alternate_packages';
-var targetCSProjFile =
-  targetProjectJsonFile + 'dummy_project_1/WebApplication1.csproj';
 var targetJSONManifestData =
   require('./stubs/_2_project.json');
 
@@ -41,35 +39,6 @@ test('parse project.assets.json - like and traverse packages', function (t) {
       'expects dependency tree to be correct');
     t.ok(result.plugin);
     t.end();
-  });
-});
-
-test('parse .csproj and traverse packages', function (t) {
-  var expectedTreeFile =
-    fs.readFileSync(
-      targetProjectJsonFile + 'dummy_project_1/expected_csproj.json');
-  var expectedTree = JSON.parse(expectedTreeFile.toString());
-
-  plugin.inspect(null, targetCSProjFile, null)
-  .then(function (result) {
-    t.test('traversing', function (t) {
-      t.deepEqual(
-        result.package.dependencies,
-        expectedTree.package.dependencies,
-        'expects dependency tree to be correct');
-      t.ok(result.plugin, 'plugin details exists in result');
-      t.equal(result.plugin.name, 'snyk-nuget-plugin',
-        'plugin\'s name is snyk-nuget-plugin');
-      t.equal(result.plugin.targetFile, targetCSProjFile,
-        'plugin shows correct targetFile');
-      t.end();
-    });
-    return result;
-  })
-  .then(function (result) {
-    if (result) {
-      t.end();
-    }
   });
 });
 
