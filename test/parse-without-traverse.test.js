@@ -13,7 +13,6 @@ function createEmptyNode(name, version) {
   return {
     name: name,
     version: version,
-    versionSpec: 'unknown',
     dependencies: {},
   };
 }

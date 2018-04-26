@@ -7,8 +7,7 @@
       "Moment.js": {
         "name": "Moment.js",
         "version": "2.20.1",
-        "dependencies": {},
-        "versionSpec": "2.20.1"
+        "dependencies": {}
       }
     }
   },

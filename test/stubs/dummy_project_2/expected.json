@@ -7,8 +7,7 @@
       "knockoutjs": {
         "name": "knockoutjs",
         "version": "2.3.0",
-        "dependencies": {},
-        "versionSpec": "unknown"
+        "dependencies": {}
       },
       "Knockout.Validation": {
         "name": "Knockout.Validation",
@@ -17,23 +16,19 @@
           "knockoutjs": {
             "name": "knockoutjs",
             "version": "2.3.0",
-            "dependencies": {},
-            "versionSpec": "unknown"
+            "dependencies": {}
           },
           "jQuery": {
             "name": "jQuery",
             "version": "1.10.2",
-            "dependencies": {},
-            "versionSpec": "unknown"
+            "dependencies": {}
           }
-        },
-        "versionSpec": "unknown"
+        }
       },
       "jQuery": {
         "name": "jQuery",
         "version": "1.10.2",
-        "dependencies": {},
-        "versionSpec": "unknown"
+        "dependencies": {}
       }
     }
   },
