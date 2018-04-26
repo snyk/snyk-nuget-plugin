@@ -12,9 +12,7 @@ function createEmptyNode(name, version) {
     name + '.' + version);
   return {
     name: name,
-    from: [],
     version: version,
-    versionSpec: 'unknown',
     dependencies: {},
   };
 }

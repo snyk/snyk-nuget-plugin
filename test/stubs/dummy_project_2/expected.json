@@ -3,19 +3,11 @@
     "name": "dummy_project_2",
     "version": "2.2.2",
     "packageFormatVersion": "nuget:0.0.0",
-    "from": [
-      "dummy_project_2@2.2.2"
-    ],
     "dependencies": {
       "knockoutjs": {
         "name": "knockoutjs",
         "version": "2.3.0",
-        "dependencies": {},
-        "versionSpec": "unknown",
-        "from": [
-          "dummy_project_2@2.2.2",
-          "knockoutjs@2.3.0"
-        ]
+        "dependencies": {}
       },
       "Knockout.Validation": {
         "name": "Knockout.Validation",
@@ -24,41 +16,19 @@
           "knockoutjs": {
             "name": "knockoutjs",
             "version": "2.3.0",
-            "dependencies": {},
-            "versionSpec": "unknown",
-            "from": [
-              "dummy_project_2@2.2.2",
-              "Knockout.Validation@1.0.1",
-              "knockoutjs@2.3.0"
-            ]
+            "dependencies": {}
           },
           "jQuery": {
             "name": "jQuery",
             "version": "1.10.2",
-            "dependencies": {},
-            "versionSpec": "unknown",
-            "from": [
-              "dummy_project_2@2.2.2",
-              "Knockout.Validation@1.0.1",
-              "jQuery@1.10.2"
-            ]
+            "dependencies": {}
           }
-        },
-        "versionSpec": "unknown",
-        "from": [
-          "dummy_project_2@2.2.2",
-          "Knockout.Validation@1.0.1"
-        ]
+        }
       },
       "jQuery": {
         "name": "jQuery",
         "version": "1.10.2",
-        "dependencies": {},
-        "versionSpec": "unknown",
-        "from": [
-          "dummy_project_2@2.2.2",
-          "jQuery@1.10.2"
-        ]
+        "dependencies": {}
       }
     }
   },

@@ -3,19 +3,11 @@
     "name": "only_jquery",
     "version": "0.0.0",
     "packageFormatVersion": "nuget:0.0.0",
-    "from": [
-      "only_jquery@0.0.0"
-    ],
     "dependencies": {
       "jQuery": {
         "name": "jQuery",
         "version": "3.2.1",
-        "dependencies": {},
-        "versionSpec": "3.2.1",
-        "from": [
-          "only_jquery@0.0.0",
-          "jQuery@3.2.1"
-        ]
+        "dependencies": {}
       }
     }
   },
