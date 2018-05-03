@@ -1,0 +1,39 @@
+{
+  "package": {
+    "name": "csproj_multiple",
+    "version": "2.2.2",
+    "packageFormatVersion": "nuget:0.0.0",
+    "dependencies": {
+      "knockoutjs": {
+        "name": "knockoutjs",
+        "version": "2.3.0",
+        "dependencies": {}
+      },
+      "Knockout.Validation": {
+        "name": "Knockout.Validation",
+        "version": "1.0.1",
+        "dependencies": {
+          "knockoutjs": {
+            "name": "knockoutjs",
+            "version": "2.3.0",
+            "dependencies": {}
+          },
+          "jQuery": {
+            "name": "jQuery",
+            "version": "1.10.2",
+            "dependencies": {}
+          }
+        }
+      },
+      "jQuery": {
+        "name": "jQuery",
+        "version": "1.10.2",
+        "dependencies": {}
+      }
+    }
+  },
+  "plugin": {
+    "name": "snyk-nuget-plugin",
+    "targetFile": "obj/project.assets.json"
+  }
+}
