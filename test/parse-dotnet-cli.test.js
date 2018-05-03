@@ -3,23 +3,20 @@ var plugin = require('../lib/index');
 var projectPath = './test/stubs/dummy_project_2/';
 var manifestFile = 'obj/project.assets.json';
 var expectedTree = require('./stubs/dummy_project_2/expected.json');
+var fs = require('fs');
 
-test('parse dotnet-cli project and traverse packages', function (t) {
+test('parse dotnet-cli project without frameworks field', function (t) {
   plugin.inspect(
     projectPath,
     manifestFile,
     {
       packagesFolder: projectPath + './_packages',
-    })
-    .then(function (result) {
-      t.deepEqual(
-        result,
-        expectedTree,
-        'expects project data to be correct'
-      );
-      t.end();
+    }).then(function () {
+      t.fail('Expected an error to be thrown');
     })
     .catch(function (error) {
-      t.fail('Error was thrown: ' + err);
+      t.equals(error.message,
+        'No frameworks were found in project.assets.json');
+      t.end();
     });
 });

@@ -17,6 +17,6 @@ test('parse dotnet-cli 2 project and traverse packages', function (t) {
       t.end();
     })
     .catch(function (error) {
-      t.fail('Error was thrown: ' + err);
+      t.fail('Error was thrown: ' + error);
     });
 });
