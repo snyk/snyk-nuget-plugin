@@ -13,435 +13,10 @@
         "version": "3.4.1.9004",
         "dependencies": {}
       },
-      "bootstrap": {
-        "name": "bootstrap",
-        "version": "3.0.0",
-        "dependencies": {}
-      },
       "EntityFramework": {
         "name": "EntityFramework",
         "version": "6.1.3",
         "dependencies": {}
-      },
-      "jQuery": {
-        "name": "jQuery",
-        "version": "1.10.2",
-        "dependencies": {}
-      },
-      "Knockout.Validation": {
-        "name": "Knockout.Validation",
-        "version": "1.0.1",
-        "dependencies": {
-          "knockoutjs": {
-            "name": "knockoutjs",
-            "version": "2.3.0",
-            "dependencies": {}
-          }
-        }
-      },
-      "knockoutjs": {
-        "name": "knockoutjs",
-        "version": "2.3.0",
-        "dependencies": {}
-      },
-      "Microsoft.ApplicationInsights": {
-        "name": "Microsoft.ApplicationInsights",
-        "version": "2.2.0",
-        "dependencies": {
-          "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-            "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-            "version": "1.1.28",
-            "dependencies": {}
-          },
-          "Microsoft.Bcl.Async": {
-            "name": "Microsoft.Bcl.Async",
-            "version": "1.0.168",
-            "dependencies": {}
-          }
-        }
-      },
-      "Microsoft.ApplicationInsights.Agent.Intercept": {
-        "name": "Microsoft.ApplicationInsights.Agent.Intercept",
-        "version": "2.0.6",
-        "dependencies": {
-          "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-            "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-            "version": "1.1.28",
-            "dependencies": {}
-          }
-        }
-      },
-      "Microsoft.ApplicationInsights.DependencyCollector": {
-        "name": "Microsoft.ApplicationInsights.DependencyCollector",
-        "version": "2.2.0",
-        "dependencies": {
-          "Microsoft.ApplicationInsights": {
-            "name": "Microsoft.ApplicationInsights",
-            "version": "2.2.0",
-            "dependencies": {
-              "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                "version": "1.1.28",
-                "dependencies": {}
-              },
-              "Microsoft.Bcl.Async": {
-                "name": "Microsoft.Bcl.Async",
-                "version": "1.0.168",
-                "dependencies": {}
-              }
-            }
-          },
-          "Microsoft.ApplicationInsights.Agent.Intercept": {
-            "name": "Microsoft.ApplicationInsights.Agent.Intercept",
-            "version": "2.0.6",
-            "dependencies": {
-              "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                "version": "1.1.28",
-                "dependencies": {}
-              }
-            }
-          }
-        }
-      },
-      "Microsoft.ApplicationInsights.PerfCounterCollector": {
-        "name": "Microsoft.ApplicationInsights.PerfCounterCollector",
-        "version": "2.2.0",
-        "dependencies": {
-          "Microsoft.ApplicationInsights": {
-            "name": "Microsoft.ApplicationInsights",
-            "version": "2.2.0",
-            "dependencies": {
-              "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                "version": "1.1.28",
-                "dependencies": {}
-              },
-              "Microsoft.Bcl.Async": {
-                "name": "Microsoft.Bcl.Async",
-                "version": "1.0.168",
-                "dependencies": {}
-              }
-            }
-          },
-          "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-            "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-            "version": "1.1.28",
-            "dependencies": {}
-          }
-        }
-      },
-      "Microsoft.ApplicationInsights.Web": {
-        "name": "Microsoft.ApplicationInsights.Web",
-        "version": "2.2.0",
-        "dependencies": {
-          "Microsoft.ApplicationInsights": {
-            "name": "Microsoft.ApplicationInsights",
-            "version": "2.2.0",
-            "dependencies": {
-              "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                "version": "1.1.28",
-                "dependencies": {}
-              },
-              "Microsoft.Bcl.Async": {
-                "name": "Microsoft.Bcl.Async",
-                "version": "1.0.168",
-                "dependencies": {}
-              }
-            }
-          },
-          "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-            "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-            "version": "1.1.28",
-            "dependencies": {}
-          },
-          "Microsoft.ApplicationInsights.WindowsServer": {
-            "name": "Microsoft.ApplicationInsights.WindowsServer",
-            "version": "2.2.0",
-            "dependencies": {
-              "Microsoft.ApplicationInsights": {
-                "name": "Microsoft.ApplicationInsights",
-                "version": "2.2.0",
-                "dependencies": {
-                  "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                    "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                    "version": "1.1.28",
-                    "dependencies": {}
-                  },
-                  "Microsoft.Bcl.Async": {
-                    "name": "Microsoft.Bcl.Async",
-                    "version": "1.0.168",
-                    "dependencies": {}
-                  }
-                }
-              },
-              "Microsoft.ApplicationInsights.DependencyCollector": {
-                "name": "Microsoft.ApplicationInsights.DependencyCollector",
-                "version": "2.2.0",
-                "dependencies": {
-                  "Microsoft.ApplicationInsights": {
-                    "name": "Microsoft.ApplicationInsights",
-                    "version": "2.2.0",
-                    "dependencies": {
-                      "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                        "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                        "version": "1.1.28",
-                        "dependencies": {}
-                      },
-                      "Microsoft.Bcl.Async": {
-                        "name": "Microsoft.Bcl.Async",
-                        "version": "1.0.168",
-                        "dependencies": {}
-                      }
-                    }
-                  },
-                  "Microsoft.ApplicationInsights.Agent.Intercept": {
-                    "name": "Microsoft.ApplicationInsights.Agent.Intercept",
-                    "version": "2.0.6",
-                    "dependencies": {
-                      "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                        "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                        "version": "1.1.28",
-                        "dependencies": {}
-                      }
-                    }
-                  }
-                }
-              },
-              "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": {
-                "name": "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel",
-                "version": "2.2.0",
-                "dependencies": {
-                  "Microsoft.ApplicationInsights": {
-                    "name": "Microsoft.ApplicationInsights",
-                    "version": "2.2.0",
-                    "dependencies": {
-                      "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                        "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                        "version": "1.1.28",
-                        "dependencies": {}
-                      },
-                      "Microsoft.Bcl.Async": {
-                        "name": "Microsoft.Bcl.Async",
-                        "version": "1.0.168",
-                        "dependencies": {}
-                      }
-                    }
-                  },
-                  "Microsoft.Bcl": {
-                    "name": "Microsoft.Bcl",
-                    "version": "1.1.10",
-                    "dependencies": {}
-                  },
-                  "Microsoft.Bcl.Async": {
-                    "name": "Microsoft.Bcl.Async",
-                    "version": "1.0.168",
-                    "dependencies": {}
-                  },
-                  "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                    "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                    "version": "1.1.28",
-                    "dependencies": {}
-                  }
-                }
-              },
-              "Microsoft.ApplicationInsights.PerfCounterCollector": {
-                "name": "Microsoft.ApplicationInsights.PerfCounterCollector",
-                "version": "2.2.0",
-                "dependencies": {
-                  "Microsoft.ApplicationInsights": {
-                    "name": "Microsoft.ApplicationInsights",
-                    "version": "2.2.0",
-                    "dependencies": {
-                      "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                        "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                        "version": "1.1.28",
-                        "dependencies": {}
-                      },
-                      "Microsoft.Bcl.Async": {
-                        "name": "Microsoft.Bcl.Async",
-                        "version": "1.0.168",
-                        "dependencies": {}
-                      }
-                    }
-                  },
-                  "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                    "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                    "version": "1.1.28",
-                    "dependencies": {}
-                  }
-                }
-              },
-              "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                "version": "1.1.28",
-                "dependencies": {}
-              }
-            }
-          }
-        }
-      },
-      "Microsoft.ApplicationInsights.WindowsServer": {
-        "name": "Microsoft.ApplicationInsights.WindowsServer",
-        "version": "2.2.0",
-        "dependencies": {
-          "Microsoft.ApplicationInsights": {
-            "name": "Microsoft.ApplicationInsights",
-            "version": "2.2.0",
-            "dependencies": {
-              "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                "version": "1.1.28",
-                "dependencies": {}
-              },
-              "Microsoft.Bcl.Async": {
-                "name": "Microsoft.Bcl.Async",
-                "version": "1.0.168",
-                "dependencies": {}
-              }
-            }
-          },
-          "Microsoft.ApplicationInsights.DependencyCollector": {
-            "name": "Microsoft.ApplicationInsights.DependencyCollector",
-            "version": "2.2.0",
-            "dependencies": {
-              "Microsoft.ApplicationInsights": {
-                "name": "Microsoft.ApplicationInsights",
-                "version": "2.2.0",
-                "dependencies": {
-                  "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                    "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                    "version": "1.1.28",
-                    "dependencies": {}
-                  },
-                  "Microsoft.Bcl.Async": {
-                    "name": "Microsoft.Bcl.Async",
-                    "version": "1.0.168",
-                    "dependencies": {}
-                  }
-                }
-              },
-              "Microsoft.ApplicationInsights.Agent.Intercept": {
-                "name": "Microsoft.ApplicationInsights.Agent.Intercept",
-                "version": "2.0.6",
-                "dependencies": {
-                  "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                    "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                    "version": "1.1.28",
-                    "dependencies": {}
-                  }
-                }
-              }
-            }
-          },
-          "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": {
-            "name": "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel",
-            "version": "2.2.0",
-            "dependencies": {
-              "Microsoft.ApplicationInsights": {
-                "name": "Microsoft.ApplicationInsights",
-                "version": "2.2.0",
-                "dependencies": {
-                  "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                    "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                    "version": "1.1.28",
-                    "dependencies": {}
-                  },
-                  "Microsoft.Bcl.Async": {
-                    "name": "Microsoft.Bcl.Async",
-                    "version": "1.0.168",
-                    "dependencies": {}
-                  }
-                }
-              },
-              "Microsoft.Bcl": {
-                "name": "Microsoft.Bcl",
-                "version": "1.1.10",
-                "dependencies": {}
-              },
-              "Microsoft.Bcl.Async": {
-                "name": "Microsoft.Bcl.Async",
-                "version": "1.0.168",
-                "dependencies": {}
-              },
-              "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                "version": "1.1.28",
-                "dependencies": {}
-              }
-            }
-          },
-          "Microsoft.ApplicationInsights.PerfCounterCollector": {
-            "name": "Microsoft.ApplicationInsights.PerfCounterCollector",
-            "version": "2.2.0",
-            "dependencies": {
-              "Microsoft.ApplicationInsights": {
-                "name": "Microsoft.ApplicationInsights",
-                "version": "2.2.0",
-                "dependencies": {
-                  "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                    "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                    "version": "1.1.28",
-                    "dependencies": {}
-                  },
-                  "Microsoft.Bcl.Async": {
-                    "name": "Microsoft.Bcl.Async",
-                    "version": "1.0.168",
-                    "dependencies": {}
-                  }
-                }
-              },
-              "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                "version": "1.1.28",
-                "dependencies": {}
-              }
-            }
-          },
-          "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-            "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-            "version": "1.1.28",
-            "dependencies": {}
-          }
-        }
-      },
-      "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": {
-        "name": "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel",
-        "version": "2.2.0",
-        "dependencies": {
-          "Microsoft.ApplicationInsights": {
-            "name": "Microsoft.ApplicationInsights",
-            "version": "2.2.0",
-            "dependencies": {
-              "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-                "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-                "version": "1.1.28",
-                "dependencies": {}
-              },
-              "Microsoft.Bcl.Async": {
-                "name": "Microsoft.Bcl.Async",
-                "version": "1.0.168",
-                "dependencies": {}
-              }
-            }
-          },
-          "Microsoft.Bcl": {
-            "name": "Microsoft.Bcl",
-            "version": "1.1.10",
-            "dependencies": {}
-          },
-          "Microsoft.Bcl.Async": {
-            "name": "Microsoft.Bcl.Async",
-            "version": "1.0.168",
-            "dependencies": {}
-          },
-          "Microsoft.Diagnostics.Tracing.EventSource.Redist": {
-            "name": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
-            "version": "1.1.28",
-            "dependencies": {}
-          }
-        }
       },
       "Microsoft.AspNet.Identity.Core": {
         "name": "Microsoft.AspNet.Identity.Core",
@@ -562,18 +137,7 @@
               "Newtonsoft.Json": {
                 "name": "Newtonsoft.Json",
                 "version": "10.0.3",
-                "dependencies": {
-                  "NETStandard.Library": {
-                    "name": "NETStandard.Library",
-                    "version": "1.6.1",
-                    "dependencies": {}
-                  },
-                  "Microsoft.CSharp": {
-                    "name": "Microsoft.CSharp",
-                    "version": "4.3.0",
-                    "dependencies": {}
-                  }
-                }
+                "dependencies": {}
               },
               "Microsoft.Owin.Security": {
                 "name": "Microsoft.Owin.Security",
@@ -601,383 +165,10 @@
           }
         }
       },
-      "Microsoft.AspNet.Mvc": {
-        "name": "Microsoft.AspNet.Mvc",
-        "version": "5.2.3",
-        "dependencies": {
-          "Microsoft.AspNet.WebPages": {
-            "name": "Microsoft.AspNet.WebPages",
-            "version": "3.2.3",
-            "dependencies": {
-              "Microsoft.Web.Infrastructure": {
-                "name": "Microsoft.Web.Infrastructure",
-                "version": "1.0.0.0",
-                "dependencies": {}
-              },
-              "Microsoft.AspNet.Razor": {
-                "name": "Microsoft.AspNet.Razor",
-                "version": "3.2.3",
-                "dependencies": {}
-              }
-            }
-          },
-          "Microsoft.AspNet.Razor": {
-            "name": "Microsoft.AspNet.Razor",
-            "version": "3.2.3",
-            "dependencies": {}
-          }
-        }
-      },
-      "Microsoft.AspNet.Razor": {
-        "name": "Microsoft.AspNet.Razor",
-        "version": "3.2.3",
-        "dependencies": {}
-      },
-      "Microsoft.AspNet.Web.Optimization": {
-        "name": "Microsoft.AspNet.Web.Optimization",
-        "version": "1.1.3",
-        "dependencies": {
-          "Microsoft.Web.Infrastructure": {
-            "name": "Microsoft.Web.Infrastructure",
-            "version": "1.0.0.0",
-            "dependencies": {}
-          },
-          "WebGrease": {
-            "name": "WebGrease",
-            "version": "1.5.2",
-            "dependencies": {
-              "Antlr": {
-                "name": "Antlr",
-                "version": "3.4.1.9004",
-                "dependencies": {}
-              },
-              "Newtonsoft.Json": {
-                "name": "Newtonsoft.Json",
-                "version": "10.0.3",
-                "dependencies": {
-                  "NETStandard.Library": {
-                    "name": "NETStandard.Library",
-                    "version": "1.6.1",
-                    "dependencies": {}
-                  },
-                  "Microsoft.CSharp": {
-                    "name": "Microsoft.CSharp",
-                    "version": "4.3.0",
-                    "dependencies": {}
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "Microsoft.AspNet.WebApi": {
-        "name": "Microsoft.AspNet.WebApi",
-        "version": "5.2.3",
-        "dependencies": {
-          "Microsoft.AspNet.WebApi.WebHost": {
-            "name": "Microsoft.AspNet.WebApi.WebHost",
-            "version": "5.2.3",
-            "dependencies": {
-              "Microsoft.AspNet.WebApi.Core": {
-                "name": "Microsoft.AspNet.WebApi.Core",
-                "version": "5.2.3",
-                "dependencies": {
-                  "Microsoft.AspNet.WebApi.Client": {
-                    "name": "Microsoft.AspNet.WebApi.Client",
-                    "version": "5.2.3",
-                    "dependencies": {
-                      "Newtonsoft.Json": {
-                        "name": "Newtonsoft.Json",
-                        "version": "10.0.3",
-                        "dependencies": {
-                          "NETStandard.Library": {
-                            "name": "NETStandard.Library",
-                            "version": "1.6.1",
-                            "dependencies": {}
-                          },
-                          "Microsoft.CSharp": {
-                            "name": "Microsoft.CSharp",
-                            "version": "4.3.0",
-                            "dependencies": {}
-                          }
-                        }
-                      },
-                      "Microsoft.Net.Http": {
-                        "name": "Microsoft.Net.Http",
-                        "version": "2.2.22",
-                        "dependencies": {}
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "Microsoft.AspNet.WebApi.Client": {
-        "name": "Microsoft.AspNet.WebApi.Client",
-        "version": "5.2.3",
-        "dependencies": {
-          "Newtonsoft.Json": {
-            "name": "Newtonsoft.Json",
-            "version": "10.0.3",
-            "dependencies": {
-              "NETStandard.Library": {
-                "name": "NETStandard.Library",
-                "version": "1.6.1",
-                "dependencies": {}
-              },
-              "Microsoft.CSharp": {
-                "name": "Microsoft.CSharp",
-                "version": "4.3.0",
-                "dependencies": {}
-              }
-            }
-          },
-          "Microsoft.Net.Http": {
-            "name": "Microsoft.Net.Http",
-            "version": "2.2.22",
-            "dependencies": {}
-          }
-        }
-      },
-      "Microsoft.AspNet.WebApi.Core": {
-        "name": "Microsoft.AspNet.WebApi.Core",
-        "version": "5.2.3",
-        "dependencies": {
-          "Microsoft.AspNet.WebApi.Client": {
-            "name": "Microsoft.AspNet.WebApi.Client",
-            "version": "5.2.3",
-            "dependencies": {
-              "Newtonsoft.Json": {
-                "name": "Newtonsoft.Json",
-                "version": "10.0.3",
-                "dependencies": {
-                  "NETStandard.Library": {
-                    "name": "NETStandard.Library",
-                    "version": "1.6.1",
-                    "dependencies": {}
-                  },
-                  "Microsoft.CSharp": {
-                    "name": "Microsoft.CSharp",
-                    "version": "4.3.0",
-                    "dependencies": {}
-                  }
-                }
-              },
-              "Microsoft.Net.Http": {
-                "name": "Microsoft.Net.Http",
-                "version": "2.2.22",
-                "dependencies": {}
-              }
-            }
-          }
-        }
-      },
-      "Microsoft.AspNet.WebApi.HelpPage": {
-        "name": "Microsoft.AspNet.WebApi.HelpPage",
-        "version": "5.2.3",
-        "dependencies": {
-          "Microsoft.AspNet.WebApi.WebHost": {
-            "name": "Microsoft.AspNet.WebApi.WebHost",
-            "version": "5.2.3",
-            "dependencies": {
-              "Microsoft.AspNet.WebApi.Core": {
-                "name": "Microsoft.AspNet.WebApi.Core",
-                "version": "5.2.3",
-                "dependencies": {
-                  "Microsoft.AspNet.WebApi.Client": {
-                    "name": "Microsoft.AspNet.WebApi.Client",
-                    "version": "5.2.3",
-                    "dependencies": {
-                      "Newtonsoft.Json": {
-                        "name": "Newtonsoft.Json",
-                        "version": "10.0.3",
-                        "dependencies": {
-                          "NETStandard.Library": {
-                            "name": "NETStandard.Library",
-                            "version": "1.6.1",
-                            "dependencies": {}
-                          },
-                          "Microsoft.CSharp": {
-                            "name": "Microsoft.CSharp",
-                            "version": "4.3.0",
-                            "dependencies": {}
-                          }
-                        }
-                      },
-                      "Microsoft.Net.Http": {
-                        "name": "Microsoft.Net.Http",
-                        "version": "2.2.22",
-                        "dependencies": {}
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "Microsoft.AspNet.Mvc": {
-            "name": "Microsoft.AspNet.Mvc",
-            "version": "5.2.3",
-            "dependencies": {
-              "Microsoft.AspNet.WebPages": {
-                "name": "Microsoft.AspNet.WebPages",
-                "version": "3.2.3",
-                "dependencies": {
-                  "Microsoft.Web.Infrastructure": {
-                    "name": "Microsoft.Web.Infrastructure",
-                    "version": "1.0.0.0",
-                    "dependencies": {}
-                  },
-                  "Microsoft.AspNet.Razor": {
-                    "name": "Microsoft.AspNet.Razor",
-                    "version": "3.2.3",
-                    "dependencies": {}
-                  }
-                }
-              },
-              "Microsoft.AspNet.Razor": {
-                "name": "Microsoft.AspNet.Razor",
-                "version": "3.2.3",
-                "dependencies": {}
-              }
-            }
-          },
-          "Microsoft.AspNet.Razor": {
-            "name": "Microsoft.AspNet.Razor",
-            "version": "3.2.3",
-            "dependencies": {}
-          }
-        }
-      },
-      "Microsoft.AspNet.WebApi.Owin": {
-        "name": "Microsoft.AspNet.WebApi.Owin",
-        "version": "5.2.3",
-        "dependencies": {
-          "Microsoft.AspNet.WebApi.Core": {
-            "name": "Microsoft.AspNet.WebApi.Core",
-            "version": "5.2.3",
-            "dependencies": {
-              "Microsoft.AspNet.WebApi.Client": {
-                "name": "Microsoft.AspNet.WebApi.Client",
-                "version": "5.2.3",
-                "dependencies": {
-                  "Newtonsoft.Json": {
-                    "name": "Newtonsoft.Json",
-                    "version": "10.0.3",
-                    "dependencies": {
-                      "NETStandard.Library": {
-                        "name": "NETStandard.Library",
-                        "version": "1.6.1",
-                        "dependencies": {}
-                      },
-                      "Microsoft.CSharp": {
-                        "name": "Microsoft.CSharp",
-                        "version": "4.3.0",
-                        "dependencies": {}
-                      }
-                    }
-                  },
-                  "Microsoft.Net.Http": {
-                    "name": "Microsoft.Net.Http",
-                    "version": "2.2.22",
-                    "dependencies": {}
-                  }
-                }
-              }
-            }
-          },
-          "Microsoft.Owin": {
-            "name": "Microsoft.Owin",
-            "version": "3.0.1",
-            "dependencies": {
-              "Owin": {
-                "name": "Owin",
-                "version": "1.0",
-                "dependencies": {}
-              }
-            }
-          },
-          "Owin": {
-            "name": "Owin",
-            "version": "1.0",
-            "dependencies": {}
-          }
-        }
-      },
-      "Microsoft.AspNet.WebApi.WebHost": {
-        "name": "Microsoft.AspNet.WebApi.WebHost",
-        "version": "5.2.3",
-        "dependencies": {
-          "Microsoft.AspNet.WebApi.Core": {
-            "name": "Microsoft.AspNet.WebApi.Core",
-            "version": "5.2.3",
-            "dependencies": {
-              "Microsoft.AspNet.WebApi.Client": {
-                "name": "Microsoft.AspNet.WebApi.Client",
-                "version": "5.2.3",
-                "dependencies": {
-                  "Newtonsoft.Json": {
-                    "name": "Newtonsoft.Json",
-                    "version": "10.0.3",
-                    "dependencies": {
-                      "NETStandard.Library": {
-                        "name": "NETStandard.Library",
-                        "version": "1.6.1",
-                        "dependencies": {}
-                      },
-                      "Microsoft.CSharp": {
-                        "name": "Microsoft.CSharp",
-                        "version": "4.3.0",
-                        "dependencies": {}
-                      }
-                    }
-                  },
-                  "Microsoft.Net.Http": {
-                    "name": "Microsoft.Net.Http",
-                    "version": "2.2.22",
-                    "dependencies": {}
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "Microsoft.AspNet.WebPages": {
-        "name": "Microsoft.AspNet.WebPages",
-        "version": "3.2.3",
-        "dependencies": {
-          "Microsoft.Web.Infrastructure": {
-            "name": "Microsoft.Web.Infrastructure",
-            "version": "1.0.0.0",
-            "dependencies": {}
-          },
-          "Microsoft.AspNet.Razor": {
-            "name": "Microsoft.AspNet.Razor",
-            "version": "3.2.3",
-            "dependencies": {}
-          }
-        }
-      },
-      "Microsoft.CodeAnalysis.Analyzers": {
-        "name": "Microsoft.CodeAnalysis.Analyzers",
-        "version": "1.1.0",
-        "dependencies": {}
-      },
       "Microsoft.CodeAnalysis.Common": {
         "name": "Microsoft.CodeAnalysis.Common",
         "version": "1.3.2",
-        "dependencies": {
-          "Microsoft.CodeAnalysis.Analyzers": {
-            "name": "Microsoft.CodeAnalysis.Analyzers",
-            "version": "1.1.0",
-            "dependencies": {}
-          }
-        }
+        "dependencies": {}
       },
       "Microsoft.CodeAnalysis.CSharp": {
         "name": "Microsoft.CodeAnalysis.CSharp",
@@ -986,13 +177,7 @@
           "Microsoft.CodeAnalysis.Common": {
             "name": "Microsoft.CodeAnalysis.Common",
             "version": "1.3.2",
-            "dependencies": {
-              "Microsoft.CodeAnalysis.Analyzers": {
-                "name": "Microsoft.CodeAnalysis.Analyzers",
-                "version": "1.1.0",
-                "dependencies": {}
-              }
-            }
+            "dependencies": {}
           }
         }
       },
@@ -1004,78 +189,6 @@
             "name": "Microsoft.Net.Compilers",
             "version": "2.1.0",
             "dependencies": {}
-          }
-        }
-      },
-      "Microsoft.Net.Compilers": {
-        "name": "Microsoft.Net.Compilers",
-        "version": "2.1.0",
-        "dependencies": {}
-      },
-      "Microsoft.Orleans.Core": {
-        "name": "Microsoft.Orleans.Core",
-        "version": "1.4.0",
-        "dependencies": {
-          "Newtonsoft.Json": {
-            "name": "Newtonsoft.Json",
-            "version": "10.0.3",
-            "dependencies": {
-              "NETStandard.Library": {
-                "name": "NETStandard.Library",
-                "version": "1.6.1",
-                "dependencies": {}
-              },
-              "Microsoft.CSharp": {
-                "name": "Microsoft.CSharp",
-                "version": "4.3.0",
-                "dependencies": {}
-              }
-            }
-          }
-        }
-      },
-      "Microsoft.Orleans.OrleansCodeGenerator": {
-        "name": "Microsoft.Orleans.OrleansCodeGenerator",
-        "version": "1.4.0",
-        "dependencies": {
-          "Microsoft.Orleans.Core": {
-            "name": "Microsoft.Orleans.Core",
-            "version": "1.4.0",
-            "dependencies": {
-              "Newtonsoft.Json": {
-                "name": "Newtonsoft.Json",
-                "version": "10.0.3",
-                "dependencies": {
-                  "NETStandard.Library": {
-                    "name": "NETStandard.Library",
-                    "version": "1.6.1",
-                    "dependencies": {}
-                  },
-                  "Microsoft.CSharp": {
-                    "name": "Microsoft.CSharp",
-                    "version": "4.3.0",
-                    "dependencies": {}
-                  }
-                }
-              }
-            }
-          },
-          "Microsoft.CodeAnalysis.CSharp": {
-            "name": "Microsoft.CodeAnalysis.CSharp",
-            "version": "1.3.2",
-            "dependencies": {
-              "Microsoft.CodeAnalysis.Common": {
-                "name": "Microsoft.CodeAnalysis.Common",
-                "version": "1.3.2",
-                "dependencies": {
-                  "Microsoft.CodeAnalysis.Analyzers": {
-                    "name": "Microsoft.CodeAnalysis.Analyzers",
-                    "version": "1.1.0",
-                    "dependencies": {}
-                  }
-                }
-              }
-            }
           }
         }
       },
@@ -1190,18 +303,7 @@
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "dependencies": {
-              "NETStandard.Library": {
-                "name": "NETStandard.Library",
-                "version": "1.6.1",
-                "dependencies": {}
-              },
-              "Microsoft.CSharp": {
-                "name": "Microsoft.CSharp",
-                "version": "4.3.0",
-                "dependencies": {}
-              }
-            }
+            "dependencies": {}
           },
           "Microsoft.Owin": {
             "name": "Microsoft.Owin",
@@ -1250,18 +352,7 @@
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "dependencies": {
-              "NETStandard.Library": {
-                "name": "NETStandard.Library",
-                "version": "1.6.1",
-                "dependencies": {}
-              },
-              "Microsoft.CSharp": {
-                "name": "Microsoft.CSharp",
-                "version": "4.3.0",
-                "dependencies": {}
-              }
-            }
+            "dependencies": {}
           },
           "Microsoft.Owin": {
             "name": "Microsoft.Owin",
@@ -1321,18 +412,7 @@
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "dependencies": {
-              "NETStandard.Library": {
-                "name": "NETStandard.Library",
-                "version": "1.6.1",
-                "dependencies": {}
-              },
-              "Microsoft.CSharp": {
-                "name": "Microsoft.CSharp",
-                "version": "4.3.0",
-                "dependencies": {}
-              }
-            }
+            "dependencies": {}
           },
           "Microsoft.Owin.Security": {
             "name": "Microsoft.Owin.Security",
@@ -1381,18 +461,7 @@
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "dependencies": {
-              "NETStandard.Library": {
-                "name": "NETStandard.Library",
-                "version": "1.6.1",
-                "dependencies": {}
-              },
-              "Microsoft.CSharp": {
-                "name": "Microsoft.CSharp",
-                "version": "4.3.0",
-                "dependencies": {}
-              }
-            }
+            "dependencies": {}
           },
           "Microsoft.Owin.Security": {
             "name": "Microsoft.Owin.Security",
@@ -1441,18 +510,7 @@
           "Newtonsoft.Json": {
             "name": "Newtonsoft.Json",
             "version": "10.0.3",
-            "dependencies": {
-              "NETStandard.Library": {
-                "name": "NETStandard.Library",
-                "version": "1.6.1",
-                "dependencies": {}
-              },
-              "Microsoft.CSharp": {
-                "name": "Microsoft.CSharp",
-                "version": "4.3.0",
-                "dependencies": {}
-              }
-            }
+            "dependencies": {}
           },
           "Microsoft.Owin.Security": {
             "name": "Microsoft.Owin.Security",
@@ -1483,30 +541,507 @@
         "version": "1.0.0.0",
         "dependencies": {}
       },
-      "Modernizr": {
-        "name": "Modernizr",
-        "version": "2.6.2",
-        "dependencies": {}
-      },
       "Newtonsoft.Json": {
         "name": "Newtonsoft.Json",
         "version": "10.0.3",
+        "dependencies": {}
+      },
+      "Microsoft.Orleans.Core": {
+        "name": "Microsoft.Orleans.Core",
+        "version": "1.4.0",
         "dependencies": {
-          "NETStandard.Library": {
-            "name": "NETStandard.Library",
-            "version": "1.6.1",
+          "Newtonsoft.Json": {
+            "name": "Newtonsoft.Json",
+            "version": "10.0.3",
             "dependencies": {}
+          }
+        }
+      },
+      "Microsoft.Orleans.OrleansCodeGenerator": {
+        "name": "Microsoft.Orleans.OrleansCodeGenerator",
+        "version": "1.4.0",
+        "dependencies": {
+          "Microsoft.Orleans.Core": {
+            "name": "Microsoft.Orleans.Core",
+            "version": "1.4.0",
+            "dependencies": {
+              "Newtonsoft.Json": {
+                "name": "Newtonsoft.Json",
+                "version": "10.0.3",
+                "dependencies": {}
+              }
+            }
           },
-          "Microsoft.CSharp": {
-            "name": "Microsoft.CSharp",
-            "version": "4.3.0",
-            "dependencies": {}
+          "Microsoft.CodeAnalysis.CSharp": {
+            "name": "Microsoft.CodeAnalysis.CSharp",
+            "version": "1.3.2",
+            "dependencies": {
+              "Microsoft.CodeAnalysis.Common": {
+                "name": "Microsoft.CodeAnalysis.Common",
+                "version": "1.3.2",
+                "dependencies": {}
+              }
+            }
           }
         }
       },
       "Owin": {
         "name": "Owin",
         "version": "1.0",
+        "dependencies": {}
+      },
+      "Microsoft.AspNet.WebApi.Client": {
+        "name": "Microsoft.AspNet.WebApi.Client",
+        "version": "5.2.3",
+        "dependencies": {
+          "Newtonsoft.Json": {
+            "name": "Newtonsoft.Json",
+            "version": "10.0.3",
+            "dependencies": {}
+          }
+        }
+      },
+      "Microsoft.AspNet.WebPages": {
+        "name": "Microsoft.AspNet.WebPages",
+        "version": "3.2.3",
+        "dependencies": {
+          "Microsoft.Web.Infrastructure": {
+            "name": "Microsoft.Web.Infrastructure",
+            "version": "1.0.0.0",
+            "dependencies": {}
+          },
+          "Microsoft.AspNet.Razor": {
+            "name": "Microsoft.AspNet.Razor",
+            "version": "3.2.3",
+            "dependencies": {}
+          }
+        }
+      },
+      "Microsoft.AspNet.WebApi.Core": {
+        "name": "Microsoft.AspNet.WebApi.Core",
+        "version": "5.2.3",
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Client": {
+            "name": "Microsoft.AspNet.WebApi.Client",
+            "version": "5.2.3",
+            "dependencies": {
+              "Newtonsoft.Json": {
+                "name": "Newtonsoft.Json",
+                "version": "10.0.3",
+                "dependencies": {}
+              }
+            }
+          }
+        }
+      },
+      "Microsoft.AspNet.WebApi.Owin": {
+        "name": "Microsoft.AspNet.WebApi.Owin",
+        "version": "5.2.3",
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Core": {
+            "name": "Microsoft.AspNet.WebApi.Core",
+            "version": "5.2.3",
+            "dependencies": {
+              "Microsoft.AspNet.WebApi.Client": {
+                "name": "Microsoft.AspNet.WebApi.Client",
+                "version": "5.2.3",
+                "dependencies": {
+                  "Newtonsoft.Json": {
+                    "name": "Newtonsoft.Json",
+                    "version": "10.0.3",
+                    "dependencies": {}
+                  }
+                }
+              }
+            }
+          },
+          "Microsoft.Owin": {
+            "name": "Microsoft.Owin",
+            "version": "3.0.1",
+            "dependencies": {
+              "Owin": {
+                "name": "Owin",
+                "version": "1.0",
+                "dependencies": {}
+              }
+            }
+          },
+          "Owin": {
+            "name": "Owin",
+            "version": "1.0",
+            "dependencies": {}
+          }
+        }
+      },
+      "Microsoft.AspNet.WebApi.WebHost": {
+        "name": "Microsoft.AspNet.WebApi.WebHost",
+        "version": "5.2.3",
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Core": {
+            "name": "Microsoft.AspNet.WebApi.Core",
+            "version": "5.2.3",
+            "dependencies": {
+              "Microsoft.AspNet.WebApi.Client": {
+                "name": "Microsoft.AspNet.WebApi.Client",
+                "version": "5.2.3",
+                "dependencies": {
+                  "Newtonsoft.Json": {
+                    "name": "Newtonsoft.Json",
+                    "version": "10.0.3",
+                    "dependencies": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Microsoft.AspNet.Mvc": {
+        "name": "Microsoft.AspNet.Mvc",
+        "version": "5.2.3",
+        "dependencies": {
+          "Microsoft.AspNet.WebPages": {
+            "name": "Microsoft.AspNet.WebPages",
+            "version": "3.2.3",
+            "dependencies": {
+              "Microsoft.Web.Infrastructure": {
+                "name": "Microsoft.Web.Infrastructure",
+                "version": "1.0.0.0",
+                "dependencies": {}
+              },
+              "Microsoft.AspNet.Razor": {
+                "name": "Microsoft.AspNet.Razor",
+                "version": "3.2.3",
+                "dependencies": {}
+              }
+            }
+          },
+          "Microsoft.AspNet.Razor": {
+            "name": "Microsoft.AspNet.Razor",
+            "version": "3.2.3",
+            "dependencies": {}
+          }
+        }
+      },
+      "Microsoft.AspNet.Web.Optimization": {
+        "name": "Microsoft.AspNet.Web.Optimization",
+        "version": "1.1.3",
+        "dependencies": {
+          "Microsoft.Web.Infrastructure": {
+            "name": "Microsoft.Web.Infrastructure",
+            "version": "1.0.0.0",
+            "dependencies": {}
+          },
+          "WebGrease": {
+            "name": "WebGrease",
+            "version": "1.5.2",
+            "dependencies": {
+              "Antlr": {
+                "name": "Antlr",
+                "version": "3.4.1.9004",
+                "dependencies": {}
+              },
+              "Newtonsoft.Json": {
+                "name": "Newtonsoft.Json",
+                "version": "10.0.3",
+                "dependencies": {}
+              }
+            }
+          }
+        }
+      },
+      "Microsoft.AspNet.Razor": {
+        "name": "Microsoft.AspNet.Razor",
+        "version": "3.2.3",
+        "dependencies": {}
+      },
+      "WebGrease": {
+        "name": "WebGrease",
+        "version": "1.5.2",
+        "dependencies": {
+          "Antlr": {
+            "name": "Antlr",
+            "version": "3.4.1.9004",
+            "dependencies": {}
+          },
+          "Newtonsoft.Json": {
+            "name": "Newtonsoft.Json",
+            "version": "10.0.3",
+            "dependencies": {}
+          }
+        }
+      },
+      "Microsoft.ApplicationInsights": {
+        "name": "Microsoft.ApplicationInsights",
+        "version": "2.2.0",
+        "dependencies": {}
+      },
+      "Microsoft.ApplicationInsights.Agent.Intercept": {
+        "name": "Microsoft.ApplicationInsights.Agent.Intercept",
+        "version": "2.0.6",
+        "dependencies": {}
+      },
+      "Microsoft.ApplicationInsights.DependencyCollector": {
+        "name": "Microsoft.ApplicationInsights.DependencyCollector",
+        "version": "2.2.0",
+        "dependencies": {
+          "Microsoft.ApplicationInsights": {
+            "name": "Microsoft.ApplicationInsights",
+            "version": "2.2.0",
+            "dependencies": {}
+          },
+          "Microsoft.ApplicationInsights.Agent.Intercept": {
+            "name": "Microsoft.ApplicationInsights.Agent.Intercept",
+            "version": "2.0.6",
+            "dependencies": {}
+          }
+        }
+      },
+      "Microsoft.ApplicationInsights.PerfCounterCollector": {
+        "name": "Microsoft.ApplicationInsights.PerfCounterCollector",
+        "version": "2.2.0",
+        "dependencies": {
+          "Microsoft.ApplicationInsights": {
+            "name": "Microsoft.ApplicationInsights",
+            "version": "2.2.0",
+            "dependencies": {}
+          }
+        }
+      },
+      "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": {
+        "name": "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel",
+        "version": "2.2.0",
+        "dependencies": {
+          "Microsoft.ApplicationInsights": {
+            "name": "Microsoft.ApplicationInsights",
+            "version": "2.2.0",
+            "dependencies": {}
+          }
+        }
+      },
+      "Microsoft.ApplicationInsights.WindowsServer": {
+        "name": "Microsoft.ApplicationInsights.WindowsServer",
+        "version": "2.2.0",
+        "dependencies": {
+          "Microsoft.ApplicationInsights": {
+            "name": "Microsoft.ApplicationInsights",
+            "version": "2.2.0",
+            "dependencies": {}
+          },
+          "Microsoft.ApplicationInsights.DependencyCollector": {
+            "name": "Microsoft.ApplicationInsights.DependencyCollector",
+            "version": "2.2.0",
+            "dependencies": {
+              "Microsoft.ApplicationInsights": {
+                "name": "Microsoft.ApplicationInsights",
+                "version": "2.2.0",
+                "dependencies": {}
+              },
+              "Microsoft.ApplicationInsights.Agent.Intercept": {
+                "name": "Microsoft.ApplicationInsights.Agent.Intercept",
+                "version": "2.0.6",
+                "dependencies": {}
+              }
+            }
+          },
+          "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": {
+            "name": "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel",
+            "version": "2.2.0",
+            "dependencies": {
+              "Microsoft.ApplicationInsights": {
+                "name": "Microsoft.ApplicationInsights",
+                "version": "2.2.0",
+                "dependencies": {}
+              }
+            }
+          },
+          "Microsoft.ApplicationInsights.PerfCounterCollector": {
+            "name": "Microsoft.ApplicationInsights.PerfCounterCollector",
+            "version": "2.2.0",
+            "dependencies": {
+              "Microsoft.ApplicationInsights": {
+                "name": "Microsoft.ApplicationInsights",
+                "version": "2.2.0",
+                "dependencies": {}
+              }
+            }
+          }
+        }
+      },
+      "Microsoft.ApplicationInsights.Web": {
+        "name": "Microsoft.ApplicationInsights.Web",
+        "version": "2.2.0",
+        "dependencies": {
+          "Microsoft.ApplicationInsights": {
+            "name": "Microsoft.ApplicationInsights",
+            "version": "2.2.0",
+            "dependencies": {}
+          },
+          "Microsoft.ApplicationInsights.WindowsServer": {
+            "name": "Microsoft.ApplicationInsights.WindowsServer",
+            "version": "2.2.0",
+            "dependencies": {
+              "Microsoft.ApplicationInsights": {
+                "name": "Microsoft.ApplicationInsights",
+                "version": "2.2.0",
+                "dependencies": {}
+              },
+              "Microsoft.ApplicationInsights.DependencyCollector": {
+                "name": "Microsoft.ApplicationInsights.DependencyCollector",
+                "version": "2.2.0",
+                "dependencies": {
+                  "Microsoft.ApplicationInsights": {
+                    "name": "Microsoft.ApplicationInsights",
+                    "version": "2.2.0",
+                    "dependencies": {}
+                  },
+                  "Microsoft.ApplicationInsights.Agent.Intercept": {
+                    "name": "Microsoft.ApplicationInsights.Agent.Intercept",
+                    "version": "2.0.6",
+                    "dependencies": {}
+                  }
+                }
+              },
+              "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": {
+                "name": "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel",
+                "version": "2.2.0",
+                "dependencies": {
+                  "Microsoft.ApplicationInsights": {
+                    "name": "Microsoft.ApplicationInsights",
+                    "version": "2.2.0",
+                    "dependencies": {}
+                  }
+                }
+              },
+              "Microsoft.ApplicationInsights.PerfCounterCollector": {
+                "name": "Microsoft.ApplicationInsights.PerfCounterCollector",
+                "version": "2.2.0",
+                "dependencies": {
+                  "Microsoft.ApplicationInsights": {
+                    "name": "Microsoft.ApplicationInsights",
+                    "version": "2.2.0",
+                    "dependencies": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Knockout.Validation": {
+        "name": "Knockout.Validation",
+        "version": "1.0.1",
+        "dependencies": {
+          "knockoutjs": {
+            "name": "knockoutjs",
+            "version": "2.3.0",
+            "dependencies": {}
+          }
+        }
+      },
+      "Microsoft.AspNet.WebApi": {
+        "name": "Microsoft.AspNet.WebApi",
+        "version": "5.2.3",
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.WebHost": {
+            "name": "Microsoft.AspNet.WebApi.WebHost",
+            "version": "5.2.3",
+            "dependencies": {
+              "Microsoft.AspNet.WebApi.Core": {
+                "name": "Microsoft.AspNet.WebApi.Core",
+                "version": "5.2.3",
+                "dependencies": {
+                  "Microsoft.AspNet.WebApi.Client": {
+                    "name": "Microsoft.AspNet.WebApi.Client",
+                    "version": "5.2.3",
+                    "dependencies": {
+                      "Newtonsoft.Json": {
+                        "name": "Newtonsoft.Json",
+                        "version": "10.0.3",
+                        "dependencies": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Microsoft.AspNet.WebApi.HelpPage": {
+        "name": "Microsoft.AspNet.WebApi.HelpPage",
+        "version": "5.2.3",
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.WebHost": {
+            "name": "Microsoft.AspNet.WebApi.WebHost",
+            "version": "5.2.3",
+            "dependencies": {
+              "Microsoft.AspNet.WebApi.Core": {
+                "name": "Microsoft.AspNet.WebApi.Core",
+                "version": "5.2.3",
+                "dependencies": {
+                  "Microsoft.AspNet.WebApi.Client": {
+                    "name": "Microsoft.AspNet.WebApi.Client",
+                    "version": "5.2.3",
+                    "dependencies": {
+                      "Newtonsoft.Json": {
+                        "name": "Newtonsoft.Json",
+                        "version": "10.0.3",
+                        "dependencies": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "Microsoft.AspNet.Mvc": {
+            "name": "Microsoft.AspNet.Mvc",
+            "version": "5.2.3",
+            "dependencies": {
+              "Microsoft.AspNet.WebPages": {
+                "name": "Microsoft.AspNet.WebPages",
+                "version": "3.2.3",
+                "dependencies": {
+                  "Microsoft.Web.Infrastructure": {
+                    "name": "Microsoft.Web.Infrastructure",
+                    "version": "1.0.0.0",
+                    "dependencies": {}
+                  },
+                  "Microsoft.AspNet.Razor": {
+                    "name": "Microsoft.AspNet.Razor",
+                    "version": "3.2.3",
+                    "dependencies": {}
+                  }
+                }
+              },
+              "Microsoft.AspNet.Razor": {
+                "name": "Microsoft.AspNet.Razor",
+                "version": "3.2.3",
+                "dependencies": {}
+              }
+            }
+          },
+          "Microsoft.AspNet.Razor": {
+            "name": "Microsoft.AspNet.Razor",
+            "version": "3.2.3",
+            "dependencies": {}
+          }
+        }
+      },
+      "Microsoft.CodeAnalysis.Analyzers": {
+        "name": "Microsoft.CodeAnalysis.Analyzers",
+        "version": "1.1.0",
+        "dependencies": {}
+      },
+      "Microsoft.Net.Compilers": {
+        "name": "Microsoft.Net.Compilers",
+        "version": "2.1.0",
+        "dependencies": {}
+      },
+      "Modernizr": {
+        "name": "Modernizr",
+        "version": "2.6.2",
         "dependencies": {}
       },
       "Respond": {
@@ -1525,32 +1060,20 @@
           }
         }
       },
-      "WebGrease": {
-        "name": "WebGrease",
-        "version": "1.5.2",
-        "dependencies": {
-          "Antlr": {
-            "name": "Antlr",
-            "version": "3.4.1.9004",
-            "dependencies": {}
-          },
-          "Newtonsoft.Json": {
-            "name": "Newtonsoft.Json",
-            "version": "10.0.3",
-            "dependencies": {
-              "NETStandard.Library": {
-                "name": "NETStandard.Library",
-                "version": "1.6.1",
-                "dependencies": {}
-              },
-              "Microsoft.CSharp": {
-                "name": "Microsoft.CSharp",
-                "version": "4.3.0",
-                "dependencies": {}
-              }
-            }
-          }
-        }
+      "bootstrap": {
+        "name": "bootstrap",
+        "version": "3.0.0",
+        "dependencies": {}
+      },
+      "jQuery": {
+        "name": "jQuery",
+        "version": "1.10.2",
+        "dependencies": {}
+      },
+      "knockoutjs": {
+        "name": "knockoutjs",
+        "version": "2.3.0",
+        "dependencies": {}
       }
     }
   }
