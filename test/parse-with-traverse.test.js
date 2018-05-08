@@ -53,7 +53,7 @@ test('parse packages.config and traverse packages', function (t) {
     t.test('traversing', function (t) {
       t.deepEqual(
         result.package.dependencies,
-        expectedTree.package.dependencies);
+        expectedTree.package.dependencies, 'dep trees should be equal');
       t.ok(result.plugin);
       t.equal(result.plugin.name, 'snyk-nuget-plugin');
       t.end();
