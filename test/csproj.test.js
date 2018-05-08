@@ -1,5 +1,7 @@
 var test = require('tap').test;
 var plugin = require('../lib/index');
+var determineDotnetVersion = require('../lib/proj-parser');
+
 var multipleFrameworksPath = './test/stubs/target_framework/csproj_multiple/';
 var noProjectPath = './test/stubs/target_framework/no_csproj/';
 var noFrameworksPath = './test/stubs/target_framework/no_target_framework';
@@ -10,20 +12,10 @@ var expectedTree =
   require('./stubs/target_framework/csproj_multiple/expected.json');
 
 test('parse dotnet with csproj containing multiple versions', function (t) {
-  plugin.inspect(
-    multipleFrameworksPath,
-    manifestFile)
-    .then(function (result) {
-      t.deepEqual(
-        result,
-        expectedTree,
-        'expects project data to be correct'
-      );
-      t.end();
-    })
-    .catch(function () {
-      t.fail('Error was thrown: ' + err);
-    });
+  var dotnetVersions = determineDotnetVersion(
+    multipleFrameworksPath);
+  t.ok(dotnetVersions, ['.NETCore2.0','.NETFramework462']);
+  t.end();
 });
 
 test('parse dotnet with vbproj', function (t) {
