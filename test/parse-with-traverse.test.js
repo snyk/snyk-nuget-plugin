@@ -39,6 +39,9 @@ test('parse project.assets.json - like and traverse packages', function (t) {
       'expects dependency tree to be correct');
     t.ok(result.plugin);
     t.end();
+  }).catch(err => {
+    console.log(err);
+    t.fail(err.message);
   });
 });
 
