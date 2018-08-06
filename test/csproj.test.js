@@ -8,8 +8,6 @@ var noFrameworksPath = './test/stubs/target_framework/no_target_framework';
 var noValidFrameworksPath =
   './test/stubs/target_framework/no_target_valid_framework';
 var manifestFile = 'obj/project.assets.json';
-var expectedTree =
-  require('./stubs/target_framework/csproj_multiple/expected.json');
 
 test('parse dotnet with csproj containing multiple versions', function (t) {
   var dotnetVersions = determineDotnetVersion(

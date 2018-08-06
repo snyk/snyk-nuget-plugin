@@ -1,14 +1,14 @@
 {
   "name": "snyk-nuget-plugin",
-  "description": "![logo](https://res.cloudinary.com/snyk/image/upload/v1468845259/logo/snyk-dog.svg) ## Snyk: NuGet Plugin ***",
+  "description": "Snyk CLI NuGet plugin",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "jscs `find ./lib -name '*.js'` -v && jscs `find ./test -name '*.js'` -v",
+    "lint": "eslint -c .eslintrc lib test",
     "test": "npm run unit-test",
     "test-windows": "tap -R spec test/*.test.js --timeout=120",
     "unit-test": "tap `ls ./test/*.test.js` -R=spec --timeout=120",
     "dev": "nodemon -x 'npm run unit-test'",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
@@ -26,16 +26,15 @@
   "homepage": "https://github.com/snyk/snyk-nuget-plugin#readme",
   "dependencies": {
     "debug": "^3.1.0",
-    "es6-promise": "^4.1.1",
     "xml2js": "^0.4.17",
     "zip": "^1.2.0",
     "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "jscs": "^3.0.7",
+    "eslint": "^4.11.0",
     "nodemon": "^1.12.1",
-    "semantic-release": "^8.2.0",
-    "tap": "^10.7.0",
+    "semantic-release": "^15",
+    "tap": "^12.0.1",
     "tap-only": "0.0.5"
   }
 }

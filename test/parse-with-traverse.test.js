@@ -52,22 +52,22 @@ test('parse packages.config and traverse packages', function (t) {
   var expectedTree = JSON.parse(expectedTreeFile.toString());
 
   plugin.inspect(null, targetPackagesConfigFile, null)
-  .then(function (result) {
-    t.test('traversing', function (t) {
-      t.deepEqual(
-        result.package.dependencies,
-        expectedTree.package.dependencies, 'dep trees should be equal');
-      t.ok(result.plugin);
-      t.equal(result.plugin.name, 'snyk-nuget-plugin');
-      t.end();
+    .then(function (result) {
+      t.test('traversing', function (t) {
+        t.deepEqual(
+          result.package.dependencies,
+          expectedTree.package.dependencies, 'dep trees should be equal');
+        t.ok(result.plugin);
+        t.equal(result.plugin.name, 'snyk-nuget-plugin');
+        t.end();
+      });
+      return result;
+    })
+    .then(function (result) {
+      if (result) {
+        t.end();
+      }
     });
-    return result;
-  })
-  .then(function (result) {
-    if (result) {
-      t.end();
-    }
-  });
 });
 
 test('parse packages.config and traverse alternate packages folder',
@@ -80,20 +80,20 @@ test('parse packages.config and traverse alternate packages folder',
     plugin.inspect(null, targetPackagesConfigFile, {
       packagesFolder: alternatePackagesFolder,
     })
-    .then(function (result) {
-      t.test('traversing', function (t) {
-        t.deepEqual(
-          result.package.dependencies,
-          expectedTree.package.dependencies);
-        t.ok(result.plugin);
-        t.equal(result.plugin.name, 'snyk-nuget-plugin');
-        t.end();
+      .then(function (result) {
+        t.test('traversing', function (t) {
+          t.deepEqual(
+            result.package.dependencies,
+            expectedTree.package.dependencies);
+          t.ok(result.plugin);
+          t.equal(result.plugin.name, 'snyk-nuget-plugin');
+          t.end();
+        });
+        return result;
+      })
+      .then(function (result) {
+        if (result) {
+          t.end();
+        }
       });
-      return result;
-    })
-    .then(function (result) {
-      if (result) {
-        t.end();
-      }
-    });
   });

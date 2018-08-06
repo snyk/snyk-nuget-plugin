@@ -34,7 +34,7 @@ test('packages contains many deps: only jquery', function (t) {
       );
       t.end();
     })
-    .catch(function (error) {
+    .catch(function (err) {
       t.fail('Error was thrown: ' + err);
     });
 });
@@ -59,7 +59,7 @@ test('packages contains many deps: only moment', function (t) {
       );
       t.end();
     })
-    .catch(function (error) {
+    .catch(function (err) {
       t.fail('Error was thrown: ' + err);
     });
 });
@@ -75,7 +75,7 @@ test('packages contains many deps: different jquery version', function (t) {
     .then(function (result) {
       t.ok(result.package.dependencies.jQuery,
         'jQuery should be found because specified');
-      t.ok(result.package.dependencies.jQuery.version == '3.2.1',
+      t.ok(result.package.dependencies.jQuery.version === '3.2.1',
         'should find version as in packages folder 3.2.1, but found ' +
         result.package.dependencies.jQuery.version);
       t.deepEqual(
@@ -85,7 +85,7 @@ test('packages contains many deps: different jquery version', function (t) {
       );
       t.end();
     })
-    .catch(function (error) {
+    .catch(function (err) {
       t.fail('Error was thrown: ' + err);
     });
 });
