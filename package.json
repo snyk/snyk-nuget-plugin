@@ -26,9 +26,9 @@
   "homepage": "https://github.com/snyk/snyk-nuget-plugin#readme",
   "dependencies": {
     "debug": "^3.1.0",
-    "xml2js": "^0.4.17",
-    "zip": "^1.2.0",
-    "lodash": "^4.17.10"
+    "jszip": "^3.1.5",
+    "lodash": "^4.17.10",
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
     "eslint": "^4.11.0",
