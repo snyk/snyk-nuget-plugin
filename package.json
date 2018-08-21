@@ -4,11 +4,8 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint -c .eslintrc lib test",
-    "test": "npm run unit-test",
-    "test-windows": "tap -R spec test/*.test.js --timeout=120",
-    "unit-test": "tap `ls ./test/*.test.js` -R=spec --timeout=120",
-    "dev": "nodemon -x 'npm run unit-test'",
-    "semantic-release": "semantic-release"
+    "test": "npm run lint && tap test/*.test.js -R=spec --timeout=120",
+    "dev": "nodemon -x 'npm run test'"
   },
   "repository": {
     "type": "git",
@@ -33,7 +30,6 @@
   "devDependencies": {
     "eslint": "^4.11.0",
     "nodemon": "^1.12.1",
-    "semantic-release": "^15",
     "tap": "^12.0.1",
     "tap-only": "0.0.5"
   }
