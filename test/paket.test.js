@@ -43,10 +43,10 @@ var simplePaketDeps = {
 
 
 test('parse simple-paket project', function (t) {
-  return plugin.inspect(simplePaket, 'paket.dependencies')
+  plugin.inspect(simplePaket, 'paket.dependencies')
     .then(function (tree) {
       t.deepEquals(tree.package.dependencies, simplePaketDeps, 'expected dependencies');
-      t.equals(tree.package.name, path.resolve(simplePaket, 'paket.dependencies'), 'correct name');
+      t.equals(tree.package.name, 'simple-paket', 'correct name');
       t.end();
     }).catch(function (err) {
       t.fail('did not expect error' + err);
@@ -54,10 +54,10 @@ test('parse simple-paket project', function (t) {
 });
 
 test('parse simple-paket project from upper dir', function (t) {
-  return plugin.inspect(stubsDir, 'simple-paket/paket.dependencies')
+  plugin.inspect(stubsDir, 'simple-paket/paket.dependencies')
     .then(function (tree) {
       t.deepEquals(tree.package.dependencies, simplePaketDeps, 'expected dependencies');
-      t.equals(tree.package.name, path.resolve(simplePaket, 'paket.dependencies'), 'correct name');
+      t.equals(tree.package.name, 'simple-paket', 'correct name');
       t.end();
     }).catch(function (err) {
       t.fail('did not expect error ' + err);
@@ -71,5 +71,5 @@ test('fail to parse paket with missing lock file project', function (t) {
     }).catch(function (err) {
       t.ok(/Lockfile not found at location.*/.test(err.toString()), 'expected error');
       t.end();
-  });
+    });
 });
