@@ -2,7 +2,9 @@ var test = require('tap').test;
 var plugin = require('../lib/index');
 var path = require('path');
 
-var simplePaket = './test/stubs/simple-paket/';
+var stubsDir = './test/stubs';
+var simplePaket = stubsDir + '/simple-paket/';
+var missingLock = stubsDir + '/paket-missing-lock/';
 
 var simplePaketDeps = {
   'FSharp.Formatting': {
@@ -44,7 +46,30 @@ test('parse simple-paket project', function (t) {
   plugin.inspect(simplePaket, 'paket.dependencies')
     .then(function (tree) {
       t.deepEquals(tree.package.dependencies, simplePaketDeps, 'expected dependencies');
-      t.equals(tree.package.name, path.resolve(simplePaket, 'paket.dependencies'), 'correct name');
+      t.equals(tree.package.name, 'simple-paket', 'correct name');
+      t.end();
+    }).catch(function (err) {
+      t.fail('did not expect error' + err);
+    });
+});
+
+test('parse simple-paket project from upper dir', function (t) {
+  plugin.inspect(stubsDir, 'simple-paket/paket.dependencies')
+    .then(function (tree) {
+      t.deepEquals(tree.package.dependencies, simplePaketDeps, 'expected dependencies');
+      t.equals(tree.package.name, 'simple-paket', 'correct name');
+      t.end();
+    }).catch(function (err) {
+      t.fail('did not expect error ' + err);
+    });
+});
+
+test('fail to parse paket with missing lock file project', function (t) {
+  plugin.inspect(missingLock, 'paket.dependencies')
+    .then(function () {
+      t.fail('expected error');
+    }).catch(function (err) {
+      t.ok(/Lockfile not found at location.*/.test(err.toString()), 'expected error');
       t.end();
     });
 });
