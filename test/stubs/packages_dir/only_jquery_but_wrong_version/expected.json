@@ -13,6 +13,7 @@
   },
   "plugin": {
     "name": "snyk-nuget-plugin",
-    "targetFile": "packages.config"
+    "targetFile": "packages.config",
+    "targetRuntime": "netcoreapp2.0"
   }
 }
