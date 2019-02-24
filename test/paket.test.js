@@ -1,6 +1,5 @@
 var test = require('tap').test;
 var plugin = require('../lib/index');
-var path = require('path');
 
 var stubsDir = './test/stubs';
 var simplePaket = stubsDir + '/simple-paket/';

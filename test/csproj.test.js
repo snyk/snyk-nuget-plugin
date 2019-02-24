@@ -1,6 +1,6 @@
 var test = require('tap').test;
 var plugin = require('../lib/index');
-var determineDotnetVersion = require('../lib/proj-parser');
+var determineDotnetVersion = require('../lib/nuget-parser/csproj-parser');
 
 var multipleFrameworksPath = './test/stubs/target_framework/csproj_multiple/';
 var noProjectPath = './test/stubs/target_framework/no_csproj/';
