@@ -1,21 +1,22 @@
-var test = require('tap').test;
-var fs = require('fs');
+'use strict';
+const test = require('tap').test;
+const fs = require('fs');
 
-var plugin = require('../lib/index');
-var targetProjectJsonFile = './test/stubs/dummy_project_1/';
-var targetPackagesConfigFile =
+const plugin = require('../lib/index');
+const targetProjectJsonFile = './test/stubs/dummy_project_1/';
+const targetPackagesConfigFile =
   targetProjectJsonFile + 'dummy_project_1/packages.config';
-var alternatePackagesFolder =
+const alternatePackagesFolder =
   targetProjectJsonFile + 'alternate_packages';
-var targetJSONManifestData =
+const targetJSONManifestData =
   require('./stubs/_2_project.json');
 
 
-test('parse project.assets.json - like and traverse packages', function (t) {
-  var expectedTreeFile =
+test('parse _2_project.json - like and traverse packages', function (t) {
+  const expectedTreeFile =
   fs.readFileSync(
     targetProjectJsonFile + 'dummy_project_1/expected_csproj.json');
-  var expectedTree = JSON.parse(expectedTreeFile.toString());
+  const expectedTree = JSON.parse(expectedTreeFile.toString());
   // NUnit can be referenced in .nuspec files.
   // In this test the manifest file has no NUnit reference,
   // therefor it is not expected to be in the result.
@@ -46,10 +47,10 @@ test('parse project.assets.json - like and traverse packages', function (t) {
 });
 
 test('parse packages.config and traverse packages', function (t) {
-  var expectedTreeFile =
+  const expectedTreeFile =
     fs.readFileSync(
       targetProjectJsonFile + 'dummy_project_1/expected_pkgcfg.json');
-  var expectedTree = JSON.parse(expectedTreeFile.toString());
+  const expectedTree = JSON.parse(expectedTreeFile.toString());
 
   plugin.inspect(null, targetPackagesConfigFile, null)
     .then(function (result) {
@@ -72,10 +73,10 @@ test('parse packages.config and traverse packages', function (t) {
 
 test('parse packages.config and traverse alternate packages folder',
   function (t) {
-    var expectedTreeFile =
+    const expectedTreeFile =
       fs.readFileSync(
         targetProjectJsonFile + 'dummy_project_1/expected_pkgcfg.json');
-    var expectedTree = JSON.parse(expectedTreeFile.toString());
+    const expectedTree = JSON.parse(expectedTreeFile.toString());
 
     plugin.inspect(null, targetPackagesConfigFile, {
       packagesFolder: alternatePackagesFolder,

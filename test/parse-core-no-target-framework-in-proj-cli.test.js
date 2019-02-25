@@ -1,11 +1,11 @@
 'use strict';
 const test = require('tap').test;
 const plugin = require('../lib/index');
-const projectPath = './test/stubs/dotnet_project';
+const projectPath = './test/stubs/CoreNoTargetFrameworkInProj/';
 const manifestFile = 'obj/project.assets.json';
-const expectedTree = require('./stubs/dotnet_project/expected.json');
+const expectedTree = require('./stubs/CoreNoTargetFrameworkInProj/expected.json');
 
-test('parse dotnet-cli 2 project and traverse packages', function (t) {
+test('parse core without target framework in proj cli', function (t) {
   plugin.inspect(
     projectPath,
     manifestFile)

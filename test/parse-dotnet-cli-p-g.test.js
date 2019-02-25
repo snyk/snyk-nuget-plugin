@@ -1,9 +1,10 @@
-var test = require('tap').test;
-var path = require('path');
-var plugin = require('../lib/index');
-var projectPath = './test/stubs/dotnet_p_g';
-var manifestFile = 'obj/project.assets.json';
-var expectedTree = require('./stubs/dotnet_p_g/expected.json');
+'use strict';
+const test = require('tap').test;
+const path = require('path');
+const plugin = require('../lib/index');
+const projectPath = './test/stubs/dotnet_p_g';
+const manifestFile = 'obj/project.assets.json';
+const expectedTree = require('./stubs/dotnet_p_g/expected.json');
 
 test('parse dotnet-cli project and traverse packages', function (t) {
   plugin.inspect(
