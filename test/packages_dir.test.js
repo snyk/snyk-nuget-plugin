@@ -1,19 +1,20 @@
-var path = require('path');
-var test = require('tap').test;
-var plugin = require('../lib/index');
-var projectPath = './test/stubs/packages_dir';
+'use strict';
+const path = require('path');
+const test = require('tap').test;
+const plugin = require('../lib/index');
+const projectPath = './test/stubs/packages_dir';
 
-var app1Path = projectPath + '/only_jquery/';
-var app1ManifestFile = 'packages.config';
-var app1ExpectedTree = require(path.resolve(app1Path, 'expected.json'));
+const app1Path = projectPath + '/only_jquery/';
+const app1ManifestFile = 'packages.config';
+const app1ExpectedTree = require(path.resolve(app1Path, 'expected.json'));
 
-var app2Path = projectPath + '/only_jquery_but_wrong_version/';
-var app2ManifestFile = 'packages.config';
-var app2ExpectedTree = require(path.resolve(app2Path, 'expected.json'));
+const app2Path = projectPath + '/only_jquery_but_wrong_version/';
+const app2ManifestFile = 'packages.config';
+const app2ExpectedTree = require(path.resolve(app2Path, 'expected.json'));
 
-var app3Path = projectPath + '/only_momentjs/';
-var app3ManifestFile = 'packages.config';
-var app3ExpectedTree = require(path.resolve(app3Path, 'expected.json'));
+const app3Path = projectPath + '/only_momentjs/';
+const app3ManifestFile = 'packages.config';
+const app3ExpectedTree = require(path.resolve(app3Path, 'expected.json'));
 
 test('packages contains many deps: only jquery', function (t) {
   plugin.inspect(

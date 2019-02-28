@@ -1,8 +1,9 @@
-var test = require('tap').test;
-var plugin = require('../lib/index');
-var projectPath = './test/stubs/dotnet_2/';
-var manifestFile = projectPath + 'obj/project.assets.json';
-var expectedTree = require('./stubs/dotnet_2/expected.json');
+'use strict';
+const test = require('tap').test;
+const plugin = require('../lib/index');
+const projectPath = './test/stubs/dotnet_2/';
+const manifestFile = projectPath + 'obj/project.assets.json';
+const expectedTree = require('./stubs/dotnet_2/expected.json');
 
 test('parse dotnet-cli 2 with duplicate deps project and traverse packages',
   function (t) {

@@ -1,5 +1,6 @@
-var test = require('tap').test;
-var plugin = require('../lib/index');
+'use strict';
+const test = require('tap').test;
+const plugin = require('../lib/index');
 
 test('Should throw error for unrecognized manifest file', function (t) {
   plugin.inspect(null, 'unknown.type')

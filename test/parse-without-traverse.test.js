@@ -1,8 +1,9 @@
-var test = require('tap').test;
+'use strict';
+const test = require('tap').test;
 
-var plugin = require('../lib/index');
-var targetProjectJsonPath = './test/stubs';
-var targetProjectJsonFile = '_1_project.json';
+const plugin = require('../lib/index');
+const targetProjectJsonPath = './test/stubs';
+const targetProjectJsonFile = '_1_project.json';
 
 function createEmptyNode(name, version) {
   return {
@@ -35,7 +36,7 @@ function buildExpectedTree() {
 }
 
 test('parse project.json file', function (t) {
-  var expectedTree = buildExpectedTree();
+  const expectedTree = buildExpectedTree();
 
   plugin.inspect(targetProjectJsonPath, targetProjectJsonFile, null)
     .then(function (result) {

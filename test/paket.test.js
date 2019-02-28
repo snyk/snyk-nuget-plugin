@@ -1,12 +1,12 @@
-var test = require('tap').test;
-var plugin = require('../lib/index');
-var path = require('path');
+'use strict';
+const test = require('tap').test;
+const plugin = require('../lib/index');
 
-var stubsDir = './test/stubs';
-var simplePaket = stubsDir + '/simple-paket/';
-var missingLock = stubsDir + '/paket-missing-lock/';
+const stubsDir = './test/stubs';
+const simplePaket = stubsDir + '/simple-paket/';
+const missingLock = stubsDir + '/paket-missing-lock/';
 
-var simplePaketDeps = {
+const simplePaketDeps = {
   'FSharp.Formatting': {
     depType: 'prod',
     dependencies: {
