@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TTTargetFramework>netcoreapp2.0</TTTargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>9.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="NuGet.Protocol">
+      <Version>4.4.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
