@@ -9,7 +9,7 @@ test('parse core without project name in project assets file with assets-project
   plugin.inspect(
     projectPath,
     manifestFile,
-    { 'assets-project-name': true })
+    {'assets-project-name': true})
     .then(function (result) {
       t.deepEqual(
         result,
