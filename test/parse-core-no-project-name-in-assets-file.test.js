@@ -1,9 +1,9 @@
 'use strict';
 const test = require('tap').test;
 const plugin = require('../lib/index');
-const projectPath = './test/stubs/coreNoProjectNameInAssets/';
+const projectPath = './test/stubs/CoreNoProjectNameInAssets/';
 const manifestFile = 'obj/project.assets.json';
-const expectedTree = require('./stubs/coreNoProjectNameInAssets/expected.json');
+const expectedTree = require('./stubs/CoreNoProjectNameInAssets/expected.json');
 
 test('parse core without project name in project assets file with assets-project-name argument', function (t) {
   plugin.inspect(
