@@ -9,10 +9,10 @@ const noValidFrameworksPath =
   './test/stubs/target_framework/no_target_valid_framework';
 const manifestFile = 'obj/project.assets.json';
 
-test('parse dotnet with csproj containing multiple versions', function (t) {
+test('parse dotnet with csproj containing multiple versions retrieves first one', function (t) {
   const dotnetVersions = determineDotnetVersion(
     multipleFrameworksPath);
-  t.ok(dotnetVersions, ['.NETCore2.0','.NETFramework462']);
+  t.equal('netcoreapp2.0', dotnetVersions.original);
   t.end();
 });
 
@@ -20,11 +20,9 @@ test('parse dotnet with vbproj', function (t) {
   plugin.inspect(
     noProjectPath,
     manifestFile)
-    .then(function () {
-      t.fail('Expected error to be thrown!');
-    })
-    .catch(function (err) {
-      t.ok(/\.csproj file not found.*/.test(err.toString()), 'expected error');
+    .then(function (res) {
+      t.equal(res.package.name, 'no_csproj');
+      t.equal(res.plugin.targetRuntime, 'netcoreapp2.0');
       t.end();
     });
 });
@@ -37,8 +35,7 @@ test('parse dotnet with no valid framework defined', function (t) {
       t.fail('Expected error to be thrown!');
     })
     .catch(function (err) {
-      t.ok(/Could not find valid\/supported \.NET version.*/
-        .test(err.toString()), 'expected error');
+      t.equal(err.message, 'No frameworks were found in project.assets.json', 'expected error');
       t.end();
     });
 });
