@@ -3,8 +3,10 @@ const test = require('tap').test;
 const plugin = require('../lib/index');
 const projectPath = './test/stubs/CoreProjectNameInAssets/';
 const manifestFile = 'obj/project.assets.json';
-const expectedTreeWithAssetsProjectNameArgument = require('./stubs/CoreProjectNameInAssets/expectedWithAssetsProjectNameArgument.json');
-const expectedTreeWithoutAssetsProjectNameArgument = require('./stubs/CoreProjectNameInAssets/expectedWithoutAssetsProjectNameArgument.json');
+const expectedTreeWithAssetsProjectNameArgument
+  = require('./stubs/CoreProjectNameInAssets/expectedWithAssetsProjectNameArgument.json');
+const expectedTreeWithoutAssetsProjectNameArgument
+  = require('./stubs/CoreProjectNameInAssets/expectedWithoutAssetsProjectNameArgument.json');
 
 test('parse core with project name in project assets file with assets-project-name', function (t) {
   plugin.inspect(
