@@ -5,7 +5,9 @@
   "scripts": {
     "lint": "eslint -c .eslintrc lib test",
     "test": "npm run lint && tap test/*.test.js -R=spec --timeout=120",
-    "dev": "nodemon -x 'npm run test'"
+    "dev": "nodemon -x 'npm run test'",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -26,12 +28,14 @@
     "jszip": "^3.1.5",
     "lodash": "^4.17.10",
     "snyk-paket-parser": "1.5.0",
-    "xml2js": "^0.4.17"
+    "xml2js": "^0.4.17",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "eslint": "^4.11.0",
     "nodemon": "^1.12.1",
     "tap": "12.4.1",
     "tap-only": "0.0.5"
-  }
+  },
+  "snyk": true
 }
