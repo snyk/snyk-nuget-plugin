@@ -1,9 +1,3 @@
 node_modules
-.idea
-
-tap
-
-.result.json
-.vscode
-
+dist
 package-lock.json
