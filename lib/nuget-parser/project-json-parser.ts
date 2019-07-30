@@ -2,7 +2,7 @@ import * as dependency from './dependency';
 import * as debugModule from 'debug';
 const debug = debugModule('snyk');
 
-function scanForDependencies(obj, deps) {
+function scanForDependencies(obj, deps): JsonManifestDependencies {
   deps = deps || {};
   if (typeof obj !== 'object') {
     return deps;
@@ -30,19 +30,26 @@ function scanForDependencies(obj, deps) {
   return deps;
 }
 
-function parseJsonManifest(fileContent) {
+interface JsonManifestDependencies{
+  dependencies: any;
+  project?: {
+    version: string;
+    name: string;
+  };
+}
+
+function parseJsonManifest(fileContent): JsonManifestDependencies {
   const rawContent = JSON.parse(fileContent);
-  const result: any = {};
-  result.dependencies = scanForDependencies(rawContent, {});
+  const result: JsonManifestDependencies = {
+    dependencies: scanForDependencies(rawContent, {}),
+  };
   if (typeof rawContent.project === 'object') {
     const pData = rawContent.project;
     const name = (pData.restore && pData.restore.projectName);
     result.project = {
       version: pData.version || '0.0.0',
+      name,
     };
-    if (name) {
-      result.project.name = name;
-    }
   }
   return result;
 }

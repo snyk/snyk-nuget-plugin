@@ -37,7 +37,7 @@ export function fromFolderName(folderName) {
   };
 }
 
-export function fromPackgesConfigEntry(manifest) {
+export function fromPackagesConfigEntry(manifest) {
     debug('Extracting by packages.config entry:' +
       ' name = ' + manifest.$.id +
       ' version = ' + manifest.$.version);

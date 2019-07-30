@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as dependency from './dependency';
+import {Dependency, cloneShallow, fromFolderName} from './dependency';
 import {parseNuspec} from './nuspec-parser';
 import * as debugModule from 'debug';
 const debug = debugModule('snyk');
@@ -29,7 +29,7 @@ function scanInstalled(installedPackages, packagesFolder) {
     fs.readdirSync(packagesFolder)
       .map((folderName) => {
         try {
-          return dependency.fromFolderName(folderName);
+          return fromFolderName(folderName);
         } catch (err) {
           debug('Unable to parse dependency from folder');
           debug(err);
@@ -59,15 +59,15 @@ function scanInstalled(installedPackages, packagesFolder) {
 }
 
 async function fetchNugetInformationFromPackages(flattenedPackageList, targetFramework) {
-  const nuspecParserChain: any = [];
+  const nugetPackageInformation: any[] = [];
   // begin collecting information from .nuget files on installed packages
   debug('Trying to analyze .nuspec files');
   for (const name of Object.keys(flattenedPackageList)) {
     const dep = flattenedPackageList[name];
     debug('...' + name);
-    nuspecParserChain.push(await parseNuspec(dep, targetFramework));
+    nugetPackageInformation.push(await parseNuspec(dep, targetFramework));
   }
-  return Promise.all(nuspecParserChain);
+  return nugetPackageInformation;
 }
 
 function processNugetInformation(nuspecResolutionChain) {
@@ -82,59 +82,58 @@ function processNugetInformation(nuspecResolutionChain) {
   return nuspecResolutions;
 }
 
+function buildTree(node, requiredChildren, flattenedPackageList, nuspecResolutions) {
+  for (const requiredChild of requiredChildren) {
+    let transitiveDependency: Dependency;
+    if (flattenedPackageList[requiredChild.name]) {
+      // fetch from repo
+      transitiveDependency = cloneShallow(flattenedPackageList[requiredChild.name]);
+    } else {
+      // create as new (uninstalled)
+      transitiveDependency = {
+        dependencies: {},
+        name: requiredChild.name,
+        version: requiredChild.version,
+      };
+    }
+    const transitiveChildren =
+      (nuspecResolutions[transitiveDependency.name] &&
+        nuspecResolutions[transitiveDependency.name].children) || [];
+    buildTree(
+      transitiveDependency,
+      transitiveChildren,
+      flattenedPackageList,
+      nuspecResolutions);
+    node.dependencies[transitiveDependency.name] = transitiveDependency;
+  }
+}
+
+
 export async function parse(tree, manifest, targetFramework, packagesFolder) {
   if (!targetFramework) {
     throw new Error('No valid Dotnet target framework found');
   }
 
   const flattenedPackageList = scanInstalled(manifest, packagesFolder);
-  return fetchNugetInformationFromPackages(flattenedPackageList, targetFramework)
-    .then(processNugetInformation)
-    .then(function buildDependencyTree(nuspecResolutions) {
-      // .nuget parsing is complete, returned as array of promise resolutions
-      // now the flat list should be rebuilt as a tree
-      debug('Building dependency tree');
+  const nugetPackageInformation = await fetchNugetInformationFromPackages(flattenedPackageList, targetFramework);
+  const nuspecResolutions = processNugetInformation(nugetPackageInformation);
+  // .nuget parsing is complete, returned as array of promise resolutions
+  // now the flat list should be rebuilt as a tree
+  debug('Building dependency tree');
 
-      function buildTree(node, requiredChildren, repository) {
-        requiredChildren.forEach((requiredChild) => {
-          let transitiveDependency: dependency.Dependency;
-          if (flattenedPackageList[requiredChild.name]) {
-            // fetch from repo
-            transitiveDependency =
-              dependency.cloneShallow(flattenedPackageList[requiredChild.name]);
-          } else {
-            // create as new (uninstalled)
-            transitiveDependency = {
-              dependencies: {},
-              name: requiredChild.name,
-              version: requiredChild.version,
-            };
-          }
-          const transitiveChildren =
-            (nuspecResolutions[transitiveDependency.name] &&
-              nuspecResolutions[transitiveDependency.name].children) || [];
-          buildTree(
-            transitiveDependency,
-            transitiveChildren,
-            repository);
-          node.dependencies[transitiveDependency.name] = transitiveDependency;
-        });
-      }
-
-      const nugtKeys = Object.keys(nuspecResolutions);
-      Object.keys(flattenedPackageList).forEach((packageName) => {
-        tree.dependencies[packageName] =
-          dependency.cloneShallow(flattenedPackageList[packageName]);
-      });
-      if (nugtKeys.length > 0) {
-        // local folders scanned, build list from .nuspec
-        for (const key of nugtKeys) {
-          const resolution = nuspecResolutions[key];
-          const node = dependency.cloneShallow(flattenedPackageList[resolution.name]);
-          buildTree(node, resolution.children, flattenedPackageList);
-          tree.dependencies[node.name] = node;
-        }
-      }
-      return tree;
-    });
+  const nugetKeys = Object.keys(nuspecResolutions);
+  Object.keys(flattenedPackageList).forEach((packageName) => {
+    tree.dependencies[packageName] =
+      cloneShallow(flattenedPackageList[packageName]);
+  });
+  if (nugetKeys.length > 0) {
+    // local folders scanned, build list from .nuspec
+    for (const key of nugetKeys) {
+      const resolution = nuspecResolutions[key];
+      const node = cloneShallow(flattenedPackageList[resolution.name]);
+      buildTree(node, resolution.children, flattenedPackageList, nuspecResolutions);
+      tree.dependencies[node.name] = node;
+    }
+  }
+  return tree;
 }

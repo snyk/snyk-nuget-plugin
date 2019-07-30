@@ -1,10 +1,19 @@
-import {BigTreeError, InvalidManifestError} from '../errors';
+import {BigTreeError, FileNotProcessableError, InvalidManifestError} from '../errors';
 import * as _ from 'lodash';
 import * as debugModule from 'debug';
 const debug = debugModule('snyk');
 
 // TODO: any convention for global vars? (gFreqDeps)
-const freqDeps: any = {};
+interface FreqDepParent {
+  dependencies: any;
+  name: 'freqSystemDependencies';
+  version: number;
+}
+
+interface FreqDeps {
+  [dep: string]: boolean | FreqDepParent;
+}
+const freqDeps: FreqDeps = {};
 
 function initFreqDepsDict() {
   freqDeps['Microsoft.NETCore.Platforms'] = false;
@@ -137,48 +146,39 @@ function validateManifest(manifest) {
   }
 }
 
-module.exports = {
-  parse: (tree, manifest) => {
-    return new Promise(function parseFileContents(resolve, reject) {
-      debug('Trying to parse dot-net-cli manifest');
+export async function parse (tree, manifest) {
+  debug('Trying to parse dot-net-cli manifest');
 
-      try {
-        validateManifest(manifest);
-      } catch (err) {
-        debug('Invalid project.assets.json manifest file');
-        reject(err);
-      }
+  validateManifest(manifest);
 
-      if (manifest.project.version) {
-        tree.version = manifest.project.version;
-      }
+  if (manifest.project.version) {
+    tree.version = manifest.project.version;
+  }
 
-      // If a targetFramework was not found in the proj file, we will extract it from the lock file
-      if (!tree.meta.targetFramework) {
-        tree.meta.targetFramework = getFrameworkToRun(manifest);
-      }
-      const selectedFrameworkObj = manifest.project.frameworks[tree.meta.targetFramework];
+  // If a targetFramework was not found in the proj file, we will extract it from the lock file
+  if (!tree.meta.targetFramework) {
+    tree.meta.targetFramework = getFrameworkToRun(manifest);
+  }
+  const selectedFrameworkObj = manifest.project.frameworks[tree.meta.targetFramework];
 
-      // We currently ignore the found targetFramework when looking for target dependencies
-      const selectedTargetObj = getTargetObjToRun(manifest);
+  // We currently ignore the found targetFramework when looking for target dependencies
+  const selectedTargetObj = getTargetObjToRun(manifest);
 
-      initFreqDepsDict();
+  initFreqDepsDict();
 
-      const directDependencies = collectFlatList(selectedFrameworkObj.dependencies);
-      debug(`directDependencies: '${directDependencies}'`);
+  const directDependencies = collectFlatList(selectedFrameworkObj.dependencies);
+  debug(`directDependencies: '${directDependencies}'`);
 
-      directDependencies.forEach((directDep) => {
-        debug(`First order dep: '${directDep}'`);
-        buildTreeRecursive(selectedTargetObj, directDep, tree, 0);
-      });
+  directDependencies.forEach((directDep) => {
+    debug(`First order dep: '${directDep}'`);
+    buildTreeRecursive(selectedTargetObj, directDep, tree, 0);
+  });
 
-      if (!_.isEmpty(freqDeps.dependencies.dependencies)) {
-        tree.dependencies.freqSystemDependencies = freqDeps.dependencies;
-      }
-      // to disconnect the object references inside the tree
-      // JSON parse/stringify is used
-      tree.dependencies = JSON.parse(JSON.stringify(tree.dependencies));
-      resolve(tree);
-    });
-  },
-};
+  if (!_.isEmpty((freqDeps.dependencies as FreqDepParent).dependencies)) {
+    tree.dependencies.freqSystemDependencies = freqDeps.dependencies;
+  }
+  // to disconnect the object references inside the tree
+  // JSON parse/stringify is used
+  tree.dependencies = JSON.parse(JSON.stringify(tree.dependencies));
+  return tree;
+}

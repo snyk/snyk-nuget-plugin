@@ -4,8 +4,7 @@
     "pretty": true,
     "target": "es2015",
     "lib": [
-      "es2015",
-      "es2016.array.include",
+      "es2015"
     ],
     "module": "commonjs",
     "allowJs": true,

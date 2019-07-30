@@ -1,10 +1,10 @@
 import * as parseXML from 'xml2js';
 import * as debugModule from 'debug';
 const debug = debugModule('snyk');
-import * as dependency from './dependency';
+import {Dependency, fromPackagesConfigEntry} from './dependency';
 
 export function parse(fileContent) {
-  const installedPackages: dependency.Dependency[] = [];
+  const installedPackages: Dependency[] = [];
   debug('Trying to parse packages.config manifest');
   parseXML.parseString(fileContent, (err, result) => {
     if (err) {
@@ -15,7 +15,7 @@ export function parse(fileContent) {
       packages.forEach(
         function scanPackagesConfigNode(node) {
           const installedDependency =
-            dependency.fromPackgesConfigEntry(node);
+            fromPackagesConfigEntry(node);
           installedPackages.push(installedDependency);
         });
     }

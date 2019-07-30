@@ -7,41 +7,50 @@ import * as _ from 'lodash';
 import * as debugModule from 'debug';
 const debug = debugModule('snyk');
 
-export async function getTargetFrameworksFromProjFile(rootDir) {
-  debug('Looking for your .csproj file in ' + rootDir);
-  const csprojPath = findFile(rootDir, /.*\.csproj$/);
-  if (csprojPath) {
-    debug('Checking .net framework version in .csproj file ' + csprojPath);
-
-    const csprojContents = fs.readFileSync(csprojPath);
-
-    let frameworks: any = [];
-    parseXML.parseString(csprojContents, (err, parsedCsprojContents) => {
-      if (err) {
-        throw new FileNotProcessableError(err);
-      }
-      const versionLoc = _.get(parsedCsprojContents, 'Project.PropertyGroup[0]');
-      const versions = _.compact(_.concat([],
-        _.get(versionLoc, 'TargetFrameworkVersion[0]') ||
-        _.get(versionLoc, 'TargetFramework[0]') ||
-        _.get(versionLoc, 'TargetFrameworks[0]', '').split(';')));
-
-      if (versions.length < 1) {
-        debug('Could not find TargetFrameworkVersion/TargetFramework' +
-          '/TargetFrameworks defined in the Project.PropertyGroup field of ' +
-          'your .csproj file');
-      }
-      frameworks = _.compact(_.map(versions, toReadableFramework));
-      if (versions.length > 1 && frameworks.length < 1) {
-        debug('Could not find valid/supported .NET version in csproj file located at' + csprojPath);
-      }
-    });
-    return frameworks[0];
-  }
-  debug('.csproj file not found in ' + rootDir + '.');
+interface TargetFramework {
+  framework: string;
+  original: string;
+  version: string;
 }
 
-function toReadableFramework(targetFramework) {
+export async function getTargetFrameworksFromProjFile(rootDir: string): Promise<any> {
+  return new Promise((resolve, reject) => {
+    debug('Looking for your .csproj file in ' + rootDir);
+    const csprojPath = findFile(rootDir, /.*\.csproj$/);
+    if (csprojPath) {
+      debug('Checking .net framework version in .csproj file ' + csprojPath);
+
+      const csprojContents = fs.readFileSync(csprojPath);
+
+      let frameworks: TargetFramework[] = [];
+      parseXML.parseString(csprojContents, (err, parsedCsprojContents) => {
+        if (err) {
+          reject(new FileNotProcessableError(err));
+        }
+        const versionLoc = _.get(parsedCsprojContents, 'Project.PropertyGroup[0]');
+        const versions = _.compact(_.concat([],
+          _.get(versionLoc, 'TargetFrameworkVersion[0]') ||
+          _.get(versionLoc, 'TargetFramework[0]') ||
+          _.get(versionLoc, 'TargetFrameworks[0]', '').split(';')));
+
+        if (versions.length < 1) {
+          debug('Could not find TargetFrameworkVersion/TargetFramework' +
+            '/TargetFrameworks defined in the Project.PropertyGroup field of ' +
+            'your .csproj file');
+        }
+        frameworks = _.compact(_.map(versions, toReadableFramework));
+        if (versions.length > 1 && frameworks.length < 1) {
+          debug('Could not find valid/supported .NET version in csproj file located at' + csprojPath);
+        }
+        resolve(frameworks[0]);
+      });
+    }
+    debug('.csproj file not found in ' + rootDir + '.');
+    resolve();
+  });
+}
+
+function toReadableFramework(targetFramework: string): TargetFramework | undefined {
   const typeMapping = {
     net: '.NETFramework',
     netcoreapp: '.NETCore',

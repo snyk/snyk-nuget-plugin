@@ -34,7 +34,6 @@ export async function parseNuspec(dep, targetFramework) {
           // We are only going to check the first targetFramework we encounter
           // in the future we may want to support multiple, but only once
           // we have dependency version conflict resolution implemented
-          // _(targetFrameworks).forEach((targetFramework) => {
           _(result.package.metadata).forEach((metadata) => {
             _(metadata.dependencies).forEach((rawDependency) => {
 

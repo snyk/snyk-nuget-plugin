@@ -11,7 +11,7 @@ const manifestFile = 'obj/project.assets.json';
 test('parse dotnet with csproj containing multiple versions retrieves first one', async (t) => {
   const dotnetVersions = await getTargetFrameworksFromProjFile(
     multipleFrameworksPath);
-  t.equal('netcoreapp2.0', dotnetVersions.original);
+  t.equal('netcoreapp2.0', dotnetVersions!.original);
 });
 
 test('parse dotnet with vbproj', async (t) => {
