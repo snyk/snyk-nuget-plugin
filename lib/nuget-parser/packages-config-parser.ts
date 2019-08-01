@@ -3,22 +3,22 @@ import * as debugModule from 'debug';
 const debug = debugModule('snyk');
 import {Dependency, fromPackagesConfigEntry} from './dependency';
 
-export function parse(fileContent) {
-  const installedPackages: Dependency[] = [];
-  debug('Trying to parse packages.config manifest');
-  parseXML.parseString(fileContent, (err, result) => {
-    if (err) {
-      throw err;
-    } else {
-      const packages = result.packages.package || [];
+export async function parse(fileContent: string): Promise<Dependency[]>  {
+  return new Promise((resolve, reject) => {
+    const installedPackages: Dependency[] = [];
+    debug('Trying to parse packages.config manifest');
+    parseXML.parseString(fileContent, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        const packages = result.packages.package || [];
 
-      packages.forEach(
-        function scanPackagesConfigNode(node) {
-          const installedDependency =
-            fromPackagesConfigEntry(node);
+        for (const node of packages) {
+          const installedDependency = fromPackagesConfigEntry(node);
           installedPackages.push(installedDependency);
-        });
-    }
-  });
-  return installedPackages;
+        }
+      }
+    });
+    resolve(installedPackages);
+  }) as Promise<Dependency[]>;
 }

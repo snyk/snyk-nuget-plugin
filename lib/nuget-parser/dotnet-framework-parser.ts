@@ -14,47 +14,51 @@ function injectPath(dep, packagesFolder) {
   }
 }
 
+interface PackageList {
+  [name: string]: Dependency;
+}
+
 function scanInstalled(installedPackages, packagesFolder) {
-  const flattenedPackageList = {};
-  debug('Located ' + installedPackages.length + ' packages in manifest');
-  installedPackages.forEach((entry) => {
+  const flattenedPackageList: PackageList = {};
+  debug(`Located ${installedPackages.length} packages in manifest`);
+  for (const entry of installedPackages) {
     injectPath(entry, packagesFolder);
     flattenedPackageList[entry.name] =
       flattenedPackageList[entry.name] || entry;
-    debug('Entry: ' + entry.name + ' -> ' + entry.path);
-  });
+    debug(`Entry: ${entry.name} -> ${entry.path}`);
+  }
   try {
     debug('Scanning local installed folders');
-    debug('Trying to read from installed packages folder: ' + packagesFolder);
-    fs.readdirSync(packagesFolder)
-      .map((folderName) => {
-        try {
-          return fromFolderName(folderName);
-        } catch (err) {
-          debug('Unable to parse dependency from folder');
-          debug(err);
+    debug(`Trying to read from installed packages folder: ${packagesFolder}`);
+    for (const folderName of fs.readdirSync(packagesFolder)) {
+      try {
+        const dep = fromFolderName(folderName);
+
+        injectPath(dep, packagesFolder);
+
+        // In case installedPackages is empty, we need to populate the flattenedPackageList with found
+        if (installedPackages.length === 0) {
+          debug(`${dep.name}@${dep.version} is in packages folder, but not in manifest. Adding to found packages`);
+          flattenedPackageList[dep.name] = dep;
         }
-      })
-      .forEach((dep) => {
-        if (dep) {
-          injectPath(dep, packagesFolder);
-          // only add a package from packages folder if version is different
-          if (flattenedPackageList[dep.name] &&
-            flattenedPackageList[dep.name].version !== dep.version) {
-            // prefer found from packages folder (dep) over existing
-            debug('For package ' + dep.name + ' the version ' +
-              flattenedPackageList[dep.name].version +
-              ' was extracted from manifest file.' +
-              '\nWe are overwriting it with version ' + dep.version +
-              ' from the packages folder');
-            flattenedPackageList[dep.name] = dep;
-          }
+
+        // only add a package from packages folder if version is different
+        if (flattenedPackageList[dep.name] &&
+          flattenedPackageList[dep.name].version !== dep.version) {
+          // prefer found from packages folder (dep) over existing
+          debug(`Overwriting ${dep.name} version ${flattenedPackageList[dep.name].version} to ${dep.version} extracted from packages folder.`);
+          flattenedPackageList[dep.name] = dep;
         }
-      });
+      } catch (err) {
+        debug('Unable to parse dependency from folder');
+        debug(err);
+      }
+    }
   } catch (err) {
     debug('Could not complete packages folder scanning');
     debug(err);
   }
+
   return flattenedPackageList;
 }
 
@@ -122,10 +126,10 @@ export async function parse(tree, manifest, targetFramework, packagesFolder) {
   debug('Building dependency tree');
 
   const nugetKeys = Object.keys(nuspecResolutions);
-  Object.keys(flattenedPackageList).forEach((packageName) => {
+  for (const packageName of Object.keys(flattenedPackageList)) {
     tree.dependencies[packageName] =
       cloneShallow(flattenedPackageList[packageName]);
-  });
+  }
   if (nugetKeys.length > 0) {
     // local folders scanned, build list from .nuspec
     for (const key of nugetKeys) {

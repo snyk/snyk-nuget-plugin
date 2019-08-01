@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "npm run eslint && npm run unit-test",
-    "unit-test": "tap -Rspec ./test/*.test.[tj]s --timeout=300",
+    "unit-test": "tap -Rspec ./test/parse-without-traverse.test.[tj]s --timeout=300",
     "eslint": "eslint -c .eslintrc.js lib/**/*",
     "build": "tsc",
     "build-watch": "tsc -w",
