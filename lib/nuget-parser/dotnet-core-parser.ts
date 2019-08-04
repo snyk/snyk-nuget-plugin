@@ -1,7 +1,10 @@
-import {BigTreeError, FileNotProcessableError, InvalidManifestError} from '../errors';
+import {InvalidManifestError} from '../errors';
 import * as _ from 'lodash';
 import * as debugModule from 'debug';
+import { Dependency } from './dependency';
 const debug = debugModule('snyk');
+
+const PACKAGE_DELIMITER = '@';
 
 // TODO: any convention for global vars? (gFreqDeps)
 interface FreqDepParent {
@@ -12,6 +15,11 @@ interface FreqDepParent {
 
 interface FreqDeps {
   [dep: string]: boolean | FreqDepParent;
+}
+
+interface DepLink {
+  from: Dependency;
+  to: Dependency;
 }
 const freqDeps: FreqDeps = {};
 
@@ -24,11 +32,6 @@ function initFreqDepsDict() {
   freqDeps['System.Threading.Tasks'] = false;
   freqDeps['System.Reflection'] = false;
   freqDeps['System.Globalization'] = false;
-  freqDeps.dependencies = {
-    dependencies: {},
-    name: 'freqSystemDependencies',
-    version: 0,
-  };
 }
 
 function convertFromPathSyntax(path) {
@@ -45,61 +48,89 @@ function collectFlatList(targetObj) {
   });
 }
 
-function buildTreeRecursive(targetDeps, depName, parent, treeDepth) {
-  const MAX_TREE_DEPTH = 40;
-  if (treeDepth > MAX_TREE_DEPTH) {
-    throw new BigTreeError('The depth of the tree is too big.');
-  }
-
-  let depResolvedName = '';
-  let originalDepKey = '';
-
-  debug(`${treeDepth}: Looking for '${depName}'`);
-  const depNameLowerCase = depName.toLowerCase();
-  const exists = Object.keys(targetDeps).some((currentDep) => {
-    const currentResolvedName = convertFromPathSyntax(currentDep);
-    if (currentResolvedName.split('@')[0].toLowerCase() === depNameLowerCase) {
-      depResolvedName = currentResolvedName;
-      originalDepKey = currentDep;
-      debug(`${treeDepth}: Found '${currentDep}'`);
-      return true;
-    }
-    return false;
-  });
-
-  if (!exists) {
-    debug(`Failed to find '${depName}'`);
-    return;
-  }
-
-  const depVersion = depResolvedName.split('@')[1];
-
-  parent.dependencies[depName] =
-    parent.dependencies[depName] || {
-      dependencies: {},
-      name: depName,
-      version: depVersion,
-    };
-
-  Object.keys(targetDeps[originalDepKey].dependencies || {}).forEach(
-    (currentDep) => {
-      if (currentDep in freqDeps) {
-        if (freqDeps[currentDep]) {
-          return;
-        }
-
-        buildTreeRecursive(targetDeps,
-          currentDep,
-          freqDeps.dependencies,
-          0);
-        freqDeps[currentDep] = true;
-      } else {
-        buildTreeRecursive(targetDeps,
-          currentDep,
-          parent.dependencies[depName],
-          treeDepth + 1);
+function buildBfsTree(targetDeps, roots) {
+  let queue = [...roots];
+  const nodes: Dependency[] = [];
+  const links: DepLink[] = [];
+  while (queue.length > 0) {
+    const dep = queue.shift();
+    const foundPackage = findPackage(targetDeps, dep);
+    if (foundPackage && !isScanned(nodes, foundPackage)) {
+      nodes.push(foundPackage);
+      if (foundPackage.dependencies) {
+        addPackageDepLinks(links, foundPackage);
+        queue = queue.concat(Object.keys(foundPackage.dependencies));
       }
-    });
+    }
+  }
+  return constructTree(roots, nodes, links);
+}
+
+function isScanned(nodes: Dependency[], pkg: Dependency): boolean {
+  const node = nodes.find((elem) => elem.name === pkg.name && elem.version === pkg.version);
+  return !!node;
+}
+
+function isFreqDep(packageName: string): boolean {
+  return packageName in freqDeps;
+}
+
+function addPackageDepLinks(links: DepLink[], pkg: Dependency) {
+  if (pkg && pkg.dependencies) {
+    const from = {name: pkg.name, version: pkg.version};
+    for (const name of Object.keys(pkg.dependencies)) {
+      const to = { name, version: pkg.dependencies[name] };
+      links.push({ from, to });
+    }
+  }
+}
+
+function findPackage(targetDeps, depName: string): Dependency | undefined {
+  debug(`Looking for ${depName}`);
+  const depNameLowerCase = depName.toLowerCase();
+  for (const currentDep of Object.keys(targetDeps)) {
+    const currentResolvedName = convertFromPathSyntax(currentDep);
+    const [currentDepName, currentDepVersion] = currentResolvedName.split(PACKAGE_DELIMITER);
+    if (currentDepName.toLowerCase() === depNameLowerCase) {
+      return {
+        name: depName,
+        version: currentDepVersion,
+        dependencies: targetDeps[currentDep].dependencies
+      };
+    }
+  }
+  debug(`Failed to find ${depName}`);
+  return undefined;
+}
+
+function constructTree(roots: string[], nodes: Dependency[], links: DepLink[]) {
+  const treeMap = {};
+  for (const node of nodes) {
+    const { name, version } = node;
+    const treeNode = { name, version, dependencies: {} };
+    treeMap[name] = treeNode;
+  }
+
+  for (const link of links) {
+    const parentName = link.from.name;
+    const childName = link.to.name;
+    const parentNode = treeMap[parentName];
+    const childNode = treeMap[childName];
+    if (!isFreqDep(childName)) {
+      parentNode.dependencies[childName] = {
+        ...childNode
+      };
+    }
+  }
+
+  const tree = _.pick(treeMap, roots);
+  const freqSysDeps = _.pick(treeMap, Object.keys(freqDeps));
+  tree['freqSystemDependencies'] = {
+    name: 'freqSystemDependencies',
+    version: '0.0.0',
+    dependencies: freqSysDeps
+  };
+  return tree;
 }
 
 function getFrameworkToRun(manifest) {
@@ -146,7 +177,7 @@ function validateManifest(manifest) {
   }
 }
 
-export async function parse (tree, manifest) {
+export async function parse(tree, manifest) {
   debug('Trying to parse dot-net-cli manifest');
 
   validateManifest(manifest);
@@ -169,14 +200,7 @@ export async function parse (tree, manifest) {
   const directDependencies = collectFlatList(selectedFrameworkObj.dependencies);
   debug(`directDependencies: '${directDependencies}'`);
 
-  directDependencies.forEach((directDep) => {
-    debug(`First order dep: '${directDep}'`);
-    buildTreeRecursive(selectedTargetObj, directDep, tree, 0);
-  });
-
-  if (!_.isEmpty((freqDeps.dependencies as FreqDepParent).dependencies)) {
-    tree.dependencies.freqSystemDependencies = freqDeps.dependencies;
-  }
+  tree.dependencies = buildBfsTree(selectedTargetObj, directDependencies);
   // to disconnect the object references inside the tree
   // JSON parse/stringify is used
   tree.dependencies = JSON.parse(JSON.stringify(tree.dependencies));
