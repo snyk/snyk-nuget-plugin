@@ -4,7 +4,7 @@ const debug = debugModule('snyk');
 export interface Dependency {
   name: string;
   version: string;
-  dependencies: any;
+  dependencies?: any;
 }
 
 export function cloneShallow(dep: Dependency): Dependency {
