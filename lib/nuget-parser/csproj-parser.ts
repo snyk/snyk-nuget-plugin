@@ -5,16 +5,11 @@ import * as path from 'path';
 import * as parseXML from 'xml2js';
 import * as _ from 'lodash';
 import * as debugModule from 'debug';
+import { TargetFramework } from './types';
 const debug = debugModule('snyk');
 
-interface TargetFramework {
-  framework: string;
-  original: string;
-  version: string;
-}
-
-export async function getTargetFrameworksFromProjFile(rootDir: string): Promise<any> {
-  return new Promise((resolve, reject) => {
+export async function getTargetFrameworksFromProjFile(rootDir: string): Promise<TargetFramework | undefined> {
+  return new Promise<TargetFramework | undefined>((resolve, reject) => {
     debug('Looking for your .csproj file in ' + rootDir);
     const csprojPath = findFile(rootDir, /.*\.csproj$/);
     if (csprojPath) {
