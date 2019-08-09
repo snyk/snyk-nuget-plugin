@@ -10,6 +10,9 @@ import * as dotnetFrameworkParser from './dotnet-framework-parser';
 import * as projectJsonParser from './project-json-parser';
 import * as packagesConfigParser from './packages-config-parser';
 import {FileNotProcessableError} from '../errors';
+import { TargetFramework } from './types';
+import * as depsParser from 'dotnet-deps-parser';
+import { toReadableFramework } from './framework';
 
 const PARSERS = {
   'dotnet-core': {
@@ -34,12 +37,14 @@ function getPackagesFolder(packagesFolder, projectRootFolder) {
 }
 
 export async function buildDepTreeFromFiles(
-  root,
-  targetFile,
+  root: string | undefined,
+  targetFile: string | undefined,
   packagesFolderPath,
   manifestType,
   useProjectNameFromAssetsFile) {
-  const fileContentPath = path.resolve(root || '.', targetFile || '.');
+  const safeRoot = root || '.';
+  const safeTargetFile = targetFile || '.';
+  const fileContentPath = path.resolve(safeRoot, safeTargetFile);
   let fileContent;
   try {
     debug(`Parsing content of ${fileContentPath}`);
@@ -58,13 +63,22 @@ export async function buildDepTreeFromFiles(
     version: '0.0.0',
   };
 
-  let targetFramework;
+  let targetFramework: TargetFramework | undefined;
   try {
     if (manifestType === 'dotnet-core') {
       targetFramework = await getTargetFrameworksFromProjFile(projectRootFolder);
     } else {
       // .csproj is in the same directory as packages.config or project.json
-      targetFramework = await getTargetFrameworksFromProjFile(path.resolve(fileContentPath, '../'));
+      const fileContentParentDirectory = path.resolve(fileContentPath, '../');
+      targetFramework = await getTargetFrameworksFromProjFile(fileContentParentDirectory);
+
+      // finally, for the .NETFramework project, try to assume the framework using dotnet-deps-parser
+      if (!targetFramework) {
+        // currently only process packages.config files
+        if (manifestType === 'packages.config') {
+          targetFramework = await getMinimumTargetFrameworkFromPackagesConfig(fileContent);
+        }
+      }
     }
   } catch (error) {
     return Promise.reject(error);
@@ -91,4 +105,15 @@ export async function buildDepTreeFromFiles(
     manifest,
     targetFramework,
     packagesFolder);
+}
+
+export async function getMinimumTargetFrameworkFromPackagesConfig(fileContent: string): Promise<TargetFramework | undefined> {
+  const extractedFrameworks = await depsParser.extractTargetFrameworksFromProjectConfig(fileContent);
+
+  if (extractedFrameworks && extractedFrameworks.length > 0) {
+    const minimumFramework = extractedFrameworks.reduce((prev, curr) => prev < curr ? prev : curr);
+    return toReadableFramework(minimumFramework);
+  }
+
+  return undefined;
 }
