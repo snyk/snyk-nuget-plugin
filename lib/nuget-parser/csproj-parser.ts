@@ -5,16 +5,12 @@ import * as path from 'path';
 import * as parseXML from 'xml2js';
 import * as _ from 'lodash';
 import * as debugModule from 'debug';
+import { TargetFramework } from './types';
+import { toReadableFramework } from './framework';
 const debug = debugModule('snyk');
 
-interface TargetFramework {
-  framework: string;
-  original: string;
-  version: string;
-}
-
-export async function getTargetFrameworksFromProjFile(rootDir: string): Promise<any> {
-  return new Promise((resolve, reject) => {
+export async function getTargetFrameworksFromProjFile(rootDir: string): Promise<TargetFramework | undefined> {
+  return new Promise<TargetFramework | undefined>((resolve, reject) => {
     debug('Looking for your .csproj file in ' + rootDir);
     const csprojPath = findFile(rootDir, /.*\.csproj$/);
     if (csprojPath) {
@@ -48,25 +44,6 @@ export async function getTargetFrameworksFromProjFile(rootDir: string): Promise<
     debug('.csproj file not found in ' + rootDir + '.');
     resolve();
   });
-}
-
-function toReadableFramework(targetFramework: string): TargetFramework | undefined {
-  const typeMapping = {
-    net: '.NETFramework',
-    netcoreapp: '.NETCore',
-    netstandard: '.NETStandard',
-    v: '.NETFramework',
-  };
-
-  for (const type in typeMapping) {
-    if (new RegExp(type + /\d.?\d(.?\d)?$/.source).test(targetFramework)) {
-      return {
-        framework: typeMapping[type],
-        original: targetFramework,
-        version: targetFramework.split(type)[1],
-      };
-    }
-  }
 }
 
 function findFile(rootDir, filter) {
