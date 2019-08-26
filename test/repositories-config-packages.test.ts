@@ -11,6 +11,5 @@ const expectedTree = JSON.parse(fs.readFileSync(path.resolve(projectPath, 'expec
 
 test('packages contains many deps: only jquery', async (t) => {
   const result = await plugin.inspect(projectPath, manifestFile, {packagesFolder});
-  console.log(expectedTree);
   t.deepEqual(result, expectedTree, 'expects project data to be correct');
 });
