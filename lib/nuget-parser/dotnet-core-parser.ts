@@ -125,11 +125,13 @@ function constructTree(roots: string[], nodes: Dependency[], links: DepLink[]) {
 
   const tree = _.pick(treeMap, roots);
   const freqSysDeps = _.pick(treeMap, Object.keys(freqDeps));
-  tree['freqSystemDependencies'] = {
-    name: 'freqSystemDependencies',
-    version: '0.0.0',
-    dependencies: freqSysDeps
-  };
+  if (!_.isEmpty(freqSysDeps)) {
+    tree['freqSystemDependencies'] = {
+      name: 'freqSystemDependencies',
+      version: '0.0.0',
+      dependencies: freqSysDeps
+    };
+  }
   return tree;
 }
 
@@ -197,7 +199,7 @@ export async function parse(tree, manifest) {
 
   initFreqDepsDict();
 
-  const directDependencies = collectFlatList(selectedFrameworkObj.dependencies);
+  const directDependencies = selectedFrameworkObj.dependencies ? collectFlatList(selectedFrameworkObj.dependencies) : [];
   debug(`directDependencies: '${directDependencies}'`);
 
   tree.dependencies = buildBfsTree(selectedTargetObj, directDependencies);
