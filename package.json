@@ -37,7 +37,7 @@
     "dotnet-deps-parser": "4.8.0",
     "jszip": "^3.1.5",
     "lodash": "^4.17.14",
-    "snyk-paket-parser": "1.5.0",
+    "snyk-paket-parser": "1.6.0",
     "tslib": "^1.9.3",
     "xml2js": "^0.4.17"
   },
