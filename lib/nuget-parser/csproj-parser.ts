@@ -3,7 +3,7 @@ import {FileNotFoundError, FileNotProcessableError} from '../errors';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as parseXML from 'xml2js';
-import * as _ from 'lodash';
+import * as _ from '@snyk/lodash';
 import * as debugModule from 'debug';
 import { TargetFramework } from './types';
 import { toReadableFramework } from './framework';
