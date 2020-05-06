@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "npm run eslint && npm run unit-test",
-    "unit-test": "tap -Rspec ./test/*.test.[tj]s --timeout=300",
+    "unit-test": "tap --no-coverage './test/*.test.[tj]s' --timeout=300",
     "eslint": "eslint -c .eslintrc.js lib/**/*",
     "build": "tsc",
     "build-watch": "tsc -w",
@@ -46,7 +46,7 @@
     "@typescript-eslint/parser": "^2.31.0",
     "@types/node": "^8.10.60",
     "@types/uuid": "^3.4.4",
-    "tap": "^12.6.1",
+    "tap": "^14.10.7",
     "eslint": "^6.8.0",
     "typescript": "^3.8.3"
   }
