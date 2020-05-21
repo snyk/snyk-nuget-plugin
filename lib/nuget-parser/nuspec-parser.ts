@@ -21,7 +21,7 @@ export async function parseNuspec(dep, targetFramework) {
       const nuspecFiles = Object.keys(nuspecZipData.files).filter((file) => {
         return (path.extname(file) === '.nuspec');
       });
-      return nuspecZipData.files[nuspecFiles[0]].async('string');
+      return nuspecZipData.files[nuspecFiles[0]].async('text');
     })
     .then((nuspecContent) => {
       return new Promise((resolve, reject) => {
