@@ -35,7 +35,7 @@
   "dependencies": {
     "@snyk/lodash": "4.17.15-patch",
     "debug": "^4.1.1",
-    "dotnet-deps-parser": "4.10.0",
+    "dotnet-deps-parser": "4.11.0",
     "jszip": "3.4.0",
     "snyk-paket-parser": "1.6.0",
     "tslib": "^1.11.2",
