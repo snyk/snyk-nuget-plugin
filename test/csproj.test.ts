@@ -1,4 +1,4 @@
-import * as _ from '@snyk/lodash';
+import * as _ from 'lodash';
 
 import * as tap from 'tap';
 const test = tap.test;

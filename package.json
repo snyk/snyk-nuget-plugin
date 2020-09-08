@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/snyk/snyk-nuget-plugin#readme",
   "dependencies": {
-    "@snyk/lodash": "4.17.15-patch",
+    "lodash": "^4.17.20",
     "debug": "^4.1.1",
     "dotnet-deps-parser": "4.11.0",
     "jszip": "3.4.0",
