@@ -189,7 +189,10 @@ export async function parse(tree, manifest) {
   }
 
   // If a targetFramework was not found in the proj file, we will extract it from the lock file
-  if (!tree.meta.targetFramework) {
+  // OR
+  // If the targetFramework is undefined, extract it from the lock file
+  // Fix for https://github.com/snyk/snyk-nuget-plugin/issues/75
+  if (!tree.meta.targetFramework || manifest.project.frameworks[tree.meta.targetFramework] === undefined) {
     tree.meta.targetFramework = getFrameworkToRun(manifest);
   }
   const selectedFrameworkObj = manifest.project.frameworks[tree.meta.targetFramework];
