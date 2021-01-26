@@ -36,12 +36,25 @@ function getPackagesFolder(packagesFolder, projectRootFolder) {
   return path.resolve(projectRootFolder, 'packages');
 }
 
+function getRootName(
+  root?: string,
+  projectRootFolder?: string,
+  projectNamePrefix?: string,
+): string {
+  const defaultRootName = path.basename(root || projectRootFolder || "");
+  if (projectNamePrefix) {
+    return projectNamePrefix + defaultRootName;
+  }
+  return defaultRootName;
+}
+
 export async function buildDepTreeFromFiles(
   root: string | undefined,
   targetFile: string | undefined,
   packagesFolderPath,
   manifestType,
-  useProjectNameFromAssetsFile) {
+  useProjectNameFromAssetsFile,
+  projectNamePrefix?: string ) {
   const safeRoot = root || '.';
   const safeTargetFile = targetFile || '.';
   const fileContentPath = path.resolve(safeRoot, safeTargetFile);
@@ -58,7 +71,11 @@ export async function buildDepTreeFromFiles(
   const tree = {
     dependencies: {},
     meta: {},
-    name: path.basename(root || projectRootFolder),
+    name: getRootName(
+      root,
+      projectRootFolder,
+      projectNamePrefix
+    ),
     packageFormatVersion: 'nuget:0.0.0',
     version: '0.0.0',
   };

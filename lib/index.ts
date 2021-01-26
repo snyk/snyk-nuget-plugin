@@ -61,5 +61,6 @@ export async function inspect(root, targetFile, options?) {
       targetFile,
       options.packagesFolder,
       manifestType,
-      options['assets-project-name']).then(createPackageTree);
+      options['assets-project-name'],
+      options['project-name-prefix']).then(createPackageTree);
 }
