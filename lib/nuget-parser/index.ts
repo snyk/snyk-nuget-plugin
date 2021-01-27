@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import {getTargetFrameworksFromProjFile} from './csproj-parser';
-import * as _ from '@snyk/lodash';
+import * as _ from 'lodash';
 import * as debugModule from 'debug';
 const debug = debugModule('snyk');
 
