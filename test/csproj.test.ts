@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 import * as tap from 'tap';
 const test = tap.test;
 import * as plugin from '../lib/index';
@@ -25,7 +23,7 @@ test('parse dotnet with vbproj', async (t) => {
 
 test('parse dotnet with no deps', async (t) => {
   const res = await plugin.inspect(noDeps, manifestFile);
-  t.equal(_.isEmpty(res.package.dependencies), true);
+  t.equal(Object.keys(res.package.dependencies).length, 0);
 });
 
 test('parse dotnet with no valid framework defined', async (t) => {

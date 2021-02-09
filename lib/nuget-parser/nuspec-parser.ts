@@ -3,7 +3,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as parseXML from 'xml2js';
 import * as dependency from './dependency';
-import * as _ from 'lodash';
 import * as debugModule from 'debug';
 const debug = debugModule('snyk');
 
@@ -34,15 +33,14 @@ export async function parseNuspec(dep, targetFramework) {
           // We are only going to check the first targetFramework we encounter
           // in the future we may want to support multiple, but only once
           // we have dependency version conflict resolution implemented
-          _(result.package.metadata).forEach((metadata) => {
-            _(metadata.dependencies).forEach((rawDependency) => {
+          result.package.metadata.forEach((metadata) => {
+            metadata.dependencies.forEach((rawDependency) => {
 
               // Find and add target framework version specific dependencies
-              const depsForTargetFramework =
-              extractDepsForTargetFramework(rawDependency, targetFramework);
+              const depsForTargetFramework = extractDepsForTargetFramework(rawDependency, targetFramework);
 
               if (depsForTargetFramework && depsForTargetFramework.group) {
-                ownDeps = _.concat(ownDeps,
+                ownDeps = ownDeps.concat(
                   extractDepsFromRaw(depsForTargetFramework.group.dependency));
               }
 
@@ -53,13 +51,13 @@ export async function parseNuspec(dep, targetFramework) {
 
               if (depsFromPlainGroups) {
                 depsFromPlainGroups.forEach((depGroup) => {
-                  ownDeps = _.concat(ownDeps,
+                  ownDeps = ownDeps.concat(
                     extractDepsFromRaw(depGroup.dependency));
                 });
               }
 
               // Add the default dependencies
-              ownDeps = _.concat(ownDeps, extractDepsFromRaw(rawDependency.dependency));
+              ownDeps = ownDeps.concat(extractDepsFromRaw(rawDependency.dependency));
             });
           });
 
@@ -78,7 +76,11 @@ export async function parseNuspec(dep, targetFramework) {
 }
 
 function extractDepsForPlainGroups(rawDependency) {
-  return _(rawDependency.group)
+  if (!rawDependency.group) {
+    return [];
+  }
+
+  return rawDependency.group
     .filter((group) => {
       // valid group with no attributes or no `targetFramework` attribute
       return group && !(group.$ && group.$.targetFramework);
@@ -86,20 +88,34 @@ function extractDepsForPlainGroups(rawDependency) {
 }
 
 function extractDepsForTargetFramework(rawDependency, targetFramework) {
-  return rawDependency && _(rawDependency.group)
-    .filter((group) => {
-      return group && group.$ && group.$.targetFramework &&
+
+  if (!rawDependency || !rawDependency.group) {
+    return;
+  }
+
+
+
+
+  return rawDependency.group.filter((group) => {
+      return group?.$?.targetFramework &&
         targetFrameworkRegex.test(group.$.targetFramework);
     })
     .map((group) => {
-      const parts = _.split(group.$.targetFramework, targetFrameworkRegex);
+      const parts = group.$.targetFramework.split(targetFrameworkRegex);
       return {
         framework: parts[1],
         group,
         version: parts[2],
       };
     })
-    .orderBy(['framework', 'version'], ['asc', 'desc'])
+    .sort((a, b) => {
+      if (a.framework === b.framework) {
+        return Number(b.version) - Number(a.version)
+      }
+
+      return a.framework > b.framework ? -1 : 1
+    })
+    // .orderBy(['framework', 'version'], ['asc', 'desc'])
     .find((group) => {
       return targetFramework.framework === group.framework &&
         targetFramework.version >= group.version;
@@ -107,8 +123,12 @@ function extractDepsForTargetFramework(rawDependency, targetFramework) {
 }
 
 function extractDepsFromRaw(rawDependencies) {
+  if (!rawDependencies) {
+    return []
+  }
+
   const deps: dependency.Dependency[] = [];
-  _.forEach(rawDependencies, (dep) => {
+  rawDependencies.forEach((dep) => {
     if (dep && dep.$) {
       deps.push({
         dependencies: {},
@@ -117,5 +137,6 @@ function extractDepsFromRaw(rawDependencies) {
       });
     }
   });
+
   return deps;
 }
