@@ -1,6 +1,8 @@
-import { TargetFramework } from "./types";
+import { TargetFramework } from './types';
 
-export function toReadableFramework(targetFramework: string): TargetFramework | undefined {
+export function toReadableFramework(
+  targetFramework: string,
+): TargetFramework | undefined {
   const typeMapping = {
     net: '.NETFramework',
     netcoreapp: '.NETCore',

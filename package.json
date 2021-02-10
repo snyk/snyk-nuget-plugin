@@ -3,9 +3,10 @@
   "description": "Snyk CLI NuGet plugin",
   "main": "dist/index.js",
   "scripts": {
-    "test": "npm run eslint && npm run unit-test",
+    "test": "npm run lint && npm run unit-test",
     "unit-test": "tap --no-coverage test/*.test.ts --timeout=300",
-    "eslint": "eslint -c .eslintrc.js lib/**/*",
+    "lint": "prettier --check \"./lib/**/*.ts\" && eslint -c .eslintrc.js \"./lib/**/*\"",
+    "lint:fix": "prettier --write \"./lib/**/*.ts\" && eslint -c .eslintrc.js --fix \"./lib/**/*\"",
     "build": "tsc",
     "build-watch": "tsc -w",
     "prepare": "npm run build"
@@ -41,11 +42,13 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
+    "@types/node": "^8.10.60",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
-    "@types/node": "^8.10.60",
-    "tap": "^14.10.7",
     "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.15.0",
+    "prettier": "^1.19.1",
+    "tap": "^14.10.7",
     "typescript": "^3.8.3"
   }
 }
