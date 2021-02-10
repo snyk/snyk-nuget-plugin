@@ -1,5 +1,4 @@
 import {InvalidManifestError} from '../errors';
-import * as _ from 'lodash';
 import * as debugModule from 'debug';
 import { Dependency } from './dependency';
 const debug = debugModule('snyk');
@@ -32,6 +31,18 @@ function initFreqDepsDict() {
   freqDeps['System.Threading.Tasks'] = false;
   freqDeps['System.Reflection'] = false;
   freqDeps['System.Globalization'] = false;
+}
+
+function pick(obj: Record<string, unknown>, keys: string[]) {
+  const pickedObj: Record<string,unknown> = {}
+
+  Object.keys(obj).forEach((k) => {
+    if (keys.includes(k)) {
+      pickedObj[k] = obj[k]
+    }
+  })
+
+  return pickedObj
 }
 
 function convertFromPathSyntax(path) {
@@ -123,9 +134,9 @@ function constructTree(roots: string[], nodes: Dependency[], links: DepLink[]) {
     }
   }
 
-  const tree = _.pick(treeMap, roots);
-  const freqSysDeps = _.pick(treeMap, Object.keys(freqDeps));
-  if (!_.isEmpty(freqSysDeps)) {
+  const tree = pick(treeMap, roots);
+  const freqSysDeps = pick(treeMap, Object.keys(freqDeps));
+  if (Object.keys(freqSysDeps).length > 0) {
     tree['freqSystemDependencies'] = {
       name: 'freqSystemDependencies',
       version: '0.0.0',
@@ -136,7 +147,7 @@ function constructTree(roots: string[], nodes: Dependency[], links: DepLink[]) {
 }
 
 function getFrameworkToRun(manifest) {
-  const frameworks = _.get(manifest, 'project.frameworks');
+  const frameworks = manifest?.project?.frameworks
 
   debug(`Available frameworks: '${Object.keys(frameworks)}'`);
 
@@ -166,7 +177,7 @@ function validateManifest(manifest) {
     throw new InvalidManifestError('No frameworks were found in project.assets.json');
   }
 
-  if (_.isEmpty(manifest.project.frameworks)) {
+  if (!manifest.project.frameworks || Object.keys(manifest.project.frameworks).length === 0) {
     throw new InvalidManifestError('0 frameworks were found in project.assets.json');
   }
 
@@ -174,7 +185,7 @@ function validateManifest(manifest) {
     throw new InvalidManifestError('No targets were found in project.assets.json');
   }
 
-  if (_.isEmpty(manifest.targets)) {
+  if (!manifest.targets || Object.keys(manifest.targets).length === 0) {
     throw new InvalidManifestError('0 targets were found in project.assets.json');
   }
 }

@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import {getTargetFrameworksFromProjFile} from './csproj-parser';
-import * as _ from 'lodash';
 import * as debugModule from 'debug';
 const debug = debugModule('snyk');
 
@@ -109,7 +108,8 @@ export async function buildDepTreeFromFiles(
   const manifest = await parser.fileContentParser.parse(fileContent, tree);
 
   if (manifestType === 'dotnet-core' && useProjectNameFromAssetsFile) {
-    const projectName = _.get(manifest, 'project.restore.projectName');
+    const projectName = manifest?.project?.restore?.projectName;
+
     if (projectName) {
       tree.name = projectName;
     } else {
