@@ -1,13 +1,13 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import {Dependency, cloneShallow, fromFolderName} from './dependency';
-import {parseNuspec} from './nuspec-parser';
+import { Dependency, cloneShallow, fromFolderName } from './dependency';
+import { parseNuspec } from './nuspec-parser';
 import * as debugModule from 'debug';
 const debug = debugModule('snyk');
 
 function injectPath(dep, packagesFolder) {
-  dep.path = dep.localPath ?
-    path.resolve(packagesFolder, dep.localPath)
+  dep.path = dep.localPath
+    ? path.resolve(packagesFolder, dep.localPath)
     : path.resolve(packagesFolder, dep.name + '.' + dep.version);
   if (dep.localPath) {
     delete dep.localPath;
@@ -17,7 +17,7 @@ function injectPath(dep, packagesFolder) {
 function scanInstalled(installedPackages, packagesFolder) {
   const flattenedPackageList = {};
   debug('Located ' + installedPackages.length + ' packages in manifest');
-  installedPackages.forEach((entry) => {
+  installedPackages.forEach(entry => {
     injectPath(entry, packagesFolder);
     flattenedPackageList[entry.name] =
       flattenedPackageList[entry.name] || entry;
@@ -27,7 +27,7 @@ function scanInstalled(installedPackages, packagesFolder) {
     debug('Scanning local installed folders');
     debug('Trying to read from installed packages folder: ' + packagesFolder);
     fs.readdirSync(packagesFolder)
-      .map((folderName) => {
+      .map(folderName => {
         try {
           return fromFolderName(folderName);
         } catch (err) {
@@ -35,18 +35,25 @@ function scanInstalled(installedPackages, packagesFolder) {
           debug(err);
         }
       })
-      .forEach((dep) => {
+      .forEach(dep => {
         if (dep) {
           injectPath(dep, packagesFolder);
           // only add a package from packages folder if version is different
-          if (flattenedPackageList[dep.name] &&
-            flattenedPackageList[dep.name].version !== dep.version) {
+          if (
+            flattenedPackageList[dep.name] &&
+            flattenedPackageList[dep.name].version !== dep.version
+          ) {
             // prefer found from packages folder (dep) over existing
-            debug('For package ' + dep.name + ' the version ' +
-              flattenedPackageList[dep.name].version +
-              ' was extracted from manifest file.' +
-              '\nWe are overwriting it with version ' + dep.version +
-              ' from the packages folder');
+            debug(
+              'For package ' +
+                dep.name +
+                ' the version ' +
+                flattenedPackageList[dep.name].version +
+                ' was extracted from manifest file.' +
+                '\nWe are overwriting it with version ' +
+                dep.version +
+                ' from the packages folder',
+            );
             flattenedPackageList[dep.name] = dep;
           }
         }
@@ -58,7 +65,10 @@ function scanInstalled(installedPackages, packagesFolder) {
   return flattenedPackageList;
 }
 
-async function fetchNugetInformationFromPackages(flattenedPackageList, targetFramework) {
+async function fetchNugetInformationFromPackages(
+  flattenedPackageList,
+  targetFramework,
+) {
   const nugetPackageInformation: any[] = [];
   // begin collecting information from .nuget files on installed packages
   debug('Trying to analyze .nuspec files');
@@ -72,7 +82,7 @@ async function fetchNugetInformationFromPackages(flattenedPackageList, targetFra
 
 function processNugetInformation(nuspecResolutionChain) {
   const nuspecResolutions = {};
-  nuspecResolutionChain.forEach((resolution) => {
+  nuspecResolutionChain.forEach(resolution => {
     if (!resolution) {
       return;
     } // jscs:ignore
@@ -82,12 +92,19 @@ function processNugetInformation(nuspecResolutionChain) {
   return nuspecResolutions;
 }
 
-function buildTree(node, requiredChildren, flattenedPackageList, nuspecResolutions) {
+function buildTree(
+  node,
+  requiredChildren,
+  flattenedPackageList,
+  nuspecResolutions,
+) {
   for (const requiredChild of requiredChildren) {
     let transitiveDependency: Dependency;
     if (flattenedPackageList[requiredChild.name]) {
       // fetch from repo
-      transitiveDependency = cloneShallow(flattenedPackageList[requiredChild.name]);
+      transitiveDependency = cloneShallow(
+        flattenedPackageList[requiredChild.name],
+      );
     } else {
       // create as new (uninstalled)
       transitiveDependency = {
@@ -98,16 +115,17 @@ function buildTree(node, requiredChildren, flattenedPackageList, nuspecResolutio
     }
     const transitiveChildren =
       (nuspecResolutions[transitiveDependency.name] &&
-        nuspecResolutions[transitiveDependency.name].children) || [];
+        nuspecResolutions[transitiveDependency.name].children) ||
+      [];
     buildTree(
       transitiveDependency,
       transitiveChildren,
       flattenedPackageList,
-      nuspecResolutions);
+      nuspecResolutions,
+    );
     node.dependencies[transitiveDependency.name] = transitiveDependency;
   }
 }
-
 
 export async function parse(tree, manifest, targetFramework, packagesFolder) {
   if (!targetFramework) {
@@ -115,23 +133,32 @@ export async function parse(tree, manifest, targetFramework, packagesFolder) {
   }
 
   const flattenedPackageList = scanInstalled(manifest, packagesFolder);
-  const nugetPackageInformation = await fetchNugetInformationFromPackages(flattenedPackageList, targetFramework);
+  const nugetPackageInformation = await fetchNugetInformationFromPackages(
+    flattenedPackageList,
+    targetFramework,
+  );
   const nuspecResolutions = processNugetInformation(nugetPackageInformation);
   // .nuget parsing is complete, returned as array of promise resolutions
   // now the flat list should be rebuilt as a tree
   debug('Building dependency tree');
 
   const nugetKeys = Object.keys(nuspecResolutions);
-  Object.keys(flattenedPackageList).forEach((packageName) => {
-    tree.dependencies[packageName] =
-      cloneShallow(flattenedPackageList[packageName]);
+  Object.keys(flattenedPackageList).forEach(packageName => {
+    tree.dependencies[packageName] = cloneShallow(
+      flattenedPackageList[packageName],
+    );
   });
   if (nugetKeys.length > 0) {
     // local folders scanned, build list from .nuspec
     for (const key of nugetKeys) {
       const resolution = nuspecResolutions[key];
       const node = cloneShallow(flattenedPackageList[resolution.name]);
-      buildTree(node, resolution.children, flattenedPackageList, nuspecResolutions);
+      buildTree(
+        node,
+        resolution.children,
+        flattenedPackageList,
+        nuspecResolutions,
+      );
       tree.dependencies[node.name] = node;
     }
   }

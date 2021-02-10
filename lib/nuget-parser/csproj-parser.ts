@@ -1,4 +1,4 @@
-import {FileNotFoundError, FileNotProcessableError} from '../errors';
+import { FileNotFoundError, FileNotProcessableError } from '../errors';
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -8,7 +8,9 @@ import { TargetFramework } from './types';
 import { toReadableFramework } from './framework';
 const debug = debugModule('snyk');
 
-export async function getTargetFrameworksFromProjFile(rootDir: string): Promise<TargetFramework | undefined> {
+export async function getTargetFrameworksFromProjFile(
+  rootDir: string,
+): Promise<TargetFramework | undefined> {
   return new Promise<TargetFramework | undefined>((resolve, reject) => {
     debug('Looking for your .csproj file in ' + rootDir);
     const csprojPath = findFile(rootDir, /.*\.csproj$/);
@@ -23,19 +25,30 @@ export async function getTargetFrameworksFromProjFile(rootDir: string): Promise<
           reject(new FileNotProcessableError(err));
         }
         const versionLoc = parsedCsprojContents?.Project?.PropertyGroup?.[0];
-        const versions = [].concat(
-          (versionLoc?.TargetFrameworkVersion?.[0] ||
-          versionLoc?.TargetFramework?.[0] ||
-          versionLoc?.TargetFrameworks?.[0] || '').split(';')).filter(Boolean);
+        const versions = []
+          .concat(
+            (
+              versionLoc?.TargetFrameworkVersion?.[0] ||
+              versionLoc?.TargetFramework?.[0] ||
+              versionLoc?.TargetFrameworks?.[0] ||
+              ''
+            ).split(';'),
+          )
+          .filter(Boolean);
 
         if (versions.length < 1) {
-          debug('Could not find TargetFrameworkVersion/TargetFramework' +
-            '/TargetFrameworks defined in the Project.PropertyGroup field of ' +
-            'your .csproj file');
+          debug(
+            'Could not find TargetFrameworkVersion/TargetFramework' +
+              '/TargetFrameworks defined in the Project.PropertyGroup field of ' +
+              'your .csproj file',
+          );
         }
         frameworks = versions.map(toReadableFramework).filter(Boolean);
         if (versions.length > 1 && frameworks.length < 1) {
-          debug('Could not find valid/supported .NET version in csproj file located at' + csprojPath);
+          debug(
+            'Could not find valid/supported .NET version in csproj file located at' +
+              csprojPath,
+          );
         }
         resolve(frameworks[0]);
       });

@@ -17,9 +17,9 @@ export function cloneShallow(dep: Dependency): Dependency {
 }
 
 function extractFromDotVersionNotation(expression) {
-  const versionRef =
-    /(?=\S+)(?=\.{1})((\.\d+)+((-?\w+\.?\d*)|(\+?[0-9a-f]{5,40}))?)/
-      .exec(expression)![0];
+  const versionRef = /(?=\S+)(?=\.{1})((\.\d+)+((-?\w+\.?\d*)|(\+?[0-9a-f]{5,40}))?)/.exec(
+    expression,
+  )![0];
   const name = expression.split(versionRef)[0];
   return {
     name,
@@ -38,12 +38,16 @@ export function fromFolderName(folderName) {
 }
 
 export function fromPackagesConfigEntry(manifest) {
-    debug('Extracting by packages.config entry:' +
-      ' name = ' + manifest.$.id +
-      ' version = ' + manifest.$.version);
-    return {
-      dependencies: {},
-      name: manifest.$.id,
-      version: manifest.$.version,
-    };
+  debug(
+    'Extracting by packages.config entry:' +
+      ' name = ' +
+      manifest.$.id +
+      ' version = ' +
+      manifest.$.version,
+  );
+  return {
+    dependencies: {},
+    name: manifest.$.id,
+    version: manifest.$.version,
+  };
 }

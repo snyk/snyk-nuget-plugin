@@ -1,4 +1,4 @@
-import {InvalidManifestError} from '../errors';
+import { InvalidManifestError } from '../errors';
 import * as debugModule from 'debug';
 import { Dependency } from './dependency';
 const debug = debugModule('snyk');
@@ -34,15 +34,15 @@ function initFreqDepsDict() {
 }
 
 function pick(obj: Record<string, unknown>, keys: string[]) {
-  const pickedObj: Record<string,unknown> = {}
+  const pickedObj: Record<string, unknown> = {};
 
-  Object.keys(obj).forEach((k) => {
+  Object.keys(obj).forEach(k => {
     if (keys.includes(k)) {
-      pickedObj[k] = obj[k]
+      pickedObj[k] = obj[k];
     }
-  })
+  });
 
-  return pickedObj
+  return pickedObj;
 }
 
 function convertFromPathSyntax(path) {
@@ -53,7 +53,7 @@ function convertFromPathSyntax(path) {
 
 function collectFlatList(targetObj) {
   const names = Object.keys(targetObj);
-  return names.map((name) => {
+  return names.map(name => {
     name = convertFromPathSyntax(name);
     return name;
   });
@@ -78,7 +78,9 @@ function buildBfsTree(targetDeps, roots) {
 }
 
 function isScanned(nodes: Dependency[], pkg: Dependency): boolean {
-  const node = nodes.find((elem) => elem.name === pkg.name && elem.version === pkg.version);
+  const node = nodes.find(
+    elem => elem.name === pkg.name && elem.version === pkg.version,
+  );
   return !!node;
 }
 
@@ -88,7 +90,7 @@ function isFreqDep(packageName: string): boolean {
 
 function addPackageDepLinks(links: DepLink[], pkg: Dependency) {
   if (pkg && pkg.dependencies) {
-    const from = {name: pkg.name, version: pkg.version};
+    const from = { name: pkg.name, version: pkg.version };
     for (const name of Object.keys(pkg.dependencies)) {
       const to = { name, version: pkg.dependencies[name] };
       links.push({ from, to });
@@ -101,12 +103,14 @@ function findPackage(targetDeps, depName: string): Dependency | undefined {
   const depNameLowerCase = depName.toLowerCase();
   for (const currentDep of Object.keys(targetDeps)) {
     const currentResolvedName = convertFromPathSyntax(currentDep);
-    const [currentDepName, currentDepVersion] = currentResolvedName.split(PACKAGE_DELIMITER);
+    const [currentDepName, currentDepVersion] = currentResolvedName.split(
+      PACKAGE_DELIMITER,
+    );
     if (currentDepName.toLowerCase() === depNameLowerCase) {
       return {
         name: depName,
         version: currentDepVersion,
-        dependencies: targetDeps[currentDep].dependencies
+        dependencies: targetDeps[currentDep].dependencies,
       };
     }
   }
@@ -129,7 +133,7 @@ function constructTree(roots: string[], nodes: Dependency[], links: DepLink[]) {
     const childNode = treeMap[childName];
     if (!isFreqDep(childName)) {
       parentNode.dependencies[childName] = {
-        ...childNode
+        ...childNode,
       };
     }
   }
@@ -140,14 +144,14 @@ function constructTree(roots: string[], nodes: Dependency[], links: DepLink[]) {
     tree['freqSystemDependencies'] = {
       name: 'freqSystemDependencies',
       version: '0.0.0',
-      dependencies: freqSysDeps
+      dependencies: freqSysDeps,
     };
   }
   return tree;
 }
 
 function getFrameworkToRun(manifest) {
-  const frameworks = manifest?.project?.frameworks
+  const frameworks = manifest?.project?.frameworks;
 
   debug(`Available frameworks: '${Object.keys(frameworks)}'`);
 
@@ -170,23 +174,36 @@ function getTargetObjToRun(manifest) {
 
 function validateManifest(manifest) {
   if (!manifest.project) {
-    throw new InvalidManifestError('Project field was not found in project.assets.json');
+    throw new InvalidManifestError(
+      'Project field was not found in project.assets.json',
+    );
   }
 
   if (!manifest.project.frameworks) {
-    throw new InvalidManifestError('No frameworks were found in project.assets.json');
+    throw new InvalidManifestError(
+      'No frameworks were found in project.assets.json',
+    );
   }
 
-  if (!manifest.project.frameworks || Object.keys(manifest.project.frameworks).length === 0) {
-    throw new InvalidManifestError('0 frameworks were found in project.assets.json');
+  if (
+    !manifest.project.frameworks ||
+    Object.keys(manifest.project.frameworks).length === 0
+  ) {
+    throw new InvalidManifestError(
+      '0 frameworks were found in project.assets.json',
+    );
   }
 
   if (!manifest.targets) {
-    throw new InvalidManifestError('No targets were found in project.assets.json');
+    throw new InvalidManifestError(
+      'No targets were found in project.assets.json',
+    );
   }
 
   if (!manifest.targets || Object.keys(manifest.targets).length === 0) {
-    throw new InvalidManifestError('0 targets were found in project.assets.json');
+    throw new InvalidManifestError(
+      '0 targets were found in project.assets.json',
+    );
   }
 }
 
@@ -203,17 +220,23 @@ export async function parse(tree, manifest) {
   // OR
   // If the targetFramework is undefined, extract it from the lock file
   // Fix for https://github.com/snyk/snyk-nuget-plugin/issues/75
-  if (!tree.meta.targetFramework || manifest.project.frameworks[tree.meta.targetFramework] === undefined) {
+  if (
+    !tree.meta.targetFramework ||
+    manifest.project.frameworks[tree.meta.targetFramework] === undefined
+  ) {
     tree.meta.targetFramework = getFrameworkToRun(manifest);
   }
-  const selectedFrameworkObj = manifest.project.frameworks[tree.meta.targetFramework];
+  const selectedFrameworkObj =
+    manifest.project.frameworks[tree.meta.targetFramework];
 
   // We currently ignore the found targetFramework when looking for target dependencies
   const selectedTargetObj = getTargetObjToRun(manifest);
 
   initFreqDepsDict();
 
-  const directDependencies = selectedFrameworkObj.dependencies ? collectFlatList(selectedFrameworkObj.dependencies) : [];
+  const directDependencies = selectedFrameworkObj.dependencies
+    ? collectFlatList(selectedFrameworkObj.dependencies)
+    : [];
   debug(`directDependencies: '${directDependencies}'`);
 
   tree.dependencies = buildBfsTree(selectedTargetObj, directDependencies);

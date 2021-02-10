@@ -30,7 +30,7 @@ function scanForDependencies(obj, deps): JsonManifestDependencies {
   return deps;
 }
 
-interface JsonManifestDependencies{
+interface JsonManifestDependencies {
   dependencies: any;
   project?: {
     version: string;
@@ -45,7 +45,7 @@ function parseJsonManifest(fileContent): JsonManifestDependencies {
   };
   if (typeof rawContent.project === 'object') {
     const pData = rawContent.project;
-    const name = (pData.restore && pData.restore.projectName);
+    const name = pData.restore && pData.restore.projectName;
     result.project = {
       version: pData.version || '0.0.0',
       name,
