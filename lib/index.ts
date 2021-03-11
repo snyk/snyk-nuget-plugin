@@ -25,8 +25,17 @@ function determineManifestType(filename) {
   }
 }
 
-export async function inspect(root, targetFile, options?) {
-  options = options || {};
+export async function inspect(
+  root: string,
+  targetFile: string,
+  options: {
+    dev?: boolean;
+    strict?: boolean;
+    packagesFolder?: string;
+    assetsProjectName?: boolean;
+    projectNamePrefix?: string;
+  } = {},
+) {
   let manifestType;
   try {
     manifestType = determineManifestType(path.basename(targetFile || root));
@@ -56,20 +65,19 @@ export async function inspect(root, targetFile, options?) {
         root,
         targetFile,
         path.join(path.dirname(targetFile), 'paket.lock'),
-        options['include-dev'] || options.dev, // TODO: remove include-dev when no longer used.
+        options.dev,
         options.strict,
       )
       .then(createPackageTree);
   }
-
   return nugetParser
     .buildDepTreeFromFiles(
       root,
       targetFile,
       options.packagesFolder,
       manifestType,
-      options['assets-project-name'],
-      options['project-name-prefix'],
+      options.assetsProjectName,
+      options.projectNamePrefix,
     )
     .then(createPackageTree);
 }
