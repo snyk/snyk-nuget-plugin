@@ -44,7 +44,7 @@ test('parse packages.config and traverse packages', async (t) => {
   const expectedTreeFile = fs.readFileSync(targetProjectJsonFile + 'dummy_project_1/expected_pkgcfg.json');
   const expectedTree = JSON.parse(expectedTreeFile.toString());
 
-  const result = await plugin.inspect(null, targetPackagesConfigFile, null);
+  const result = await plugin.inspect(undefined as any, targetPackagesConfigFile, undefined);
   t.deepEqual(result.package.dependencies, expectedTree.package.dependencies, 'dep trees should be equal');
   t.ok(result.plugin);
   t.equal(result.plugin.name, 'snyk-nuget-plugin');
@@ -54,7 +54,7 @@ test('parse packages.config and traverse alternate packages folder', async (t) =
   const expectedTreeFile = fs.readFileSync(targetProjectJsonFile + 'dummy_project_1/expected_pkgcfg.json');
   const expectedTree = JSON.parse(expectedTreeFile.toString());
 
-  const result = await plugin.inspect(null, targetPackagesConfigFile, {packagesFolder: alternatePackagesFolder});
+  const result = await plugin.inspect(undefined as any, targetPackagesConfigFile, {packagesFolder: alternatePackagesFolder});
   t.deepEqual(result.package.dependencies, expectedTree.package.dependencies);
   t.ok(result.plugin);
   t.equal(result.plugin.name, 'snyk-nuget-plugin');
