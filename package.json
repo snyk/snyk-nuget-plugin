@@ -42,11 +42,11 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
-    "@types/node": "^8.10.60",
-    "@typescript-eslint/eslint-plugin": "^2.31.0",
-    "@typescript-eslint/parser": "^2.31.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.15.0",
+    "@types/node": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "2.18.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "^6.1.0",
     "prettier": "^1.19.1",
     "tap": "^14.10.7",
     "typescript": "^3.8.3"

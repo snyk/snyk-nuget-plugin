@@ -19,7 +19,7 @@ for (const project in projects) {
   const proj = projects[project];
   test(`inspect ${project} with project-name-prefix option`, async (t) => {
     const res = await plugin.inspect(proj.projectPath, proj.manifestFile, {
-      "project-name-prefix": "custom-prefix/",
+      projectNamePrefix: "custom-prefix/",
     });
     t.equal(
       res.package.name,
