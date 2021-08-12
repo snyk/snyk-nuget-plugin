@@ -7,7 +7,7 @@ defaults: &defaults
   parameters:
     node_version:
       type: string
-      default: ""
+      default: ''
   working_directory: ~/snyk-nuget-plugin
 
 windows_defaults: &windows_defaults
@@ -28,7 +28,7 @@ commands:
     parameters:
       node_version:
         type: string
-        default: ""
+        default: ''
     steps:
       - run:
           name: Install correct version of Node
@@ -101,65 +101,65 @@ workflows:
   version: 2
   test_and_release:
     jobs:
-    - lint:
-        name: Lint
-        context: nodejs-install
-        node_version: "10"
-        filters:
-          branches:
-            ignore:
-              - master
+      - lint:
+          name: Lint
+          context: nodejs-install
+          node_version: '14'
+          filters:
+            branches:
+              ignore:
+                - master
 
-    # UNIX tests
-    - test-unix:
-        name: Unix Tests for Node=12
-        context: nodejs-install
-        node_version: "12"
-        requires:
-          - Lint
-        filters:
-          branches:
-            ignore:
-              - master
-    - test-unix:
-        name: Unix Tests for Node=10
-        context: nodejs-install
-        node_version: "10"
-        requires:
-          - Lint
-        filters:
-          branches:
-            ignore:
-              - master
+      # UNIX tests
+      - test-unix:
+          name: Unix Tests for Node=12
+          context: nodejs-install
+          node_version: '12'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+      - test-unix:
+          name: Unix Tests for Node=14
+          context: nodejs-install
+          node_version: '14'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
 
-    # Windows tests
-    - test-windows:
-        name: Windows Tests for Node=12
-        context: nodejs-install
-        node_version: "12.0.0"
-        requires:
-          - Lint
-        filters:
-          branches:
-            ignore:
-              - master
-    - test-windows:
-        name: Windows Tests for Node=10
-        context: nodejs-install
-        node_version: "10.21.0"
-        requires:
-          - Lint
-        filters:
-          branches:
-            ignore:
-              - master
+      # Windows tests
+      - test-windows:
+          name: Windows Tests for Node=12
+          context: nodejs-install
+          node_version: '12.0.0'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+      - test-windows:
+          name: Windows Tests for Node=14
+          context: nodejs-install
+          node_version: '14.0.0'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
 
-    # Release
-    - release:
-        name: Release
-        context: nodejs-app-release
-        node_version: "10"
-        filters:
-          branches:
-            only:
-              - master
+      # Release
+      - release:
+          name: Release
+          context: nodejs-app-release
+          node_version: '14'
+          filters:
+            branches:
+              only:
+                - master
