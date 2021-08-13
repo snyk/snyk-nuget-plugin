@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "npm run lint && npm run unit-test",
-    "unit-test": "tap --no-coverage test/*.test.ts --timeout=300",
+    "unit-test": "jest && tap --no-coverage test/*.test.ts --timeout=300",
     "lint": "prettier --check \"./lib/**/*.ts\" && eslint -c .eslintrc.js \"./lib/**/*\"",
     "lint:fix": "prettier --write \"./lib/**/*.ts\" && eslint -c .eslintrc.js --fix \"./lib/**/*\"",
     "build": "tsc",
@@ -23,7 +23,7 @@
   "author": "snyk.io",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=12"
+    "node": ">=10"
   },
   "files": [
     "bin",
@@ -42,13 +42,16 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
-    "@types/node": "^12",
+    "@types/jest": "^27.0.0",
+    "@types/node": "^10",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.15.0",
+    "jest": "^27.0.6",
     "prettier": "^1.19.1",
     "tap": "^14.10.7",
+    "ts-jest": "^27.0.4",
     "typescript": "^3.8.3"
   }
 }

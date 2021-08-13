@@ -24,39 +24,45 @@ export async function getTargetFrameworksFromProjFile(
 
     const csprojContents = fs.readFileSync(csprojPath);
 
-    let frameworks: (TargetFramework | undefined)[] = [];
+    let targetFrameworks: (TargetFramework | undefined)[] = [];
     parseXML.parseString(csprojContents, (err, parsedCsprojContents) => {
       if (err) {
         reject(new FileNotProcessableError(err));
         return;
       }
-      const versionLoc = parsedCsprojContents?.Project?.PropertyGroup?.[0];
-      const versions = []
-        .concat(
-          (
-            versionLoc?.TargetFrameworkVersion?.[0] ||
-            versionLoc?.TargetFramework?.[0] ||
-            versionLoc?.TargetFrameworks?.[0] ||
-            ''
-          ).split(';'),
-        )
-        .filter(Boolean);
 
-      if (versions.length < 1) {
+      const parsedTargetFrameworks = parsedCsprojContents?.Project?.PropertyGroup?.reduce(
+        (targetFrameworks, propertyGroup) => {
+          const targetFrameworkSource =
+            propertyGroup?.TargetFrameworkVersion?.[0] ||
+            propertyGroup?.TargetFramework?.[0] ||
+            propertyGroup?.TargetFrameworks?.[0] ||
+            '';
+
+          return targetFrameworks
+            .concat(targetFrameworkSource.split(';'))
+            .filter(Boolean);
+        },
+        [],
+      );
+
+      if (parsedTargetFrameworks.length < 1) {
         debug(
           'Could not find TargetFrameworkVersion/TargetFramework' +
             '/TargetFrameworks defined in the Project.PropertyGroup field of ' +
             'your .csproj file',
         );
       }
-      frameworks = versions.map(toReadableFramework).filter(Boolean);
-      if (versions.length > 1 && frameworks.length < 1) {
+      targetFrameworks = parsedTargetFrameworks
+        .map(toReadableFramework)
+        .filter(Boolean);
+      if (parsedTargetFrameworks.length > 1 && targetFrameworks.length < 1) {
         debug(
           'Could not find valid/supported .NET version in csproj file located at' +
             csprojPath,
         );
       }
-      resolve(frameworks[0]);
+      resolve(targetFrameworks[0]);
     });
   });
 }
