@@ -3,6 +3,7 @@ import * as path from 'path';
 import { Dependency, cloneShallow, fromFolderName } from './dependency';
 import { parseNuspec } from './nuspec-parser';
 import * as debugModule from 'debug';
+
 const debug = debugModule('snyk');
 
 function injectPath(dep, packagesFolder) {
@@ -73,9 +74,18 @@ async function fetchNugetInformationFromPackages(
   // begin collecting information from .nuget files on installed packages
   debug('Trying to analyze .nuspec files');
   for (const name of Object.keys(flattenedPackageList)) {
-    const dep = flattenedPackageList[name];
-    debug('...' + name);
-    nugetPackageInformation.push(await parseNuspec(dep, targetFramework));
+    try {
+      const dep = flattenedPackageList[name];
+      debug('...' + name);
+      const resolved = await parseNuspec(dep, targetFramework);
+      nugetPackageInformation.push(resolved);
+    } catch (e) {
+      debug('Failed parsing nuspec file');
+      debug(e);
+      //log but make sure to rethrow the error
+      //why? if we cannot parse nuspec file, we got nothing to do!
+      throw e;
+    }
   }
   return nugetPackageInformation;
 }
