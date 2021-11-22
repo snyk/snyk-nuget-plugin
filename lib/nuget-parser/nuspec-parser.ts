@@ -4,84 +4,168 @@ import * as path from 'path';
 import * as parseXML from 'xml2js';
 import * as dependency from './dependency';
 import * as debugModule from 'debug';
+import { DependencyInfo, DependencyTree, TargetFramework } from './types';
+import { Dependency } from './dependency';
+
 const debug = debugModule('snyk');
 
 const targetFrameworkRegex = /([.a-zA-Z]+)([.0-9]+)/;
 
-export async function parseNuspec(dep, targetFramework) {
-  return Promise.resolve()
-    .then(() => {
-      const nupkgPath = path.resolve(
-        dep.path,
-        dep.name + '.' + dep.version + '.nupkg',
+export async function parseNuspec(
+  dep: DependencyInfo,
+  targetFramework: TargetFramework,
+): Promise<DependencyTree | null> {
+  //precaution
+  if (!dep) {
+    throw new Error(
+      'expected DependencyInfo parameter to have value but found it undefined',
+    );
+  }
+
+  //another precaution
+  if (!targetFramework) {
+    throw new Error(
+      'expected TargetFramework parameter to have value but found it undefined',
+    );
+  }
+
+  const nuspecContent = await loadNuspecFromAsync(dep);
+  if (nuspecContent === null) {
+    debug('failed to load nuspec content');
+    return null;
+  }
+
+  return await _parsedNuspec(nuspecContent, targetFramework, dep.name);
+}
+
+async function loadNuspecFromAsync(
+  dep: DependencyInfo,
+): Promise<string | null> {
+  const nupkgPath = path.resolve(
+    dep.path,
+    dep.name + '.' + dep.version + '.nupkg',
+  );
+
+  let nupkgData: Buffer;
+  try {
+    nupkgData = fs.readFileSync(nupkgPath);
+  } catch (err) {
+    if (err.code == 'ENOENT') {
+      debug('No nupkg file found at ' + nupkgPath);
+      return null; //this is needed not to break existing code flow
+    } else {
+      throw err;
+    }
+  }
+  const nuspecZipData: any = await JSZip.loadAsync(nupkgData);
+
+  const nuspecFile = Object.keys(nuspecZipData.files).find(file => {
+    return path.extname(file) === '.nuspec';
+  });
+
+  if (!nuspecFile) {
+    throw new Error('`failed to read nupkg file from: ${nupkgPath}`');
+  }
+
+  if (!nuspecZipData) {
+    throw new Error(
+      `failed to open nupkg file as an archive from: ${nupkgPath}`,
+    );
+  }
+
+  return await nuspecZipData.files[nuspecFile].async('text');
+}
+
+//this is exported for testing, but should not executed directly. Hence the '_' in the name.
+export async function _parsedNuspec(
+  nuspecContent: string,
+  targetFramework: TargetFramework,
+  depName: string,
+): Promise<DependencyTree> {
+  const parsedNuspec = await parseXML.parseStringPromise(nuspecContent);
+  let ownDeps: Dependency[] = [];
+
+  //note: this will throw if assertion fails
+  assertNuspecSchema(parsedNuspec);
+
+  for (const metadata of parsedNuspec.package.metadata) {
+    metadata.dependencies?.forEach(rawDependency => {
+      // Find and add target framework version specific dependencies
+      const depsForTargetFramework = extractDepsForTargetFramework(
+        rawDependency,
+        targetFramework,
       );
-      const nupkgData = fs.readFileSync(nupkgPath);
-      return JSZip.loadAsync(nupkgData);
-    })
-    .then(nuspecZipData => {
-      const nuspecFiles = Object.keys(nuspecZipData.files).filter(file => {
-        return path.extname(file) === '.nuspec';
-      });
-      return nuspecZipData.files[nuspecFiles[0]].async('text');
-    })
-    .then(nuspecContent => {
-      return new Promise((resolve, reject) => {
-        parseXML.parseString(nuspecContent, (err, result) => {
-          if (err) {
-            return reject(err);
-          }
+      if (depsForTargetFramework && depsForTargetFramework.group) {
+        ownDeps = ownDeps.concat(
+          extractDepsFromRaw(depsForTargetFramework.group.dependency),
+        );
+      }
 
-          let ownDeps: any = [];
-          // We are only going to check the first targetFramework we encounter
-          // in the future we may want to support multiple, but only once
-          // we have dependency version conflict resolution implemented
-          result.package.metadata.forEach(metadata => {
-            metadata.dependencies.forEach(rawDependency => {
-              // Find and add target framework version specific dependencies
-              const depsForTargetFramework = extractDepsForTargetFramework(
-                rawDependency,
-                targetFramework,
-              );
+      // Find all groups with no targetFramework attribute
+      // add their deps
+      const depsFromPlainGroups = extractDepsForPlainGroups(rawDependency);
 
-              if (depsForTargetFramework && depsForTargetFramework.group) {
-                ownDeps = ownDeps.concat(
-                  extractDepsFromRaw(depsForTargetFramework.group.dependency),
-                );
-              }
-
-              // Find all groups with no targetFramework attribute
-              // add their deps
-              const depsFromPlainGroups = extractDepsForPlainGroups(
-                rawDependency,
-              );
-
-              if (depsFromPlainGroups) {
-                depsFromPlainGroups.forEach(depGroup => {
-                  ownDeps = ownDeps.concat(
-                    extractDepsFromRaw(depGroup.dependency),
-                  );
-                });
-              }
-
-              // Add the default dependencies
-              ownDeps = ownDeps.concat(
-                extractDepsFromRaw(rawDependency.dependency),
-              );
-            });
-          });
-
-          return resolve({
-            children: ownDeps,
-            name: dep.name,
-          });
+      if (depsFromPlainGroups) {
+        depsFromPlainGroups.forEach(depGroup => {
+          ownDeps = ownDeps.concat(extractDepsFromRaw(depGroup.dependency));
         });
-      });
-    })
-    .catch(err => {
-      // parsing problems are coerced into an empty nuspec
-      debug('Error parsing dependency', JSON.stringify(dep), err);
-      return null;
+      }
+
+      // Add the default dependencies
+      ownDeps = ownDeps.concat(extractDepsFromRaw(rawDependency.dependency));
     });
+  }
+
+  return {
+    children: ownDeps,
+    name: depName,
+  };
+}
+
+function assertNuspecSchema(parsedNuspec: any) {
+  if (!parsedNuspec.package?.metadata) {
+    throw new Error(
+      'This is an invalid nuspec file. Package or Metadata xml section is missing. This is a required element. See https://docs.microsoft.com/en-us/nuget/reference/nuspec',
+    );
+  }
+
+  //just in case, this should *not* happen
+  if (!Array.isArray(parsedNuspec.package.metadata)) {
+    throw new Error(
+      'This is an invalid nuspec file; the metadata tag is supposed to be a collection of objects but it is not!',
+    );
+  }
+
+  for (const metadata of parsedNuspec.package.metadata) {
+    //just in case, this shouldn't happen as this would indicate invalid/malformed nuspec file
+    if (metadata == null || typeof metadata !== 'object') {
+      throw new Error(
+        'Expected elements in a "metadata" tag to be objects, but they were ' +
+          typeof metadata +
+          ', this is not supposed to happen and is likely due to malformed nuspec file.',
+      );
+    }
+
+    if (metadata.dependencies) {
+      //just in case, error would indicate malformed nuspec
+      if (!Array.isArray(metadata.dependencies)) {
+        throw new Error(
+          'Expected that "dependencies" tag would be an array but it isn\'t. This is not supposed to happen and is likely due to malformed nuspec file!',
+        );
+      }
+
+      for (const rawDependency of metadata.dependencies) {
+        //just in case, shouldn't happen as this would indicate malformed nuspec format
+        if (typeof rawDependency !== 'object') {
+          throw new Error(
+            'Unexpected dependency value. Expected it to be object but it was ' +
+              typeof rawDependency +
+              ', this is likely a malformed nuspec',
+          );
+        }
+      }
+    }
+  }
 }
 
 function extractDepsForPlainGroups(rawDependency) {

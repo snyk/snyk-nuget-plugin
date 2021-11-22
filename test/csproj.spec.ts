@@ -22,7 +22,8 @@ describe('getTargetFrameworksFromProjFile', () => {
     });
   });
 
-  it('should return first target framework if multiple ones are available', async () => {
+  it('should return first target framwork if multiple target frameworks are available', async () => {
+
     const targetFramework = await getTargetFrameworksFromProjFile(
       multipleTargetFrameworksPath,
     );
