@@ -31,7 +31,7 @@ export async function getTargetFrameworksFromProjFile(
         return;
       }
 
-      const parsedTargetFrameworks = parsedCsprojContents?.Project?.PropertyGroup?.reduce(
+      const parsedTargetFrameworks = (parsedCsprojContents?.Project?.PropertyGroup?.reduce(
         (targetFrameworks, propertyGroup) => {
           const targetFrameworkSource =
             propertyGroup?.TargetFrameworkVersion?.[0] ||
@@ -44,7 +44,7 @@ export async function getTargetFrameworksFromProjFile(
             .filter(Boolean);
         },
         [],
-      );
+      ) || []);
 
       if (parsedTargetFrameworks.length < 1) {
         debug(
