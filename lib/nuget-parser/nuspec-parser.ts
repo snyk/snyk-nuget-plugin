@@ -82,7 +82,7 @@ export async function _parsedNuspec(
   targetFramework: TargetFramework,
   depName: string,
 ): Promise<DependencyTree> {
-  const parsedNuspec = await parseXML.parseStringPromise(nuspecContent);
+  const parsedNuspec = await parseXML.parseStringPromise(nuspecContent.trim());
   let ownDeps: Dependency[] = [];
 
   //note: this will throw if assertion fails
