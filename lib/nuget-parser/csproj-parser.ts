@@ -31,20 +31,21 @@ export async function getTargetFrameworksFromProjFile(
         return;
       }
 
-      const parsedTargetFrameworks = (parsedCsprojContents?.Project?.PropertyGroup?.reduce(
-        (targetFrameworks, propertyGroup) => {
-          const targetFrameworkSource =
-            propertyGroup?.TargetFrameworkVersion?.[0] ||
-            propertyGroup?.TargetFramework?.[0] ||
-            propertyGroup?.TargetFrameworks?.[0] ||
-            '';
+      const parsedTargetFrameworks =
+        parsedCsprojContents?.Project?.PropertyGroup?.reduce(
+          (targetFrameworks, propertyGroup) => {
+            const targetFrameworkSource =
+              propertyGroup?.TargetFrameworkVersion?.[0] ||
+              propertyGroup?.TargetFramework?.[0] ||
+              propertyGroup?.TargetFrameworks?.[0] ||
+              '';
 
-          return targetFrameworks
-            .concat(targetFrameworkSource.split(';'))
-            .filter(Boolean);
-        },
-        [],
-      ) || []);
+            return targetFrameworks
+              .concat(targetFrameworkSource.split(';'))
+              .filter(Boolean);
+          },
+          [],
+        ) || [];
 
       if (parsedTargetFrameworks.length < 1) {
         debug(
