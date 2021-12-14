@@ -73,7 +73,14 @@ async function loadNuspecFromAsync(
     );
   }
 
-  return await nuspecZipData.files[nuspecFile].async('text');
+  const rawNuspecContent = await nuspecZipData.files[nuspecFile].async('text');
+  const encoding = detectNuspecContentEncoding(rawNuspecContent);
+  const encodedNuspecContent = Buffer.from(rawNuspecContent).toString(encoding);
+  const normalisedNuspecContent = removePotentialUtf16Characters(
+    encodedNuspecContent,
+  );
+
+  return normalisedNuspecContent;
 }
 
 //this is exported for testing, but should not executed directly. Hence the '_' in the name.
@@ -82,7 +89,7 @@ export async function _parsedNuspec(
   targetFramework: TargetFramework,
   depName: string,
 ): Promise<DependencyTree> {
-  const parsedNuspec = await parseXML.parseStringPromise(nuspecContent.trim());
+  const parsedNuspec = await parseXML.parseStringPromise(nuspecContent);
   let ownDeps: Dependency[] = [];
 
   //note: this will throw if assertion fails
@@ -231,4 +238,29 @@ function extractDepsFromRaw(rawDependencies) {
   });
 
   return deps;
+}
+
+enum SupportedEncodings {
+  UTF8 = 'utf-8',
+  UTF16LE = 'utf-16le',
+}
+
+function detectNuspecContentEncoding(
+  nuspecContent: string,
+): SupportedEncodings {
+  // 65533 is a code for replacement character that is unique to UTF-16
+  // https://www.unicodepedia.com/unicode/specials/fffd/replacement-character/
+  if (nuspecContent.charCodeAt(0) === 65533) {
+    return SupportedEncodings.UTF16LE;
+  }
+
+  return SupportedEncodings.UTF8;
+}
+
+function removePotentialUtf16Characters(input: string): string {
+  return input
+    .replace(/\uFFFD/g, '')
+    .replace(/\uBFEF/g, '')
+    .replace(/\uBDBF/g, '')
+    .replace(/\uEFBD/g, '');
 }
