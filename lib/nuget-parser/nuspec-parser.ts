@@ -86,7 +86,7 @@ export async function _parsedNuspec(
   let ownDeps: Dependency[] = [];
 
   //note: this will throw if assertion fails
-  assertNuspecSchema(parsedNuspec);
+  assertNuspecSchema(nuspecContent, parsedNuspec);
 
   for (const metadata of parsedNuspec.package.metadata) {
     metadata.dependencies?.forEach(rawDependency => {
@@ -122,17 +122,19 @@ export async function _parsedNuspec(
   };
 }
 
-function assertNuspecSchema(parsedNuspec: any) {
+function assertNuspecSchema(nuspecContent: string, parsedNuspec: any) {
   if (!parsedNuspec.package?.metadata) {
     throw new Error(
-      'This is an invalid nuspec file. Package or Metadata xml section is missing. This is a required element. See https://docs.microsoft.com/en-us/nuget/reference/nuspec',
+      'This is an invalid nuspec file. Package or Metadata xml section is missing. This is a required element. See https://docs.microsoft.com/en-us/nuget/reference/nuspec. The nuspec in question: ' +
+        nuspecContent,
     );
   }
 
   //just in case, this should *not* happen
   if (!Array.isArray(parsedNuspec.package.metadata)) {
     throw new Error(
-      'This is an invalid nuspec file; the metadata tag is supposed to be a collection of objects but it is not!',
+      'This is an invalid nuspec file; the metadata tag is supposed to be a collection of objects but it is not! The nuspec in question: ' +
+        nuspecContent,
     );
   }
 
@@ -142,7 +144,8 @@ function assertNuspecSchema(parsedNuspec: any) {
       throw new Error(
         'Expected elements in a "metadata" tag to be objects, but they were ' +
           typeof metadata +
-          ', this is not supposed to happen and is likely due to malformed nuspec file.',
+          ', this is not supposed to happen and is likely due to malformed nuspec file. The nuspec in question: ' +
+          nuspecContent,
       );
     }
 
@@ -150,19 +153,9 @@ function assertNuspecSchema(parsedNuspec: any) {
       //just in case, error would indicate malformed nuspec
       if (!Array.isArray(metadata.dependencies)) {
         throw new Error(
-          'Expected that "dependencies" tag would be an array but it isn\'t. This is not supposed to happen and is likely due to malformed nuspec file!',
+          'Expected that "dependencies" tag would be an array but it isn\'t. This is not supposed to happen and is likely due to malformed nuspec file! The nuspec in question: ' +
+            nuspecContent,
         );
-      }
-
-      for (const rawDependency of metadata.dependencies) {
-        //just in case, shouldn't happen as this would indicate malformed nuspec format
-        if (typeof rawDependency !== 'object') {
-          throw new Error(
-            'Unexpected dependency value. Expected it to be object but it was ' +
-              typeof rawDependency +
-              ', this is likely a malformed nuspec',
-          );
-        }
       }
     }
   }
