@@ -79,18 +79,7 @@ describe('parseNuSpec', () => {
   '    <tags>jQuery</tags>\n' +
   '  </metadata>\n' +
     '</package>'
-
-  const nuspecWithNonArrayDependencies = '<?xml version="1.0"?>\n' +
-    '<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n' +
-    '  <metadata>\n' +
-    '    <id>jQuery</id>\n' +
-    '    <version>3.2.1</version>\n' +
-    '    <title>jQuery</title>\n' +
-    '    <authors>jQuery Foundation, Inc.</authors>\n' +
-    '    <dependencies>ABCD</dependencies>\n' +
-    '  </metadata>\n' +
-    '</package>'
-
+  
   it('should not throw an error when there are no dependencies in the metadata', async () => {
     const parsedResult = await _parsedNuspec(nuspecWithoutMetadataDependencies, {
       original: '',
@@ -111,11 +100,6 @@ describe('parseNuSpec', () => {
 
   it('should throw an error when the nuspec contains malformed XML', async () => {
     await expect(_parsedNuspec(nuspecWithMalformedTag, {original: '',framework: 'net',
-      version: '472'},'dependencyName')).rejects.toThrow();
-  });
-
-  it('should throw an error when the nuspec contains non-array dependencies tag', async () => {
-    await expect(_parsedNuspec(nuspecWithNonArrayDependencies, {original: '',framework: 'net',
       version: '472'},'dependencyName')).rejects.toThrow();
   });
 
