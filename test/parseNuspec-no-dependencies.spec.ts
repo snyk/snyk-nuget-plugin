@@ -37,7 +37,7 @@ describe('parse-with-project-name-prefix', () => {
   }
 });
 
-describe('parseNuSpec', () => {
+describe('parseNuSpec ', () => {
   const nuspecWithoutMetadataDependencies = '<?xml version="1.0"?>\n' +
     '<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n' +
     '  <metadata>\n' +
@@ -57,7 +57,7 @@ describe('parseNuSpec', () => {
     '  </metadata>\n' +
     '</package>'
 
-  const nuspecWithoutMetadata = '<?xml version="1.0"?>\n' +
+  const nuspecWithoutMetadata = ' <?xml version="1.0"?>\n' +
     '<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n' +
     '</package>'
 
