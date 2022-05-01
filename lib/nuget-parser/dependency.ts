@@ -1,4 +1,5 @@
 import * as debugModule from 'debug';
+import { InvalidFolderFormatError } from '../errors/invalid-folder-format-error';
 const debug = debugModule('snyk');
 
 export interface Dependency {
@@ -17,9 +18,20 @@ export function cloneShallow(dep: Dependency): Dependency {
 }
 
 function extractFromDotVersionNotation(expression) {
-  const versionRef = /(?=\S+)(?=\.{1})((\.\d+)+((-?\w+\.?\d*)|(\+?[0-9a-f]{5,40}))?)/.exec(
+  const regexParseResult = /(?=\S+)(?=\.{1})((\.\d+)+((-?\w+\.?\d*)|(\+?[0-9a-f]{5,40}))?)/.exec(
     expression,
-  )![0];
+  );
+
+  if (regexParseResult == null) {
+    debug(
+      `Failed to extract version from the folder: ${expression}. This is not supposed to happen and should be reported - the folders should always be in the form of [FolderName].[semantic version]`,
+    );
+    throw new InvalidFolderFormatError(
+      `Tried to parse package version from a folder name but failed. I received: ${expression}`,
+    );
+  }
+
+  const versionRef = regexParseResult![0];
   const name = expression.split(versionRef)[0];
   return {
     name,
