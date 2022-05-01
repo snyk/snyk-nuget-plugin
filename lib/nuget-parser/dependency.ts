@@ -31,6 +31,7 @@ function extractFromDotVersionNotation(expression) {
     );
   }
 
+
   const versionRef = regexParseResult?.[0];
   const name = expression.split(versionRef)[0];
   return {
