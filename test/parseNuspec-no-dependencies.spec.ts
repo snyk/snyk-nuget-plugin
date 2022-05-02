@@ -25,9 +25,6 @@ describe('parse-with-project-name-prefix', () => {
   for (const project in projects) {
     const proj = projects[project];
     it(`inspect ${project} with project-name-prefix option`, async () => {
-      if(proj.defaultName === 'packages-config-only'){
-        console.log('foo');
-      }
       const res = await plugin.inspect(proj.projectPath, proj.manifestFile, {
         "project-name-prefix": "custom-prefix/",
       });
