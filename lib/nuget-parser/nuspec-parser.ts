@@ -50,9 +50,7 @@ async function loadNuspecFromAsync(
   try {
     nupkgData = fs.readFileSync(nupkgPath);
   } catch (err) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    if (err.code == 'ENOENT') {
+    if (err(Error).code == 'ENOENT') {
       debug('No nupkg file found at ' + nupkgPath);
       return null; //this is needed not to break existing code flow
     } else {
