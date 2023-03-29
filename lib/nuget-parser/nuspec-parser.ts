@@ -50,7 +50,7 @@ async function loadNuspecFromAsync(
   try {
     nupkgData = fs.readFileSync(nupkgPath);
   } catch (err) {
-    if (err(Error).code == 'ENOENT') {
+    if (err.code == 'ENOENT') {
       debug('No nupkg file found at ' + nupkgPath);
       return null; //this is needed not to break existing code flow
     } else {
