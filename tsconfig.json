@@ -2,10 +2,10 @@
   "compilerOptions": {
     "outDir": "./dist",
     "pretty": true,
-    "target": "es2017",
+    "target": "es2019",
     "lib": [
       "dom", // needed for a "bug" in the jszip typings (uses Blob)
-      "es2017"
+      "es2019"
     ],
     "module": "commonjs",
     "allowJs": true,
