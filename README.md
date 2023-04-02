@@ -1,6 +1,6 @@
 ![Snyk logo](https://snyk.io/style/asset/logo/snyk-print.svg)
 
-[![Build Status](https://api.travis-ci.org/snyk/snyk-nuget-plugin.svg?branch=master)](https://travis-ci.org/snyk/snyk-nuget-plugin)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/snyk/snyk-nuget-plugin/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/snyk/snyk-nuget-plugin/tree/master)
 
 ***
 
