@@ -242,7 +242,8 @@ export async function parse(tree, manifest) {
 
   tree.dependencies = buildBfsTree(selectedTargetObj, directDependencies);
   // to disconnect the object references inside the tree
-  // cloneDeep is used
+  // cloneDeep is used here
+
   tree.dependencies = _.cloneDeep(tree.dependencies);
   return tree;
 }
