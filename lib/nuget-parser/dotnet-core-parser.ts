@@ -1,7 +1,7 @@
 import { InvalidManifestError } from '../errors';
 import * as debugModule from 'debug';
 import { Dependency } from './dependency';
-import * as cloneDeep from 'lodash.cloneDeep';
+import * as _ from 'lodash';
 const debug = debugModule('snyk');
 
 const PACKAGE_DELIMITER = '@';
@@ -244,6 +244,6 @@ export async function parse(tree, manifest) {
   // to disconnect the object references inside the tree
   // cloneDeep is used here
 
-  tree.dependencies = cloneDeep(tree.dependencies);
+  tree.dependencies = _.cloneDeep(tree.dependencies);
   return tree;
 }
