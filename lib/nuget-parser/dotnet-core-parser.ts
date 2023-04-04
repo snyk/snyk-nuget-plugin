@@ -1,6 +1,7 @@
 import { InvalidManifestError } from '../errors';
 import * as debugModule from 'debug';
 import { Dependency } from './dependency';
+import * as _ from 'lodash';
 const debug = debugModule('snyk');
 
 const PACKAGE_DELIMITER = '@';
@@ -241,7 +242,8 @@ export async function parse(tree, manifest) {
 
   tree.dependencies = buildBfsTree(selectedTargetObj, directDependencies);
   // to disconnect the object references inside the tree
-  // JSON parse/stringify is used
-  tree.dependencies = JSON.parse(JSON.stringify(tree.dependencies));
+  // cloneDeep is used here
+
+  tree.dependencies = _.cloneDeep(tree.dependencies);
   return tree;
 }
