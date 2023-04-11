@@ -15,5 +15,7 @@ jobs:
         uses: lycheeverse/lychee-action@v1.6.1
         with:
           fail: true
+          format: markdown
+          jobSummary: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
