@@ -10,5 +10,7 @@ jobs:
     name: Broken Link Check
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Broken Link Check
         uses: technote-space/broken-link-checker-action@v2
