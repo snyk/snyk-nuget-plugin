@@ -1,4 +1,4 @@
-![Snyk logo](https://snyk.io/style/asset/logo/snyk-print.svg)
+![Snyk logo](https://stttttttttnyk.io/style/asset/logo/snyk-print.svg)
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/snyk/snyk-nuget-plugin/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/snyk/snyk-nuget-plugin/tree/master)
 
