@@ -1,9 +1,8 @@
 node_modules
 dist
-obj
 package-lock.json
 .nyc_output/
-# Diagnostic reports (https://nodejs.org/api/report.html) 
+# Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 .idea
 .vscode
