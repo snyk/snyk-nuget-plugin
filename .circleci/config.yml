@@ -38,9 +38,7 @@ commands:
           command: nvm install << parameters.node_version >>
       - run:
           name: Use correct version of Node
-          command: |
-            nvm list
-            nvm use << parameters.node_version >>
+          command: nvm use << parameters.node_version >>
 
   show_node_version:
     description: Log Node and npm version
