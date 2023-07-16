@@ -1,5 +1,4 @@
-import * as tap from 'tap';
-const test = tap.test;
+import { describe, expect, test } from '@jest/globals';
 import * as plugin from '../lib/index';
 
 const stubsDir = './test/stubs';
@@ -7,7 +6,7 @@ const simplePaket = stubsDir + '/simple-paket/';
 const missingLock = stubsDir + '/paket-missing-lock/';
 
 const simplePaketDeps = {
-  'FAKE': {
+  FAKE: {
     depType: 'prod',
     dependencies: {},
     name: 'FAKE',
@@ -41,31 +40,25 @@ const simplePaketDeps = {
   },
 };
 
-test('parse simple-paket project', async (t) => {
-  try {
+describe('when testing paket', () => {
+  it('parse simple-paket project', async () => {
     const tree = await plugin.inspect(simplePaket, 'paket.dependencies');
-    t.deepEquals(tree.package.dependencies, simplePaketDeps, 'expected dependencies');
-    t.equals(tree.package.name, 'simple-paket', 'correct name');
-  } catch(err) {
-    t.fail('did not expect error' + err);
-  }
-});
+    expect(tree.package.dependencies).toEqual(simplePaketDeps);
+    expect(tree.package.name).toBe('simple-paket');
+  });
 
-test('parse simple-paket project from upper dir', async (t) => {
-  try {
-    const tree = await plugin.inspect(stubsDir, 'simple-paket/paket.dependencies');
-    t.deepEquals(tree.package.dependencies, simplePaketDeps, 'expected dependencies');
-    t.equals(tree.package.name, 'simple-paket', 'correct name');
-  } catch(err) {
-    t.fail('did not expect error ' + err);
-  }
-});
+  it('parse simple-paket project from upper dir', async () => {
+    const tree = await plugin.inspect(
+      stubsDir,
+      'simple-paket/paket.dependencies',
+    );
+    expect(tree.package.dependencies).toEqual(simplePaketDeps);
+    expect(tree.package.name).toBe('simple-paket');
+  });
 
-test('fail to parse paket with missing lock file project', async (t) => {
-  try {
-    await plugin.inspect(missingLock, 'paket.dependencies');
-    t.fail('expected error');
-  } catch(err) {
-    t.ok(/Lockfile not found at location.*/.test(err.toString()), 'expected error');
-  }
+  it('fail to parse paket with missing lock file project', async () => {
+    await expect(
+      async () => await plugin.inspect(missingLock, 'paket.dependencies'),
+    ).rejects.toThrow(/Lockfile not found at location.*/);
+  });
 });

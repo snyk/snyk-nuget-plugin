@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals';
 import { fromFolderName } from '../lib/nuget-parser/dependency';
 import { InvalidFolderFormatError } from '../lib/errors/invalid-folder-format-error';
 
