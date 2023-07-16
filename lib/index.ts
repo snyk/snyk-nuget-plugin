@@ -35,7 +35,6 @@ export async function inspect(root, targetFile, options?) {
   }
 
   const createPackageTree = (depTree) => {
-    // TODO implement for paket and more than one framework
     const targetFramework = depTree.meta
       ? depTree.meta.targetFramework
       : undefined;
@@ -60,6 +59,33 @@ export async function inspect(root, targetFile, options?) {
         options.strict,
       )
       .then(createPackageTree);
+  }
+
+  if (options['dotnet-runtime-resolution-beta']) {
+    if (manifestType !== 'dotnet-core') {
+      return Promise.reject(
+        new Error(
+          'runtime resolution beta flag is currently only applicable for .net core projects',
+        ),
+      );
+    }
+
+    const result = await nugetParser.buildDepGraphFromFiles(
+      root,
+      targetFile,
+      options.packagesFolder,
+      manifestType,
+      options['assets-project-name'],
+      options['project-name-prefix'],
+    );
+    return {
+      depGraph: result.depGraph,
+      plugin: {
+        name: 'snyk-nuget-plugin',
+        targetFile,
+        targetRuntime: result.targetFramework,
+      },
+    };
   }
 
   return nugetParser
