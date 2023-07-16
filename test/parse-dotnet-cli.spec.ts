@@ -23,22 +23,23 @@ describe('when parsing .NET CLI', () => {
         projectPath: './test/stubs/dotnet_2',
       },
       {
-        description: 'parse dotnet netcoreapp2.0 with duplicate deps project and traverse packages',
+        description:
+          'parse dotnet netcoreapp2.0 with duplicate deps project and traverse packages',
         projectPath: './test/stubs/dotnet_project',
       },
-      // {
-      //   description: 'parse net6.0 project',
-      //   projectPath: './test/stubs/dotnet_6',
-      // },
-    ])('should succeed given a project file and an expected tree', async ({ projectPath }) => {
-      const manifestFile = 'obj/project.assets.json';
-      const expectedTree = JSON.parse(
-        fs.readFileSync(path.resolve(projectPath, 'expected.json'), 'utf-8'),
-      );
+    ])(
+      'should succeed given a project file and an expected tree',
+      async ({ projectPath }) => {
+        const manifestFile = 'obj/project.assets.json';
+        const expectedTree = JSON.parse(
+          fs.readFileSync(path.resolve(projectPath, 'expected.json'), 'utf-8'),
+        );
 
-      const result = await plugin.inspect(projectPath, manifestFile);
-      expect(result.package).toEqual(expectedTree.package);
-    });
+        const result = await plugin.inspect(projectPath, manifestFile);
+        expect(result).toHaveProperty('package');
+        expect(result.package).toEqual(expectedTree.package);
+      },
+    );
   });
 
   describe('when calling with various configs', () => {
