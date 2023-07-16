@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  win: circleci/windows@2.4.0
+  win: circleci/windows@5.0.0
   prodsec: snyk/prodsec-orb@1.0
 
 defaults: &defaults
@@ -113,7 +113,7 @@ workflows:
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: '16'
+          node_version: '16.20'
           filters:
             branches:
               ignore:
