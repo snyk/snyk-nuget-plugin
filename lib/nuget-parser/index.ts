@@ -56,7 +56,6 @@ function getRootName(
 export async function buildDepGraphFromFiles(
   root: string | undefined,
   targetFile: string | undefined,
-  packagesFolderPath,
   manifestType,
   useProjectNameFromAssetsFile,
   projectNamePrefix?: string,

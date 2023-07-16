@@ -78,7 +78,6 @@ export async function inspect(
     const result = await nugetParser.buildDepGraphFromFiles(
       root,
       targetFile,
-      options.packagesFolder,
       manifestType,
       options['assets-project-name'],
       options['project-name-prefix'],
