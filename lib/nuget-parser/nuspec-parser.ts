@@ -3,9 +3,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as parseXML from 'xml2js';
 import * as dependency from './dependency';
+import { Dependency } from './dependency';
 import * as debugModule from 'debug';
 import { DependencyInfo, DependencyTree, TargetFramework } from './types';
-import { Dependency } from './dependency';
 
 const debug = debugModule('snyk');
 
@@ -75,14 +75,16 @@ async function loadNuspecFromAsync(
 
   const rawNuspecContent = await nuspecZipData.files[nuspecFile].async('text');
   const encoding = detectNuspecContentEncoding(rawNuspecContent);
-  const encodedNuspecContent = Buffer.from(rawNuspecContent).toString(encoding);
-  const normalisedNuspecContent =
-    removePotentialUtf16Characters(encodedNuspecContent);
+  const encoder = new TextEncoder();
+  const encoded = encoder.encode(rawNuspecContent);
 
-  return normalisedNuspecContent;
+  const decoder = new TextDecoder(encoding);
+  const encodedNuspecContent = decoder.decode(encoded);
+
+  return removePotentialUtf16Characters(encodedNuspecContent);
 }
 
-//this is exported for testing, but should not executed directly. Hence the '_' in the name.
+//this is exported for testing, but should not execute directly. Hence the '_' in the name.
 export async function _parsedNuspec(
   nuspecContent: string,
   targetFramework: TargetFramework,
