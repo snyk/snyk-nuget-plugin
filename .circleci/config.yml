@@ -124,6 +124,17 @@ workflows:
 
       # UNIX tests
       - test-unix:
+          name: Unix Tests for Node=12
+          context: nodejs-install
+          node_version: '12.12'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
+      - test-unix:
           name: Unix Tests for Node=16
           context: nodejs-install
           node_version: '16.20'
@@ -157,6 +168,17 @@ workflows:
                 - master
 
       # Windows tests
+      - test-windows:
+          name: Windows Tests for Node=12
+          context: nodejs-install
+          node_version: '12.12.22'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
       - test-windows:
           name: Windows Tests for Node=16
           context: nodejs-install
