@@ -24,6 +24,7 @@ commands:
       - run:
           name: Install dependencies
           command: npm install
+
   install_node_npm:
     description: Install correct Node version
     parameters:
@@ -37,6 +38,7 @@ commands:
       - run:
           name: Use correct version of Node
           command: nvm use << parameters.node_version >>
+
   show_node_version:
     description: Log Node and npm version
     steps:
@@ -51,7 +53,7 @@ jobs:
   lint:
     <<: *defaults
     docker:
-      - image: circleci/node:<< parameters.node_version >>
+      - image: cimg/node:<< parameters.node_version >>
     steps:
       - checkout
       - install_deps
@@ -77,7 +79,7 @@ jobs:
   test-unix:
     <<: *defaults
     docker:
-      - image: circleci/node:<< parameters.node_version >>
+      - image: cimg/node:<< parameters.node_version >>
     steps:
       - checkout
       - install_deps
@@ -121,7 +123,7 @@ workflows:
       - test-unix:
           name: Unix Tests for Node=16
           context: nodejs-install
-          node_version: '16'
+          node_version: '16.20'
           requires:
             - Lint
           filters:
@@ -132,7 +134,7 @@ workflows:
       - test-unix:
           name: Unix Tests for Node=18
           context: nodejs-install
-          node_version: '18'
+          node_version: '18.16'
           requires:
             - Lint
           filters:
@@ -143,7 +145,7 @@ workflows:
       - test-unix:
           name: Unix Tests for Node=20
           context: nodejs-install
-          node_version: '20'
+          node_version: '20.3'
           requires:
             - Lint
           filters:
