@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as nugetParser from './nuget-parser';
 import * as paketParser from 'snyk-paket-parser';
 import { InvalidTargetFile } from './errors';
+import { InspectResult } from './nuget-parser/types';
 
 function determineManifestType(filename) {
   switch (true) {
@@ -25,7 +26,11 @@ function determineManifestType(filename) {
   }
 }
 
-export async function inspect(root, targetFile, options?) {
+export async function inspect(
+  root,
+  targetFile,
+  options?,
+): Promise<InspectResult> {
   options = options || {};
   let manifestType;
   try {
@@ -80,6 +85,7 @@ export async function inspect(root, targetFile, options?) {
     );
     return {
       depGraph: result.depGraph,
+      package: 'n/a', // TODO: Will remove when everything is ported to depGraphs
       plugin: {
         name: 'snyk-nuget-plugin',
         targetFile,
