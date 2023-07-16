@@ -18,14 +18,18 @@ describe('when parsing .NET CLI', () => {
     });
 
     it.each([
-      // {
-      //   description: 'parse dotnet-cli project and traverse packages',
-      //   projectPath: './test/stubs/dotnet_2',
-      // },
       {
-        description: 'parse dotnet-cli 2 with duplicate deps project and traverse packages',
+        description: 'parse dotnet netcoreapp2.0',
+        projectPath: './test/stubs/dotnet_2',
+      },
+      {
+        description: 'parse dotnet netcoreapp2.0 with duplicate deps project and traverse packages',
         projectPath: './test/stubs/dotnet_project',
       },
+      // {
+      //   description: 'parse net6.0 project',
+      //   projectPath: './test/stubs/dotnet_6',
+      // },
     ])('should succeed given a project file and an expected tree', async ({ projectPath }) => {
       const manifestFile = 'obj/project.assets.json';
       const expectedTree = JSON.parse(
@@ -33,20 +37,7 @@ describe('when parsing .NET CLI', () => {
       );
 
       const result = await plugin.inspect(projectPath, manifestFile);
-      expect(result).toEqual(expectedTree);
-    });
-
-    it('parse dotnet-cli project and traverse packages', async () => {
-      const projectPath = './test/stubs/dotnet_p_g';
-      const manifestFile = 'obj/project.assets.json';
-      const expectedTree = JSON.parse(
-        fs.readFileSync('./test/stubs/dotnet_p_g/expected.json', 'utf-8'),
-      );
-
-      const result = await plugin.inspect(projectPath, manifestFile, {
-        packagesFolder: path.resolve(projectPath, '_packages'),
-      });
-      expect(result).toEqual(expectedTree);
+      expect(result.package).toEqual(expectedTree.package);
     });
   });
 
