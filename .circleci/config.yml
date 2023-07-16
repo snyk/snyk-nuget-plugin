@@ -16,6 +16,7 @@ windows_defaults: &windows_defaults
     npm_config_loglevel: silent
   executor:
     name: win/default
+    shell: bash
 
 commands:
   install_deps:
@@ -37,7 +38,9 @@ commands:
           command: nvm install << parameters.node_version >>
       - run:
           name: Use correct version of Node
-          command: nvm use << parameters.node_version >>
+          command: |
+            nvm list
+            nvm use << parameters.node_version >>
 
   show_node_version:
     description: Log Node and npm version
@@ -157,7 +160,7 @@ workflows:
       - test-windows:
           name: Windows Tests for Node=16
           context: nodejs-install
-          node_version: '16'
+          node_version: '16.20.0'
           requires:
             - Lint
           filters:
@@ -168,7 +171,7 @@ workflows:
       - test-windows:
           name: Windows Tests for Node=18
           context: nodejs-install
-          node_version: '18'
+          node_version: '18.16.0'
           requires:
             - Lint
           filters:
@@ -179,7 +182,7 @@ workflows:
       - test-windows:
           name: Windows Tests for Node=20
           context: nodejs-install
-          node_version: '20'
+          node_version: '20.3.0'
           requires:
             - Lint
           filters:
