@@ -104,8 +104,7 @@ function buildGraph(
     projectAssets.project.frameworks[key].dependencies,
   );
 
-  // The project.assets.json file is already structured quite decently, and
-  // we simply use that file directly
+  // The project.assets.json file is already structured quite decently, so we just use that file directly
   const targetDeps: Record<string, DotnetPackage> = Object.entries(
     projectAssets.targets[key],
   ).reduce((acc, entry) => {
