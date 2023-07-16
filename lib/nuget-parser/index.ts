@@ -137,9 +137,8 @@ export async function buildDepTreeFromFiles(
 export async function getMinimumTargetFrameworkFromPackagesConfig(
   fileContent: string,
 ): Promise<TargetFramework | undefined> {
-  const extractedFrameworks = await depsParser.extractTargetFrameworksFromProjectConfig(
-    fileContent,
-  );
+  const extractedFrameworks =
+    await depsParser.extractTargetFrameworksFromProjectConfig(fileContent);
 
   if (extractedFrameworks && extractedFrameworks.length > 0) {
     const minimumFramework = extractedFrameworks.reduce((prev, curr) =>

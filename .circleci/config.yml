@@ -111,7 +111,7 @@ workflows:
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: '14'
+          node_version: '16'
           filters:
             branches:
               ignore:

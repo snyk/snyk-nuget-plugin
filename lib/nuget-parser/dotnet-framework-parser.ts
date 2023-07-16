@@ -18,7 +18,7 @@ function injectPath(dep, packagesFolder) {
 function scanInstalled(installedPackages, packagesFolder) {
   const flattenedPackageList = {};
   debug('Located ' + installedPackages.length + ' packages in manifest');
-  installedPackages.forEach(entry => {
+  installedPackages.forEach((entry) => {
     injectPath(entry, packagesFolder);
     flattenedPackageList[entry.name] =
       flattenedPackageList[entry.name] || entry;
@@ -28,7 +28,7 @@ function scanInstalled(installedPackages, packagesFolder) {
     debug('Scanning local installed folders');
     debug('Trying to read from installed packages folder: ' + packagesFolder);
     fs.readdirSync(packagesFolder)
-      .map(folderName => {
+      .map((folderName) => {
         try {
           return fromFolderName(folderName);
         } catch (err) {
@@ -36,7 +36,7 @@ function scanInstalled(installedPackages, packagesFolder) {
           debug(err);
         }
       })
-      .forEach(dep => {
+      .forEach((dep) => {
         if (dep) {
           injectPath(dep, packagesFolder);
           // only add a package from packages folder if version is different
@@ -92,7 +92,7 @@ async function fetchNugetInformationFromPackages(
 
 function processNugetInformation(nuspecResolutionChain) {
   const nuspecResolutions = {};
-  nuspecResolutionChain.forEach(resolution => {
+  nuspecResolutionChain.forEach((resolution) => {
     if (!resolution) {
       return;
     } // jscs:ignore
@@ -153,7 +153,7 @@ export async function parse(tree, manifest, targetFramework, packagesFolder) {
   debug('Building dependency tree');
 
   const nugetKeys = Object.keys(nuspecResolutions);
-  Object.keys(flattenedPackageList).forEach(packageName => {
+  Object.keys(flattenedPackageList).forEach((packageName) => {
     tree.dependencies[packageName] = cloneShallow(
       flattenedPackageList[packageName],
     );
