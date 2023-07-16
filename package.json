@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "npm run lint && npm run unit-test",
-    "unit-test": "jest && tap --no-coverage test/*.test.ts --timeout=300",
+    "unit-test": "jest --coverage --silent=false --detectOpenHandles",
     "lint": "prettier --check \"./lib/**/*.ts\" && eslint -c .eslintrc.js \"./lib/**/*\"",
     "lint:fix": "prettier --write \"./lib/**/*.ts\" && eslint -c .eslintrc.js --fix \"./lib/**/*\"",
     "build": "tsc",
