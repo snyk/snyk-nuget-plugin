@@ -3,13 +3,15 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as parseXML from 'xml2js';
 import * as dependency from './dependency';
+import { Dependency } from './dependency';
 import * as debugModule from 'debug';
 import { DependencyInfo, DependencyTree, TargetFramework } from './types';
-import { Dependency } from './dependency';
 
 const debug = debugModule('snyk');
 
 const targetFrameworkRegex = /([.a-zA-Z]+)([.0-9]+)/;
+
+const encoder = new TextEncoder();
 
 export async function parseNuspec(
   dep: DependencyInfo,
@@ -59,7 +61,7 @@ async function loadNuspecFromAsync(
   }
   const nuspecZipData: any = await JSZip.loadAsync(nupkgData);
 
-  const nuspecFile = Object.keys(nuspecZipData.files).find(file => {
+  const nuspecFile = Object.keys(nuspecZipData.files).find((file) => {
     return path.extname(file) === '.nuspec';
   });
 
@@ -75,15 +77,15 @@ async function loadNuspecFromAsync(
 
   const rawNuspecContent = await nuspecZipData.files[nuspecFile].async('text');
   const encoding = detectNuspecContentEncoding(rawNuspecContent);
-  const encodedNuspecContent = Buffer.from(rawNuspecContent).toString(encoding);
-  const normalisedNuspecContent = removePotentialUtf16Characters(
-    encodedNuspecContent,
-  );
+  const decoder = new TextDecoder(encoding);
 
-  return normalisedNuspecContent;
+  const encoded = encoder.encode(rawNuspecContent);
+  const encodedNuspecContent = decoder.decode(encoded);
+
+  return removePotentialUtf16Characters(encodedNuspecContent);
 }
 
-//this is exported for testing, but should not executed directly. Hence the '_' in the name.
+//this is exported for testing, but should not execute directly. Hence the '_' in the name.
 export async function _parsedNuspec(
   nuspecContent: string,
   targetFramework: TargetFramework,
@@ -96,7 +98,7 @@ export async function _parsedNuspec(
   assertNuspecSchema(nuspecContent, parsedNuspec);
 
   for (const metadata of parsedNuspec.package.metadata) {
-    metadata.dependencies?.forEach(rawDependency => {
+    metadata.dependencies?.forEach((rawDependency) => {
       // Find and add target framework version specific dependencies
       const depsForTargetFramework = extractDepsForTargetFramework(
         rawDependency,
@@ -113,7 +115,7 @@ export async function _parsedNuspec(
       const depsFromPlainGroups = extractDepsForPlainGroups(rawDependency);
 
       if (depsFromPlainGroups) {
-        depsFromPlainGroups.forEach(depGroup => {
+        depsFromPlainGroups.forEach((depGroup) => {
           ownDeps = ownDeps.concat(extractDepsFromRaw(depGroup.dependency));
         });
       }
@@ -173,7 +175,7 @@ function extractDepsForPlainGroups(rawDependency) {
     return [];
   }
 
-  return rawDependency.group.filter(group => {
+  return rawDependency.group.filter((group) => {
     // valid group with no attributes or no `targetFramework` attribute
     return group && !(group.$ && group.$.targetFramework);
   });
@@ -185,13 +187,13 @@ function extractDepsForTargetFramework(rawDependency, targetFramework) {
   }
 
   return rawDependency.group
-    .filter(group => {
+    .filter((group) => {
       return (
         group?.$?.targetFramework &&
         targetFrameworkRegex.test(group.$.targetFramework)
       );
     })
-    .map(group => {
+    .map((group) => {
       const parts = group.$.targetFramework.split(targetFrameworkRegex);
       return {
         framework: parts[1],
@@ -206,7 +208,7 @@ function extractDepsForTargetFramework(rawDependency, targetFramework) {
 
       return a.framework > b.framework ? -1 : 1;
     })
-    .find(group => {
+    .find((group) => {
       return (
         targetFramework.framework === group.framework &&
         targetFramework.version >= group.version
@@ -220,7 +222,7 @@ function extractDepsFromRaw(rawDependencies) {
   }
 
   const deps: dependency.Dependency[] = [];
-  rawDependencies.forEach(dep => {
+  rawDependencies.forEach((dep) => {
     if (dep && dep.$) {
       deps.push({
         dependencies: {},

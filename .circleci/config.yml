@@ -111,7 +111,7 @@ workflows:
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: '14'
+          node_version: '16'
           filters:
             branches:
               ignore:
@@ -119,29 +119,9 @@ workflows:
 
       # UNIX tests
       - test-unix:
-          name: Unix Tests for Node=10
+          name: Unix Tests for Node=16
           context: nodejs-install
-          node_version: '10'
-          requires:
-            - Lint
-          filters:
-            branches:
-              ignore:
-                - master
-      - test-unix:
-          name: Unix Tests for Node=12
-          context: nodejs-install
-          node_version: '12'
-          requires:
-            - Lint
-          filters:
-            branches:
-              ignore:
-                - master
-      - test-unix:
-          name: Unix Tests for Node=14
-          context: nodejs-install
-          node_version: '14'
+          node_version: '16'
           requires:
             - Lint
           filters:
@@ -151,29 +131,9 @@ workflows:
 
       # Windows tests
       - test-windows:
-          name: Windows Tests for Node=10
+          name: Windows Tests for Node=16
           context: nodejs-install
-          node_version: '10.21.0'
-          requires:
-            - Lint
-          filters:
-            branches:
-              ignore:
-                - master
-      - test-windows:
-          name: Windows Tests for Node=12
-          context: nodejs-install
-          node_version: '12.0.0'
-          requires:
-            - Lint
-          filters:
-            branches:
-              ignore:
-                - master
-      - test-windows:
-          name: Windows Tests for Node=14
-          context: nodejs-install
-          node_version: '14.0.0'
+          node_version: '16'
           requires:
             - Lint
           filters:
