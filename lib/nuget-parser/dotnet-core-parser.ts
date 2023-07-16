@@ -37,7 +37,7 @@ function initFreqDepsDict() {
 function pick(obj: Record<string, unknown>, keys: string[]) {
   const pickedObj: Record<string, unknown> = {};
 
-  Object.keys(obj).forEach(k => {
+  Object.keys(obj).forEach((k) => {
     if (keys.includes(k)) {
       pickedObj[k] = obj[k];
     }
@@ -54,7 +54,7 @@ function convertFromPathSyntax(path) {
 
 function collectFlatList(targetObj) {
   const names = Object.keys(targetObj);
-  return names.map(name => {
+  return names.map((name) => {
     name = convertFromPathSyntax(name);
     return name;
   });
@@ -80,7 +80,7 @@ function buildBfsTree(targetDeps, roots) {
 
 function isScanned(nodes: Dependency[], pkg: Dependency): boolean {
   const node = nodes.find(
-    elem => elem.name === pkg.name && elem.version === pkg.version,
+    (elem) => elem.name === pkg.name && elem.version === pkg.version,
   );
   return !!node;
 }
@@ -104,9 +104,8 @@ function findPackage(targetDeps, depName: string): Dependency | undefined {
   const depNameLowerCase = depName.toLowerCase();
   for (const currentDep of Object.keys(targetDeps)) {
     const currentResolvedName = convertFromPathSyntax(currentDep);
-    const [currentDepName, currentDepVersion] = currentResolvedName.split(
-      PACKAGE_DELIMITER,
-    );
+    const [currentDepName, currentDepVersion] =
+      currentResolvedName.split(PACKAGE_DELIMITER);
     if (currentDepName.toLowerCase() === depNameLowerCase) {
       return {
         name: depName,

@@ -37,16 +37,15 @@
     "debug": "^4.3.4",
     "dotnet-deps-parser": "5.3.0",
     "jszip": "3.10.1",
+    "lodash": "^4.17.21",
     "snyk-paket-parser": "1.6.0",
     "tslib": "^2.6.0",
-    "xml2js": "^0.6.0",
-    "lodash": "^4.17.21"
+    "xml2js": "^0.6.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.3",
     "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.8.0",
     "jest": "^29.6.1",

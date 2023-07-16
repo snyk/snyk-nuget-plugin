@@ -34,7 +34,7 @@ export async function inspect(root, targetFile, options?) {
     return Promise.reject(error);
   }
 
-  const createPackageTree = depTree => {
+  const createPackageTree = (depTree) => {
     // TODO implement for paket and more than one framework
     const targetFramework = depTree.meta
       ? depTree.meta.targetFramework
