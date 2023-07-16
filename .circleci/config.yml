@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  win: circleci/windows@2.4.0
+  win: circleci/windows@5.0.0
   prodsec: snyk/prodsec-orb@1.0
 
 defaults: &defaults
@@ -16,6 +16,7 @@ windows_defaults: &windows_defaults
     npm_config_loglevel: silent
   executor:
     name: win/default
+    shell: bash
 
 commands:
   install_deps:
@@ -24,6 +25,7 @@ commands:
       - run:
           name: Install dependencies
           command: npm install
+
   install_node_npm:
     description: Install correct Node version
     parameters:
@@ -36,7 +38,10 @@ commands:
           command: nvm install << parameters.node_version >>
       - run:
           name: Use correct version of Node
-          command: nvm use << parameters.node_version >>
+          command: |
+            nvm list
+            nvm use << parameters.node_version >>
+
   show_node_version:
     description: Log Node and npm version
     steps:
@@ -51,7 +56,7 @@ jobs:
   lint:
     <<: *defaults
     docker:
-      - image: circleci/node:<< parameters.node_version >>
+      - image: cimg/node:<< parameters.node_version >>
     steps:
       - checkout
       - install_deps
@@ -77,7 +82,7 @@ jobs:
   test-unix:
     <<: *defaults
     docker:
-      - image: circleci/node:<< parameters.node_version >>
+      - image: cimg/node:<< parameters.node_version >>
     steps:
       - checkout
       - install_deps
@@ -111,7 +116,7 @@ workflows:
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: '14'
+          node_version: '16.20'
           filters:
             branches:
               ignore:
@@ -119,29 +124,53 @@ workflows:
 
       # UNIX tests
       - test-unix:
-          name: Unix Tests for Node=10
-          context: nodejs-install
-          node_version: '10'
-          requires:
-            - Lint
-          filters:
-            branches:
-              ignore:
-                - master
-      - test-unix:
           name: Unix Tests for Node=12
           context: nodejs-install
-          node_version: '12'
+          node_version: '12.22'
           requires:
             - Lint
           filters:
             branches:
               ignore:
                 - master
+
       - test-unix:
           name: Unix Tests for Node=14
           context: nodejs-install
-          node_version: '14'
+          node_version: '14.20'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
+      - test-unix:
+          name: Unix Tests for Node=16
+          context: nodejs-install
+          node_version: '16.20'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
+      - test-unix:
+          name: Unix Tests for Node=18
+          context: nodejs-install
+          node_version: '18.16'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
+      - test-unix:
+          name: Unix Tests for Node=20
+          context: nodejs-install
+          node_version: '20.3'
           requires:
             - Lint
           filters:
@@ -151,29 +180,53 @@ workflows:
 
       # Windows tests
       - test-windows:
-          name: Windows Tests for Node=10
-          context: nodejs-install
-          node_version: '10.21.0'
-          requires:
-            - Lint
-          filters:
-            branches:
-              ignore:
-                - master
-      - test-windows:
           name: Windows Tests for Node=12
           context: nodejs-install
-          node_version: '12.0.0'
+          node_version: '12.22.12'
           requires:
             - Lint
           filters:
             branches:
               ignore:
                 - master
+
       - test-windows:
           name: Windows Tests for Node=14
           context: nodejs-install
-          node_version: '14.0.0'
+          node_version: '14.20.1'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
+      - test-windows:
+          name: Windows Tests for Node=16
+          context: nodejs-install
+          node_version: '16.20.0'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
+      - test-windows:
+          name: Windows Tests for Node=18
+          context: nodejs-install
+          node_version: '18.16.0'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
+      - test-windows:
+          name: Windows Tests for Node=20
+          context: nodejs-install
+          node_version: '20.3.0'
           requires:
             - Lint
           filters:

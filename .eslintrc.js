@@ -1,22 +1,13 @@
 module.exports = {
-  settings: { cache: true },
-  parser: '@typescript-eslint/parser',
-  // Pending https://github.com/typescript-eslint/typescript-eslint/issues/389
-  // parserOptions: {
-  //   project: './tsconfig.json',
-  // },
-  env: {
-    node: true,
-    es6: true,
-    jest: true,
-  },
-  plugins: ['@typescript-eslint'],
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-    'prettier/@typescript-eslint',
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 0,

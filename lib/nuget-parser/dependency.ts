@@ -18,9 +18,10 @@ export function cloneShallow(dep: Dependency): Dependency {
 }
 
 function extractFromDotVersionNotation(expression) {
-  const regexParseResult = /(?=\S+)(?=\.{1})((\.\d+)+((-?\w+\.?\d*)|(\+?[0-9a-f]{5,40}))?)/.exec(
-    expression,
-  );
+  const regexParseResult =
+    /(?=\S+)(?=\.{1})((\.\d+)+((-?\w+\.?\d*)|(\+?[0-9a-f]{5,40}))?)/.exec(
+      expression,
+    );
 
   if (regexParseResult == null) {
     debug(
