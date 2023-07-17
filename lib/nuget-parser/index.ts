@@ -53,6 +53,15 @@ function getRootName(
   return defaultRootName;
 }
 
+function getFileContents(fileContentPath: string): string {
+  try {
+    debug(`Parsing content of ${fileContentPath}`);
+    return fs.readFileSync(fileContentPath, 'utf-8');
+  } catch (error) {
+    throw new FileNotProcessableError(error);
+  }
+}
+
 export async function buildDepGraphFromFiles(
   root: string | undefined,
   targetFile: string | undefined,
@@ -66,13 +75,7 @@ export async function buildDepGraphFromFiles(
   const safeRoot = root || '.';
   const safeTargetFile = targetFile || '.';
   const fileContentPath = path.resolve(safeRoot, safeTargetFile);
-  let fileContent;
-  try {
-    debug(`Parsing content of ${fileContentPath}`);
-    fileContent = fs.readFileSync(fileContentPath, 'utf-8');
-  } catch (error) {
-    throw new FileNotProcessableError(error);
-  }
+  const fileContent = getFileContents(fileContentPath);
   const projectRootFolder = path.resolve(fileContentPath, '../../');
   const targetFramework = await getTargetFrameworksFromProjFile(
     projectRootFolder,
@@ -117,13 +120,7 @@ export async function buildDepTreeFromFiles(
   const safeRoot = root || '.';
   const safeTargetFile = targetFile || '.';
   const fileContentPath = path.resolve(safeRoot, safeTargetFile);
-  let fileContent;
-  try {
-    debug(`Parsing content of ${fileContentPath}`);
-    fileContent = fs.readFileSync(fileContentPath, 'utf-8');
-  } catch (error) {
-    throw new FileNotProcessableError(error);
-  }
+  const fileContent = getFileContents(fileContentPath);
   const projectRootFolder = path.resolve(fileContentPath, '../../');
   const packagesFolder = getPackagesFolder(
     packagesFolderPath,
