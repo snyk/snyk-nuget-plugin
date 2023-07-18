@@ -24,8 +24,8 @@ describe('when generating a dependency graph', () => {
       undefined,
       undefined,
     );
-    expect(result.depGraph).toBeDefined();
-    const depGraph = result.depGraph;
+    expect(result.dependencyGraph).toBeDefined();
+    const depGraph = result.dependencyGraph;
 
     // The depTree will not be completely identical to the depGraph, so we cannot compare one-to-one. For instance,
     // we've gotten rid of the 'freqDeps' among other things.

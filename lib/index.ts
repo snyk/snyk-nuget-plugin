@@ -83,7 +83,7 @@ export async function inspect(
       options['project-name-prefix'],
     );
     return {
-      depGraph: result.depGraph,
+      dependencyGraph: result.dependencyGraph,
       package: 'n/a', // TODO: Will remove when everything is ported to depGraphs
       plugin: {
         name: 'snyk-nuget-plugin',

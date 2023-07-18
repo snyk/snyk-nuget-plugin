@@ -24,7 +24,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
           'utf-8',
         ),
       );
-      expect(result.depGraph?.toJSON()).toEqual(expectedTree.depGraph);
+      expect(result.dependencyGraph?.toJSON()).toEqual(expectedTree.depGraph);
     },
   );
 

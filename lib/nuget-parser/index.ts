@@ -69,7 +69,7 @@ export async function buildDepGraphFromFiles(
   useProjectNameFromAssetsFile,
   projectNamePrefix?: string,
 ): Promise<{
-  depGraph: depGraphLib.DepGraph;
+  dependencyGraph: depGraphLib.DepGraph;
   targetFramework: string | undefined;
 }> {
   const safeRoot = root || '.';
@@ -104,7 +104,7 @@ export async function buildDepGraphFromFiles(
   const depGraph = parser.depParser.parse(resolvedProjectName, manifest);
 
   return {
-    depGraph,
+    dependencyGraph: depGraph,
     targetFramework: targetFramework?.original,
   };
 }
