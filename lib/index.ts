@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as nugetParser from './nuget-parser';
 import * as paketParser from 'snyk-paket-parser';
 import { InvalidTargetFile } from './errors';
+import { InspectResult } from './nuget-parser/types';
 
 function determineManifestType(filename) {
   switch (true) {
@@ -25,7 +26,11 @@ function determineManifestType(filename) {
   }
 }
 
-export async function inspect(root, targetFile, options?) {
+export async function inspect(
+  root,
+  targetFile,
+  options?,
+): Promise<InspectResult> {
   options = options || {};
   let manifestType;
   try {
@@ -35,7 +40,6 @@ export async function inspect(root, targetFile, options?) {
   }
 
   const createPackageTree = (depTree) => {
-    // TODO implement for paket and more than one framework
     const targetFramework = depTree.meta
       ? depTree.meta.targetFramework
       : undefined;
@@ -60,6 +64,33 @@ export async function inspect(root, targetFile, options?) {
         options.strict,
       )
       .then(createPackageTree);
+  }
+
+  if (options['dotnet-runtime-resolution']) {
+    if (manifestType !== 'dotnet-core') {
+      return Promise.reject(
+        new Error(
+          'runtime resolution beta flag is currently only applicable for .net core projects',
+        ),
+      );
+    }
+
+    const result = await nugetParser.buildDepGraphFromFiles(
+      root,
+      targetFile,
+      manifestType,
+      options['assets-project-name'],
+      options['project-name-prefix'],
+    );
+    return {
+      dependencyGraph: result.dependencyGraph,
+      package: 'n/a', // TODO: Will remove when everything is ported to depGraphs
+      plugin: {
+        name: 'snyk-nuget-plugin',
+        targetFile,
+        targetRuntime: result.targetFramework,
+      },
+    };
   }
 
   return nugetParser

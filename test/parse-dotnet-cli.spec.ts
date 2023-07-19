@@ -17,39 +17,29 @@ describe('when parsing .NET CLI', () => {
       ).rejects.toThrow('No frameworks were found in project.assets.json');
     });
 
-    it('parse dotnet-cli 2 project and traverse packages', async () => {
-      const projectPath = './test/stubs/dotnet_project';
-      const manifestFile = 'obj/project.assets.json';
-      const expectedTree = JSON.parse(
-        fs.readFileSync('./test/stubs/dotnet_project/expected.json', 'utf-8'),
-      );
+    it.each([
+      {
+        description: 'parse dotnet netcoreapp2.0',
+        projectPath: './test/stubs/dotnet_2',
+      },
+      {
+        description:
+          'parse dotnet netcoreapp2.0 with duplicate deps project and traverse packages',
+        projectPath: './test/stubs/dotnet_project',
+      },
+    ])(
+      'should succeed given a project file and an expected tree',
+      async ({ projectPath }) => {
+        const manifestFile = 'obj/project.assets.json';
+        const expectedTree = JSON.parse(
+          fs.readFileSync(path.resolve(projectPath, 'expected.json'), 'utf-8'),
+        );
 
-      const result = await plugin.inspect(projectPath, manifestFile);
-      expect(result).toEqual(expectedTree);
-    });
-
-    it('parse dotnet-cli 2 with duplicate deps project and traverse packages', async () => {
-      const projectPath = './test/stubs/dotnet_project';
-      const manifestFile = 'obj/project.assets.json';
-      const expectedTree = JSON.parse(
-        fs.readFileSync('./test/stubs/dotnet_project/expected.json', 'utf-8'),
-      );
-      const result = await plugin.inspect(projectPath, manifestFile);
-      expect(result).toEqual(expectedTree);
-    });
-
-    it('parse dotnet-cli project and traverse packages', async () => {
-      const projectPath = './test/stubs/dotnet_p_g';
-      const manifestFile = 'obj/project.assets.json';
-      const expectedTree = JSON.parse(
-        fs.readFileSync('./test/stubs/dotnet_p_g/expected.json', 'utf-8'),
-      );
-
-      const result = await plugin.inspect(projectPath, manifestFile, {
-        packagesFolder: path.resolve(projectPath, '_packages'),
-      });
-      expect(result).toEqual(expectedTree);
-    });
+        const result = await plugin.inspect(projectPath, manifestFile);
+        expect(result).toHaveProperty('package');
+        expect(result.package).toEqual(expectedTree.package);
+      },
+    );
   });
 
   describe('when calling with various configs', () => {

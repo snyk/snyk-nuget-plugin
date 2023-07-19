@@ -7,12 +7,12 @@ describe('when parsing with traverse', () => {
   const targetProjectJsonFile = './test/stubs/dummy_project_1/';
   const targetPackagesConfigFile =
     targetProjectJsonFile + 'dummy_project_1/packages.config';
-  const alternatePackagesFolder = targetProjectJsonFile + 'alternate_packages';
-  const targetJSONManifestData = JSON.parse(
-    fs.readFileSync('./test/stubs/_2_project.json', 'utf-8'),
-  );
 
   it('parse _2_project.json - like and traverse packages', async () => {
+    const targetJSONManifestData = JSON.parse(
+      fs.readFileSync('./test/stubs/_2_project.json', 'utf-8'),
+    );
+
     const expectedTreeFile = fs.readFileSync(
       targetProjectJsonFile + 'dummy_project_1/expected_csproj.json',
     );
@@ -58,6 +58,8 @@ describe('when parsing with traverse', () => {
     );
     const expectedTree = JSON.parse(expectedTreeFile.toString());
 
+    const alternatePackagesFolder =
+      targetProjectJsonFile + 'alternate_packages';
     const result = await plugin.inspect(null, targetPackagesConfigFile, {
       packagesFolder: alternatePackagesFolder,
     });
@@ -68,4 +70,3 @@ describe('when parsing with traverse', () => {
     expect(result.plugin.name).toBe('snyk-nuget-plugin');
   });
 });
-
