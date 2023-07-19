@@ -66,7 +66,7 @@ export async function inspect(
       .then(createPackageTree);
   }
 
-  if (options['dotnet-runtime-resolution-beta']) {
+  if (options['dotnet-runtime-resolution']) {
     if (manifestType !== 'dotnet-core') {
       return Promise.reject(
         new Error(

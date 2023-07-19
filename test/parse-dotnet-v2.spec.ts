@@ -15,7 +15,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       const manifestFile = 'obj/project.assets.json';
 
       const result = await plugin.inspect(projectPath, manifestFile, {
-        'dotnet-runtime-resolution-beta': true,
+        'dotnet-runtime-resolution': true,
       });
 
       const expectedTree = JSON.parse(
@@ -34,7 +34,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     await expect(
       async () =>
         await plugin.inspect(projectPath, manifestFile, {
-          'dotnet-runtime-resolution-beta': true,
+          'dotnet-runtime-resolution': true,
         }),
     ).rejects.toThrow(
       'runtime resolution beta flag is currently only applicable for .net core projects',
