@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Dependency, cloneShallow, fromFolderName } from './dependency';
+import { Dependency, cloneShallow, fromFolderName } from '../dependency';
 import { parseNuspec } from './nuspec-parser';
 import * as debugModule from 'debug';
 

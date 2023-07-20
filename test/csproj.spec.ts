@@ -1,4 +1,4 @@
-import { getTargetFrameworksFromProjFile } from '../lib/nuget-parser/csproj-parser';
+import { getTargetFrameworksFromProjFile } from '../lib/nuget-parser/parsers/csproj-parser';
 import { describe, expect, it } from '@jest/globals';
 import * as plugin from '../lib';
 

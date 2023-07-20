@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { parse } from '../lib/nuget-parser/dotnet-core-parser';
+import { parse } from '../lib/nuget-parser/parsers/dotnet-core-parser';
 
 const duplicationNumber = 25;
 

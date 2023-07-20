@@ -1,11 +1,11 @@
-import { FileNotFoundError, FileNotProcessableError } from '../errors';
+import { FileNotFoundError, FileNotProcessableError } from '../../errors';
 
 import * as fs from 'fs';
 import * as path from 'path';
 import * as parseXML from 'xml2js';
 import * as debugModule from 'debug';
-import { TargetFramework } from './types';
-import { toReadableFramework } from './framework';
+import { TargetFramework } from '../types';
+import { toReadableFramework } from '../framework';
 const debug = debugModule('snyk');
 
 export async function getTargetFrameworksFromProjFile(

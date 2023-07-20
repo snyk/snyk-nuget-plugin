@@ -1,7 +1,7 @@
 import * as parseXML from 'xml2js';
 import * as debugModule from 'debug';
 const debug = debugModule('snyk');
-import { Dependency, fromPackagesConfigEntry } from './dependency';
+import { Dependency, fromPackagesConfigEntry } from '../dependency';
 
 export function parse(fileContent) {
   const installedPackages: Dependency[] = [];
