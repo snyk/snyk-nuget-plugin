@@ -2,10 +2,10 @@ import * as JSZip from 'jszip';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as parseXML from 'xml2js';
-import * as dependency from './dependency';
-import { Dependency } from './dependency';
+import * as dependency from '../dependency';
+import { Dependency } from '../dependency';
 import * as debugModule from 'debug';
-import { DependencyInfo, DependencyTree, TargetFramework } from './types';
+import { DependencyInfo, DependencyTree, TargetFramework } from '../types';
 
 const debug = debugModule('snyk');
 

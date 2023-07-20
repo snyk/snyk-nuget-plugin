@@ -1,6 +1,6 @@
-import { InvalidManifestError } from '../errors';
+import { InvalidManifestError } from '../../errors';
 import * as debugModule from 'debug';
-import { Dependency } from './dependency';
+import { Dependency } from '../dependency';
 import * as _ from 'lodash';
 const debug = debugModule('snyk');
 

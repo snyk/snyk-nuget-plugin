@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { _parsedNuspec } from '../lib/nuget-parser/nuspec-parser';
+import { _parsedNuspec } from '../lib/nuget-parser/parsers/nuspec-parser';
 import * as fs from 'fs';
 import * as plugin from '../lib/index';
 
