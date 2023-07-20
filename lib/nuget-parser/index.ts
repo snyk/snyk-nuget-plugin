@@ -8,7 +8,7 @@ import * as dotnetFrameworkParser from './parsers/dotnet-framework-parser';
 import * as projectJsonParser from './parsers/project-json-parser';
 import * as packagesConfigParser from './parsers/packages-config-parser';
 import { FileNotProcessableError } from '../errors';
-import { TargetFramework } from './types';
+import { ManifestType, TargetFramework } from './types';
 import * as depsParser from 'dotnet-deps-parser';
 import { toReadableFramework } from './framework';
 import * as depGraphLib from '@snyk/dep-graph';
@@ -65,7 +65,7 @@ function getFileContents(fileContentPath: string): string {
 export async function buildDepGraphFromFiles(
   root: string | undefined,
   targetFile: string | undefined,
-  manifestType,
+  manifestType: ManifestType,
   useProjectNameFromAssetsFile,
   projectNamePrefix?: string,
 ): Promise<{
@@ -89,7 +89,10 @@ export async function buildDepGraphFromFiles(
     projectRootFolder,
     projectNamePrefix,
   );
-  if (manifestType === 'dotnet-core' && useProjectNameFromAssetsFile) {
+  if (
+    manifestType === ManifestType.DOTNET_CORE &&
+    useProjectNameFromAssetsFile
+  ) {
     const projectName = manifest?.project?.restore?.projectName;
     if (projectName) {
       resolvedProjectName = projectName;
@@ -137,7 +140,7 @@ export async function buildDepTreeFromFiles(
 
   let targetFramework: TargetFramework | undefined;
   try {
-    if (manifestType === 'dotnet-core') {
+    if (manifestType === ManifestType.DOTNET_CORE) {
       targetFramework = await getTargetFrameworksFromProjFile(
         projectRootFolder,
       );
@@ -151,7 +154,7 @@ export async function buildDepTreeFromFiles(
       // finally, for the .NETFramework project, try to assume the framework using dotnet-deps-parser
       if (!targetFramework) {
         // currently only process packages.config files
-        if (manifestType === 'packages.config') {
+        if (manifestType === ManifestType.PACKAGES_CONFIG) {
           targetFramework = await getMinimumTargetFrameworkFromPackagesConfig(
             fileContent,
           );
@@ -169,7 +172,10 @@ export async function buildDepTreeFromFiles(
   const parser = PARSERS[manifestType];
   const manifest = await parser.fileContentParser.parse(fileContent, tree);
 
-  if (manifestType === 'dotnet-core' && useProjectNameFromAssetsFile) {
+  if (
+    manifestType === ManifestType.DOTNET_CORE &&
+    useProjectNameFromAssetsFile
+  ) {
     const projectName = manifest?.project?.restore?.projectName;
 
     if (projectName) {

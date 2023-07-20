@@ -40,3 +40,10 @@ export interface InspectResult {
   // https://github.com/snyk/cli/blob/d2ea109b145ba0d67e7018276fbb9e3440aa42eb/src/lib/plugins/convert-single-splugin-res-to-multi-custom.ts#L25
   dependencyGraph?: depGraphLib.DepGraph;
 }
+
+export enum ManifestType {
+  PROJECT_JSON = 'project.json',
+  DOTNET_CORE = 'dotnet-core',
+  PACKAGES_CONFIG = 'packages.config',
+  PAKET = 'paket',
+}
