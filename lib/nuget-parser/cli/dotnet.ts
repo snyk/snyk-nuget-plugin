@@ -54,6 +54,7 @@ export async function publish(filePath: string): Promise<string> {
   // for a self-contained executable. Specifically determining an output folder with --output is deprecated,
   // as it leads to unpredictable results for multiple target frameworks and runtimes, so we have to cherry-pick
   // the folders.
+  // See: https://learn.microsoft.com/en-us/dotnet/core/compatibility/sdk/7.0/solution-level-output-no-longer-valid.
   // FIXME: As we're not supporting multiple frameworks all over the place, we have to just take the first one.
   //  It's probably safe, as runtime dll versions most likely don't differ much across *most* dependencies, but
   //  OS-specific ones (e.g. crypto) might.
