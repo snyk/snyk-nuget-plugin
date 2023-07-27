@@ -1,4 +1,4 @@
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import * as plugin from '../lib/index';
 
 const stubsDir = './test/stubs';
