@@ -8,3 +8,11 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 .vscode
 .ionide/
 coverage/
+
+# dotnet CLI tests
+Debug/
+test/**/bin
+test/**/*.g.props
+test/**/*.g.targets
+test/**/*.dgspec.json
+test/**/*.cache
