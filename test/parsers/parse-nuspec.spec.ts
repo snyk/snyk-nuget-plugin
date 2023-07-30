@@ -1,34 +1,28 @@
 import { describe, expect, it } from '@jest/globals';
-import { _parsedNuspec } from '../../lib/nuget-parser/parsers/nuspec-parser';
-import * as fs from 'fs';
+import { parse } from '../../lib/nuget-parser/parsers/nuspec-parser';
 import * as plugin from '../../lib';
 
-JSON.parse(fs.readFileSync('./test/fixtures/_2_project.json', 'utf-8'));
-
-const projects = {
-  csproj: {
-    projectPath: './test/fixtures/target_framework/no_csproj',
-    manifestFile: 'obj/project.assets.json',
-    defaultName: 'no_csproj',
-  },
-
-  packagesConfig: {
-    projectPath: './test/fixtures/packages-config-only',
-    manifestFile: 'packages.config',
-    defaultName: 'packages-config-only',
-  },
-};
-
 describe('parse-with-project-name-prefix', () => {
-  for (const project in projects) {
-    const proj = projects[project];
-    it(`inspect ${project} with project-name-prefix option`, async () => {
-      const res = await plugin.inspect(proj.projectPath, proj.manifestFile, {
+  it.each([
+    {
+      projectPath: './test/fixtures/target-framework/no-csproj',
+      manifestFile: 'obj/project.assets.json',
+      defaultName: 'no-csproj',
+    },
+    {
+      projectPath: './test/fixtures/packages-config-only',
+      manifestFile: 'packages.config',
+      defaultName: 'packages-config-only',
+    },
+  ])(
+    `inspect $projectPath with project-name-prefix option`,
+    async ({ projectPath, manifestFile, defaultName }) => {
+      const res = await plugin.inspect(projectPath, manifestFile, {
         'project-name-prefix': 'custom-prefix/',
       });
-      expect(res.package.name).toEqual(`custom-prefix/${proj.defaultName}`);
-    });
-  }
+      expect(res.package.name).toEqual(`custom-prefix/${defaultName}`);
+    },
+  );
 });
 
 describe('parseNuSpec ', () => {
@@ -78,7 +72,7 @@ describe('parseNuSpec ', () => {
     '</package>';
 
   it('should not throw an error when there are no dependencies in the metadata', async () => {
-    const parsedResult = await _parsedNuspec(
+    const parsedResult = await parse(
       nuspecWithoutMetadataDependencies,
       {
         original: '',
@@ -94,7 +88,7 @@ describe('parseNuSpec ', () => {
 
   it('should throw an error when there is no metadata', async () => {
     await expect(
-      _parsedNuspec(
+      parse(
         nuspecWithoutMetadata,
         {
           original: '',
@@ -108,7 +102,7 @@ describe('parseNuSpec ', () => {
 
   it('should throw an error when the nuspec contains malformed XML', async () => {
     await expect(
-      _parsedNuspec(
+      parse(
         nuspecWithMalformedTag,
         {
           original: '',

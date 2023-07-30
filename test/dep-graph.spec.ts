@@ -5,7 +5,7 @@ import * as nugetParser from '../lib/nuget-parser';
 describe('when generating a dependency graph', () => {
   it('generates a correct dependency graph compared to the existing depTree logic', async () => {
     const depTree = await nugetParser.buildDepTreeFromFiles(
-      './test/fixtures/dotnet_6',
+      './test/fixtures/dotnetcore/dotnet_6',
       'obj/project.assets.json',
       undefined,
       'dotnet-core',
@@ -18,7 +18,7 @@ describe('when generating a dependency graph', () => {
     );
 
     const result = await nugetParser.buildDepGraphFromFiles(
-      './test/fixtures/dotnet_6',
+      './test/fixtures/dotnetcore/dotnet_6',
       'obj/project.assets.json',
       'dotnet-core',
       undefined,

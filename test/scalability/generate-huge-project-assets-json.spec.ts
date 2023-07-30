@@ -27,7 +27,7 @@ describe('parse large dependency tree', () => {
     const tree = {
       dependencies: {},
       meta: {},
-      name: 'custom-prefix/no_csproj',
+      name: 'custom-prefix/no-csproj',
       packageFormatVersion: 'nuget:0.0.0',
       version: '0.0.0',
     };

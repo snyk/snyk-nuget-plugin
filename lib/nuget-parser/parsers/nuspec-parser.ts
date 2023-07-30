@@ -38,7 +38,7 @@ export async function parseNuspec(
     return null;
   }
 
-  return await _parsedNuspec(nuspecContent, targetFramework, dep.name);
+  return await parse(nuspecContent, targetFramework, dep.name);
 }
 
 async function loadNuspecFromAsync(
@@ -87,8 +87,7 @@ async function loadNuspecFromAsync(
   return removePotentialUtf16Characters(encodedNuspecContent);
 }
 
-//this is exported for testing, but should not execute directly. Hence the '_' in the name.
-export async function _parsedNuspec(
+export async function parse(
   nuspecContent: string,
   targetFramework: TargetFramework,
   depName: string,
