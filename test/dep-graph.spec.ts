@@ -39,16 +39,31 @@ describe('when generating a dependency graph', () => {
   });
 
   it('correctly uses the runtime assembly versions if enabled', async () => {
-    const result = await nugetParser.buildDepGraphFromFiles(
+    const baseline = await nugetParser.buildDepGraphFromFiles(
+      './test/fixtures/dotnetcore/dotnet_6',
+      'obj/project.assets.json',
+      ManifestType.DOTNET_CORE,
+      false,
+      false,
+    );
+    expect(baseline.dependencyGraph).toBeDefined();
+    const depGraphBaseline = baseline.dependencyGraph;
+    expect(depGraphBaseline.getPkgs()).toContainEqual({
+      name: 'System.Net.Http',
+      version: '4.3.0',
+    });
+
+    const withRuntimeDeps = await nugetParser.buildDepGraphFromFiles(
       './test/fixtures/dotnetcore/dotnet_6',
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,
       true,
     );
-    expect(result.dependencyGraph).toBeDefined();
-    const depGraph = result.dependencyGraph;
-    expect(depGraph.getPkgs()).toContainEqual({
+    expect(withRuntimeDeps.dependencyGraph).toBeDefined();
+
+    const depGraphRuntime = withRuntimeDeps.dependencyGraph;
+    expect(depGraphRuntime.getPkgs()).toContainEqual({
       name: 'System.Net.Http',
       version: '6.0.0',
     });

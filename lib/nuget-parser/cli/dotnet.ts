@@ -1,4 +1,4 @@
-import util = require('node:util');
+import * as util from 'util';
 import * as debugModule from 'debug';
 import * as path from 'path';
 import * as childProcess from 'child_process';

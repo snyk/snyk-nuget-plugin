@@ -2,7 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 import * as runtimeAssembly from '../lib/nuget-parser/runtime-assembly';
 
 describe('when parsing runtime assembly', () => {
-  it('publishes correctly to a temporary folder', async () => {
+  it('correctly matches the assembly versions of system dependencies', async () => {
     const filePath =
       './test/fixtures/dotnetcore/dotnet_6/bin/Debug/net6.0/osx-arm64/publish/dotnet_6.deps.json';
     const runtimeAssemblies = await runtimeAssembly.generateRuntimeAssemblies(
