@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { parseNuspec } from './nuspec-parser';
 import * as debugModule from 'debug';
-import { Dependency } from "../types";
-import { InvalidFolderFormatError } from "../../errors/invalid-folder-format-error";
+import { Dependency } from '../types';
+import { InvalidFolderFormatError } from '../../errors/invalid-folder-format-error';
 
 const debug = debugModule('snyk');
 
@@ -18,16 +18,16 @@ export function cloneShallow(dep: Dependency): Dependency {
 
 function extractFromDotVersionNotation(expression) {
   const regexParseResult =
-      /(?=\S+)(?=\.{1})((\.\d+)+((-?\w+\.?\d*)|(\+?[0-9a-f]{5,40}))?)/.exec(
-          expression,
-      );
+    /(?=\S+)(?=\.{1})((\.\d+)+((-?\w+\.?\d*)|(\+?[0-9a-f]{5,40}))?)/.exec(
+      expression,
+    );
 
   if (regexParseResult == null) {
     debug(
-        `Failed to extract version from the folder: ${expression}. This is not supposed to happen and should be reported - the folders should always be in the form of [FolderName].[semantic version]`,
+      `Failed to extract version from the folder: ${expression}. This is not supposed to happen and should be reported - the folders should always be in the form of [FolderName].[semantic version]`,
     );
     throw new InvalidFolderFormatError(
-        `Tried to parse package version from a folder name but failed. I received: ${expression}`,
+      `Tried to parse package version from a folder name but failed. I received: ${expression}`,
     );
   }
 
