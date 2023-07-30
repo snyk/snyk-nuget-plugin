@@ -1,11 +1,25 @@
 import * as parseXML from 'xml2js';
 import * as debugModule from 'debug';
-import { Dependency, fromPackagesConfigEntry } from '../dependency';
-import { TargetFramework } from '../types';
+import { Dependency, TargetFramework } from '../types';
 import * as depsParser from 'dotnet-deps-parser';
 import { toReadableFramework } from '../framework';
 
 const debug = debugModule('snyk');
+
+export function fromPackagesConfigEntry(manifest) {
+  debug(
+    'Extracting by packages.config entry:' +
+      ' name = ' +
+      manifest.$.id +
+      ' version = ' +
+      manifest.$.version,
+  );
+  return {
+    dependencies: {},
+    name: manifest.$.id,
+    version: manifest.$.version,
+  };
+}
 
 export function parse(fileContent) {
   const installedPackages: Dependency[] = [];

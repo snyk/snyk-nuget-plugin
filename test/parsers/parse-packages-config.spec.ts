@@ -2,8 +2,10 @@ import { describe, expect, it } from '@jest/globals';
 import * as plugin from '../../lib';
 import { inspect } from '../../lib';
 import * as packagesConfigParser from '../../lib/nuget-parser/parsers/packages-config-parser';
+import * as dotNetFrameworkParser from '../../lib/nuget-parser/parsers/dotnet-framework-parser';
 import * as fs from 'fs';
 import * as path from 'path';
+import { InvalidFolderFormatError } from "../../lib/errors/invalid-folder-format-error";
 
 const projectPath = './test/stubs/packages_dir';
 
@@ -178,5 +180,24 @@ describe('when calling getMinimumTargetFramework', () => {
       content,
     );
     await expect(result).toBeUndefined();
+  });
+});
+
+describe('fromFolderName() method', () => {
+  it('should properly fail when parsing folder without expectedVersion', () => {
+    expect(() =>
+        dotNetFrameworkParser.fromFolderName('someLibraryNameWithoutexpectedVersion'),
+    ).toThrow(InvalidFolderFormatError);
+  });
+
+  //sanity check
+  it.each([
+    ['RestSharp.105.2.3', '105.2.3'],
+    ['FooBar.1.2', '1.2'],
+    ['FooBar1.2', '2'],
+  ])("should correctly parse '%s'", (folder, expectedVersion) => {
+    const result = dotNetFrameworkParser.fromFolderName(folder);
+    expect(result).toBeTruthy();
+    expect(result.version).toBe(expectedVersion);
   });
 });
