@@ -1,0 +1,47 @@
+{
+  "Microsoft.CodeDom.Providers.DotNetCompilerPlatform": {
+    "dependencies": {},
+    "name": "Microsoft.CodeDom.Providers.DotNetCompilerPlatform",
+    "version": "1.0.0"
+  },
+  "Microsoft.Net.Compilers": {
+    "dependencies": {},
+    "name": "Microsoft.Net.Compilers",
+    "version": "1.0.0"
+  },
+  "Microsoft.Web.Infrastructure": {
+    "dependencies": {},
+    "name": "Microsoft.Web.Infrastructure",
+    "version": "1.0.0.0"
+  },
+  "Microsoft.Web.Xdt": {
+    "dependencies": {},
+    "name": "Microsoft.Web.Xdt",
+    "version": "2.1.1"
+  },
+  "Newtonsoft.Json": {
+    "dependencies": {},
+    "name": "Newtonsoft.Json",
+    "version": "8.0.3"
+  },
+  "NuGet.Core": {
+    "dependencies": {},
+    "name": "NuGet.Core",
+    "version": "2.11.1"
+  },
+  "NuGet.Server": {
+    "dependencies": {},
+    "name": "NuGet.Server",
+    "version": "2.11.2"
+  },
+  "RouteMagic": {
+    "dependencies": {},
+    "name": "RouteMagic",
+    "version": "1.3"
+  },
+  "WebActivatorEx": {
+    "dependencies": {},
+    "name": "WebActivatorEx",
+    "version": "2.1.0"
+  }
+}
