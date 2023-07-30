@@ -1,9 +1,9 @@
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import * as plugin from '../../lib';
 
-const fixturesDir = './test/fixtures';
-const simplePaket = fixturesDir + '/simple-paket/';
-const missingLock = fixturesDir + '/paket-missing-lock/';
+const fixturesDir = './test/fixtures/paket';
+const simplePaket = fixturesDir + '/simple/';
+const missingLock = fixturesDir + '/missing-lock/';
 
 const simplePaketDeps = {
   FAKE: {
@@ -44,16 +44,16 @@ describe('when testing paket', () => {
   it('parse simple-paket project', async () => {
     const tree = await plugin.inspect(simplePaket, 'paket.dependencies');
     expect(tree.package.dependencies).toEqual(simplePaketDeps);
-    expect(tree.package.name).toBe('simple-paket');
+    expect(tree.package.name).toBe('simple');
   });
 
   it('parse simple-paket project from upper dir', async () => {
     const tree = await plugin.inspect(
       fixturesDir,
-      'simple-paket/paket.dependencies',
+      'simple/paket.dependencies',
     );
     expect(tree.package.dependencies).toEqual(simplePaketDeps);
-    expect(tree.package.name).toBe('simple-paket');
+    expect(tree.package.name).toBe('simple');
   });
 
   it('fail to parse paket with missing lock file project', async () => {
