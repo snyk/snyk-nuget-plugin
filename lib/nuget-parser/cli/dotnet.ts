@@ -19,14 +19,22 @@ async function handle(operation: string, command: string): Promise<ExecResult> {
   try {
     return await exec(command);
   } catch (error: unknown) {
-    if (!(typeof error === 'object' && error !== null && 'stdout' in error)) {
+    if (
+      !(
+        typeof error === 'object' &&
+        error !== null &&
+        'stdout' in error &&
+        'stderr' in error
+      )
+    ) {
       throw new CliCommandError(
         `dotnet ${operation} failed with error: ${error}`,
       );
     }
 
+    const message = error.stdout || error.stderr;
     throw new CliCommandError(
-      `dotnet ${operation} failed with error: ${error.stdout}`,
+      `dotnet ${operation} failed with error: ${message}`,
     );
   }
 }
@@ -42,17 +50,13 @@ export async function validate() {
   }
 }
 
-export async function publish(filePath: string): Promise<string> {
-  const dirname = path.dirname(filePath);
-  const filename = path.basename(filePath);
-
-  let command = `cd ${dirname} `;
-  command += '&& dotnet publish --nologo ';
+export async function publish(projectPath: string): Promise<string> {
+  let command = 'dotnet publish --nologo ';
   // Self-contained: Create all required .dlls for version investigation, don't rely on the environment.
   command += '--sc ';
-
-  // There could be multiple .csproj files in the same directory.
-  command += filename;
+  // The path that contains either some form of project file, or a .sln one.
+  // See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#arguments
+  command += projectPath;
 
   const response = await handle('publish', command);
 
