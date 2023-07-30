@@ -1,18 +1,22 @@
-node_modules
 dist
+node_modules
 package-lock.json
-.nyc_output/
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+coverage/
+
+# IDEs
 .idea
 .vscode
 .ionide/
-coverage/
 
 # dotnet CLI tests
-Debug/
-test/**/bin
-test/**/*.g.props
-test/**/*.g.targets
-test/**/*.dgspec.json
-test/**/*.cache
+# contained inside bin/
+test/**/publish/*
+!test/**/publish/*.deps.json
+
+# contained inside obj/
+test/**/obj/
+test/**/obj/*
+!test/**/obj/*.assets.json
