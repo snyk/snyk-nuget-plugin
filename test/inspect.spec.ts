@@ -41,14 +41,14 @@ describe('when calling plugin.inspect with various configs', () => {
   );
 
   it('should parse dotnet-cli project with packages.config only', async () => {
-    const packagesConfigOnlyPath = './test/fixtures/packages-config-only/';
+    const packagesConfigOnlyPath = './test/fixtures/packages-config/config-only/';
     const packagesConfigOnlyManifestFile = 'packages.config';
 
     const res = await plugin.inspect(
       packagesConfigOnlyPath,
       packagesConfigOnlyManifestFile,
     );
-    expect(res.package.name).toBe('packages-config-only');
+    expect(res.package.name).toBe('config-only');
     // expect the first found targetRuntime to be returned by the plugin
     expect(res.plugin.targetRuntime).toBe('net452');
     expect(res.package.dependencies.jQuery).toBeTruthy();
@@ -56,14 +56,14 @@ describe('when calling plugin.inspect with various configs', () => {
   });
 
   it('should parse dotnet-cli project with packages.config containing net4 as target framework', async () => {
-    const packageConfigWithNet4TFPath = './test/fixtures/packages-config-net4/';
+    const packageConfigWithNet4TFPath = './test/fixtures/packages-config/net4/';
     const packageConfigWithNet4TFManifestFile = 'packages.config';
 
     const res = await plugin.inspect(
       packageConfigWithNet4TFPath,
       packageConfigWithNet4TFManifestFile,
     );
-    expect(res.package.name).toBe('packages-config-net4');
+    expect(res.package.name).toBe('net4');
     // expect the first found targetRuntime to be returned by the plugin
     expect(res.plugin.targetRuntime).toBe('net4');
     expect(res.package.dependencies.jQuery).toBeTruthy();
@@ -77,9 +77,9 @@ describe('when calling plugin.inspect with various configs', () => {
       defaultName: 'no-csproj',
     },
     {
-      projectPath: './test/fixtures/packages-config/packages-config-only',
+      projectPath: './test/fixtures/packages-config/config-only',
       manifestFile: 'packages.config',
-      defaultName: 'packages-config-only',
+      defaultName: 'config-only',
     },
   ])(
     `inspect $projectPath with project-name-prefix option`,

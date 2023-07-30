@@ -57,7 +57,7 @@ describe('when calling plugin on projects containing packages.config', () => {
 });
 
 describe('when calling plugin on project containing a repositories.config', () => {
-  const projectPath = './test/fixtures/repositories-config';
+  const projectPath = './test/fixtures/packages-config/repositories-config';
 
   it('packages contains many deps: only jquery', async () => {
     const manifestFile = 'packages.config';
@@ -74,7 +74,7 @@ describe('when calling plugin on project containing a repositories.config', () =
 
 describe('when parsing packages.config', () => {
   it('should create dep tree for package encoded with utf8 with bom', async () => {
-    const fixturePath = './test/fixtures/packages-config-with-utf16-packages/';
+    const fixturePath = './test/fixtures/packages-config/with-utf16-packages/';
 
     const output = await inspect(fixturePath, 'packages.config', {
       packagesFolder: fixturePath + '/packages',
@@ -118,7 +118,7 @@ describe('when parsing packages.config', () => {
   });
 
   it('should parse packages-config-no-deps project successfully', async () => {
-    const projectPath = './test/fixtures/packages-config-no-deps/';
+    const projectPath = './test/fixtures/packages-config/no-deps/';
     await plugin.inspect(projectPath, 'packages.config', {
       packagesFolder: projectPath + './_packages',
     });
@@ -131,9 +131,9 @@ describe('when parsing packages.config', () => {
       defaultName: 'no-csproj',
     },
     {
-      projectPath: 'test/fixtures/packages-config-only',
+      projectPath: 'test/fixtures/config-only',
       manifestFile: 'packages.config',
-      defaultName: 'packages-config-only',
+      defaultName: 'config-only',
     },
   ])(
     'should parse project with and without name prefix',
