@@ -22,8 +22,8 @@ describe('when generating a dependency graph', () => {
       './test/fixtures/dotnetcore/dotnet_6',
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
-      undefined,
-      undefined,
+      false,
+      false,
     );
     expect(result.dependencyGraph).toBeDefined();
     const depGraph = result.dependencyGraph;
@@ -36,5 +36,21 @@ describe('when generating a dependency graph', () => {
     const generated = depGraph.pkgPathsToRoot(pkg);
     const baseline = depTreeConverted.pkgPathsToRoot(pkg);
     expect(generated).toEqual(baseline);
+  });
+
+  it('correctly uses the runtime assembly versions if enabled', async () => {
+    const result = await nugetParser.buildDepGraphFromFiles(
+      './test/fixtures/dotnetcore/dotnet_6',
+      'obj/project.assets.json',
+      ManifestType.DOTNET_CORE,
+      false,
+      true,
+    );
+    expect(result.dependencyGraph).toBeDefined();
+    const depGraph = result.dependencyGraph;
+    expect(depGraph.getPkgs()).toContainEqual({
+      name: 'System.Net.Http',
+      version: '6.0.0',
+    });
   });
 });
