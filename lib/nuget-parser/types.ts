@@ -1,10 +1,15 @@
-import { Dependency } from './dependency';
 import * as depGraphLib from '@snyk/dep-graph';
 
 export interface TargetFramework {
   framework: string;
   original: string;
   version: string;
+}
+
+export interface Dependency {
+  name: string;
+  version: string;
+  dependencies?: any;
 }
 
 export interface DependencyInfo {

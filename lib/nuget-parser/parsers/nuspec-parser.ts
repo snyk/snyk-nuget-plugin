@@ -2,10 +2,13 @@ import * as JSZip from 'jszip';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as parseXML from 'xml2js';
-import * as dependency from '../dependency';
-import { Dependency } from '../dependency';
 import * as debugModule from 'debug';
-import { DependencyInfo, DependencyTree, TargetFramework } from '../types';
+import {
+  Dependency,
+  DependencyInfo,
+  DependencyTree,
+  TargetFramework,
+} from '../types';
 
 const debug = debugModule('snyk');
 
@@ -35,7 +38,7 @@ export async function parseNuspec(
     return null;
   }
 
-  return await _parsedNuspec(nuspecContent, targetFramework, dep.name);
+  return await parse(nuspecContent, targetFramework, dep.name);
 }
 
 async function loadNuspecFromAsync(
@@ -84,8 +87,7 @@ async function loadNuspecFromAsync(
   return removePotentialUtf16Characters(encodedNuspecContent);
 }
 
-//this is exported for testing, but should not execute directly. Hence the '_' in the name.
-export async function _parsedNuspec(
+export async function parse(
   nuspecContent: string,
   targetFramework: TargetFramework,
   depName: string,
@@ -220,7 +222,7 @@ function extractDepsFromRaw(rawDependencies) {
     return [];
   }
 
-  const deps: dependency.Dependency[] = [];
+  const deps: Dependency[] = [];
   rawDependencies.forEach((dep) => {
     if (dep && dep.$) {
       deps.push({

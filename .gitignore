@@ -1,10 +1,14 @@
-node_modules
+.DS_Store
+
 dist
+node_modules
 package-lock.json
-.nyc_output/
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+coverage/
+
+# IDEs
 .idea
 .vscode
 .ionide/
-coverage/

@@ -1,5 +1,6 @@
-import * as dependency from '../dependency';
 import * as debugModule from 'debug';
+import { Dependency } from '../types';
+
 const debug = debugModule('snyk');
 
 function scanForDependencies(obj, deps): JsonManifestDependencies {
@@ -55,7 +56,7 @@ function parseJsonManifest(fileContent): JsonManifestDependencies {
 }
 
 export function parse(fileContent, tree) {
-  const installedPackages: dependency.Dependency[] = [];
+  const installedPackages: Dependency[] = [];
   debug('Trying to parse project.json format manifest');
   const projectData = parseJsonManifest(fileContent);
   const rawDependencies = projectData.dependencies;
