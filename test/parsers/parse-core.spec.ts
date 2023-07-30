@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import * as fs from 'fs';
-import * as plugin from '../lib';
+import * as plugin from '../../lib';
 
 describe('when parsing .NET core', () => {
   describe('with different target monikers', () => {

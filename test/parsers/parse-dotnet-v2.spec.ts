@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as plugin from '../lib';
+import * as plugin from '../../lib';
 
 describe('when generating depGraphs and runtime assemblies using the v2 parser', () => {
   it.each([

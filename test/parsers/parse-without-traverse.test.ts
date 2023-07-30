@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 
-import * as plugin from '../lib/index';
+import * as plugin from '../../lib';
 
 const targetProjectJsonPath = './test/stubs';
 const targetProjectJsonFile = '_1_project.json';

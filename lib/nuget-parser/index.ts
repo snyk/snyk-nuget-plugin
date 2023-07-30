@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { getTargetFrameworksFromProjFile } from './parsers/csproj-parser';
+import * as csProjParser from './parsers/csproj-parser';
 import * as debugModule from 'debug';
 import * as dotnetCoreParser from './parsers/dotnet-core-parser';
 import * as dotnetCoreV2Parser from './parsers/dotnet-core-v2-parser';
@@ -9,8 +9,6 @@ import * as projectJsonParser from './parsers/project-json-parser';
 import * as packagesConfigParser from './parsers/packages-config-parser';
 import { FileNotProcessableError } from '../errors';
 import { TargetFramework } from './types';
-import * as depsParser from 'dotnet-deps-parser';
-import { toReadableFramework } from './framework';
 import * as depGraphLib from '@snyk/dep-graph';
 
 const debug = debugModule('snyk');
@@ -77,7 +75,7 @@ export async function buildDepGraphFromFiles(
   const fileContentPath = path.resolve(safeRoot, safeTargetFile);
   const fileContent = getFileContents(fileContentPath);
   const projectRootFolder = path.resolve(fileContentPath, '../../');
-  const targetFramework = await getTargetFrameworksFromProjFile(
+  const targetFramework = await csProjParser.getTargetFrameworksFromProjFile(
     projectRootFolder,
   );
 
@@ -138,13 +136,13 @@ export async function buildDepTreeFromFiles(
   let targetFramework: TargetFramework | undefined;
   try {
     if (manifestType === 'dotnet-core') {
-      targetFramework = await getTargetFrameworksFromProjFile(
+      targetFramework = await csProjParser.getTargetFrameworksFromProjFile(
         projectRootFolder,
       );
     } else {
       // .csproj is in the same directory as packages.config or project.json
       const fileContentParentDirectory = path.resolve(fileContentPath, '../');
-      targetFramework = await getTargetFrameworksFromProjFile(
+      targetFramework = await csProjParser.getTargetFrameworksFromProjFile(
         fileContentParentDirectory,
       );
 
@@ -152,9 +150,8 @@ export async function buildDepTreeFromFiles(
       if (!targetFramework) {
         // currently only process packages.config files
         if (manifestType === 'packages.config') {
-          targetFramework = await getMinimumTargetFrameworkFromPackagesConfig(
-            fileContent,
-          );
+          targetFramework =
+            await packagesConfigParser.getMinimumTargetFramework(fileContent);
         }
       }
     }
@@ -188,20 +185,4 @@ export async function buildDepTreeFromFiles(
     targetFramework,
     packagesFolder,
   );
-}
-
-export async function getMinimumTargetFrameworkFromPackagesConfig(
-  fileContent: string,
-): Promise<TargetFramework | undefined> {
-  const extractedFrameworks =
-    await depsParser.extractTargetFrameworksFromProjectConfig(fileContent);
-
-  if (extractedFrameworks && extractedFrameworks.length > 0) {
-    const minimumFramework = extractedFrameworks.reduce((prev, curr) =>
-      prev < curr ? prev : curr,
-    );
-    return toReadableFramework(minimumFramework);
-  }
-
-  return undefined;
 }

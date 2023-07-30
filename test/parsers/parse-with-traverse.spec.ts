@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import * as fs from 'fs';
 
-import * as plugin from '../lib/index';
+import * as plugin from '../../lib';
 
 describe('when parsing with traverse', () => {
   const targetProjectJsonFile = './test/stubs/dummy_project_1/';

@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import * as plugin from '../lib';
+import * as plugin from '../../lib';
 import * as fs from 'fs';
 import * as path from 'path';
 

@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
-import { _parsedNuspec } from '../lib/nuget-parser/parsers/nuspec-parser';
+import { _parsedNuspec } from '../../lib/nuget-parser/parsers/nuspec-parser';
 import * as fs from 'fs';
-import * as plugin from '../lib/index';
+import * as plugin from '../../lib';
 
 JSON.parse(fs.readFileSync('./test/stubs/_2_project.json', 'utf-8'));
 

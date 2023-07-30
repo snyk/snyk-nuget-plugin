@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import * as plugin from '../lib/index';
+import * as plugin from '../../lib';
 
 const stubsDir = './test/stubs';
 const simplePaket = stubsDir + '/simple-paket/';
