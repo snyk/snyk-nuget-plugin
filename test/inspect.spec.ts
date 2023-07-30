@@ -69,4 +69,25 @@ describe('when calling plugin.inspect with various configs', () => {
     expect(res.package.dependencies.jQuery).toBeTruthy();
     expect(res.package.dependencies.Unity).toBeTruthy();
   });
+
+  it.each([
+    {
+      projectPath: './test/fixtures/target-framework/no-csproj',
+      manifestFile: 'obj/project.assets.json',
+      defaultName: 'no-csproj',
+    },
+    {
+      projectPath: './test/fixtures/packages-config/packages-config-only',
+      manifestFile: 'packages.config',
+      defaultName: 'packages-config-only',
+    },
+  ])(
+    `inspect $projectPath with project-name-prefix option`,
+    async ({ projectPath, manifestFile, defaultName }) => {
+      const res = await plugin.inspect(projectPath, manifestFile, {
+        'project-name-prefix': 'custom-prefix/',
+      });
+      expect(res.package.name).toEqual(`custom-prefix/${defaultName}`);
+    },
+  );
 });

@@ -7,7 +7,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { InvalidFolderFormatError } from "../../lib/errors/invalid-folder-format-error";
 
-const projectPath = './test/fixtures/packages_dir';
+const projectPath = './test/fixtures/packages-config/with-packages-dir';
 
 describe('when calling plugin on projects containing packages.config', () => {
   it('packages contains many deps: only jquery', async () => {

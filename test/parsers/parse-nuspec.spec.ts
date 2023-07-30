@@ -1,77 +1,28 @@
 import { describe, expect, it } from '@jest/globals';
 import { parse } from '../../lib/nuget-parser/parsers/nuspec-parser';
-import * as plugin from '../../lib';
-
-describe('parse-with-project-name-prefix', () => {
-  it.each([
-    {
-      projectPath: './test/fixtures/target-framework/no-csproj',
-      manifestFile: 'obj/project.assets.json',
-      defaultName: 'no-csproj',
-    },
-    {
-      projectPath: './test/fixtures/packages-config-only',
-      manifestFile: 'packages.config',
-      defaultName: 'packages-config-only',
-    },
-  ])(
-    `inspect $projectPath with project-name-prefix option`,
-    async ({ projectPath, manifestFile, defaultName }) => {
-      const res = await plugin.inspect(projectPath, manifestFile, {
-        'project-name-prefix': 'custom-prefix/',
-      });
-      expect(res.package.name).toEqual(`custom-prefix/${defaultName}`);
-    },
-  );
-});
 
 describe('parseNuSpec ', () => {
-  const nuspecWithoutMetadataDependencies =
-    '<?xml version="1.0"?>\n' +
-    '<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n' +
-    '  <metadata>\n' +
-    '    <id>jQuery</id>\n' +
-    '    <version>3.2.1</version>\n' +
-    '    <title>jQuery</title>\n' +
-    '    <authors>jQuery Foundation, Inc.</authors>\n' +
-    '    <owners>jQuery Foundation, Inc.</owners>\n' +
-    '    <licenseUrl>http://jquery.org/license</licenseUrl>\n' +
-    '    <projectUrl>http://jquery.com/</projectUrl>\n' +
-    '    <requireLicenseAcceptance>false</requireLicenseAcceptance>\n' +
-    '    <description>jQuery is a new kind of JavaScript Library.\n' +
-    '        jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.\n' +
-    '        NOTE: This package is maintained on behalf of the library owners by the NuGet Community Packages project at http://nugetpackages.codeplex.com/</description>\n' +
-    '    <language>en-US</language>\n' +
-    '    <tags>jQuery</tags>\n' +
-    '  </metadata>\n' +
-    '</package>';
-
-  const nuspecWithoutMetadata =
-    ' <?xml version="1.0"?>\n' +
-    '<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n' +
-    '</package>';
-
-  const nuspecWithMalformedTag =
-    '<?xml version="1.0"?>\n' +
-    '<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n' +
-    '<metadata123>\n' +
-    '    <id>jQuery</id>\n' +
-    '    <version>3.2.1</version>\n' +
-    '    <title>jQuery</title>\n' +
-    '    <authors>jQuery Foundation, Inc.</authors>\n' +
-    '    <owners>jQuery Foundation, Inc.</owners>\n' +
-    '    <licenseUrl>http://jquery.org/license</licenseUrl>\n' +
-    '    <projectUrl>http://jquery.com/</projectUrl>\n' +
-    '    <requireLicenseAcceptance>false</requireLicenseAcceptance>\n' +
-    '    <description>jQuery is a new kind of JavaScript Library.\n' +
-    '        jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.\n' +
-    '        NOTE: This package is maintained on behalf of the library owners by the NuGet Community Packages project at http://nugetpackages.codeplex.com/</description>\n' +
-    '    <language>en-US</language>\n' +
-    '    <tags>jQuery</tags>\n' +
-    '  </metadata>\n' +
-    '</package>';
-
   it('should not throw an error when there are no dependencies in the metadata', async () => {
+    const nuspecWithoutMetadataDependencies =
+      '<?xml version="1.0"?>\n' +
+      '<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n' +
+      '  <metadata>\n' +
+      '    <id>jQuery</id>\n' +
+      '    <version>3.2.1</version>\n' +
+      '    <title>jQuery</title>\n' +
+      '    <authors>jQuery Foundation, Inc.</authors>\n' +
+      '    <owners>jQuery Foundation, Inc.</owners>\n' +
+      '    <licenseUrl>http://jquery.org/license</licenseUrl>\n' +
+      '    <projectUrl>http://jquery.com/</projectUrl>\n' +
+      '    <requireLicenseAcceptance>false</requireLicenseAcceptance>\n' +
+      '    <description>jQuery is a new kind of JavaScript Library.\n' +
+      '        jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.\n' +
+      '        NOTE: This package is maintained on behalf of the library owners by the NuGet Community Packages project at http://nugetpackages.codeplex.com/</description>\n' +
+      '    <language>en-US</language>\n' +
+      '    <tags>jQuery</tags>\n' +
+      '  </metadata>\n' +
+      '</package>';
+
     const parsedResult = await parse(
       nuspecWithoutMetadataDependencies,
       {
@@ -86,24 +37,40 @@ describe('parseNuSpec ', () => {
     expect(parsedResult.name).toBeDefined();
   });
 
-  it('should throw an error when there is no metadata', async () => {
+  it.each([
+    {
+      nuspec:
+        ' <?xml version="1.0"?>\n' +
+        '<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n' +
+        '</package>',
+      description: 'there is no metadata',
+    },
+    {
+      nuspec:
+        '<?xml version="1.0"?>\n' +
+        '<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n' +
+        '<metadata123>\n' +
+        '    <id>jQuery</id>\n' +
+        '    <version>3.2.1</version>\n' +
+        '    <title>jQuery</title>\n' +
+        '    <authors>jQuery Foundation, Inc.</authors>\n' +
+        '    <owners>jQuery Foundation, Inc.</owners>\n' +
+        '    <licenseUrl>http://jquery.org/license</licenseUrl>\n' +
+        '    <projectUrl>http://jquery.com/</projectUrl>\n' +
+        '    <requireLicenseAcceptance>false</requireLicenseAcceptance>\n' +
+        '    <description>jQuery is a new kind of JavaScript Library.\n' +
+        '        jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.\n' +
+        '        NOTE: This package is maintained on behalf of the library owners by the NuGet Community Packages project at http://nugetpackages.codeplex.com/</description>\n' +
+        '    <language>en-US</language>\n' +
+        '    <tags>jQuery</tags>\n' +
+        '  </metadata>\n' +
+        '</package>',
+      description: 'the nuspec contains malformed XML',
+    },
+  ])('should throw an error when $description', async ({ nuspec }) => {
     await expect(
       parse(
-        nuspecWithoutMetadata,
-        {
-          original: '',
-          framework: 'net',
-          version: '472',
-        },
-        'dependencyName',
-      ),
-    ).rejects.toThrow();
-  });
-
-  it('should throw an error when the nuspec contains malformed XML', async () => {
-    await expect(
-      parse(
-        nuspecWithMalformedTag,
+        nuspec,
         {
           original: '',
           framework: 'net',
