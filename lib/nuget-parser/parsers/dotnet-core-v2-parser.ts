@@ -1,6 +1,7 @@
 import * as debugModule from 'debug';
 import * as depGraphLib from '@snyk/dep-graph';
 import { DepGraphBuilder } from '@snyk/dep-graph';
+import { AssemblyVersions } from "../types";
 
 const debug = debugModule('snyk');
 
@@ -18,13 +19,6 @@ interface DotnetPackage {
   name: string;
   version: string;
 }
-
-export interface Assembly {
-  name: string;
-  version: string;
-}
-
-export type AssemblyVersions = Record<string, string>;
 
 // Dependencies that starts with these are discarded
 const FILTERED_DEPENDENCY_PREFIX = ['runtime'];
