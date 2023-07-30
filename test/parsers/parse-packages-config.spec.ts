@@ -10,7 +10,7 @@ import { InvalidFolderFormatError } from "../../lib/errors/invalid-folder-format
 const projectPath = './test/fixtures/packages-config/with-packages-dir';
 
 describe('when calling plugin on projects containing packages.config', () => {
-  it('packages contains many deps: only jquery', async () => {
+  it('packages contains many deps: only jquery - with packages folder', async () => {
     const appPath = projectPath + '/only_jquery/';
     const manifestFile = 'packages.config';
     const expected = JSON.parse(
