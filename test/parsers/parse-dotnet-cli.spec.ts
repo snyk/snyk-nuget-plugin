@@ -6,7 +6,7 @@ import * as path from 'path';
 describe('when parsing .NET CLI', () => {
   describe('when calling with various configs', () => {
     it('parse dotnet-cli project without frameworks field', async () => {
-      const projectPath = './test/fixtures/dummy_project_2/';
+      const projectPath = './test/fixtures/dotnetcore/without-frameworks-field/';
       const manifestFile = 'obj/project.assets.json';
 
       await expect(
