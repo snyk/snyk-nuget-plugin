@@ -10,8 +10,6 @@ interface Versions {
   fileVersion: string;
 }
 
-type RuntimeVersions = Record<string, Versions>;
-
 // The Nuget dependency resolution rule of lowest applicable version
 // (see https://learn.microsoft.com/en-us/nuget/concepts/dependency-resolution#lowest-applicable-version)
 // does not apply to runtime dependencies. If you resolve a dependency graph of some package, that depends on
@@ -85,7 +83,8 @@ export async function generateRuntimeAssemblies(
     runtimeAssemblyVersions[target] = Object.entries(
       runtimeDependencies.runtime as Versions,
     ).reduce((acc, [dll, versions]) => {
-      acc[dll] = versions.assemblyVersion;
+      // Take the version number (N.N.N.N) and remove the last element, in order for vulndb to understand anything.
+      acc[dll] = versions.assemblyVersion.split('.').slice(0, -1).join('.');
       return acc;
     }, {});
   });

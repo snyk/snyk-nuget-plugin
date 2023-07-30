@@ -10,7 +10,7 @@ describe('when parsing runtime assembly', () => {
     );
 
     expect(runtimeAssemblies).toMatchObject({
-      'Microsoft.CSharp.dll': '6.0.0.0',
+      'Microsoft.CSharp.dll': '6.0.0',
     });
   });
 });
