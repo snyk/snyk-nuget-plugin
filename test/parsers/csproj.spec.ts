@@ -6,7 +6,7 @@ describe('parse .csproj', () => {
   describe('getTargetFrameworksFromProjFile', () => {
     it('should parse target framework version even if it is in property group that is not first', async () => {
       const targetFrameworkInNonFirstPropertyGroup =
-        './test/fixtures/target-framework-version-in-non-first-property-group';
+        './test/fixtures/target_framework/target_framework_version_in_non_first_property_group';
 
       const targetFramework = await getTargetFrameworksFromProjFile(
         targetFrameworkInNonFirstPropertyGroup,
@@ -70,7 +70,7 @@ describe('parse .csproj', () => {
     });
 
     it('parse dotnet with no deps', async () => {
-      const noDeps = './test/fixtures/target_framework/no-dependencies/';
+      const noDeps = './test/fixtures/target_framework/no_dependencies/';
 
       const res = await plugin.inspect(noDeps, 'obj/project.assets.json');
       expect(Object.keys(res.package.dependencies).length).toBe(0);
