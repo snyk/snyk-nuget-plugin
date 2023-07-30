@@ -105,7 +105,7 @@ describe('when parsing packages.config', () => {
             version: '0.5.5',
           },
         },
-        name: 'packages-config-with-utf16-packages',
+        name: 'with-utf16-packages',
         packageFormatVersion: 'nuget:0.0.0',
         version: '0.0.0',
       },
@@ -131,7 +131,7 @@ describe('when parsing packages.config', () => {
       defaultName: 'no-csproj',
     },
     {
-      projectPath: 'test/fixtures/config-only',
+      projectPath: 'test/fixtures/packages-config/config-only',
       manifestFile: 'packages.config',
       defaultName: 'config-only',
     },
