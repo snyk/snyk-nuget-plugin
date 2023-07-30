@@ -1,9 +1,9 @@
 import { describe, expect, test } from '@jest/globals';
 import * as plugin from '../../lib';
 
-const stubsDir = './test/stubs';
-const simplePaket = stubsDir + '/simple-paket/';
-const missingLock = stubsDir + '/paket-missing-lock/';
+const fixturesDir = './test/fixtures';
+const simplePaket = fixturesDir + '/simple-paket/';
+const missingLock = fixturesDir + '/paket-missing-lock/';
 
 const simplePaketDeps = {
   FAKE: {
@@ -49,7 +49,7 @@ describe('when testing paket', () => {
 
   it('parse simple-paket project from upper dir', async () => {
     const tree = await plugin.inspect(
-      stubsDir,
+      fixturesDir,
       'simple-paket/paket.dependencies',
     );
     expect(tree.package.dependencies).toEqual(simplePaketDeps);

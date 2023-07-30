@@ -4,13 +4,13 @@ import * as fs from 'fs';
 import * as plugin from '../../lib';
 
 describe('when parsing with traverse', () => {
-  const targetProjectJsonFile = './test/stubs/dummy_project_1/';
+  const targetProjectJsonFile = './test/fixtures/dummy_project_1/';
   const targetPackagesConfigFile =
     targetProjectJsonFile + 'dummy_project_1/packages.config';
 
   it('parse _2_project.json - like and traverse packages', async () => {
     const targetJSONManifestData = JSON.parse(
-      fs.readFileSync('./test/stubs/_2_project.json', 'utf-8'),
+      fs.readFileSync('./test/fixtures/_2_project.json', 'utf-8'),
     );
 
     const expectedTreeFile = fs.readFileSync(

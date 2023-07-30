@@ -2,7 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 
 import * as plugin from '../../lib';
 
-const targetProjectJsonPath = './test/stubs';
+const targetProjectJsonPath = './test/fixtures';
 const targetProjectJsonFile = '_1_project.json';
 
 function createEmptyNode(name, version) {

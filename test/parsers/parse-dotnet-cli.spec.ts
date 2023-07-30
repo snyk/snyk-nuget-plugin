@@ -6,7 +6,7 @@ import * as path from 'path';
 describe('when parsing .NET CLI', () => {
   describe('when calling with various configs', () => {
     it('parse dotnet-cli project without frameworks field', async () => {
-      const projectPath = './test/stubs/dummy_project_2/';
+      const projectPath = './test/fixtures/dummy_project_2/';
       const manifestFile = 'obj/project.assets.json';
 
       await expect(
@@ -20,12 +20,12 @@ describe('when parsing .NET CLI', () => {
     it.each([
       {
         description: 'parse dotnet netcoreapp2.0',
-        projectPath: './test/stubs/dotnet_2',
+        projectPath: './test/fixtures/dotnet_2',
       },
       {
         description:
           'parse dotnet netcoreapp2.0 with duplicate deps project and traverse packages',
-        projectPath: './test/stubs/dotnet_project',
+        projectPath: './test/fixtures/dotnet_project',
       },
     ])(
       'should succeed given a project file and an expected tree',
@@ -43,9 +43,9 @@ describe('when parsing .NET CLI', () => {
   });
 
   describe('when calling with various configs', () => {
-    const packagesConfigOnlyPath = './test/stubs/packages-config-only/';
+    const packagesConfigOnlyPath = './test/fixtures/packages-config-only/';
     const packagesConfigOnlyManifestFile = 'packages.config';
-    const packageConfigWithNet4TFPath = './test/stubs/packages-config-net4/';
+    const packageConfigWithNet4TFPath = './test/fixtures/packages-config-net4/';
     const packageConfigWithNet4TFManifestFile = 'packages.config';
 
     it('parse dotnet-cli project with packages.config only', async () => {

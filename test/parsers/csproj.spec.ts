@@ -6,7 +6,7 @@ describe('parse .csproj', () => {
   describe('getTargetFrameworksFromProjFile', () => {
     it('should parse target framework version even if it is in property group that is not first', async () => {
       const targetFrameworkInNonFirstPropertyGroup =
-        './test/stubs/target-framework-version-in-non-first-property-group';
+        './test/fixtures/target-framework-version-in-non-first-property-group';
 
       const targetFramework = await getTargetFrameworksFromProjFile(
         targetFrameworkInNonFirstPropertyGroup,
@@ -21,7 +21,7 @@ describe('parse .csproj', () => {
 
     it('should return first target framework if multiple target frameworks are available', async () => {
       const multipleTargetFrameworksPath =
-        './test/stubs/target_framework/csproj_multiple';
+        './test/fixtures/target_framework/csproj_multiple';
 
       const targetFramework = await getTargetFrameworksFromProjFile(
         multipleTargetFrameworksPath,
@@ -36,7 +36,7 @@ describe('parse .csproj', () => {
 
     it('should not crash if target framework is not available in project file', async () => {
       const noTargetFrameworksPath =
-        './test/stubs/target_framework/no_target_framework';
+        './test/fixtures/target_framework/no_target_framework';
 
       const targetFramework = await getTargetFrameworksFromProjFile(
         noTargetFrameworksPath,
@@ -47,7 +47,7 @@ describe('parse .csproj', () => {
 
     it('should not crash if target framework is not available in project file when property group exists', async () => {
       const noTargetFrameworksPath2 =
-        './test/stubs/target_framework/no_target_framework2';
+        './test/fixtures/target_framework/no_target_framework2';
 
       const targetFramework = await getTargetFrameworksFromProjFile(
         noTargetFrameworksPath2,
@@ -59,7 +59,7 @@ describe('parse .csproj', () => {
 
   describe('parse project.assets.json', () => {
     it('parse dotnet with vbproj', async () => {
-      const noProjectPath = './test/stubs/target_framework/no_csproj/';
+      const noProjectPath = './test/fixtures/target_framework/no_csproj/';
 
       const res = await plugin.inspect(
         noProjectPath,
@@ -70,7 +70,7 @@ describe('parse .csproj', () => {
     });
 
     it('parse dotnet with no deps', async () => {
-      const noDeps = './test/stubs/target_framework/no-dependencies/';
+      const noDeps = './test/fixtures/target_framework/no-dependencies/';
 
       const res = await plugin.inspect(noDeps, 'obj/project.assets.json');
       expect(Object.keys(res.package.dependencies).length).toBe(0);
@@ -78,7 +78,7 @@ describe('parse .csproj', () => {
 
     it('parse dotnet with no valid framework defined', async () => {
       const noValidFrameworksPath =
-        './test/stubs/target_framework/no_target_valid_framework';
+        './test/fixtures/target_framework/no_target_valid_framework';
 
       await expect(
         async () =>

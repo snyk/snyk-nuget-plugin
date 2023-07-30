@@ -4,11 +4,11 @@ import * as plugin from '../../lib';
 
 describe('when parsing .NET core', () => {
   describe('with different target monikers', () => {
-    const projectPath = './test/stubs/CoreDifferentTargetMonikers/';
+    const projectPath = './test/fixtures/CoreDifferentTargetMonikers/';
     const manifestFile = 'obj/project.assets.json';
     const expectedTree = JSON.parse(
       fs.readFileSync(
-        './test/stubs/CoreDifferentTargetMonikers/expected.json',
+        './test/fixtures/CoreDifferentTargetMonikers/expected.json',
         'utf-8',
       ),
     );
@@ -20,11 +20,11 @@ describe('when parsing .NET core', () => {
   });
 
   describe('with no target framework in project cli', () => {
-    const projectPath = './test/stubs/CoreNoTargetFrameworkInProj/';
+    const projectPath = './test/fixtures/CoreNoTargetFrameworkInProj/';
     const manifestFile = 'obj/project.assets.json';
     const expectedTree = JSON.parse(
       fs.readFileSync(
-        './test/stubs/CoreNoTargetFrameworkInProj/expected.json',
+        './test/fixtures/CoreNoTargetFrameworkInProj/expected.json',
         'utf-8',
       ),
     );
@@ -36,11 +36,11 @@ describe('when parsing .NET core', () => {
   });
 
   describe('with no project name in assets file', () => {
-    const projectPath = './test/stubs/CoreNoProjectNameInAssets/';
+    const projectPath = './test/fixtures/CoreNoProjectNameInAssets/';
     const manifestFile = 'obj/project.assets.json';
     const expectedTree = JSON.parse(
       fs.readFileSync(
-        './test/stubs/CoreNoProjectNameInAssets/expected.json',
+        './test/fixtures/CoreNoProjectNameInAssets/expected.json',
         'utf-8',
       ),
     );
@@ -59,17 +59,17 @@ describe('when parsing .NET core', () => {
   });
 
   describe('with project name in assets file', () => {
-    const projectPath = './test/stubs/CoreProjectNameInAssets/';
+    const projectPath = './test/fixtures/CoreProjectNameInAssets/';
     const manifestFile = 'obj/project.assets.json';
     const expectedTreeWithAssetsProjectNameArgument = JSON.parse(
       fs.readFileSync(
-        './test/stubs/CoreProjectNameInAssets/expectedWithAssetsProjectNameArgument.json',
+        './test/fixtures/CoreProjectNameInAssets/expectedWithAssetsProjectNameArgument.json',
         'utf-8',
       ),
     );
     const expectedTreeWithoutAssetsProjectNameArgument = JSON.parse(
       fs.readFileSync(
-        './test/stubs/CoreProjectNameInAssets/expectedWithoutAssetsProjectNameArgument.json',
+        './test/fixtures/CoreProjectNameInAssets/expectedWithoutAssetsProjectNameArgument.json',
         'utf-8',
       ),
     );

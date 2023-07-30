@@ -7,7 +7,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { InvalidFolderFormatError } from "../../lib/errors/invalid-folder-format-error";
 
-const projectPath = './test/stubs/packages_dir';
+const projectPath = './test/fixtures/packages_dir';
 
 describe('when calling plugin on projects containing packages.config', () => {
   it('packages contains many deps: only jquery', async () => {
@@ -57,7 +57,7 @@ describe('when calling plugin on projects containing packages.config', () => {
 });
 
 describe('when calling plugin on project containing a repositories.config', () => {
-  const projectPath = './test/stubs/repositories-config';
+  const projectPath = './test/fixtures/repositories-config';
 
   it('packages contains many deps: only jquery', async () => {
     const manifestFile = 'packages.config';
@@ -74,7 +74,7 @@ describe('when calling plugin on project containing a repositories.config', () =
 
 describe('when parsing packages.config', () => {
   it('should create dep tree for package encoded with utf8 with bom', async () => {
-    const fixturePath = './test/stubs/packages-config-with-utf16-packages/';
+    const fixturePath = './test/fixtures/packages-config-with-utf16-packages/';
 
     const output = await inspect(fixturePath, 'packages.config', {
       packagesFolder: fixturePath + '/packages',
@@ -118,7 +118,7 @@ describe('when parsing packages.config', () => {
   });
 
   it('should parse packages-config-no-deps project successfully', async () => {
-    const projectPath = './test/stubs/packages-config-no-deps/';
+    const projectPath = './test/fixtures/packages-config-no-deps/';
     await plugin.inspect(projectPath, 'packages.config', {
       packagesFolder: projectPath + './_packages',
     });
@@ -126,12 +126,12 @@ describe('when parsing packages.config', () => {
 
   it.each([
     {
-      projectPath: 'test/stubs/target_framework/no_csproj',
+      projectPath: 'test/fixtures/target_framework/no_csproj',
       manifestFile: 'obj/project.assets.json',
       defaultName: 'no_csproj',
     },
     {
-      projectPath: 'test/stubs/packages-config-only',
+      projectPath: 'test/fixtures/packages-config-only',
       manifestFile: 'packages.config',
       defaultName: 'packages-config-only',
     },

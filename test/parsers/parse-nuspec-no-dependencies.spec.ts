@@ -3,17 +3,17 @@ import { _parsedNuspec } from '../../lib/nuget-parser/parsers/nuspec-parser';
 import * as fs from 'fs';
 import * as plugin from '../../lib';
 
-JSON.parse(fs.readFileSync('./test/stubs/_2_project.json', 'utf-8'));
+JSON.parse(fs.readFileSync('./test/fixtures/_2_project.json', 'utf-8'));
 
 const projects = {
   csproj: {
-    projectPath: './test/stubs/target_framework/no_csproj',
+    projectPath: './test/fixtures/target_framework/no_csproj',
     manifestFile: 'obj/project.assets.json',
     defaultName: 'no_csproj',
   },
 
   packagesConfig: {
-    projectPath: './test/stubs/packages-config-only',
+    projectPath: './test/fixtures/packages-config-only',
     manifestFile: 'packages.config',
     defaultName: 'packages-config-only',
   },
