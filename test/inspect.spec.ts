@@ -1,12 +1,13 @@
 import { describe, expect, it } from '@jest/globals';
-import * as plugin from '../../lib';
+import * as plugin from '../lib';
 import * as fs from 'fs';
 import * as path from 'path';
 
-describe('when parsing .NET CLI', () => {
-  describe('when calling with various configs', () => {
-    it('parse dotnet-cli project without frameworks field', async () => {
-      const projectPath = './test/fixtures/dotnetcore/without-frameworks-field/';
+describe('when calling plugin.inspect()', () => {
+  describe('with various configs', () => {
+    it('should parse dotnet-cli project without frameworks field', async () => {
+      const projectPath =
+        './test/fixtures/dotnetcore/without-frameworks-field/';
       const manifestFile = 'obj/project.assets.json';
 
       await expect(
@@ -20,15 +21,15 @@ describe('when parsing .NET CLI', () => {
     it.each([
       {
         description: 'parse dotnet netcoreapp2.0',
-        projectPath: './test/fixtures/dotnet_2',
+        projectPath: './test/fixtures/dotnetcore/dotnet_2',
       },
       {
         description:
           'parse dotnet netcoreapp2.0 with duplicate deps project and traverse packages',
-        projectPath: './test/fixtures/dotnet_project',
+        projectPath: './test/fixtures/dotnetcore/dotnet_project',
       },
     ])(
-      'should succeed given a project file and an expected tree',
+      'should succeed given a project file and an expected tree when: $description',
       async ({ projectPath }) => {
         const manifestFile = 'obj/project.assets.json';
         const expectedTree = JSON.parse(
@@ -42,13 +43,13 @@ describe('when parsing .NET CLI', () => {
     );
   });
 
-  describe('when calling with various configs', () => {
+  describe('with various configs', () => {
     const packagesConfigOnlyPath = './test/fixtures/packages-config-only/';
     const packagesConfigOnlyManifestFile = 'packages.config';
     const packageConfigWithNet4TFPath = './test/fixtures/packages-config-net4/';
     const packageConfigWithNet4TFManifestFile = 'packages.config';
 
-    it('parse dotnet-cli project with packages.config only', async () => {
+    it('should parse dotnet-cli project with packages.config only', async () => {
       const res = await plugin.inspect(
         packagesConfigOnlyPath,
         packagesConfigOnlyManifestFile,
@@ -60,7 +61,7 @@ describe('when parsing .NET CLI', () => {
       expect(res.package.dependencies['Moment.js']).toBeTruthy();
     });
 
-    it('parse dotnet-cli project with packages.config containing net4 as target framework', async () => {
+    it('should parse dotnet-cli project with packages.config containing net4 as target framework', async () => {
       const res = await plugin.inspect(
         packageConfigWithNet4TFPath,
         packageConfigWithNet4TFManifestFile,
