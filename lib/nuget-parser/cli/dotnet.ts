@@ -19,8 +19,14 @@ async function handle(operation: string, command: string): Promise<ExecResult> {
   try {
     return await exec(command);
   } catch (error: unknown) {
+    if (!(typeof error === 'object' && error !== null && 'stdout' in error)) {
+      throw new CliCommandError(
+        `dotnet ${operation} failed with error: ${error}`,
+      );
+    }
+
     throw new CliCommandError(
-      `dotnet ${operation} failed with error: ${error}`,
+      `dotnet ${operation} failed with error: ${error.stdout}`,
     );
   }
 }
