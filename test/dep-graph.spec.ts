@@ -6,7 +6,7 @@ import { ManifestType } from '../lib/nuget-parser/types';
 describe('when generating a dependency graph', () => {
   it('generates a correct dependency graph compared to the existing depTree logic', async () => {
     const depTree = await nugetParser.buildDepTreeFromFiles(
-      './test/stubs/dotnet_6',
+      './test/fixtures/dotnetcore/dotnet_6',
       'obj/project.assets.json',
       undefined,
       ManifestType.DOTNET_CORE,
@@ -19,7 +19,7 @@ describe('when generating a dependency graph', () => {
     );
 
     const result = await nugetParser.buildDepGraphFromFiles(
-      './test/stubs/dotnet_6',
+      './test/fixtures/dotnetcore/dotnet_6',
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       undefined,
