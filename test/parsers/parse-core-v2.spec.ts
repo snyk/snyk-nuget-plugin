@@ -18,13 +18,13 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         'dotnet-runtime-resolution': true,
       });
 
-      const expectedTree = JSON.parse(
+      const expectedGraph = JSON.parse(
         fs.readFileSync(
           path.resolve(projectPath, 'expected_depgraph.json'),
           'utf-8',
         ),
       );
-      expect(result.dependencyGraph?.toJSON()).toEqual(expectedTree.depGraph);
+      expect(result.dependencyGraph?.toJSON()).toEqual(expectedGraph.depGraph);
     },
   );
 
