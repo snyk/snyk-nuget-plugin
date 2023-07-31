@@ -22,6 +22,7 @@ Console.WriteLine("Hello, World!");
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NSubstitute" Version="4.3.0"/>
