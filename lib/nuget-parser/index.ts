@@ -64,7 +64,7 @@ export async function buildDepGraphFromFiles(
   root: string | undefined,
   targetFile: string | undefined,
   manifestType: ManifestType,
-  useProjectNameFromAssetsFile,
+  useProjectNameFromAssetsFile: boolean,
   projectNamePrefix?: string,
 ): Promise<{
   dependencyGraph: depGraphLib.DepGraph;

@@ -10,7 +10,7 @@ describe('when generating a dependency graph', () => {
       'obj/project.assets.json',
       undefined,
       ManifestType.DOTNET_CORE,
-      undefined,
+      false,
     );
     expect(depTree).toBeDefined();
     const depTreeConverted = await depGraphLib.legacy.depTreeToGraph(
@@ -22,7 +22,7 @@ describe('when generating a dependency graph', () => {
       './test/fixtures/dotnetcore/dotnet_6',
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
-      undefined,
+      false,
       undefined,
     );
     expect(result.dependencyGraph).toBeDefined();
