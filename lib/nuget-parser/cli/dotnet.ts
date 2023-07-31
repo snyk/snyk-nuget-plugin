@@ -79,7 +79,7 @@ export async function publish(projectPath: string): Promise<string> {
   // We could also just hope Microsoft never changes their naming convention, but I think this is less error-prone,
   // and will potentially also support multiple target frameworks.
   const publishDirLine = response.stdout
-    .split('\n')
+    .split(/[\r\n]+/)
     // TODO: For multiple target frameworks, replace `find` with a map or something of that kind to return more than the first.
     // The first thing to get published ought to be the project's own .dll.
     // E.g., something like:

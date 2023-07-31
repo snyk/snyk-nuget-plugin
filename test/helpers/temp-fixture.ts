@@ -31,5 +31,9 @@ export function tearDown(dir: string) {
     return;
   }
 
-  fs.rmSync(dir, { recursive: true });
+  try {
+    fs.rmSync(dir, { recursive: true });
+  } catch (error: unknown) {
+    // Ignore it, test was tearing down anyway, and it seems Windows boxes especially don't like this.
+  }
 }

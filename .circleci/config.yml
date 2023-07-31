@@ -73,7 +73,6 @@ commands:
               ln -s ~/.local/apps/dotnet/dotnet ~/.local/bin/
               exit
             fi
-      - run: dotnet --version
       - save_cache:
           key: dotnet-cli-{{ arch }}-{{ .Branch }}-v2
           paths:
@@ -112,11 +111,10 @@ jobs:
           node_version: << parameters.node_version >>
       - install_deps
       - show_node_version
-      - install_dotnet
-      - show_dotnet_version
       - run:
           name: Run tests
           command: npm test
+          shell: bash.exe
 
   test-unix:
     environment:
@@ -166,72 +164,72 @@ workflows:
                 - master
 
       # UNIX tests
-      #      - test-unix:
-      #          name: Unix Tests for Node=16
-      #          context: nodejs-install
-      #          node_version: '16.20'
-      #          requires:
-      #            - Lint
-      #          filters:
-      #            branches:
-      #              ignore:
-      #                - master
-      #
-      #      - test-unix:
-      #          name: Unix Tests for Node=18
-      #          context: nodejs-install
-      #          node_version: '18.16'
-      #          requires:
-      #            - Lint
-      #          filters:
-      #            branches:
-      #              ignore:
-      #                - master
+#      - test-unix:
+#          name: Unix Tests for Node=16
+#          context: nodejs-install
+#          node_version: '16.20'
+#          requires:
+#            - Lint
+#          filters:
+#            branches:
+#              ignore:
+#                - master
+#
+#      - test-unix:
+#          name: Unix Tests for Node=18
+#          context: nodejs-install
+#          node_version: '18.16'
+#          requires:
+#            - Lint
+#          filters:
+#            branches:
+#              ignore:
+#                - master
+#
+#      - test-unix:
+#          name: Unix Tests for Node=20
+#          context: nodejs-install
+#          node_version: '20.3'
+#          requires:
+#            - Lint
+#          filters:
+#            branches:
+#              ignore:
+#                - master
+#
+#      # Windows tests
+#      - test-windows:
+#          name: Windows Tests for Node=16
+#          context: nodejs-install
+#          node_version: '16.20.0'
+#          requires:
+#            - Lint
+#          filters:
+#            branches:
+#              ignore:
+#                - master
+#
+#      - test-windows:
+#          name: Windows Tests for Node=18
+#          context: nodejs-install
+#          node_version: '18.16.0'
+#          requires:
+#            - Lint
+#          filters:
+#            branches:
+#              ignore:
+#                - master
 
-      - test-unix:
-          name: Unix Tests for Node=20
+      - test-windows:
+          name: Windows Tests for Node=20
           context: nodejs-install
-          node_version: '20.3'
+          node_version: '20.3.1'
           requires:
             - Lint
           filters:
             branches:
               ignore:
                 - master
-
-      #      # Windows tests
-      #      - test-windows:
-      #          name: Windows Tests for Node=16
-      #          context: nodejs-install
-      #          node_version: '16.20.0'
-      #          requires:
-      #            - Lint
-      #          filters:
-      #            branches:
-      #              ignore:
-      #                - master
-      #
-      #      - test-windows:
-      #          name: Windows Tests for Node=18
-      #          context: nodejs-install
-      #          node_version: '18.16.0'
-      #          requires:
-      #            - Lint
-      #          filters:
-      #            branches:
-      #              ignore:
-      #                - master
-      #
-      #      - test-windows:
-      #          name: Windows Tests for Node=20
-      #          context: nodejs-install
-      #          node_version: '20.3.0'
-      #          requires:
-      #            - Lint
-      #          filters:
-      #            branches:
-      #              ignore:
-      #                - master
 
       # Release
       - release:
