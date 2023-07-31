@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "npm run lint && npm run test:unit",
-    "test:unit": "jest --coverage --silent=false --detectOpenHandles",
+    "test:unit": "jest --coverage",
     "lint": "prettier --check \"./lib/**/*.ts\" && eslint -c .eslintrc.js \"./lib/**/*\"",
     "lint:fix": "prettier --write \"./lib/**/*.ts\" && eslint -c .eslintrc.js --fix \"./lib/**/*\"",
     "build": "tsc",
