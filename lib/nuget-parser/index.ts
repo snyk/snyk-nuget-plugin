@@ -107,6 +107,9 @@ export async function buildDepGraphFromFiles(
 
   let assemblyVersions: AssemblyVersions = {};
   if (useRuntimeDependencies) {
+    // Ensure `dotnet` is installed on the system or fail trying.
+    await dotnet.validate();
+
     // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
     const publishDir = await dotnet.publish(projectRootFolder);
     // Then inspect the dependency graph for the runtimepackage's assembly versions.
