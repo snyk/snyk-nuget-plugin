@@ -2,10 +2,11 @@ import { afterAll, beforeAll, describe, expect, it } from '@jest/globals';
 import * as dotnet from '../../lib/nuget-parser/cli/dotnet';
 import * as tempFixture from '../helpers/temp-fixture';
 import * as fs from 'fs';
+import * as path from "path";
 
 describe('when running the dotnet cli command', () => {
   let tempDir;
-  beforeAll(() => {
+  beforeAll(async () => {
     const fixtures: tempFixture.File[] = [
       {
         name: 'program.cs',
@@ -34,7 +35,7 @@ Console.WriteLine("Hello, World!");
   });
 
   afterAll(() => {
-    tempFixture.tearDown(tempDir);
+    // tempFixture.tearDown(tempDir);
   });
 
   it('publishes correctly to the /bin folder', async () => {

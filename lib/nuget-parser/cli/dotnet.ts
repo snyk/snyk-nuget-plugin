@@ -50,6 +50,12 @@ export async function validate() {
   }
 }
 
+export async function restore(projectPath: string): Promise<void> {
+  const command = `dotnet restore ${projectPath}`;
+  await handle('restore', command);
+  return;
+}
+
 export async function publish(projectPath: string): Promise<string> {
   let command = 'dotnet publish --nologo ';
   // Self-contained: Create all required .dlls for version investigation, don't rely on the environment.

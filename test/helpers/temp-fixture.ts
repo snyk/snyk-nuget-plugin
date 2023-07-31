@@ -11,16 +11,17 @@ export interface File {
 // to the same fixture folder. So we supply a generator for populating fixtures in temporary folders to keep the test
 // stateless while ensuring parallelization.
 export function setup(files: File[]): string {
-  const dir = path.join(os.tmpdir(), 'dotnet', 'publish');
-  fs.mkdirSync(dir, { recursive: true });
+  const tempDir = fs.mkdtempSync(
+    path.join(os.tmpdir(), 'dotnet-test-publish-'),
+  );
 
   let tempFilePath;
   files.forEach((file) => {
-    tempFilePath = path.join(dir, file.name);
+    tempFilePath = path.join(tempDir, file.name);
     fs.writeFileSync(tempFilePath, file.contents);
   });
 
-  return dir;
+  return tempDir;
 }
 
 export function tearDown(dir: string) {
