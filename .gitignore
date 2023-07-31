@@ -15,9 +15,9 @@ coverage/
 
 # dotnet CLI tests
 # contained inside bin/
-test/**/bin/**
-!test/**/bin/**/
-!*.deps.json
+test/**/bin
+#!test/**/bin/**/
+#!*.deps.json
 
 # contained inside obj/
 test/**/obj/**
