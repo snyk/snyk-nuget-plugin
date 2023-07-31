@@ -1,8 +1,8 @@
 import * as util from 'util';
 import * as debugModule from 'debug';
-import * as path from 'path';
 import * as childProcess from 'child_process';
 import { CliCommandError } from '../../errors';
+import * as path from 'path';
 
 const debug = debugModule('snyk');
 
@@ -75,7 +75,12 @@ export async function publish(projectPath: string): Promise<string> {
   const publishDirLine = response.stdout
     .split('\n')
     // TODO: For multiple target frameworks, replace `find` with a map or something of that kind to return more than the first.
-    .find((line) => line.includes(path.join(path.sep, 'publish', path.sep)));
+    // The first thing to get published ought to be the project's own .dll.
+    // E.g., something like:
+    // dotnet_6 -> /foo/bar/project/bin/Debug/net6.0/osx-arm64/project_name.dll
+    // Either way, since we're forcing a publish of a self-contained project, all .dlls should be placed there.
+    // This logic does seem a bit popsicle and duct-tape ish, but I have yet to find a more stable solution. PRs welcome!
+    .find((line) => line.endsWith('.dll'));
 
   if (!publishDirLine) {
     const err = `Could not find a valid publish path while reading stdout: ${response.stdout}`;
@@ -83,12 +88,16 @@ export async function publish(projectPath: string): Promise<string> {
     throw new CliCommandError(`Unable to find a publish dir: ${err}`);
   }
 
-  const [, publishDir] = publishDirLine.split('->') ?? [];
-  if (!publishDir) {
+  // dotnet_6 -> /foo/bar/project/bin/Debug/net6.0/osx-arm64/project_name.dll will then have the first part removed:
+  const [, publishedDllPath] = publishDirLine.split('->') ?? [];
+  if (!publishedDllPath) {
     const err = `Could not find a valid publish dir while splitting the line: ${publishDirLine}`;
     debug(err);
     throw new CliCommandError(`Unable to find a publish dir: ${err}`);
   }
 
-  return publishDir.trim();
+  // /foo/bar/project/bin/Debug/net6.0/osx-arm64/project_name.dll will then need to be stripped from a file name,
+  // in order to return just the so-called "publish dir":
+  const dirName = path.dirname(publishedDllPath.trim());
+  return dirName;
 }
