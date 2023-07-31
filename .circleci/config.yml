@@ -111,8 +111,6 @@ jobs:
           node_version: << parameters.node_version >>
       - install_deps
       - show_node_version
-      - install_dotnet
-      - show_dotnet_version
       - run:
           name: Run tests
           command: npm test
