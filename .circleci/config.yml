@@ -59,9 +59,26 @@ commands:
         type: string
         default: '7.0'
     steps:
+      - restore_cache:
+          name: Restore Dotnet executable
+          keys:
+            - dotnet-cli-{{ arch }}-{{ .Branch }}-v2
       - run:
           name: Download and install dotnet
-          command: curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel << parameters.dotnet_version >> --install-dir ~/.local/bin
+          command: |
+            if ! command -v dotnet &> /dev/null
+            then
+              echo "dotnet could not be found, downloading and installing"
+              curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel << parameters.dotnet_version >> --install-dir ~/.local/apps/dotnet
+              ln -s ~/.local/apps/dotnet/dotnet ~/.local/bin/
+              exit
+            fi
+      - run: dotnet --version
+      - save_cache:
+          key: dotnet-cli-{{ arch }}-{{ .Branch }}-v2
+          paths:
+            - ~/.local/apps/dotnet
+            - ~/.local/bin/dotnet
 
   show_dotnet_version:
     description: Log Dotnet version
