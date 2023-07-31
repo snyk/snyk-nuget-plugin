@@ -6,7 +6,7 @@ import { ManifestType } from '../lib/nuget-parser/types';
 describe('when generating a dependency graph', () => {
   it('generates a correct dependency graph compared to the existing depTree logic', async () => {
     const depTree = await nugetParser.buildDepTreeFromFiles(
-      './test/fixtures/dotnetcore/dotnet_6',
+      './test/fixtures/dotnetcore/dotnet_6_restored',
       'obj/project.assets.json',
       undefined,
       ManifestType.DOTNET_CORE,
@@ -19,7 +19,7 @@ describe('when generating a dependency graph', () => {
     );
 
     const result = await nugetParser.buildDepGraphFromFiles(
-      './test/fixtures/dotnetcore/dotnet_6',
+      './test/fixtures/dotnetcore/dotnet_6_restored',
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,
@@ -38,34 +38,25 @@ describe('when generating a dependency graph', () => {
     expect(generated).toEqual(baseline);
   });
 
-  it('correctly uses the runtime assembly versions if enabled', async () => {
-    const baseline = await nugetParser.buildDepGraphFromFiles(
-      './test/fixtures/dotnetcore/dotnet_6',
-      'obj/project.assets.json',
-      ManifestType.DOTNET_CORE,
-      false,
-      false,
-    );
-    expect(baseline.dependencyGraph).toBeDefined();
-    const depGraphBaseline = baseline.dependencyGraph;
-    expect(depGraphBaseline.getPkgs()).toContainEqual({
-      name: 'System.Net.Http',
-      version: '4.3.0',
-    });
-
-    const withRuntimeDeps = await nugetParser.buildDepGraphFromFiles(
-      './test/fixtures/dotnetcore/dotnet_6',
-      'obj/project.assets.json',
-      ManifestType.DOTNET_CORE,
-      false,
-      true,
-    );
-    expect(withRuntimeDeps.dependencyGraph).toBeDefined();
-
-    const depGraphRuntime = withRuntimeDeps.dependencyGraph;
-    expect(depGraphRuntime.getPkgs()).toContainEqual({
-      name: 'System.Net.Http',
-      version: '6.0.0',
-    });
-  });
+  it.each([
+    { useRuntimeDependencies: false, expectedVersion: '4.3.0' },
+    { useRuntimeDependencies: true, expectedVersion: '6.0.0' },
+  ])(
+    'correctly generates a depGraph with or without runtime versions when flag is enabled = $useRuntimeDependencies',
+    async ({ useRuntimeDependencies, expectedVersion }) => {
+      const baseline = await nugetParser.buildDepGraphFromFiles(
+        './test/fixtures/dotnetcore/dotnet_6_published',
+        'obj/project.assets.json',
+        ManifestType.DOTNET_CORE,
+        false,
+        useRuntimeDependencies,
+      );
+      expect(baseline.dependencyGraph).toBeDefined();
+      const depGraphBaseline = baseline.dependencyGraph;
+      expect(depGraphBaseline.getPkgs()).toContainEqual({
+        name: 'System.Net.Http',
+        version: expectedVersion,
+      });
+    },
+  );
 });

@@ -7,7 +7,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
   it.each([
     {
       description: 'parse dotnet 6.0',
-      projectPath: './test/fixtures/dotnetcore/dotnet_6',
+      projectPath: './test/fixtures/dotnetcore/dotnet_6_published',
     },
   ])(
     'should succeed given a project file and an expected graph for test: $description',
@@ -28,7 +28,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     },
   );
 
-  it('does not allow the runtime beta option to be set on non-dotnet core projects', async () => {
+  it('does not allow the runtime argument to be set on non-dotnet core projects', async () => {
     const projectPath = './test/fixtures/packages-config/repositories-config/';
     const manifestFile = 'project.json';
     await expect(
