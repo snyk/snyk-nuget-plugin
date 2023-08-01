@@ -75,11 +75,14 @@ export async function inspect(
       );
     }
 
+    // TODO: Replaced by a CLI argument when project is stabilized
+    const useRuntimeDependencies = true;
     const result = await nugetParser.buildDepGraphFromFiles(
       root,
       targetFile,
       manifestType,
       options['assets-project-name'],
+      useRuntimeDependencies,
       options['project-name-prefix'],
     );
     return {
