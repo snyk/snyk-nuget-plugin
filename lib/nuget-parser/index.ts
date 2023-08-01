@@ -8,8 +8,10 @@ import * as dotnetFrameworkParser from './parsers/dotnet-framework-parser';
 import * as projectJsonParser from './parsers/project-json-parser';
 import * as packagesConfigParser from './parsers/packages-config-parser';
 import { FileNotProcessableError } from '../errors';
-import { ManifestType, TargetFramework } from './types';
+import { AssemblyVersions, ManifestType, TargetFramework } from './types';
 import * as depGraphLib from '@snyk/dep-graph';
+import * as dotnet from './cli/dotnet';
+import * as runtimeAssembly from './runtime-assembly';
 
 const debug = debugModule('snyk');
 
@@ -65,6 +67,7 @@ export async function buildDepGraphFromFiles(
   targetFile: string | undefined,
   manifestType: ManifestType,
   useProjectNameFromAssetsFile: boolean,
+  useRuntimeDependencies: boolean,
   projectNamePrefix?: string,
 ): Promise<{
   dependencyGraph: depGraphLib.DepGraph;
@@ -87,23 +90,43 @@ export async function buildDepGraphFromFiles(
     projectRootFolder,
     projectNamePrefix,
   );
+
+  const projectNameFromManifestFile = manifest?.project?.restore?.projectName;
   if (
     manifestType === ManifestType.DOTNET_CORE &&
     useProjectNameFromAssetsFile
   ) {
-    const projectName = manifest?.project?.restore?.projectName;
-    if (projectName) {
-      resolvedProjectName = projectName;
+    if (projectNameFromManifestFile) {
+      resolvedProjectName = projectNameFromManifestFile;
     } else {
       debug(
-        "project.assets.json file doesn't contain a value for 'projectName'. Using default value: " +
-          resolvedProjectName,
+        `project.assets.json file doesn't contain a value for 'projectName'. Using default value: ${resolvedProjectName}`,
       );
     }
   }
 
-  const depGraph = parser.depParser.parse(resolvedProjectName, manifest);
+  let assemblyVersions: AssemblyVersions = {};
+  if (useRuntimeDependencies) {
+    // Ensure `dotnet` is installed on the system or fail trying.
+    await dotnet.validate();
 
+    // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
+    const publishDir = await dotnet.publish(projectRootFolder);
+    // Then inspect the dependency graph for the runtimepackage's assembly versions.
+    const depsFile = path.resolve(
+      publishDir,
+      `${projectNameFromManifestFile}.deps.json`,
+    );
+    assemblyVersions = await runtimeAssembly.generateRuntimeAssemblies(
+      depsFile,
+    );
+  }
+
+  const depGraph = parser.depParser.parse(
+    resolvedProjectName,
+    manifest,
+    assemblyVersions,
+  );
   return {
     dependencyGraph: depGraph,
     targetFramework: targetFramework?.original,

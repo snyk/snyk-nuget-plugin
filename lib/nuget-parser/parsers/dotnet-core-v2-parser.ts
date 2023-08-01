@@ -1,6 +1,7 @@
 import * as debugModule from 'debug';
 import * as depGraphLib from '@snyk/dep-graph';
 import { DepGraphBuilder } from '@snyk/dep-graph';
+import { AssemblyVersions } from '../types';
 
 const debug = debugModule('snyk');
 
@@ -19,13 +20,6 @@ interface DotnetPackage {
   version: string;
 }
 
-export interface Assembly {
-  name: string;
-  version: string;
-}
-
-export type AssemblyVersions = Record<string, string>;
-
 // Dependencies that starts with these are discarded
 const FILTERED_DEPENDENCY_PREFIX = ['runtime'];
 
@@ -43,8 +37,16 @@ function recursivelyPopulateNodes(
     const localVisited = visited || new Set<string>();
     const name = depNode[0];
     let version = depNode[1];
-    if (runtimeAssembly && name in runtimeAssembly) {
-      version = runtimeAssembly[name];
+
+    // If we've supplied runtime assembly versions for self-contained dlls, overwrite the dependency version
+    // we've found in the graph with those from the runtime assembly, as they take precedence.
+    // The RuntimeAssembly type contains the name with a .dll suffix, as this is how .NET represents them in the
+    // dependency file. This must be stripped in order to match the elements during depGraph construction.
+    if (runtimeAssembly) {
+      const dll = `${name}.dll`;
+      if (dll in runtimeAssembly) {
+        version = runtimeAssembly[dll];
+      }
     }
 
     const childNode = {
