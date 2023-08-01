@@ -52,6 +52,40 @@ commands:
           name: NPM version
           command: npm --version
 
+  install_dotnet:
+    description: Install the dotnet CLI
+    parameters:
+      dotnet_version:
+        type: string
+        default: '7.0'
+    steps:
+      - restore_cache:
+          name: Restore Dotnet executable
+          keys:
+            - dotnet-cli-{{ arch }}-{{ .Branch }}-v2
+      - run:
+          name: Download and install dotnet
+          command: |
+            if ! command -v dotnet &> /dev/null
+            then
+              echo "dotnet could not be found, downloading and installing"
+              curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel << parameters.dotnet_version >> --install-dir ~/.local/apps/dotnet
+              ln -s ~/.local/apps/dotnet/dotnet ~/.local/bin/
+              exit
+            fi
+      - save_cache:
+          key: dotnet-cli-{{ arch }}-{{ .Branch }}-v2
+          paths:
+            - ~/.local/apps/dotnet
+            - ~/.local/bin/dotnet
+
+  show_dotnet_version:
+    description: Log Dotnet version
+    steps:
+      - run:
+          name: Dotnet version
+          command: dotnet --version
+
 jobs:
   lint:
     <<: *defaults
@@ -66,6 +100,8 @@ jobs:
           command: npm run lint
 
   test-windows:
+    environment:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
     <<: *defaults
     <<: *windows_defaults
     steps:
@@ -78,8 +114,11 @@ jobs:
       - run:
           name: Run tests
           command: npm test
+          shell: bash.exe
 
   test-unix:
+    environment:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
     <<: *defaults
     docker:
       - image: cimg/node:<< parameters.node_version >>
@@ -87,6 +126,8 @@ jobs:
       - checkout
       - install_deps
       - show_node_version
+      - install_dotnet
+      - show_dotnet_version
       - run:
           name: Run tests
           command: npm test
@@ -182,7 +223,7 @@ workflows:
       - test-windows:
           name: Windows Tests for Node=20
           context: nodejs-install
-          node_version: '20.3.0'
+          node_version: '20.3.1'
           requires:
             - Lint
           filters:

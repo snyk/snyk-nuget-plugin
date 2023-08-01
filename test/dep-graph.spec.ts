@@ -1,6 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import * as depGraphLib from '@snyk/dep-graph';
 import * as nugetParser from '../lib/nuget-parser';
+import { ManifestType } from '../lib/nuget-parser/types';
 
 describe('when generating a dependency graph', () => {
   it('generates a correct dependency graph compared to the existing depTree logic', async () => {
@@ -8,8 +9,8 @@ describe('when generating a dependency graph', () => {
       './test/fixtures/dotnetcore/dotnet_6',
       'obj/project.assets.json',
       undefined,
-      'dotnet-core',
-      undefined,
+      ManifestType.DOTNET_CORE,
+      false,
     );
     expect(depTree).toBeDefined();
     const depTreeConverted = await depGraphLib.legacy.depTreeToGraph(
@@ -20,8 +21,8 @@ describe('when generating a dependency graph', () => {
     const result = await nugetParser.buildDepGraphFromFiles(
       './test/fixtures/dotnetcore/dotnet_6',
       'obj/project.assets.json',
-      'dotnet-core',
-      undefined,
+      ManifestType.DOTNET_CORE,
+      false,
       undefined,
     );
     expect(result.dependencyGraph).toBeDefined();

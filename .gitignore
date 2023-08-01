@@ -12,3 +12,12 @@ coverage/
 .idea
 .vscode
 .ionide/
+
+# dotnet CLI tests
+# dotnet publish:
+test/**/bin
+
+# dotnet restore:
+test/**/obj/**
+!test/**/obj/**/
+!*.assets.json

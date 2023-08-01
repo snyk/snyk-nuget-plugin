@@ -2,21 +2,21 @@ import * as path from 'path';
 import * as nugetParser from './nuget-parser';
 import * as paketParser from 'snyk-paket-parser';
 import { InvalidTargetFile } from './errors';
-import { InspectResult } from './nuget-parser/types';
+import { InspectResult, ManifestType } from './nuget-parser/types';
 
-function determineManifestType(filename) {
+function determineManifestType(filename): ManifestType {
   switch (true) {
     case /project.json$/.test(filename): {
-      return 'project.json';
+      return ManifestType.PROJECT_JSON;
     }
     case /project.assets.json$/.test(filename): {
-      return 'dotnet-core';
+      return ManifestType.DOTNET_CORE;
     }
     case /packages.config$/.test(filename): {
-      return 'packages.config';
+      return ManifestType.PACKAGES_CONFIG;
     }
     case /paket.dependencies$/.test(filename): {
-      return 'paket';
+      return ManifestType.PAKET;
     }
     default: {
       throw new InvalidTargetFile(
@@ -32,7 +32,7 @@ export async function inspect(
   options?,
 ): Promise<InspectResult> {
   options = options || {};
-  let manifestType;
+  let manifestType: ManifestType;
   try {
     manifestType = determineManifestType(path.basename(targetFile || root));
   } catch (error) {
@@ -54,7 +54,7 @@ export async function inspect(
     };
   };
 
-  if (manifestType === 'paket') {
+  if (manifestType === ManifestType.PAKET) {
     return paketParser
       .buildDepTreeFromFiles(
         root,
@@ -67,7 +67,7 @@ export async function inspect(
   }
 
   if (options['dotnet-runtime-resolution']) {
-    if (manifestType !== 'dotnet-core') {
+    if (manifestType !== ManifestType.DOTNET_CORE) {
       return Promise.reject(
         new Error(
           'runtime resolution beta flag is currently only applicable for .net core projects',
