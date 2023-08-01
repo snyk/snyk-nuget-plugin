@@ -15,7 +15,7 @@ export function setup(files: File[]): string {
     path.join(os.tmpdir(), 'dotnet-test-publish-'),
   );
 
-  let tempFilePath;
+  let tempFilePath: string;
   files.forEach((file) => {
     tempFilePath = path.join(tempDir, file.name);
     fs.writeFileSync(tempFilePath, file.contents);

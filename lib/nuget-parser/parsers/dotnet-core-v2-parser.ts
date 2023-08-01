@@ -1,6 +1,7 @@
 import * as debugModule from 'debug';
 import * as depGraphLib from '@snyk/dep-graph';
 import { DepGraphBuilder } from '@snyk/dep-graph';
+import { AssemblyVersions } from '../types';
 
 const debug = debugModule('snyk');
 
@@ -19,13 +20,6 @@ interface DotnetPackage {
   version: string;
 }
 
-export interface Assembly {
-  name: string;
-  version: string;
-}
-
-export type AssemblyVersions = Record<string, string>;
-
 // Dependencies that starts with these are discarded
 const FILTERED_DEPENDENCY_PREFIX = ['runtime'];
 
@@ -42,10 +36,7 @@ function recursivelyPopulateNodes(
   for (const depNode of Object.entries(node.dependencies || {})) {
     const localVisited = visited || new Set<string>();
     const name = depNode[0];
-    let version = depNode[1];
-    if (runtimeAssembly && name in runtimeAssembly) {
-      version = runtimeAssembly[name];
-    }
+    const version = depNode[1];
 
     const childNode = {
       ...targetDeps[`${name}/${version}`],
@@ -55,10 +46,22 @@ function recursivelyPopulateNodes(
 
     const childId = `${childNode.name}@${childNode.version}`;
 
+    // If we've supplied runtime assembly versions for self-contained dlls, overwrite the dependency version
+    // we've found in the graph with those from the runtime assembly, as they take precedence.
+    let assemblyVersion = version;
+    if (runtimeAssembly) {
+      // The RuntimeAssembly type contains the name with a .dll suffix, as this is how .NET represents them in the
+      // dependency file. This must be stripped in order to match the elements during depGraph construction.
+      const dll = `${name}.dll`;
+      if (dll in runtimeAssembly) {
+        assemblyVersion = runtimeAssembly[dll];
+      }
+    }
+
     if (localVisited.has(childId)) {
       const prunedId = `${childId}:pruned`;
       depGraphBuilder.addPkgNode(
-        { name: childNode.name, version: childNode.version },
+        { name: childNode.name, version: assemblyVersion },
         prunedId,
         {
           labels: { pruned: 'true' },
@@ -69,7 +72,7 @@ function recursivelyPopulateNodes(
     }
 
     depGraphBuilder.addPkgNode(
-      { name: childNode.name, version: childNode.version },
+      { name: childNode.name, version: assemblyVersion },
       childId,
     );
     depGraphBuilder.connectDep(parentId, childId);
