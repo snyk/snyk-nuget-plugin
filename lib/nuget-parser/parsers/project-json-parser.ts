@@ -3,6 +3,14 @@ import { Dependency } from '../types';
 
 const debug = debugModule('snyk');
 
+interface JsonManifestDependencies {
+  dependencies: any;
+  project?: {
+    version: string;
+    name: string;
+  };
+}
+
 function scanForDependencies(obj, deps): JsonManifestDependencies {
   deps = deps || {};
   if (typeof obj !== 'object') {
@@ -29,14 +37,6 @@ function scanForDependencies(obj, deps): JsonManifestDependencies {
     }
   }
   return deps;
-}
-
-interface JsonManifestDependencies {
-  dependencies: any;
-  project?: {
-    version: string;
-    name: string;
-  };
 }
 
 function parseJsonManifest(fileContent): JsonManifestDependencies {
