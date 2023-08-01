@@ -35,7 +35,7 @@ export async function inspect(
   let manifestType: ManifestType;
   try {
     manifestType = determineManifestType(path.basename(targetFile || root));
-  } catch (error) {
+  } catch (error: unknown) {
     return Promise.reject(error);
   }
 

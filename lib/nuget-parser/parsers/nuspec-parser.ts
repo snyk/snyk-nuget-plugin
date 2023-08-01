@@ -52,13 +52,12 @@ async function loadNuspecFromAsync(
   let nupkgData: Buffer;
   try {
     nupkgData = fs.readFileSync(nupkgPath);
-  } catch (err) {
-    if (err.code == 'ENOENT') {
+  } catch (error: unknown) {
+    if (error instanceof Error && 'code' in error && error.code == 'ENOENT') {
       debug('No nupkg file found at ' + nupkgPath);
-      return null; //this is needed not to break existing code flow
-    } else {
-      throw err;
+      return null; // this is needed not to break existing code flow
     }
+    throw error;
   }
   const nuspecZipData: any = await JSZip.loadAsync(nupkgData);
 

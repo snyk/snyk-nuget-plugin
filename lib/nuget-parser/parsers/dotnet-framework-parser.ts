@@ -74,9 +74,10 @@ function scanInstalled(installedPackages, packagesFolder) {
       .map((folderName) => {
         try {
           return fromFolderName(folderName);
-        } catch (err) {
+        } catch (error: unknown) {
           debug('Unable to parse dependency from folder');
-          debug(err);
+          debug(error);
+          return;
         }
       })
       .forEach((dep) => {
@@ -102,9 +103,9 @@ function scanInstalled(installedPackages, packagesFolder) {
           }
         }
       });
-  } catch (err) {
+  } catch (error: unknown) {
     debug('Could not complete packages folder scanning');
-    debug(err);
+    debug(error);
   }
   return flattenedPackageList;
 }

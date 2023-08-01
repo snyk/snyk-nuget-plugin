@@ -80,4 +80,5 @@ function findFile(rootDir, filter) {
       return filename;
     }
   }
+  return;
 }
