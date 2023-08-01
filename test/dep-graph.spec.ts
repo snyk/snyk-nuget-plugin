@@ -6,7 +6,7 @@ import * as tempFixture from './helpers/temp-fixture';
 import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 
 describe('when generating a dependency graph', () => {
-  let tempDir;
+  let tempDir: string;
   beforeEach(async () => {
     const fixtures: tempFixture.File[] = [
       {

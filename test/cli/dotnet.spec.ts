@@ -4,7 +4,7 @@ import * as tempFixture from '../helpers/temp-fixture';
 import * as fs from 'fs';
 
 describe('when running the dotnet cli command', () => {
-  let tempDir;
+  let tempDir: string;
   beforeAll(async () => {
     const fixtures: tempFixture.File[] = [
       {
