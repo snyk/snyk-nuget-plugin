@@ -47,7 +47,7 @@ Console.WriteLine("Hello, World!");
         'obj/project.assets.json',
         undefined,
         ManifestType.DOTNET_CORE,
-        undefined,
+        false,
     );
     expect(depTree).toBeDefined();
     const depTreeConverted = await depGraphLib.legacy.depTreeToGraph(

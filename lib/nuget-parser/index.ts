@@ -136,9 +136,9 @@ export async function buildDepGraphFromFiles(
 export async function buildDepTreeFromFiles(
   root: string | undefined,
   targetFile: string | undefined,
-  packagesFolderPath,
-  manifestType,
-  useProjectNameFromAssetsFile,
+  packagesFolderPath: string | undefined,
+  manifestType: ManifestType,
+  useProjectNameFromAssetsFile: boolean,
   projectNamePrefix?: string,
 ) {
   const safeRoot = root || '.';
