@@ -164,61 +164,61 @@ workflows:
                 - master
 
       # UNIX tests
-#      - test-unix:
-#          name: Unix Tests for Node=16
-#          context: nodejs-install
-#          node_version: '16.20'
-#          requires:
-#            - Lint
-#          filters:
-#            branches:
-#              ignore:
-#                - master
-#
-#      - test-unix:
-#          name: Unix Tests for Node=18
-#          context: nodejs-install
-#          node_version: '18.16'
-#          requires:
-#            - Lint
-#          filters:
-#            branches:
-#              ignore:
-#                - master
-#
-#      - test-unix:
-#          name: Unix Tests for Node=20
-#          context: nodejs-install
-#          node_version: '20.3'
-#          requires:
-#            - Lint
-#          filters:
-#            branches:
-#              ignore:
-#                - master
-#
-#      # Windows tests
-#      - test-windows:
-#          name: Windows Tests for Node=16
-#          context: nodejs-install
-#          node_version: '16.20.0'
-#          requires:
-#            - Lint
-#          filters:
-#            branches:
-#              ignore:
-#                - master
-#
-#      - test-windows:
-#          name: Windows Tests for Node=18
-#          context: nodejs-install
-#          node_version: '18.16.0'
-#          requires:
-#            - Lint
-#          filters:
-#            branches:
-#              ignore:
-#                - master
+      - test-unix:
+          name: Unix Tests for Node=16
+          context: nodejs-install
+          node_version: '16.20'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
+      - test-unix:
+          name: Unix Tests for Node=18
+          context: nodejs-install
+          node_version: '18.16'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
+      - test-unix:
+          name: Unix Tests for Node=20
+          context: nodejs-install
+          node_version: '20.3'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
+      # Windows tests
+      - test-windows:
+          name: Windows Tests for Node=16
+          context: nodejs-install
+          node_version: '16.20.0'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
+
+      - test-windows:
+          name: Windows Tests for Node=18
+          context: nodejs-install
+          node_version: '18.16.0'
+          requires:
+            - Lint
+          filters:
+            branches:
+              ignore:
+                - master
 
       - test-windows:
           name: Windows Tests for Node=20
