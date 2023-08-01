@@ -53,7 +53,7 @@ async function loadNuspecFromAsync(
   try {
     nupkgData = fs.readFileSync(nupkgPath);
   } catch (error: unknown) {
-    if (error instanceof Error && 'code' in error && error.code == 'ENOENT') {
+    if ((error as NodeJS.ErrnoException).code == 'ENOENT') {
       debug('No nupkg file found at ' + nupkgPath);
       return null; // this is needed not to break existing code flow
     }
@@ -66,7 +66,7 @@ async function loadNuspecFromAsync(
   });
 
   if (!nuspecFile) {
-    throw new Error('`failed to read nupkg file from: ${nupkgPath}`');
+    throw new Error(`failed to read nupkg file from: ${nupkgPath}`);
   }
 
   if (!nuspecZipData) {
