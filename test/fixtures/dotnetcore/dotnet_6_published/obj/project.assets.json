@@ -1502,7 +1502,7 @@
         }
       }
     },
-    "net6.0/osx-x64": {
+    "net6.0/linux-x64": {
       "Castle.Core/4.4.1": {
         "type": "package",
         "dependencies": {
@@ -2914,7 +2914,7 @@
           "ref/netstandard1.6/System.Security.Cryptography.Algorithms.dll": {}
         },
         "runtime": {
-          "runtimes/osx/lib/netstandard1.6/System.Security.Cryptography.Algorithms.dll": {}
+          "runtimes/unix/lib/netstandard1.6/System.Security.Cryptography.Algorithms.dll": {}
         }
       },
       "System.Security.Cryptography.Cng/4.3.0": {
@@ -7807,11 +7807,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/kasparmoss/RiderProjects/IfDotNoIssue/IfDotNoIssue.csproj",
-      "projectName": "IfDotNoIssue",
-      "projectPath": "/Users/kasparmoss/RiderProjects/IfDotNoIssue/IfDotNoIssue.csproj",
+      "projectUniqueName": "/Users/kasparmoss/git/plugins/snyk-nuget-plugin/test/fixtures/dotnetcore/dotnet_6_published/dotnet_6.csproj",
+      "projectName": "dotnet_6",
+      "projectPath": "/Users/kasparmoss/git/plugins/snyk-nuget-plugin/test/fixtures/dotnetcore/dotnet_6_published/dotnet_6.csproj",
       "packagesPath": "/Users/kasparmoss/.nuget/packages/",
-      "outputPath": "/Users/kasparmoss/RiderProjects/IfDotNoIssue/obj/",
+      "outputPath": "/Users/kasparmoss/git/plugins/snyk-nuget-plugin/test/fixtures/dotnetcore/dotnet_6_published/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/kasparmoss/.nuget/NuGet/NuGet.Config"
@@ -7860,11 +7860,11 @@
             "version": "[6.0.16, 6.0.16]"
           },
           {
-            "name": "Microsoft.AspNetCore.App.Runtime.osx-x64",
+            "name": "Microsoft.AspNetCore.App.Runtime.linux-x64",
             "version": "[6.0.16, 6.0.16]"
           },
           {
-            "name": "Microsoft.NETCore.App.Host.osx-x64",
+            "name": "Microsoft.NETCore.App.Host.linux-x64",
             "version": "[6.0.16, 6.0.16]"
           },
           {
@@ -7872,7 +7872,7 @@
             "version": "[6.0.16, 6.0.16]"
           },
           {
-            "name": "Microsoft.NETCore.App.Runtime.osx-x64",
+            "name": "Microsoft.NETCore.App.Runtime.linux-x64",
             "version": "[6.0.16, 6.0.16]"
           }
         ],
@@ -7885,7 +7885,7 @@
       }
     },
     "runtimes": {
-      "osx-x64": {
+      "linux-x64": {
         "#import": []
       }
     }

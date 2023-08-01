@@ -9,7 +9,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
   it.each([
     {
       description: 'parse dotnet 6.0',
-      projectPath: './test/fixtures/dotnetcore/dotnet_6',
+      projectPath: './test/fixtures/dotnetcore/dotnet_6_published',
     },
   ])(
     'should succeed given a project file and an expected graph for test: $description',
