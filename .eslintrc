@@ -1,4 +1,4 @@
-module.exports = {
+{
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": [
@@ -9,7 +9,7 @@ module.exports = {
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  rules: {
-    '@typescript-eslint/no-explicit-any': 0,
-  },
-};
+  "rules": {
+    "@typescript-eslint/no-explicit-any": 0
+  }
+}

@@ -225,7 +225,7 @@ describe('parse large dependency tree', () => {
     Object.keys(
       manifest.targets['.NETCoreApp,Version=v2.0']['jQuery/1.10.2']
         .dependencies,
-    ).forEach(key => {
+    ).forEach((key) => {
       createDepTreeRecursive(`${key}/1.0.0`, manifest.targets, remainingLevel);
     });
 

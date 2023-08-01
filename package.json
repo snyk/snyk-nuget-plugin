@@ -5,8 +5,10 @@
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "jest --coverage",
-    "lint": "prettier --check \"./lib/**/*.ts\" && eslint -c .eslintrc.js \"./lib/**/*\"",
-    "lint:fix": "prettier --write \"./lib/**/*.ts\" && eslint -c .eslintrc.js --fix \"./lib/**/*\"",
+    "lint": "npm run lint:prettier && npm run lint:eslint",
+    "lint:eslint": "eslint . --ext .ts",
+    "lint:prettier": "prettier --check '{lib,test}/**/*.ts' --log-level 'warn'",
+    "lint:fix": "prettier --write '{lib,test}/**/*.ts' && eslint -c .eslintrc --fix '{lib,test}/**/*.ts'",
     "build": "tsc",
     "build:watch": "tsc -w",
     "prepare": "npm run build"

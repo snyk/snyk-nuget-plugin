@@ -43,24 +43,24 @@ Console.WriteLine("Hello, World!");
 
   it('generates a correct dependency graph compared to the existing depTree logic', async () => {
     const depTree = await nugetParser.buildDepTreeFromFiles(
-        tempDir,
-        'obj/project.assets.json',
-        undefined,
-        ManifestType.DOTNET_CORE,
-        false,
+      tempDir,
+      'obj/project.assets.json',
+      undefined,
+      ManifestType.DOTNET_CORE,
+      false,
     );
     expect(depTree).toBeDefined();
     const depTreeConverted = await depGraphLib.legacy.depTreeToGraph(
-        depTree,
-        'nuget',
+      depTree,
+      'nuget',
     );
 
     const result = await nugetParser.buildDepGraphFromFiles(
-        tempDir,
-        'obj/project.assets.json',
-        ManifestType.DOTNET_CORE,
-        false,
-        false,
+      tempDir,
+      'obj/project.assets.json',
+      ManifestType.DOTNET_CORE,
+      false,
+      false,
     );
     expect(result.dependencyGraph).toBeDefined();
     const depGraph = result.dependencyGraph;

@@ -48,10 +48,7 @@ describe('when testing paket', () => {
   });
 
   it('parse simple-paket project from upper dir', async () => {
-    const tree = await plugin.inspect(
-      fixturesDir,
-      'simple/paket.dependencies',
-    );
+    const tree = await plugin.inspect(fixturesDir, 'simple/paket.dependencies');
     expect(tree.package.dependencies).toEqual(simplePaketDeps);
     expect(tree.package.name).toBe('simple');
   });

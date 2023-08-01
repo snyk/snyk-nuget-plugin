@@ -5,7 +5,7 @@ import * as packagesConfigParser from '../../lib/nuget-parser/parsers/packages-c
 import * as dotNetFrameworkParser from '../../lib/nuget-parser/parsers/dotnet-framework-parser';
 import * as fs from 'fs';
 import * as path from 'path';
-import { InvalidFolderFormatError } from "../../lib/errors/invalid-folder-format-error";
+import { InvalidFolderFormatError } from '../../lib/errors/invalid-folder-format-error';
 
 const projectPath = './test/fixtures/packages-config/with-packages-dir';
 
@@ -186,7 +186,9 @@ describe('when calling getMinimumTargetFramework', () => {
 describe('fromFolderName() method', () => {
   it('should properly fail when parsing folder without expectedVersion', () => {
     expect(() =>
-        dotNetFrameworkParser.fromFolderName('someLibraryNameWithoutexpectedVersion'),
+      dotNetFrameworkParser.fromFolderName(
+        'someLibraryNameWithoutexpectedVersion',
+      ),
     ).toThrow(InvalidFolderFormatError);
   });
 

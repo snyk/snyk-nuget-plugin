@@ -41,7 +41,8 @@ describe('when calling plugin.inspect with various configs', () => {
   );
 
   it('should parse dotnet-cli project with packages.config only', async () => {
-    const packagesConfigOnlyPath = './test/fixtures/packages-config/config-only/';
+    const packagesConfigOnlyPath =
+      './test/fixtures/packages-config/config-only/';
     const packagesConfigOnlyManifestFile = 'packages.config';
 
     const res = await plugin.inspect(
