@@ -7802,19 +7802,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/kasparmoss/.nuget/packages/": {}
+    "/Users/johnappleseed/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/kasparmoss/git/plugins/snyk-nuget-plugin/test/fixtures/dotnetcore/dotnet_6_published/dotnet_6.csproj",
+      "projectUniqueName": "/Users/johnappleseed/git/plugins/snyk-nuget-plugin/test/fixtures/dotnetcore/dotnet_6_published/dotnet_6.csproj",
       "projectName": "dotnet_6",
-      "projectPath": "/Users/kasparmoss/git/plugins/snyk-nuget-plugin/test/fixtures/dotnetcore/dotnet_6_published/dotnet_6.csproj",
-      "packagesPath": "/Users/kasparmoss/.nuget/packages/",
-      "outputPath": "/Users/kasparmoss/git/plugins/snyk-nuget-plugin/test/fixtures/dotnetcore/dotnet_6_published/obj/",
+      "projectPath": "/Users/johnappleseed/git/plugins/snyk-nuget-plugin/test/fixtures/dotnetcore/dotnet_6_published/dotnet_6.csproj",
+      "packagesPath": "/Users/johnappleseed/.nuget/packages/",
+      "outputPath": "/Users/johnappleseed/git/plugins/snyk-nuget-plugin/test/fixtures/dotnetcore/dotnet_6_published/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/kasparmoss/.nuget/NuGet/NuGet.Config"
+        "/Users/johnappleseed/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
