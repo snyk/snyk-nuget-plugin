@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { parseNuspec } from './nuspec-parser';
 import * as debugModule from 'debug';
+import { parseNuspec } from './nuspec-parser';
 import { Dependency } from '../types';
 import { InvalidFolderFormatError } from '../../errors/invalid-folder-format-error';
 
@@ -126,8 +126,8 @@ async function fetchNugetInformationFromPackages(
     } catch (e) {
       debug('Failed parsing nuspec file');
       debug(e);
-      //log but make sure to rethrow the error
-      //why? if we cannot parse nuspec file, we got nothing to do!
+      // log but make sure to rethrow the error
+      // why? if we cannot parse nuspec file, we got nothing to do!
       throw e;
     }
   }

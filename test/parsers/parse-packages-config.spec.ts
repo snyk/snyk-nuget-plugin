@@ -192,7 +192,7 @@ describe('fromFolderName() method', () => {
     ).toThrow(InvalidFolderFormatError);
   });
 
-  //sanity check
+  // sanity check
   it.each([
     ['RestSharp.105.2.3', '105.2.3'],
     ['FooBar.1.2', '1.2'],

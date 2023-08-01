@@ -117,9 +117,7 @@ export async function buildDepGraphFromFiles(
       publishDir,
       `${projectNameFromManifestFile}.deps.json`,
     );
-    assemblyVersions = await runtimeAssembly.generateRuntimeAssemblies(
-      depsFile,
-    );
+    assemblyVersions = runtimeAssembly.generateRuntimeAssemblies(depsFile);
   }
 
   const depGraph = parser.depParser.parse(

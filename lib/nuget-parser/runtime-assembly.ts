@@ -18,9 +18,7 @@ interface Versions {
 // The `dotnet publish` will give a good estimate of what runtime dependencies are going to be used, so we inspect
 // that for information.
 // See https://natemcmaster.com/blog/2017/12/21/netcore-primitives/ for a good overview.
-export async function generateRuntimeAssemblies(
-  filePath: string,
-): Promise<AssemblyVersions> {
+export function generateRuntimeAssemblies(filePath: string): AssemblyVersions {
   const depsFile = fs.readFileSync(filePath);
   const deps = JSON.parse(depsFile.toString('utf-8'));
 

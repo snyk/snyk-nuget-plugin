@@ -38,7 +38,7 @@ function assertNuspecSchema(nuspecContent: string, parsedNuspec: any) {
     );
   }
 
-  //just in case, this should *not* happen
+  // just in case, this should *not* happen
   if (!Array.isArray(parsedNuspec.package.metadata)) {
     throw new Error(
       'This is an invalid nuspec file; the metadata tag is supposed to be a collection of objects but it is not! The nuspec in question: ' +
@@ -47,7 +47,7 @@ function assertNuspecSchema(nuspecContent: string, parsedNuspec: any) {
   }
 
   for (const metadata of parsedNuspec.package.metadata) {
-    //just in case, this shouldn't happen as this would indicate invalid/malformed nuspec file
+    // just in case, this shouldn't happen as this would indicate invalid/malformed nuspec file
     if (metadata == null || typeof metadata !== 'object') {
       throw new Error(
         'Expected elements in a "metadata" tag to be objects, but they were ' +
@@ -58,7 +58,7 @@ function assertNuspecSchema(nuspecContent: string, parsedNuspec: any) {
     }
 
     if (metadata.dependencies) {
-      //just in case, error would indicate malformed nuspec
+      // just in case, error would indicate malformed nuspec
       if (!Array.isArray(metadata.dependencies)) {
         throw new Error(
           'Expected that "dependencies" tag would be an array but it isn\'t. This is not supposed to happen and is likely due to malformed nuspec file! The nuspec in question: ' +
@@ -151,7 +151,7 @@ export async function parse(
   const parsedNuspec = await parseXML.parseStringPromise(nuspecContent);
   let ownDeps: Dependency[] = [];
 
-  //note: this will throw if assertion fails
+  // note: this will throw if assertion fails
   assertNuspecSchema(nuspecContent, parsedNuspec);
 
   for (const metadata of parsedNuspec.package.metadata) {
@@ -237,14 +237,14 @@ export async function parseNuspec(
   dep: DependencyInfo,
   targetFramework: TargetFramework,
 ): Promise<DependencyTree | null> {
-  //precaution
+  // precaution
   if (!dep) {
     throw new Error(
       'expected DependencyInfo parameter to have value but found it undefined',
     );
   }
 
-  //another precaution
+  // another precaution
   if (!targetFramework) {
     throw new Error(
       'expected TargetFramework parameter to have value but found it undefined',
