@@ -127,7 +127,7 @@ export async function buildDepGraphFromFiles(
     // Then inspect the dependency graph for the runtimepackage's assembly versions.
     const depsFile = path.resolve(
       publishDir,
-      `${projectNameFromManifestFile}.deps.json`, // FIXME: This is wrong. It's the folder name I think, not manifest project name.
+      `${projectNameFromManifestFile}.deps.json`,
     );
     assemblyVersions = runtimeAssembly.generateRuntimeAssemblies(depsFile);
   }
