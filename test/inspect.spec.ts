@@ -2,6 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 import * as plugin from '../lib';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 
 describe('when calling plugin.inspect with various configs', () => {
   it('should parse dotnet-cli project without frameworks field', async () => {
@@ -18,17 +19,19 @@ describe('when calling plugin.inspect with various configs', () => {
 
   it.each([
     {
-      description: 'parse dotnet netcoreapp2.0',
-      projectPath: './test/fixtures/dotnetcore/dotnet_2',
+      description: 'parse dotnet netcoreapp3.1',
+      projectPath: './test/fixtures/dotnetcore/netcoreapp31/',
     },
     {
       description:
-        'parse dotnet netcoreapp2.0 with duplicate deps project and traverse packages',
-      projectPath: './test/fixtures/dotnetcore/dotnet_project',
+        'parse dotnet netcoreapp2.1',
+      projectPath: './test/fixtures/dotnetcore/netcoreapp21/',
     },
   ])(
     'should succeed given a project file and an expected tree when: $description',
     async ({ projectPath }) => {
+      await dotnet.restore(projectPath);
+
       const manifestFile = 'obj/project.assets.json';
       const expectedTree = JSON.parse(
         fs.readFileSync(path.resolve(projectPath, 'expected.json'), 'utf-8'),
