@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "npm run test:unit",
-    "test:unit": "jest --coverage",
+    "test:unit": "jest --coverage --runInBand",
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:eslint": "eslint . --ext .ts",
     "lint:prettier": "prettier --check '{lib,test}/**/*.{ts,csproj,json}' --log-level 'warn'",
