@@ -9,11 +9,13 @@ describe('when parsing .NET core', () => {
     it.each([
       {
         description: 'different target monikers',
-        projectPath: './test/fixtures/dotnetcore/netcoreapp20_target_monikers_differ/',
+        projectPath:
+          './test/fixtures/dotnetcore/netcoreapp20_target_monikers_differ/',
       },
       {
         description: 'assembly name from .csproj',
-        projectPath: './test/fixtures/dotnetcore/netcoreapp20_different_assembly_name/',
+        projectPath:
+          './test/fixtures/dotnetcore/netcoreapp20_different_assembly_name/',
       },
     ])(
       'parses correctly when inspecting a project with: $description',
