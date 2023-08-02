@@ -7,8 +7,8 @@
     "test:unit": "jest --coverage",
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:eslint": "eslint . --ext .ts",
-    "lint:prettier": "prettier --check '{lib,test}/**/*.ts' --log-level 'warn'",
-    "lint:fix": "prettier --write '{lib,test}/**/*.ts' && eslint -c .eslintrc --fix '{lib,test}/**/*.ts'",
+    "lint:prettier": "prettier --check '{lib,test}/**/*.{ts,csproj,json}' --log-level 'warn'",
+    "lint:fix": "prettier --write '{lib,test}/**/*.{ts,csproj,json}' && eslint -c .eslintrc --fix '{lib,test}/**/*.ts'",
     "build": "tsc",
     "build:watch": "tsc -w",
     "prepare": "npm run build"

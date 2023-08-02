@@ -158,9 +158,7 @@
             "version": "3.7.0"
           }
         },
-        "imports": [
-          "net461"
-        ]
+        "imports": ["net461"]
       }
     },
     "runtimes": {
