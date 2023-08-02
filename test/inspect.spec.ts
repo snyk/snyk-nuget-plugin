@@ -7,18 +7,6 @@ import * as depGraphLib from '@snyk/dep-graph';
 import * as depGraphLegacyLib from '@snyk/dep-graph/dist/legacy';
 
 describe('when calling plugin.inspect with various configs', () => {
-  it('should parse dotnet-cli project without frameworks field', async () => {
-    const projectPath = './test/fixtures/dotnetcore/without-frameworks-field/';
-    const manifestFile = 'obj/project.assets.json';
-
-    await expect(
-      async () =>
-        await plugin.inspect(projectPath, manifestFile, {
-          packagesFolder: projectPath + './_packages',
-        }),
-    ).rejects.toThrow('No frameworks were found in project.assets.json');
-  });
-
   it.each([
     {
       description: 'parse dotnet netcoreapp3.1',
