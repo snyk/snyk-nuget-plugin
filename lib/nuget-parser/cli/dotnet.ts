@@ -51,7 +51,7 @@ export async function validate() {
 }
 
 export async function restore(projectPath: string): Promise<void> {
-  const command = `dotnet restore ${projectPath}`;
+  const command = `dotnet restore --no-cache ${projectPath}`;
   await handle('restore', command);
   return;
 }

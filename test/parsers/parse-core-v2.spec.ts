@@ -3,21 +3,25 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as plugin from '../../lib';
 import * as nugetParser from '../../lib/nuget-parser';
+import * as dotnet from '../../lib/nuget-parser/cli/dotnet';
 import { ManifestType } from '../../lib/nuget-parser/types';
 
 describe('when generating depGraphs and runtime assemblies using the v2 parser', () => {
   it.each([
     {
       description: 'parse dotnet 6.0',
-      projectPath: './test/fixtures/dotnetcore/dotnet_6_published',
+      projectPath: './test/fixtures/dotnetcore/dotnet_6',
     },
     {
       description: 'parse netstandard 2.1',
-      projectPath: './test/fixtures/dotnetcore/netstandard_21_published',
+      projectPath: './test/fixtures/dotnetcore/netstandard_21',
     },
   ])(
     'should succeed given a project file and an expected graph for test: $description',
     async ({ projectPath }) => {
+      // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
+      await dotnet.restore(projectPath);
+
       const manifestFile = 'obj/project.assets.json';
 
       const result = await plugin.inspect(projectPath, manifestFile, {
@@ -35,10 +39,15 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
   );
 
   it('correctly generates a depGraph with or without runtime versions ', async () => {
+    const projectPath = './test/fixtures/dotnetcore/dotnet_6';
+
+    // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
+    await dotnet.restore(projectPath);
+
     // First generate the graph normally without new functionality.
     let useRuntimeDependencies = false;
     const baseline = await nugetParser.buildDepGraphFromFiles(
-      './test/fixtures/dotnetcore/dotnet_6_published',
+      projectPath,
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,
@@ -48,7 +57,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     // Then do the same with the new functionality and validate the graph looks the same, only newer versions for runtime dependencies.
     useRuntimeDependencies = true;
     const withRuntimeDeps = await nugetParser.buildDepGraphFromFiles(
-      './test/fixtures/dotnetcore/dotnet_6_published',
+      projectPath,
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,

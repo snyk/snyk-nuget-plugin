@@ -6,9 +6,9 @@
     },
     "pkgs": [
       {
-        "id": "dotnet_6_published@1.0.0",
+        "id": "dotnet_6@1.0.0",
         "info": {
-          "name": "dotnet_6_published",
+          "name": "dotnet_6",
           "version": "1.0.0"
         }
       },
@@ -522,7 +522,7 @@
       "nodes": [
         {
           "nodeId": "root-node",
-          "pkgId": "dotnet_6_published@1.0.0",
+          "pkgId": "dotnet_6@1.0.0",
           "deps": [
             {
               "nodeId": "NSubstitute@4.3.0"

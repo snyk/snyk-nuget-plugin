@@ -6,9 +6,9 @@
     },
     "pkgs": [
       {
-        "id": "netstandard_21_published@1.0.0",
+        "id": "netstandard_21@1.0.0",
         "info": {
-          "name": "netstandard_21_published",
+          "name": "netstandard_21",
           "version": "1.0.0"
         }
       },
@@ -74,7 +74,7 @@
       "nodes": [
         {
           "nodeId": "root-node",
-          "pkgId": "netstandard_21_published@1.0.0",
+          "pkgId": "netstandard_21@1.0.0",
           "deps": [
             {
               "nodeId": "System.Text.Json@4.7.2"
