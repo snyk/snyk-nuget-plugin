@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TTTargetFramework>netcoreapp2.0</TTTargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>CoreNoProjectNameInAssets</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

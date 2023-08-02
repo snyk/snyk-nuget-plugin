@@ -1,6 +1,6 @@
 {
   "package": {
-    "name": "CoreNoProjectNameInAssets",
+    "name": "netcoreapp20_different_assembly_name",
     "version": "1.0.0",
     "packageFormatVersion": "nuget:0.0.0",
     "dependencies": {
