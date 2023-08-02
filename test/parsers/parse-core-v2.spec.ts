@@ -84,16 +84,26 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     );
   });
 
-  it('does not allow the runtime beta option to be set on non-dotnet core projects', async () => {
-    const projectPath = './test/fixtures/packages-config/repositories-config/';
-    const manifestFile = 'project.json';
-    await expect(
-      async () =>
-        await plugin.inspect(projectPath, manifestFile, {
-          'dotnet-runtime-resolution': true,
-        }),
-    ).rejects.toThrow(
-      'runtime resolution beta flag is currently only applicable for .net core projects',
-    );
-  });
+  it.each([
+    {
+      description: 'net472 - with package.assets.json',
+      projectPath: './test/fixtures/target-framework/no-dependencies',
+      manifestFile: 'obj/project.assets.json',
+    },
+    {
+      description: 'net461 - no package.assets.json',
+      projectPath: './test/fixtures/packages-config/repositories-config/',
+      manifestFile: 'project.json',
+    },
+  ])(
+    'does not allow the runtime option to be set on unsupported projects: description',
+    async ({ projectPath, manifestFile }) => {
+      await expect(
+        async () =>
+          await plugin.inspect(projectPath, manifestFile, {
+            'dotnet-runtime-resolution': true,
+          }),
+      ).rejects.toThrow(/runtime resolution flag is currently only supported/);
+    },
+  );
 });
