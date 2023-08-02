@@ -3,7 +3,7 @@ import * as runtimeAssembly from '../lib/nuget-parser/runtime-assembly';
 import * as tempFixture from './helpers/temp-fixture';
 import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 import * as path from 'path';
-import { TargetFramework } from "../lib/nuget-parser/types";
+import { TargetFramework } from '../lib/nuget-parser/types';
 
 // Include some random C# code that will make `dotnet publish` happy.
 const program: tempFixture.File = {

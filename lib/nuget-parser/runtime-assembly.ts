@@ -13,6 +13,8 @@ const debug = debugModule('snyk');
 
 type Targets = Record<string, object>;
 
+// For the difference between the two, see:
+// https://learn.microsoft.com/en-us/troubleshoot/developer/visualstudio/general/assembly-version-assembly-file-version
 interface Versions {
   assemblyVersion: string;
   fileVersion: string;
