@@ -81,12 +81,12 @@ export async function publish(projectPath: string): Promise<string> {
   const publishDirLine = response.stdout
     .split(/[\r\n]+/)
     // TODO: For multiple target frameworks, replace `find` with a map or something of that kind to return more than the first.
-    // The first thing to get published ought to be the project's own .dll.
+    // The first thing to get published ought to be the project's own .dll or .exe file, depending on the architecture.
     // E.g., something like:
     // dotnet_6 -> /foo/bar/project/bin/Debug/net6.0/osx-arm64/project_name.dll
     // Either way, since we're forcing a publish of a self-contained project, all .dlls should be placed there.
     // This logic does seem a bit popsicle and duct-tape ish, but I have yet to find a more stable solution. PRs welcome!
-    .find((line) => line.endsWith('.dll'));
+    .find((line) => line.endsWith('.dll') || line.endsWith('.exe'));
 
   if (!publishDirLine) {
     const err = `Could not find a valid publish path while reading stdout: ${response.stdout}`;
