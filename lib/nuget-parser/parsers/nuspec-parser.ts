@@ -14,161 +14,9 @@ const debug = debugModule('snyk');
 
 const targetFrameworkRegex = /([.a-zA-Z]+)([.0-9]+)/;
 
-export async function parseNuspec(
-  dep: DependencyInfo,
-  targetFramework: TargetFramework,
-): Promise<DependencyTree | null> {
-  //precaution
-  if (!dep) {
-    throw new Error(
-      'expected DependencyInfo parameter to have value but found it undefined',
-    );
-  }
-
-  //another precaution
-  if (!targetFramework) {
-    throw new Error(
-      'expected TargetFramework parameter to have value but found it undefined',
-    );
-  }
-
-  const nuspecContent = await loadNuspecFromAsync(dep);
-  if (nuspecContent === null) {
-    debug('failed to load nuspec content');
-    return null;
-  }
-
-  return await parse(nuspecContent, targetFramework, dep.name);
-}
-
-async function loadNuspecFromAsync(
-  dep: DependencyInfo,
-): Promise<string | null> {
-  const nupkgPath = path.resolve(
-    dep.path,
-    dep.name + '.' + dep.version + '.nupkg',
-  );
-
-  let nupkgData: Buffer;
-  try {
-    nupkgData = fs.readFileSync(nupkgPath);
-  } catch (err) {
-    if (err.code == 'ENOENT') {
-      debug('No nupkg file found at ' + nupkgPath);
-      return null; //this is needed not to break existing code flow
-    } else {
-      throw err;
-    }
-  }
-  const nuspecZipData: any = await JSZip.loadAsync(nupkgData);
-
-  const nuspecFile = Object.keys(nuspecZipData.files).find((file) => {
-    return path.extname(file) === '.nuspec';
-  });
-
-  if (!nuspecFile) {
-    throw new Error('`failed to read nupkg file from: ${nupkgPath}`');
-  }
-
-  if (!nuspecZipData) {
-    throw new Error(
-      `failed to open nupkg file as an archive from: ${nupkgPath}`,
-    );
-  }
-
-  const rawNuspecContent = await nuspecZipData.files[nuspecFile].async('text');
-  const encoding = detectNuspecContentEncoding(rawNuspecContent);
-  const encoder = new TextEncoder();
-  const encoded = encoder.encode(rawNuspecContent);
-
-  const decoder = new TextDecoder(encoding);
-  const encodedNuspecContent = decoder.decode(encoded);
-
-  return removePotentialUtf16Characters(encodedNuspecContent);
-}
-
-export async function parse(
-  nuspecContent: string,
-  targetFramework: TargetFramework,
-  depName: string,
-): Promise<DependencyTree> {
-  const parsedNuspec = await parseXML.parseStringPromise(nuspecContent);
-  let ownDeps: Dependency[] = [];
-
-  //note: this will throw if assertion fails
-  assertNuspecSchema(nuspecContent, parsedNuspec);
-
-  for (const metadata of parsedNuspec.package.metadata) {
-    metadata.dependencies?.forEach((rawDependency) => {
-      // Find and add target framework version specific dependencies
-      const depsForTargetFramework = extractDepsForTargetFramework(
-        rawDependency,
-        targetFramework,
-      );
-      if (depsForTargetFramework && depsForTargetFramework.group) {
-        ownDeps = ownDeps.concat(
-          extractDepsFromRaw(depsForTargetFramework.group.dependency),
-        );
-      }
-
-      // Find all groups with no targetFramework attribute
-      // add their deps
-      const depsFromPlainGroups = extractDepsForPlainGroups(rawDependency);
-
-      if (depsFromPlainGroups) {
-        depsFromPlainGroups.forEach((depGroup) => {
-          ownDeps = ownDeps.concat(extractDepsFromRaw(depGroup.dependency));
-        });
-      }
-
-      // Add the default dependencies
-      ownDeps = ownDeps.concat(extractDepsFromRaw(rawDependency.dependency));
-    });
-  }
-
-  return {
-    children: ownDeps,
-    name: depName,
-  };
-}
-
-function assertNuspecSchema(nuspecContent: string, parsedNuspec: any) {
-  if (!parsedNuspec.package?.metadata) {
-    throw new Error(
-      'This is an invalid nuspec file. Package or Metadata xml section is missing. This is a required element. See https://docs.microsoft.com/en-us/nuget/reference/nuspec. The nuspec in question: ' +
-        nuspecContent,
-    );
-  }
-
-  //just in case, this should *not* happen
-  if (!Array.isArray(parsedNuspec.package.metadata)) {
-    throw new Error(
-      'This is an invalid nuspec file; the metadata tag is supposed to be a collection of objects but it is not! The nuspec in question: ' +
-        nuspecContent,
-    );
-  }
-
-  for (const metadata of parsedNuspec.package.metadata) {
-    //just in case, this shouldn't happen as this would indicate invalid/malformed nuspec file
-    if (metadata == null || typeof metadata !== 'object') {
-      throw new Error(
-        'Expected elements in a "metadata" tag to be objects, but they were ' +
-          typeof metadata +
-          ', this is not supposed to happen and is likely due to malformed nuspec file. The nuspec in question: ' +
-          nuspecContent,
-      );
-    }
-
-    if (metadata.dependencies) {
-      //just in case, error would indicate malformed nuspec
-      if (!Array.isArray(metadata.dependencies)) {
-        throw new Error(
-          'Expected that "dependencies" tag would be an array but it isn\'t. This is not supposed to happen and is likely due to malformed nuspec file! The nuspec in question: ' +
-            nuspecContent,
-        );
-      }
-    }
-  }
+enum SupportedEncodings {
+  UTF8 = 'utf-8',
+  UTF16LE = 'utf-16le',
 }
 
 function extractDepsForPlainGroups(rawDependency) {
@@ -180,6 +28,45 @@ function extractDepsForPlainGroups(rawDependency) {
     // valid group with no attributes or no `targetFramework` attribute
     return group && !(group.$ && group.$.targetFramework);
   });
+}
+
+function assertNuspecSchema(nuspecContent: string, parsedNuspec: any) {
+  if (!parsedNuspec.package?.metadata) {
+    throw new Error(
+      'This is an invalid nuspec file. Package or Metadata xml section is missing. This is a required element. See https://docs.microsoft.com/en-us/nuget/reference/nuspec. The nuspec in question: ' +
+        nuspecContent,
+    );
+  }
+
+  // just in case, this should *not* happen
+  if (!Array.isArray(parsedNuspec.package.metadata)) {
+    throw new Error(
+      'This is an invalid nuspec file; the metadata tag is supposed to be a collection of objects but it is not! The nuspec in question: ' +
+        nuspecContent,
+    );
+  }
+
+  for (const metadata of parsedNuspec.package.metadata) {
+    // just in case, this shouldn't happen as this would indicate invalid/malformed nuspec file
+    if (metadata == null || typeof metadata !== 'object') {
+      throw new Error(
+        'Expected elements in a "metadata" tag to be objects, but they were ' +
+          typeof metadata +
+          ', this is not supposed to happen and is likely due to malformed nuspec file. The nuspec in question: ' +
+          nuspecContent,
+      );
+    }
+
+    if (metadata.dependencies) {
+      // just in case, error would indicate malformed nuspec
+      if (!Array.isArray(metadata.dependencies)) {
+        throw new Error(
+          'Expected that "dependencies" tag would be an array but it isn\'t. This is not supposed to happen and is likely due to malformed nuspec file! The nuspec in question: ' +
+            nuspecContent,
+        );
+      }
+    }
+  }
 }
 
 function extractDepsForTargetFramework(rawDependency, targetFramework) {
@@ -236,11 +123,6 @@ function extractDepsFromRaw(rawDependencies) {
   return deps;
 }
 
-enum SupportedEncodings {
-  UTF8 = 'utf-8',
-  UTF16LE = 'utf-16le',
-}
-
 function detectNuspecContentEncoding(
   nuspecContent: string,
 ): SupportedEncodings {
@@ -259,4 +141,121 @@ function removePotentialUtf16Characters(input: string): string {
     .replace(/\uBFEF/g, '')
     .replace(/\uBDBF/g, '')
     .replace(/\uEFBD/g, '');
+}
+
+export async function parse(
+  nuspecContent: string,
+  targetFramework: TargetFramework,
+  depName: string,
+): Promise<DependencyTree> {
+  const parsedNuspec = await parseXML.parseStringPromise(nuspecContent);
+  let ownDeps: Dependency[] = [];
+
+  // note: this will throw if assertion fails
+  assertNuspecSchema(nuspecContent, parsedNuspec);
+
+  for (const metadata of parsedNuspec.package.metadata) {
+    metadata.dependencies?.forEach((rawDependency) => {
+      // Find and add target framework version specific dependencies
+      const depsForTargetFramework = extractDepsForTargetFramework(
+        rawDependency,
+        targetFramework,
+      );
+      if (depsForTargetFramework && depsForTargetFramework.group) {
+        ownDeps = ownDeps.concat(
+          extractDepsFromRaw(depsForTargetFramework.group.dependency),
+        );
+      }
+
+      // Find all groups with no targetFramework attribute
+      // add their deps
+      const depsFromPlainGroups = extractDepsForPlainGroups(rawDependency);
+
+      if (depsFromPlainGroups) {
+        depsFromPlainGroups.forEach((depGroup) => {
+          ownDeps = ownDeps.concat(extractDepsFromRaw(depGroup.dependency));
+        });
+      }
+
+      // Add the default dependencies
+      ownDeps = ownDeps.concat(extractDepsFromRaw(rawDependency.dependency));
+    });
+  }
+
+  return {
+    children: ownDeps,
+    name: depName,
+  };
+}
+
+async function loadNuspecFromAsync(
+  dep: DependencyInfo,
+): Promise<string | null> {
+  const nupkgPath = path.resolve(
+    dep.path,
+    dep.name + '.' + dep.version + '.nupkg',
+  );
+
+  let nupkgData: Buffer;
+  try {
+    nupkgData = fs.readFileSync(nupkgPath);
+  } catch (error: unknown) {
+    if ((error as NodeJS.ErrnoException).code == 'ENOENT') {
+      debug('No nupkg file found at ' + nupkgPath);
+      return null; // this is needed not to break existing code flow
+    }
+    throw error;
+  }
+  const nuspecZipData: any = await JSZip.loadAsync(nupkgData);
+
+  const nuspecFile = Object.keys(nuspecZipData.files).find((file) => {
+    return path.extname(file) === '.nuspec';
+  });
+
+  if (!nuspecFile) {
+    throw new Error(`failed to read nupkg file from: ${nupkgPath}`);
+  }
+
+  if (!nuspecZipData) {
+    throw new Error(
+      `failed to open nupkg file as an archive from: ${nupkgPath}`,
+    );
+  }
+
+  const rawNuspecContent = await nuspecZipData.files[nuspecFile].async('text');
+  const encoding = detectNuspecContentEncoding(rawNuspecContent);
+  const encoder = new TextEncoder();
+  const encoded = encoder.encode(rawNuspecContent);
+
+  const decoder = new TextDecoder(encoding);
+  const encodedNuspecContent = decoder.decode(encoded);
+
+  return removePotentialUtf16Characters(encodedNuspecContent);
+}
+
+export async function parseNuspec(
+  dep: DependencyInfo,
+  targetFramework: TargetFramework,
+): Promise<DependencyTree | null> {
+  // precaution
+  if (!dep) {
+    throw new Error(
+      'expected DependencyInfo parameter to have value but found it undefined',
+    );
+  }
+
+  // another precaution
+  if (!targetFramework) {
+    throw new Error(
+      'expected TargetFramework parameter to have value but found it undefined',
+    );
+  }
+
+  const nuspecContent = await loadNuspecFromAsync(dep);
+  if (nuspecContent === null) {
+    debug('failed to load nuspec content');
+    return null;
+  }
+
+  return await parse(nuspecContent, targetFramework, dep.name);
 }

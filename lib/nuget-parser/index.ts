@@ -57,7 +57,7 @@ function getFileContents(fileContentPath: string): string {
   try {
     debug(`Parsing content of ${fileContentPath}`);
     return fs.readFileSync(fileContentPath, 'utf-8');
-  } catch (error) {
+  } catch (error: unknown) {
     throw new FileNotProcessableError(error);
   }
 }
@@ -117,9 +117,7 @@ export async function buildDepGraphFromFiles(
       publishDir,
       `${projectNameFromManifestFile}.deps.json`,
     );
-    assemblyVersions = await runtimeAssembly.generateRuntimeAssemblies(
-      depsFile,
-    );
+    assemblyVersions = runtimeAssembly.generateRuntimeAssemblies(depsFile);
   }
 
   const depGraph = parser.depParser.parse(
@@ -181,7 +179,7 @@ export async function buildDepTreeFromFiles(
         }
       }
     }
-  } catch (error) {
+  } catch (error: unknown) {
     return Promise.reject(error);
   }
 

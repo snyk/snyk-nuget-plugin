@@ -2,6 +2,7 @@ import { InvalidManifestError } from '../../errors';
 import * as debugModule from 'debug';
 import type { Dependency } from '../types';
 import * as _ from 'lodash';
+
 const debug = debugModule('snyk');
 
 const PACKAGE_DELIMITER = '@';
@@ -21,6 +22,7 @@ interface DepLink {
   from: Dependency;
   to: Dependency;
 }
+
 const freqDeps: FreqDeps = {};
 
 function initFreqDepsDict() {
@@ -32,6 +34,17 @@ function initFreqDepsDict() {
   freqDeps['System.Threading.Tasks'] = false;
   freqDeps['System.Reflection'] = false;
   freqDeps['System.Globalization'] = false;
+}
+
+function isScanned(nodes: Dependency[], pkg: Dependency): boolean {
+  const node = nodes.find(
+    (elem) => elem.name === pkg.name && elem.version === pkg.version,
+  );
+  return !!node;
+}
+
+function isFreqDep(packageName: string): boolean {
+  return packageName in freqDeps;
 }
 
 function pick(obj: Record<string, unknown>, keys: string[]) {
@@ -50,53 +63,6 @@ function convertFromPathSyntax(path) {
   let name = path.split('/').join('@'); // posix
   name = name.split('\\').join('@'); // windows
   return name;
-}
-
-function collectFlatList(targetObj) {
-  const names = Object.keys(targetObj);
-  return names.map((name) => {
-    name = convertFromPathSyntax(name);
-    return name;
-  });
-}
-
-function buildBfsTree(targetDeps, roots) {
-  let queue = [...roots];
-  const nodes: Dependency[] = [];
-  const links: DepLink[] = [];
-  while (queue.length > 0) {
-    const dep = queue.shift();
-    const foundPackage = findPackage(targetDeps, dep);
-    if (foundPackage && !isScanned(nodes, foundPackage)) {
-      nodes.push(foundPackage);
-      if (foundPackage.dependencies) {
-        addPackageDepLinks(links, foundPackage);
-        queue = queue.concat(Object.keys(foundPackage.dependencies));
-      }
-    }
-  }
-  return constructTree(roots, nodes, links);
-}
-
-function isScanned(nodes: Dependency[], pkg: Dependency): boolean {
-  const node = nodes.find(
-    (elem) => elem.name === pkg.name && elem.version === pkg.version,
-  );
-  return !!node;
-}
-
-function isFreqDep(packageName: string): boolean {
-  return packageName in freqDeps;
-}
-
-function addPackageDepLinks(links: DepLink[], pkg: Dependency) {
-  if (pkg && pkg.dependencies) {
-    const from = { name: pkg.name, version: pkg.version };
-    for (const name of Object.keys(pkg.dependencies)) {
-      const to = { name, version: pkg.dependencies[name] };
-      links.push({ from, to });
-    }
-  }
 }
 
 function findPackage(targetDeps, depName: string): Dependency | undefined {
@@ -148,6 +114,42 @@ function constructTree(roots: string[], nodes: Dependency[], links: DepLink[]) {
     };
   }
   return tree;
+}
+
+function collectFlatList(targetObj) {
+  const names = Object.keys(targetObj);
+  return names.map((name) => {
+    name = convertFromPathSyntax(name);
+    return name;
+  });
+}
+
+function addPackageDepLinks(links: DepLink[], pkg: Dependency) {
+  if (pkg && pkg.dependencies) {
+    const from = { name: pkg.name, version: pkg.version };
+    for (const name of Object.keys(pkg.dependencies)) {
+      const to = { name, version: pkg.dependencies[name] };
+      links.push({ from, to });
+    }
+  }
+}
+
+function buildBfsTree(targetDeps, roots) {
+  let queue = [...roots];
+  const nodes: Dependency[] = [];
+  const links: DepLink[] = [];
+  while (queue.length > 0) {
+    const dep = queue.shift();
+    const foundPackage = findPackage(targetDeps, dep);
+    if (foundPackage && !isScanned(nodes, foundPackage)) {
+      nodes.push(foundPackage);
+      if (foundPackage.dependencies) {
+        addPackageDepLinks(links, foundPackage);
+        queue = queue.concat(Object.keys(foundPackage.dependencies));
+      }
+    }
+  }
+  return constructTree(roots, nodes, links);
 }
 
 function getFrameworkToRun(manifest) {

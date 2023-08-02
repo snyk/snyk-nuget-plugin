@@ -6,7 +6,23 @@ import * as parseXML from 'xml2js';
 import * as debugModule from 'debug';
 import { TargetFramework } from '../types';
 import { toReadableFramework } from '../framework';
+
 const debug = debugModule('snyk');
+
+function findFile(rootDir, filter) {
+  if (!fs.existsSync(rootDir)) {
+    throw new FileNotFoundError('No such path: ' + rootDir);
+  }
+  const files = fs.readdirSync(rootDir);
+  for (const file of files) {
+    const filename = path.resolve(rootDir, file);
+
+    if (filter.test(filename)) {
+      return filename;
+    }
+  }
+  return;
+}
 
 export async function getTargetFrameworksFromProjFile(
   rootDir: string,
@@ -66,18 +82,4 @@ export async function getTargetFrameworksFromProjFile(
       resolve(targetFrameworks[0]);
     });
   });
-}
-
-function findFile(rootDir, filter) {
-  if (!fs.existsSync(rootDir)) {
-    throw new FileNotFoundError('No such path: ' + rootDir);
-  }
-  const files = fs.readdirSync(rootDir);
-  for (const file of files) {
-    const filename = path.resolve(rootDir, file);
-
-    if (filter.test(filename)) {
-      return filename;
-    }
-  }
 }

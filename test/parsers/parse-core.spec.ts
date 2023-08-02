@@ -4,7 +4,8 @@ import * as plugin from '../../lib';
 
 describe('when parsing .NET core', () => {
   describe('with different target monikers', () => {
-    const projectPath = './test/fixtures/dotnetcore/CoreDifferentTargetMonikers/';
+    const projectPath =
+      './test/fixtures/dotnetcore/CoreDifferentTargetMonikers/';
     const manifestFile = 'obj/project.assets.json';
     const expectedTree = JSON.parse(
       fs.readFileSync(
@@ -20,7 +21,8 @@ describe('when parsing .NET core', () => {
   });
 
   describe('with no target framework in project cli', () => {
-    const projectPath = './test/fixtures/dotnetcore/CoreNoTargetFrameworkInProj/';
+    const projectPath =
+      './test/fixtures/dotnetcore/CoreNoTargetFrameworkInProj/';
     const manifestFile = 'obj/project.assets.json';
     const expectedTree = JSON.parse(
       fs.readFileSync(

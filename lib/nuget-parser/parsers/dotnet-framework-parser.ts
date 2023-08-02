@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { parseNuspec } from './nuspec-parser';
 import * as debugModule from 'debug';
+import { parseNuspec } from './nuspec-parser';
 import { Dependency } from '../types';
 import { InvalidFolderFormatError } from '../../errors/invalid-folder-format-error';
 
@@ -74,9 +74,10 @@ function scanInstalled(installedPackages, packagesFolder) {
       .map((folderName) => {
         try {
           return fromFolderName(folderName);
-        } catch (err) {
+        } catch (error: unknown) {
           debug('Unable to parse dependency from folder');
-          debug(err);
+          debug(error);
+          return;
         }
       })
       .forEach((dep) => {
@@ -102,9 +103,9 @@ function scanInstalled(installedPackages, packagesFolder) {
           }
         }
       });
-  } catch (err) {
+  } catch (error: unknown) {
     debug('Could not complete packages folder scanning');
-    debug(err);
+    debug(error);
   }
   return flattenedPackageList;
 }
@@ -125,8 +126,8 @@ async function fetchNugetInformationFromPackages(
     } catch (e) {
       debug('Failed parsing nuspec file');
       debug(e);
-      //log but make sure to rethrow the error
-      //why? if we cannot parse nuspec file, we got nothing to do!
+      // log but make sure to rethrow the error
+      // why? if we cannot parse nuspec file, we got nothing to do!
       throw e;
     }
   }

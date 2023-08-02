@@ -1,8 +1,8 @@
-import * as path from 'path';
 import * as nugetParser from './nuget-parser';
+import * as path from 'path';
 import * as paketParser from 'snyk-paket-parser';
-import { InvalidTargetFile } from './errors';
 import { InspectResult, ManifestType } from './nuget-parser/types';
+import { InvalidTargetFile } from './errors';
 
 function determineManifestType(filename): ManifestType {
   switch (true) {
@@ -35,7 +35,7 @@ export async function inspect(
   let manifestType: ManifestType;
   try {
     manifestType = determineManifestType(path.basename(targetFile || root));
-  } catch (error) {
+  } catch (error: unknown) {
     return Promise.reject(error);
   }
 
