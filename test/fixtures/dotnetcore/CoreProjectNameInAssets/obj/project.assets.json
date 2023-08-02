@@ -1525,9 +1525,7 @@
         }
       },
       "warningProperties": {
-        "warnAsError": [
-          "NU1605"
-        ]
+        "warnAsError": ["NU1605"]
       }
     },
     "frameworks": {
@@ -1547,9 +1545,7 @@
             "version": "[4.4.0, )"
           }
         },
-        "imports": [
-          "net461"
-        ],
+        "imports": ["net461"],
         "assetTargetFallback": true,
         "warn": true
       }

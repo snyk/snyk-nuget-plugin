@@ -7,6 +7,15 @@
       "options": {
         "parser": "html"
       }
+    },
+    {
+      "files": "*.json",
+      "options": {
+        "printWidth": 40,
+        "parser": "json",
+        "bracketSpacing": true,
+        "trailingComma": "none"
+      }
     }
   ]
 }
