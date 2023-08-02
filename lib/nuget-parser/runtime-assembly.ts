@@ -1,4 +1,8 @@
-import { AssemblyVersions, RuntimeAssemblyVersions } from './types';
+import {
+  AssemblyVersions,
+  RuntimeAssemblyVersions,
+  TargetFramework,
+} from './types';
 import * as errors from '../errors/';
 import * as fs from 'fs';
 import { isEmpty } from 'lodash';
@@ -12,6 +16,35 @@ type Targets = Record<string, object>;
 interface Versions {
   assemblyVersion: string;
   fileVersion: string;
+}
+
+// At least to keep project development iterative, don't support needle and haystack'ing dependency JSON
+// for target frameworks other than .NET 5+ and .NET Core, as other frameworks generates vastly other types of
+// .json graphs, requiring a whole other parsing strategy to extract tne runtime dependencies.
+// For a list of version naming currently available, see
+// https://learn.microsoft.com/en-us/dotnet/standard/frameworks#supported-target-frameworks
+export function isSupported(targetFramework: TargetFramework): boolean {
+  if (!('original' in targetFramework)) {
+    return false;
+  }
+
+  // Everything that does not start with 'net' is already game over. E.g. Windows Phone (wp) or silverlight (sl) etc.
+  if (!targetFramework.original.startsWith('net')) {
+    return false;
+  }
+
+  // What's left is:
+  // - .NET Core: netcoreappN.N,
+  // - .NET 5+ netN.N,
+  // - .NET Standard: netstandardN.N and
+  // - .NET Framework: netNNN, all of which we support except the latter.
+  // So if there's a dot, we're good.
+  if (targetFramework.original.includes('.')) {
+    return true;
+  }
+
+  // Otherwise it's something before .NET 5 and we're out
+  return false;
 }
 
 // The Nuget dependency resolution rule of lowest applicable version
