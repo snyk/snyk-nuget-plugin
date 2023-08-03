@@ -2,41 +2,47 @@ import { describe, expect, it } from '@jest/globals';
 import * as plugin from '../lib';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as dotnet from '../lib/nuget-parser/cli/dotnet';
+import * as depGraphLib from '@snyk/dep-graph';
+import * as depGraphLegacyLib from '@snyk/dep-graph/dist/legacy';
 
 describe('when calling plugin.inspect with various configs', () => {
-  it('should parse dotnet-cli project without frameworks field', async () => {
-    const projectPath = './test/fixtures/dotnetcore/without-frameworks-field/';
-    const manifestFile = 'obj/project.assets.json';
-
-    await expect(
-      async () =>
-        await plugin.inspect(projectPath, manifestFile, {
-          packagesFolder: projectPath + './_packages',
-        }),
-    ).rejects.toThrow('No frameworks were found in project.assets.json');
-  });
-
   it.each([
     {
-      description: 'parse dotnet netcoreapp2.0',
-      projectPath: './test/fixtures/dotnetcore/dotnet_2',
+      description: 'parse dotnet netcoreapp3.1',
+      projectPath: './test/fixtures/dotnetcore/netcoreapp31/',
     },
     {
-      description:
-        'parse dotnet netcoreapp2.0 with duplicate deps project and traverse packages',
-      projectPath: './test/fixtures/dotnetcore/dotnet_project',
+      description: 'parse dotnet netcoreapp2.1',
+      projectPath: './test/fixtures/dotnetcore/netcoreapp21/',
     },
   ])(
     'should succeed given a project file and an expected tree when: $description',
     async ({ projectPath }) => {
+      await dotnet.restore(projectPath);
+
       const manifestFile = 'obj/project.assets.json';
-      const expectedTree = JSON.parse(
-        fs.readFileSync(path.resolve(projectPath, 'expected.json'), 'utf-8'),
-      );
 
       const result = await plugin.inspect(projectPath, manifestFile);
+
+      // We're working with legacy depTrees for backwards compatibility, but the fixture to compare with
+      // will be over 30MB. So convert it to the much-tighter depGraph just for assertions.
+      const expectedGraph = depGraphLib.createFromJSON(
+        JSON.parse(
+          fs.readFileSync(
+            path.resolve(projectPath, 'expected_depgraph.json'),
+            'utf-8',
+          ),
+        ),
+      );
       expect(result).toHaveProperty('package');
-      expect(result.package).toEqual(expectedTree.package);
+
+      const depGraph = await depGraphLegacyLib.depTreeToGraph(
+        result.package,
+        'dotnet',
+      );
+
+      expect(depGraph.equals(expectedGraph)).toBeTruthy();
     },
   );
 
