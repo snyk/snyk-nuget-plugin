@@ -82,6 +82,12 @@ export async function buildDepGraphFromFiles(
     projectRootFolder,
   );
 
+  if (!targetFramework) {
+    throw new FileNotProcessableError(
+      `unable to detect a target framework in ${projectRootFolder}, a valid one is needed to continue down this path.`,
+    );
+  }
+
   const parser = PARSERS['dotnet-core-v2'];
   const manifest = await parser.fileContentParser.parse(fileContent);
 
@@ -107,6 +113,12 @@ export async function buildDepGraphFromFiles(
 
   let assemblyVersions: AssemblyVersions = {};
   if (useRuntimeDependencies) {
+    if (!runtimeAssembly.isSupported(targetFramework)) {
+      throw new FileNotProcessableError(
+        `runtime resolution flag is currently only supported for: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied versions was parsed as: ${targetFramework?.framework}.`,
+      );
+    }
+
     // Ensure `dotnet` is installed on the system or fail trying.
     await dotnet.validate();
 

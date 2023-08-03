@@ -2,6 +2,7 @@ import * as debugModule from 'debug';
 import * as depGraphLib from '@snyk/dep-graph';
 import { DepGraphBuilder } from '@snyk/dep-graph';
 import { AssemblyVersions } from '../types';
+import { FileNotProcessableError } from '../../errors';
 
 const debug = debugModule('snyk');
 
@@ -101,18 +102,38 @@ function buildGraph(
     },
   );
 
-  // FIXME: Multiple frameworks
-  const key = Object.keys(projectAssets.project.frameworks)[0];
+  if (Object.keys(projectAssets.project.frameworks).length <= 0) {
+    throw new FileNotProcessableError(
+      'no target frameworks found in assets file',
+    );
+  }
+
+  const targetFramework = Object.keys(projectAssets.project.frameworks)[0]; // FIXME: Multiple frameworks
   const topLevelDeps = Object.keys(
-    projectAssets.project.frameworks[key].dependencies,
+    projectAssets.project.frameworks[targetFramework].dependencies,
   );
 
-  // The project.assets.json file is already structured quite decently, so we just use that file directly
+  // The list of targets gets decorated differently depending on version of the TargetFramework, (.NET 5+ versions
+  // just have their key as the target (net6.0), but .NET Standard append a version, such as .NETStandard,Version=VN.N.N).
+  if (Object.keys(projectAssets.targets).length <= 0) {
+    throw new FileNotProcessableError(
+      'no target dependencies in found in assets file',
+    );
+  }
+
+  // FIXME: As mentioned all over the place, we just access the first target framework we come across. There should be
+  //  at least one, regardless.
+  const targetFrameworkDependencies = Object.values(
+    projectAssets.targets,
+  )[0] as Record<string, DotnetPackage>;
+
+  // Iterate over all the dependencies found in the target dependency list, and build the depGraph based off of that.
   const targetDeps: Record<string, DotnetPackage> = Object.entries(
-    projectAssets.targets[key],
+    targetFrameworkDependencies,
   ).reduce((acc, entry) => {
     const [nameWithVersion, pkg] = entry;
 
+    // Ignore packages with specific prefixes, which for one reason or the other are no interesting and pollutes the graph.
     if (
       FILTERED_DEPENDENCY_PREFIX.some((prefix) =>
         nameWithVersion.startsWith(prefix),

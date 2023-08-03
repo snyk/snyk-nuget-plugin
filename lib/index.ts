@@ -2,9 +2,9 @@ import * as nugetParser from './nuget-parser';
 import * as path from 'path';
 import * as paketParser from 'snyk-paket-parser';
 import { InspectResult, ManifestType } from './nuget-parser/types';
-import { InvalidTargetFile } from './errors';
+import { FileNotProcessableError, InvalidTargetFile } from './errors';
 
-function determineManifestType(filename): ManifestType {
+function determineManifestType(filename: string): ManifestType {
   switch (true) {
     case /project.json$/.test(filename): {
       return ManifestType.PROJECT_JSON;
@@ -69,8 +69,8 @@ export async function inspect(
   if (options['dotnet-runtime-resolution']) {
     if (manifestType !== ManifestType.DOTNET_CORE) {
       return Promise.reject(
-        new Error(
-          'runtime resolution beta flag is currently only applicable for .net core projects',
+        new FileNotProcessableError(
+          `runtime resolution flag is currently only supported for: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied project type was parsed as ${manifestType}.`,
         ),
       );
     }
