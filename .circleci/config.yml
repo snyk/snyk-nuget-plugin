@@ -142,7 +142,7 @@ jobs:
       - install_deps
       - run:
           name: Publish to GitHub
-          command: npx semantic-release
+          command: npx semantic-release --branches main
 
 workflows:
   version: 2
