@@ -80,7 +80,7 @@ describe('when calling plugin.inspect with various configs', () => {
   it.each([
     {
       projectPath: './test/fixtures/target-framework/no-csproj',
-      manifestFile: 'project.assets.json',
+      manifestFile: 'obj/project.assets.json',
       defaultName: 'no-csproj',
     },
     {

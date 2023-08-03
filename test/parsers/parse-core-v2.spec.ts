@@ -100,8 +100,8 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
   it.each([
     {
       description: 'net472 - with package.assets.json',
-      projectPath: './test/fixtures/target-framework/no-dependencies',
-      manifestFile: 'project.assets.json',
+      projectPath: './test/fixtures/target-framework/no-dependencies/',
+      manifestFile: 'obj/project.assets.json',
     },
     {
       description: 'net461 - no package.assets.json',
@@ -109,7 +109,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       manifestFile: 'project.json',
     },
   ])(
-    'does not allow the runtime option to be set on unsupported projects: description',
+    'does not allow the runtime option to be set on unsupported projects: $description',
     async ({ projectPath, manifestFile }) => {
       await expect(
         async () =>
