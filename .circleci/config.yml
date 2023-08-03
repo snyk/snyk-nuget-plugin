@@ -161,7 +161,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
+                - main
 
       # UNIX tests
       - test-unix:
@@ -173,7 +173,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
+                - main
 
       - test-unix:
           name: Unix Tests for Node=18
@@ -184,7 +184,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
+                - main
 
       - test-unix:
           name: Unix Tests for Node=20
@@ -195,7 +195,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
+                - main
 
       # Windows tests
       - test-windows:
@@ -207,7 +207,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
+                - main
 
       - test-windows:
           name: Windows Tests for Node=18
@@ -218,7 +218,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
+                - main
 
       - test-windows:
           name: Windows Tests for Node=20
@@ -229,7 +229,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
+                - main
 
       # Release
       - release:
@@ -239,4 +239,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
