@@ -61,10 +61,7 @@ describe('parse .csproj', () => {
     it('parse dotnet with vbproj', async () => {
       const noProjectPath = './test/fixtures/target-framework/no-csproj/';
 
-      const res = await plugin.inspect(
-        noProjectPath,
-        'obj/project.assets.json',
-      );
+      const res = await plugin.inspect(noProjectPath, 'project.assets.json');
       expect(res.package.name).toBe('no-csproj');
       expect(res.plugin.targetRuntime).toBe('netcoreapp2.0');
     });
@@ -72,7 +69,7 @@ describe('parse .csproj', () => {
     it('parse dotnet with no deps', async () => {
       const noDeps = './test/fixtures/target-framework/no-dependencies/';
 
-      const res = await plugin.inspect(noDeps, 'obj/project.assets.json');
+      const res = await plugin.inspect(noDeps, 'project.assets.json');
       expect(Object.keys(res.package.dependencies).length).toBe(0);
     });
 
@@ -82,10 +79,7 @@ describe('parse .csproj', () => {
 
       await expect(
         async () =>
-          await plugin.inspect(
-            noValidFrameworksPath,
-            'obj/project.assets.json',
-          ),
+          await plugin.inspect(noValidFrameworksPath, 'project.assets.json'),
       ).rejects.toThrow('No frameworks were found in project.assets.json');
     });
   });
