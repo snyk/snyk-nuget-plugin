@@ -1,0 +1,6729 @@
+{
+  "schemaVersion": "1.3.0",
+  "pkgManager": {
+    "name": "dotnet"
+  },
+  "pkgs": [
+    {
+      "id": "netcoreapp21@1.0.0",
+      "info": {
+        "name": "netcoreapp21",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "NETStandard.Library@2.0.3",
+      "info": {
+        "name": "NETStandard.Library",
+        "version": "2.0.3"
+      }
+    },
+    {
+      "id": "System.Diagnostics.DiagnosticSource@4.5.0",
+      "info": {
+        "name": "System.Diagnostics.DiagnosticSource",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "System.IO.FileSystem.Primitives@4.3.0",
+      "info": {
+        "name": "System.IO.FileSystem.Primitives",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Runtime.Handles@4.3.0",
+      "info": {
+        "name": "System.Runtime.Handles",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.IO.FileSystem@4.3.0",
+      "info": {
+        "name": "System.IO.FileSystem",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Reflection.Metadata@1.6.0",
+      "info": {
+        "name": "System.Reflection.Metadata",
+        "version": "1.6.0"
+      }
+    },
+    {
+      "id": "System.Diagnostics.StackTrace@4.3.0",
+      "info": {
+        "name": "System.Diagnostics.StackTrace",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "Microsoft.ApplicationInsights@2.4.0",
+      "info": {
+        "name": "Microsoft.ApplicationInsights",
+        "version": "2.4.0"
+      }
+    },
+    {
+      "id": "System.Reflection.TypeExtensions@4.3.0",
+      "info": {
+        "name": "System.Reflection.TypeExtensions",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.PlatformAbstractions@1.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.PlatformAbstractions",
+        "version": "1.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.ApplicationInsights.DependencyCollector@2.4.1",
+      "info": {
+        "name": "Microsoft.ApplicationInsights.DependencyCollector",
+        "version": "2.4.1"
+      }
+    },
+    {
+      "id": "System.Memory@4.5.0",
+      "info": {
+        "name": "System.Memory",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "System.Runtime.CompilerServices.Unsafe@4.5.0",
+      "info": {
+        "name": "System.Runtime.CompilerServices.Unsafe",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Primitives@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Primitives",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Http.Features@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Http.Features",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Configuration.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Hosting.Server.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Hosting.Server.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "System.Text.Encodings.Web@4.5.0",
+      "info": {
+        "name": "System.Text.Encodings.Web",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Http.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Http.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.FileProviders.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Logging.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Logging.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Hosting.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Hosting.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Hosting.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "System.Buffers@4.5.0",
+      "info": {
+        "name": "System.Buffers",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "Microsoft.Net.Http.Headers@2.1.0",
+      "info": {
+        "name": "Microsoft.Net.Http.Headers",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.WebUtilities@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.WebUtilities",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.ObjectPool@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.ObjectPool",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Options@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Options",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Http@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Http",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Http.Extensions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Http.Extensions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Configuration",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration.EnvironmentVariables@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Configuration.EnvironmentVariables",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.FileSystemGlobbing@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.FileSystemGlobbing",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.FileProviders.Physical@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.FileProviders.Physical",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration.FileExtensions@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Configuration.FileExtensions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.DependencyInjection@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.DependencyInjection",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration.Binder@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Configuration.Binder",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Logging@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Logging",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Hosting@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Hosting",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Newtonsoft.Json@11.0.2",
+      "info": {
+        "name": "Newtonsoft.Json",
+        "version": "11.0.2"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration.Json@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Configuration.Json",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.DiagnosticAdapter@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.DiagnosticAdapter",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "System.Collections@4.3.0",
+      "info": {
+        "name": "System.Collections",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Diagnostics.Tracing@4.3.0",
+      "info": {
+        "name": "System.Diagnostics.Tracing",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Net.Primitives@4.3.0",
+      "info": {
+        "name": "System.Net.Primitives",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Resources.ResourceManager@4.3.0",
+      "info": {
+        "name": "System.Resources.ResourceManager",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Runtime.Extensions@4.3.0",
+      "info": {
+        "name": "System.Runtime.Extensions",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Reflection.Primitives@4.3.0",
+      "info": {
+        "name": "System.Reflection.Primitives",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Runtime.InteropServices@4.3.0",
+      "info": {
+        "name": "System.Runtime.InteropServices",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Security.Principal.Windows@4.5.0",
+      "info": {
+        "name": "System.Security.Principal.Windows",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "System.Threading@4.3.0",
+      "info": {
+        "name": "System.Threading",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.native.System@4.3.0",
+      "info": {
+        "name": "runtime.native.System",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Net.NameResolution@4.3.0",
+      "info": {
+        "name": "System.Net.NameResolution",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "Microsoft.ApplicationInsights.AspNetCore@2.1.1",
+      "info": {
+        "name": "Microsoft.ApplicationInsights.AspNetCore",
+        "version": "2.1.1"
+      }
+    },
+    {
+      "id": "Newtonsoft.Json.Bson@1.0.1",
+      "info": {
+        "name": "Newtonsoft.Json.Bson",
+        "version": "1.0.1"
+      }
+    },
+    {
+      "id": "Microsoft.AspNet.WebApi.Client@5.2.4",
+      "info": {
+        "name": "Microsoft.AspNet.WebApi.Client",
+        "version": "5.2.4"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Diagnostics.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Diagnostics.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Diagnostics@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Diagnostics",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.HostFiltering@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.HostFiltering",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Routing.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Routing.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Routing@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Routing",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication.Core@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication.Core",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.HttpOverrides@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.HttpOverrides",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "System.IO.Pipelines@4.5.0",
+      "info": {
+        "name": "System.IO.Pipelines",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "System.Numerics.Vectors@4.5.0",
+      "info": {
+        "name": "System.Numerics.Vectors",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Server.IISIntegration@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Server.IISIntegration",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Connections.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Connections.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "System.Security.Cryptography.Cng@4.5.0",
+      "info": {
+        "name": "System.Security.Cryptography.Cng",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "System.Threading.Tasks.Extensions@4.5.0",
+      "info": {
+        "name": "System.Threading.Tasks.Extensions",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Server.Kestrel.Core@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Server.Kestrel.Core",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Server.Kestrel.Https@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Server.Kestrel.Https",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Server.Kestrel@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Server.Kestrel",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration.CommandLine@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Configuration.CommandLine",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration.UserSecrets@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Configuration.UserSecrets",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Options.ConfigurationExtensions@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Options.ConfigurationExtensions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Logging.Configuration@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Logging.Configuration",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Logging.Console@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Logging.Console",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Logging.Debug@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Logging.Debug",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Cryptography.Internal@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Cryptography.Internal",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.DataProtection.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.DataProtection.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "System.Security.AccessControl@4.5.0",
+      "info": {
+        "name": "System.Security.AccessControl",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "Microsoft.Win32.Registry@4.5.0",
+      "info": {
+        "name": "Microsoft.Win32.Registry",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "System.Security.Cryptography.Pkcs@4.5.0",
+      "info": {
+        "name": "System.Security.Cryptography.Pkcs",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "System.Security.Permissions@4.5.0",
+      "info": {
+        "name": "System.Security.Permissions",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "System.Security.Cryptography.Xml@4.5.0",
+      "info": {
+        "name": "System.Security.Cryptography.Xml",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.DataProtection@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.DataProtection",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Antiforgery@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Antiforgery",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.WebEncoders@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.WebEncoders",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication.Cookies@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication.Cookies",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication.OAuth@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication.OAuth",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication.Facebook@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication.Facebook",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication.Google@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication.Google",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.IdentityModel.Logging@5.2.0",
+      "info": {
+        "name": "Microsoft.IdentityModel.Logging",
+        "version": "5.2.0"
+      }
+    },
+    {
+      "id": "System.Diagnostics.Tools@4.3.0",
+      "info": {
+        "name": "System.Diagnostics.Tools",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Reflection.Extensions@4.3.0",
+      "info": {
+        "name": "System.Reflection.Extensions",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Runtime.InteropServices.RuntimeInformation@4.3.0",
+      "info": {
+        "name": "System.Runtime.InteropServices.RuntimeInformation",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Diagnostics.Debug@4.3.0",
+      "info": {
+        "name": "System.Diagnostics.Debug",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Collections.Concurrent@4.3.0",
+      "info": {
+        "name": "System.Collections.Concurrent",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Linq@4.3.0",
+      "info": {
+        "name": "System.Linq",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Reflection.Emit.ILGeneration@4.3.0",
+      "info": {
+        "name": "System.Reflection.Emit.ILGeneration",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Reflection.Emit.Lightweight@4.3.0",
+      "info": {
+        "name": "System.Reflection.Emit.Lightweight",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Runtime.Serialization.Primitives@4.3.0",
+      "info": {
+        "name": "System.Runtime.Serialization.Primitives",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Text.Encoding.Extensions@4.3.0",
+      "info": {
+        "name": "System.Text.Encoding.Extensions",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Text.RegularExpressions@4.3.0",
+      "info": {
+        "name": "System.Text.RegularExpressions",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Xml.ReaderWriter@4.3.0",
+      "info": {
+        "name": "System.Xml.ReaderWriter",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Xml.XDocument@4.3.0",
+      "info": {
+        "name": "System.Xml.XDocument",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Xml.XmlDocument@4.3.0",
+      "info": {
+        "name": "System.Xml.XmlDocument",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Reflection.Emit@4.3.0",
+      "info": {
+        "name": "System.Reflection.Emit",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Xml.XmlSerializer@4.3.0",
+      "info": {
+        "name": "System.Xml.XmlSerializer",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Private.DataContractSerialization@4.3.0",
+      "info": {
+        "name": "System.Private.DataContractSerialization",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Runtime.Serialization.Xml@4.3.0",
+      "info": {
+        "name": "System.Runtime.Serialization.Xml",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Security.Principal@4.3.0",
+      "info": {
+        "name": "System.Security.Principal",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Security.Claims@4.3.0",
+      "info": {
+        "name": "System.Security.Claims",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Runtime.Numerics@4.3.0",
+      "info": {
+        "name": "System.Runtime.Numerics",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Security.Cryptography.Primitives@4.3.0",
+      "info": {
+        "name": "System.Security.Cryptography.Primitives",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "runtime.native.System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Security.Cryptography.Encoding@4.3.0",
+      "info": {
+        "name": "System.Security.Cryptography.Encoding",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple@4.3.0",
+      "info": {
+        "name": "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.native.System.Security.Cryptography.Apple@4.3.0",
+      "info": {
+        "name": "runtime.native.System.Security.Cryptography.Apple",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Security.Cryptography.Algorithms@4.3.0",
+      "info": {
+        "name": "System.Security.Cryptography.Algorithms",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Globalization.Calendars@4.3.0",
+      "info": {
+        "name": "System.Globalization.Calendars",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Security.Cryptography.Csp@4.3.0",
+      "info": {
+        "name": "System.Security.Cryptography.Csp",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Security.Cryptography.OpenSsl@4.3.0",
+      "info": {
+        "name": "System.Security.Cryptography.OpenSsl",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.native.System.Net.Http@4.3.0",
+      "info": {
+        "name": "runtime.native.System.Net.Http",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Security.Cryptography.X509Certificates@4.3.0",
+      "info": {
+        "name": "System.Security.Cryptography.X509Certificates",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "Microsoft.IdentityModel.Tokens@5.2.0",
+      "info": {
+        "name": "Microsoft.IdentityModel.Tokens",
+        "version": "5.2.0"
+      }
+    },
+    {
+      "id": "System.Collections.NonGeneric@4.3.0",
+      "info": {
+        "name": "System.Collections.NonGeneric",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Globalization.Extensions@4.3.0",
+      "info": {
+        "name": "System.Globalization.Extensions",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Collections.Specialized@4.3.0",
+      "info": {
+        "name": "System.Collections.Specialized",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Diagnostics.Contracts@4.3.0",
+      "info": {
+        "name": "System.Diagnostics.Contracts",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Net.Http@4.3.0",
+      "info": {
+        "name": "System.Net.Http",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "Microsoft.IdentityModel.Protocols@5.2.0",
+      "info": {
+        "name": "Microsoft.IdentityModel.Protocols",
+        "version": "5.2.0"
+      }
+    },
+    {
+      "id": "System.ObjectModel@4.3.0",
+      "info": {
+        "name": "System.ObjectModel",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Linq.Expressions@4.3.0",
+      "info": {
+        "name": "System.Linq.Expressions",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Dynamic.Runtime@4.3.0",
+      "info": {
+        "name": "System.Dynamic.Runtime",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.IdentityModel.Tokens.Jwt@5.2.0",
+      "info": {
+        "name": "System.IdentityModel.Tokens.Jwt",
+        "version": "5.2.0"
+      }
+    },
+    {
+      "id": "Microsoft.IdentityModel.Protocols.OpenIdConnect@5.2.0",
+      "info": {
+        "name": "Microsoft.IdentityModel.Protocols.OpenIdConnect",
+        "version": "5.2.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication.JwtBearer@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication.JwtBearer",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication.MicrosoftAccount@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication.MicrosoftAccount",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication.OpenIdConnect@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication.OpenIdConnect",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication.Twitter@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication.Twitter",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.IdentityModel.Xml@5.2.0",
+      "info": {
+        "name": "Microsoft.IdentityModel.Xml",
+        "version": "5.2.0"
+      }
+    },
+    {
+      "id": "Microsoft.IdentityModel.Tokens.Saml@5.2.0",
+      "info": {
+        "name": "Microsoft.IdentityModel.Tokens.Saml",
+        "version": "5.2.0"
+      }
+    },
+    {
+      "id": "Microsoft.IdentityModel.Protocols.WsFederation@5.2.0",
+      "info": {
+        "name": "Microsoft.IdentityModel.Protocols.WsFederation",
+        "version": "5.2.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authentication.WsFederation@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authentication.WsFederation",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authorization@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authorization",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Authorization.Policy@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Authorization.Policy",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.CookiePolicy@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.CookiePolicy",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Cors@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Cors",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Cryptography.KeyDerivation@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Cryptography.KeyDerivation",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.DataProtection.Extensions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.DataProtection.Extensions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.EntityFrameworkCore.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.EntityFrameworkCore.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.EntityFrameworkCore.Analyzers@2.1.0",
+      "info": {
+        "name": "Microsoft.EntityFrameworkCore.Analyzers",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Caching.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Caching.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Caching.Memory@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Caching.Memory",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "System.Linq.Queryable@4.0.1",
+      "info": {
+        "name": "System.Linq.Queryable",
+        "version": "4.0.1"
+      }
+    },
+    {
+      "id": "Remotion.Linq@2.2.0",
+      "info": {
+        "name": "Remotion.Linq",
+        "version": "2.2.0"
+      }
+    },
+    {
+      "id": "System.Collections.Immutable@1.5.0",
+      "info": {
+        "name": "System.Collections.Immutable",
+        "version": "1.5.0"
+      }
+    },
+    {
+      "id": "System.ComponentModel.Annotations@4.5.0",
+      "info": {
+        "name": "System.ComponentModel.Annotations",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "System.Interactive.Async@3.1.1",
+      "info": {
+        "name": "System.Interactive.Async",
+        "version": "3.1.1"
+      }
+    },
+    {
+      "id": "Microsoft.EntityFrameworkCore@2.1.0",
+      "info": {
+        "name": "Microsoft.EntityFrameworkCore",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.EntityFrameworkCore.Relational@2.1.0",
+      "info": {
+        "name": "Microsoft.EntityFrameworkCore.Relational",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Html.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Html.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Http.Connections.Common@1.0.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Http.Connections.Common",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "System.Net.WebSockets.WebSocketProtocol@4.5.0",
+      "info": {
+        "name": "System.Net.WebSockets.WebSocketProtocol",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.WebSockets@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.WebSockets",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Http.Connections@1.0.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Http.Connections",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.HttpsPolicy@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.HttpsPolicy",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Identity.Core@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Identity.Core",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Identity@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Identity",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Identity.Stores@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Identity.Stores",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Identity.EntityFrameworkCore@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.ResponseCaching.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.ResponseCaching.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "System.AppContext@4.3.0",
+      "info": {
+        "name": "System.AppContext",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "Microsoft.DotNet.PlatformAbstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.DotNet.PlatformAbstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.DependencyModel@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.DependencyModel",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.Core@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.Core",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.ApiExplorer@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.ApiExplorer",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.Cors@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.Cors",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Localization.Abstractions@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Localization.Abstractions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Localization@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Localization",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.DataAnnotations@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.DataAnnotations",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.CSharp@4.5.0",
+      "info": {
+        "name": "Microsoft.CSharp",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.JsonPatch@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.JsonPatch",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.Formatters.Json@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.Formatters.Json",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Localization@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Localization",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Razor.Language@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Razor.Language",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.CodeAnalysis.Analyzers@1.1.0",
+      "info": {
+        "name": "Microsoft.CodeAnalysis.Analyzers",
+        "version": "1.1.0"
+      }
+    },
+    {
+      "id": "System.Console@4.3.0",
+      "info": {
+        "name": "System.Console",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Diagnostics.FileVersionInfo@4.3.0",
+      "info": {
+        "name": "System.Diagnostics.FileVersionInfo",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "runtime.native.System.IO.Compression@4.3.0",
+      "info": {
+        "name": "runtime.native.System.IO.Compression",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.IO.Compression@4.3.0",
+      "info": {
+        "name": "System.IO.Compression",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Text.Encoding.CodePages@4.5.0",
+      "info": {
+        "name": "System.Text.Encoding.CodePages",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "System.Threading.Tasks.Parallel@4.3.0",
+      "info": {
+        "name": "System.Threading.Tasks.Parallel",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Threading.Thread@4.3.0",
+      "info": {
+        "name": "System.Threading.Thread",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.ValueTuple@4.3.0",
+      "info": {
+        "name": "System.ValueTuple",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Xml.XPath@4.3.0",
+      "info": {
+        "name": "System.Xml.XPath",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Xml.XPath.XDocument@4.3.0",
+      "info": {
+        "name": "System.Xml.XPath.XDocument",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "Microsoft.CodeAnalysis.Common@2.8.0",
+      "info": {
+        "name": "Microsoft.CodeAnalysis.Common",
+        "version": "2.8.0"
+      }
+    },
+    {
+      "id": "Microsoft.CodeAnalysis.CSharp@2.8.0",
+      "info": {
+        "name": "Microsoft.CodeAnalysis.CSharp",
+        "version": "2.8.0"
+      }
+    },
+    {
+      "id": "Microsoft.CodeAnalysis.Razor@2.1.0",
+      "info": {
+        "name": "Microsoft.CodeAnalysis.Razor",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.Razor.Extensions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.Razor.Extensions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.ViewFeatures@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.ViewFeatures",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Razor@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Razor",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Razor.Runtime@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Razor.Runtime",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.FileProviders.Composite@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.FileProviders.Composite",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.Razor@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.Razor",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.Localization@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.Localization",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.RazorPages@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.RazorPages",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.TagHelpers@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.TagHelpers",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Razor.Design@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Razor.Design",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.StaticFiles@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.StaticFiles",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.FileProviders.Embedded@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.FileProviders.Embedded",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Identity.UI@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Identity.UI",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Localization.Routing@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Localization.Routing",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.MiddlewareAnalysis@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.MiddlewareAnalysis",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.Analyzers@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.Analyzers",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.Formatters.Xml@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.Formatters.Xml",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.NodeServices@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.NodeServices",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Owin@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Owin",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.ResponseCaching@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.ResponseCaching",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.ResponseCompression@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.ResponseCompression",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Rewrite@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Rewrite",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Server.HttpSys@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Server.HttpSys",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.Session@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.Session",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.SignalR.Common@1.0.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.SignalR.Common",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.SignalR.Protocols.Json@1.0.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.SignalR.Protocols.Json",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "System.Threading.Channels@4.5.0",
+      "info": {
+        "name": "System.Threading.Channels",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.SignalR.Core@1.0.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.SignalR.Core",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.SignalR@1.0.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.SignalR",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.SpaServices@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.SpaServices",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.SpaServices.Extensions@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.SpaServices.Extensions",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.EntityFrameworkCore.Design@2.1.0",
+      "info": {
+        "name": "Microsoft.EntityFrameworkCore.Design",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.EntityFrameworkCore.InMemory@2.1.0",
+      "info": {
+        "name": "Microsoft.EntityFrameworkCore.InMemory",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni@4.4.0",
+      "info": {
+        "name": "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni",
+        "version": "4.4.0"
+      }
+    },
+    {
+      "id": "runtime.win-x64.runtime.native.System.Data.SqlClient.sni@4.4.0",
+      "info": {
+        "name": "runtime.win-x64.runtime.native.System.Data.SqlClient.sni",
+        "version": "4.4.0"
+      }
+    },
+    {
+      "id": "runtime.win-x86.runtime.native.System.Data.SqlClient.sni@4.4.0",
+      "info": {
+        "name": "runtime.win-x86.runtime.native.System.Data.SqlClient.sni",
+        "version": "4.4.0"
+      }
+    },
+    {
+      "id": "runtime.native.System.Data.SqlClient.sni@4.4.0",
+      "info": {
+        "name": "runtime.native.System.Data.SqlClient.sni",
+        "version": "4.4.0"
+      }
+    },
+    {
+      "id": "System.Data.SqlClient@4.5.0",
+      "info": {
+        "name": "System.Data.SqlClient",
+        "version": "4.5.0"
+      }
+    },
+    {
+      "id": "Microsoft.EntityFrameworkCore.SqlServer@2.1.0",
+      "info": {
+        "name": "Microsoft.EntityFrameworkCore.SqlServer",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.EntityFrameworkCore.Tools@2.1.0",
+      "info": {
+        "name": "Microsoft.EntityFrameworkCore.Tools",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Caching.SqlServer@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Caching.SqlServer",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration.Ini@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Configuration.Ini",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration.KeyPerFile@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Configuration.KeyPerFile",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration.Xml@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Configuration.Xml",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Hosting@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Hosting",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Http@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Http",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Logging.EventSource@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Logging.EventSource",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.Extensions.Logging.TraceSource@2.1.0",
+      "info": {
+        "name": "Microsoft.Extensions.Logging.TraceSource",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.AspNetCore.App@2.1.0",
+      "info": {
+        "name": "Microsoft.AspNetCore.App",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.NETCore.DotNetAppHost@2.1.0",
+      "info": {
+        "name": "Microsoft.NETCore.DotNetAppHost",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.NETCore.DotNetHostResolver@2.1.0",
+      "info": {
+        "name": "Microsoft.NETCore.DotNetHostResolver",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.NETCore.DotNetHostPolicy@2.1.0",
+      "info": {
+        "name": "Microsoft.NETCore.DotNetHostPolicy",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.NETCore.App@2.1.0",
+      "info": {
+        "name": "Microsoft.NETCore.App",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "System.Data.SQLite.Core@1.0.108",
+      "info": {
+        "name": "System.Data.SQLite.Core",
+        "version": "1.0.108"
+      }
+    },
+    {
+      "id": "EntityFramework@6.0.0",
+      "info": {
+        "name": "EntityFramework",
+        "version": "6.0.0"
+      }
+    },
+    {
+      "id": "System.Data.SQLite.EF6@1.0.108",
+      "info": {
+        "name": "System.Data.SQLite.EF6",
+        "version": "1.0.108"
+      }
+    },
+    {
+      "id": "System.Data.SQLite.Linq@1.0.108",
+      "info": {
+        "name": "System.Data.SQLite.Linq",
+        "version": "1.0.108"
+      }
+    },
+    {
+      "id": "System.Data.SQLite@1.0.108",
+      "info": {
+        "name": "System.Data.SQLite",
+        "version": "1.0.108"
+      }
+    },
+    {
+      "id": "Microsoft.NETCore.Platforms@2.1.0",
+      "info": {
+        "name": "Microsoft.NETCore.Platforms",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "Microsoft.NETCore.Targets@2.1.0",
+      "info": {
+        "name": "Microsoft.NETCore.Targets",
+        "version": "2.1.0"
+      }
+    },
+    {
+      "id": "System.Globalization@4.3.0",
+      "info": {
+        "name": "System.Globalization",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.IO@4.3.0",
+      "info": {
+        "name": "System.IO",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Reflection@4.3.0",
+      "info": {
+        "name": "System.Reflection",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Runtime@4.3.0",
+      "info": {
+        "name": "System.Runtime",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Text.Encoding@4.3.0",
+      "info": {
+        "name": "System.Text.Encoding",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "System.Threading.Tasks@4.3.0",
+      "info": {
+        "name": "System.Threading.Tasks",
+        "version": "4.3.0"
+      }
+    },
+    {
+      "id": "freqSystemDependencies@0.0.0",
+      "info": {
+        "name": "freqSystemDependencies",
+        "version": "0.0.0"
+      }
+    }
+  ],
+  "graph": {
+    "rootNodeId": "root-node",
+    "nodes": [
+      {
+        "nodeId": "root-node",
+        "pkgId": "netcoreapp21@1.0.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.ApplicationInsights.AspNetCore@2.1.1"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.App@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.NETCore.App@2.1.0"
+          },
+          {
+            "nodeId": "System.Data.SQLite@1.0.108"
+          },
+          {
+            "nodeId": "freqSystemDependencies@0.0.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "NETStandard.Library@2.0.3",
+        "pkgId": "NETStandard.Library@2.0.3",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Diagnostics.DiagnosticSource@4.5.0",
+        "pkgId": "System.Diagnostics.DiagnosticSource@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.IO.FileSystem.Primitives@4.3.0",
+        "pkgId": "System.IO.FileSystem.Primitives@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Runtime.Handles@4.3.0",
+        "pkgId": "System.Runtime.Handles@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.IO.FileSystem@4.3.0",
+        "pkgId": "System.IO.FileSystem@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.IO.FileSystem.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Handles@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Reflection.Metadata@1.6.0",
+        "pkgId": "System.Reflection.Metadata@1.6.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Diagnostics.StackTrace@4.3.0",
+        "pkgId": "System.Diagnostics.StackTrace@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.IO.FileSystem@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Metadata@1.6.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.ApplicationInsights@2.4.0",
+        "pkgId": "Microsoft.ApplicationInsights@2.4.0",
+        "deps": [
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          },
+          {
+            "nodeId": "System.Diagnostics.DiagnosticSource@4.5.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.StackTrace@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Reflection.TypeExtensions@4.3.0",
+        "pkgId": "System.Reflection.TypeExtensions@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.Extensions.PlatformAbstractions@1.1.0",
+        "pkgId": "Microsoft.Extensions.PlatformAbstractions@1.1.0",
+        "deps": [
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          },
+          {
+            "nodeId": "System.Reflection.TypeExtensions@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.ApplicationInsights.DependencyCollector@2.4.1",
+        "pkgId": "Microsoft.ApplicationInsights.DependencyCollector@2.4.1",
+        "deps": [
+          {
+            "nodeId": "Microsoft.ApplicationInsights@2.4.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.PlatformAbstractions@1.1.0"
+          },
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          },
+          {
+            "nodeId": "System.Diagnostics.DiagnosticSource@4.5.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.StackTrace@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Memory@4.5.0",
+        "pkgId": "System.Memory@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Runtime.CompilerServices.Unsafe@4.5.0",
+        "pkgId": "System.Runtime.CompilerServices.Unsafe@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Primitives@2.1.0",
+        "pkgId": "Microsoft.Extensions.Primitives@2.1.0",
+        "deps": [
+          {
+            "nodeId": "System.Memory@4.5.0"
+          },
+          {
+            "nodeId": "System.Runtime.CompilerServices.Unsafe@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Http.Features@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Http.Features@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Primitives@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Configuration.Abstractions@2.1.0",
+        "pkgId": "Microsoft.Extensions.Configuration.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Primitives@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Hosting.Server.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Hosting.Server.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Features@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Text.Encodings.Web@4.5.0",
+        "pkgId": "System.Text.Encodings.Web@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Features@2.1.0"
+          },
+          {
+            "nodeId": "System.Text.Encodings.Web@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0",
+        "pkgId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0",
+        "pkgId": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Primitives@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0",
+        "pkgId": "Microsoft.Extensions.Logging.Abstractions@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Hosting.Abstractions@2.1.0",
+        "pkgId": "Microsoft.Extensions.Hosting.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Server.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Hosting.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Buffers@4.5.0",
+        "pkgId": "System.Buffers@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.Net.Http.Headers@2.1.0",
+        "pkgId": "Microsoft.Net.Http.Headers@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Primitives@2.1.0"
+          },
+          {
+            "nodeId": "System.Buffers@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.WebUtilities@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.WebUtilities@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Net.Http.Headers@2.1.0"
+          },
+          {
+            "nodeId": "System.Text.Encodings.Web@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.ObjectPool@2.1.0",
+        "pkgId": "Microsoft.Extensions.ObjectPool@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Options@2.1.0",
+        "pkgId": "Microsoft.Extensions.Options@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Primitives@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Http@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Http@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.WebUtilities@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.ObjectPool@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Net.Http.Headers@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Http.Extensions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Net.Http.Headers@2.1.0"
+          },
+          {
+            "nodeId": "System.Buffers@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Configuration@2.1.0",
+        "pkgId": "Microsoft.Extensions.Configuration@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Configuration.EnvironmentVariables@2.1.0",
+        "pkgId": "Microsoft.Extensions.Configuration.EnvironmentVariables@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.FileSystemGlobbing@2.1.0",
+        "pkgId": "Microsoft.Extensions.FileSystemGlobbing@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.Extensions.FileProviders.Physical@2.1.0",
+        "pkgId": "Microsoft.Extensions.FileProviders.Physical@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileSystemGlobbing@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Configuration.FileExtensions@2.1.0",
+        "pkgId": "Microsoft.Extensions.Configuration.FileExtensions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Physical@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.DependencyInjection@2.1.0",
+        "pkgId": "Microsoft.Extensions.DependencyInjection@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Configuration.Binder@2.1.0",
+        "pkgId": "Microsoft.Extensions.Configuration.Binder@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Logging@2.1.0",
+        "pkgId": "Microsoft.Extensions.Logging@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Binder@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Hosting@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Hosting@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.EnvironmentVariables@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.FileExtensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Physical@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.DiagnosticSource@4.5.0"
+          },
+          {
+            "nodeId": "System.Reflection.Metadata@1.6.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Newtonsoft.Json@11.0.2",
+        "pkgId": "Newtonsoft.Json@11.0.2",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Configuration.Json@2.1.0",
+        "pkgId": "Microsoft.Extensions.Configuration.Json@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.FileExtensions@2.1.0"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.DiagnosticAdapter@2.1.0",
+        "pkgId": "Microsoft.Extensions.DiagnosticAdapter@2.1.0",
+        "deps": [
+          {
+            "nodeId": "System.Diagnostics.DiagnosticSource@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Collections@4.3.0",
+        "pkgId": "System.Collections@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Diagnostics.Tracing@4.3.0",
+        "pkgId": "System.Diagnostics.Tracing@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Net.Primitives@4.3.0",
+        "pkgId": "System.Net.Primitives@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Runtime.Handles@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Resources.ResourceManager@4.3.0",
+        "pkgId": "System.Resources.ResourceManager@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Runtime.Extensions@4.3.0",
+        "pkgId": "System.Runtime.Extensions@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Reflection.Primitives@4.3.0",
+        "pkgId": "System.Reflection.Primitives@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Runtime.InteropServices@4.3.0",
+        "pkgId": "System.Runtime.InteropServices@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Reflection.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Handles@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Security.Principal.Windows@4.5.0",
+        "pkgId": "System.Security.Principal.Windows@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Threading@4.3.0",
+        "pkgId": "System.Threading@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.native.System@4.3.0",
+        "pkgId": "runtime.native.System@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Net.NameResolution@4.3.0",
+        "pkgId": "System.Net.NameResolution@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Tracing@4.3.0"
+          },
+          {
+            "nodeId": "System.Net.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Handles@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Principal.Windows@4.5.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.ApplicationInsights.AspNetCore@2.1.1",
+        "pkgId": "Microsoft.ApplicationInsights.AspNetCore@2.1.1",
+        "deps": [
+          {
+            "nodeId": "Microsoft.ApplicationInsights@2.4.0"
+          },
+          {
+            "nodeId": "Microsoft.ApplicationInsights.DependencyCollector@2.4.1"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Json@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DiagnosticAdapter@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          },
+          {
+            "nodeId": "System.Net.NameResolution@4.3.0"
+          },
+          {
+            "nodeId": "System.Text.Encodings.Web@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Newtonsoft.Json.Bson@1.0.1",
+        "pkgId": "Newtonsoft.Json.Bson@1.0.1",
+        "deps": [
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNet.WebApi.Client@5.2.4",
+        "pkgId": "Microsoft.AspNet.WebApi.Client@5.2.4",
+        "deps": [
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          },
+          {
+            "nodeId": "Newtonsoft.Json.Bson@1.0.1"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Diagnostics.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Diagnostics.Abstractions@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Diagnostics@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Diagnostics@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Diagnostics.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.WebUtilities@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Physical@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.DiagnosticSource@4.5.0"
+          },
+          {
+            "nodeId": "System.Reflection.Metadata@1.6.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.HostFiltering@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.HostFiltering@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Routing.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Routing.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Routing@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Routing@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Routing.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.ObjectPool@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication.Core@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication.Core@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.HttpOverrides@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.HttpOverrides@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.IO.Pipelines@4.5.0",
+        "pkgId": "System.IO.Pipelines@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Numerics.Vectors@4.5.0",
+        "pkgId": "System.Numerics.Vectors@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Server.IISIntegration@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Server.IISIntegration@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.HttpOverrides@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "System.Buffers@4.5.0"
+          },
+          {
+            "nodeId": "System.IO.Pipelines@4.5.0"
+          },
+          {
+            "nodeId": "System.Memory@4.5.0"
+          },
+          {
+            "nodeId": "System.Numerics.Vectors@4.5.0"
+          },
+          {
+            "nodeId": "System.Runtime.CompilerServices.Unsafe@4.5.0"
+          },
+          {
+            "nodeId": "System.Security.Principal.Windows@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Connections.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Connections.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Features@2.1.0"
+          },
+          {
+            "nodeId": "System.IO.Pipelines@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Connections.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Security.Cryptography.Cng@4.5.0",
+        "pkgId": "System.Security.Cryptography.Cng@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Threading.Tasks.Extensions@4.5.0",
+        "pkgId": "System.Threading.Tasks.Extensions@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Core@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Server.Kestrel.Core@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.WebUtilities@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Binder@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Net.Http.Headers@2.1.0"
+          },
+          {
+            "nodeId": "System.Memory@4.5.0"
+          },
+          {
+            "nodeId": "System.Numerics.Vectors@4.5.0"
+          },
+          {
+            "nodeId": "System.Runtime.CompilerServices.Unsafe@4.5.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Cng@4.5.0"
+          },
+          {
+            "nodeId": "System.Threading.Tasks.Extensions@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Https@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Server.Kestrel.Https@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Core@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Server.Kestrel@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Server.Kestrel@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Https@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Configuration.CommandLine@2.1.0",
+        "pkgId": "Microsoft.Extensions.Configuration.CommandLine@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Configuration.UserSecrets@2.1.0",
+        "pkgId": "Microsoft.Extensions.Configuration.UserSecrets@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Json@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Options.ConfigurationExtensions@2.1.0",
+        "pkgId": "Microsoft.Extensions.Options.ConfigurationExtensions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Binder@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Logging.Configuration@2.1.0",
+        "pkgId": "Microsoft.Extensions.Logging.Configuration@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options.ConfigurationExtensions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Logging.Console@2.1.0",
+        "pkgId": "Microsoft.Extensions.Logging.Console@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Configuration@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Logging.Debug@2.1.0",
+        "pkgId": "Microsoft.Extensions.Logging.Debug@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore@2.1.0",
+        "pkgId": "Microsoft.AspNetCore@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Diagnostics@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.HostFiltering@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Routing@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.IISIntegration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Https@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.CommandLine@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.EnvironmentVariables@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.FileExtensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Json@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.UserSecrets@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Configuration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Console@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Debug@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Cryptography.Internal@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Cryptography.Internal@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.DataProtection.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.DataProtection.Abstractions@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Security.AccessControl@4.5.0",
+        "pkgId": "System.Security.AccessControl@4.5.0",
+        "deps": [
+          {
+            "nodeId": "System.Security.Principal.Windows@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Win32.Registry@4.5.0",
+        "pkgId": "Microsoft.Win32.Registry@4.5.0",
+        "deps": [
+          {
+            "nodeId": "System.Security.AccessControl@4.5.0"
+          },
+          {
+            "nodeId": "System.Security.Principal.Windows@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Security.Cryptography.Pkcs@4.5.0",
+        "pkgId": "System.Security.Cryptography.Pkcs@4.5.0",
+        "deps": [
+          {
+            "nodeId": "System.Security.Cryptography.Cng@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Security.Permissions@4.5.0",
+        "pkgId": "System.Security.Permissions@4.5.0",
+        "deps": [
+          {
+            "nodeId": "System.Security.AccessControl@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Security.Cryptography.Xml@4.5.0",
+        "pkgId": "System.Security.Cryptography.Xml@4.5.0",
+        "deps": [
+          {
+            "nodeId": "System.Security.Cryptography.Pkcs@4.5.0"
+          },
+          {
+            "nodeId": "System.Security.Permissions@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.DataProtection@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.DataProtection@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Cryptography.Internal@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.DataProtection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Win32.Registry@4.5.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Xml@4.5.0"
+          },
+          {
+            "nodeId": "System.Security.Principal.Windows@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Antiforgery@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Antiforgery@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.DataProtection@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.WebUtilities@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.ObjectPool@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.WebEncoders@2.1.0",
+        "pkgId": "Microsoft.Extensions.WebEncoders@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "System.Text.Encodings.Web@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.DataProtection@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.WebEncoders@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication.Cookies@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication.Cookies@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication.OAuth@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication.OAuth@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication@2.1.0"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication.Facebook@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication.Facebook@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.OAuth@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication.Google@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication.Google@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.OAuth@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.IdentityModel.Logging@5.2.0",
+        "pkgId": "Microsoft.IdentityModel.Logging@5.2.0",
+        "deps": [
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          },
+          {
+            "nodeId": "System.Diagnostics.Tracing@4.3.0"
+          },
+          {
+            "nodeId": "System.IO.FileSystem@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Diagnostics.Tools@4.3.0",
+        "pkgId": "System.Diagnostics.Tools@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Reflection.Extensions@4.3.0",
+        "pkgId": "System.Reflection.Extensions@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Runtime.InteropServices.RuntimeInformation@4.3.0",
+        "pkgId": "System.Runtime.InteropServices.RuntimeInformation@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Reflection.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Diagnostics.Debug@4.3.0",
+        "pkgId": "System.Diagnostics.Debug@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Collections.Concurrent@4.3.0",
+        "pkgId": "System.Collections.Concurrent@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Tracing@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Linq@4.3.0",
+        "pkgId": "System.Linq@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0",
+        "pkgId": "System.Reflection.Emit.ILGeneration@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Reflection.Primitives@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Reflection.Emit.Lightweight@4.3.0",
+        "pkgId": "System.Reflection.Emit.Lightweight@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Primitives@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Runtime.Serialization.Primitives@4.3.0",
+        "pkgId": "System.Runtime.Serialization.Primitives@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Text.Encoding.Extensions@4.3.0",
+        "pkgId": "System.Text.Encoding.Extensions@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Text.RegularExpressions@4.3.0",
+        "pkgId": "System.Text.RegularExpressions@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Xml.ReaderWriter@4.3.0",
+        "pkgId": "System.Xml.ReaderWriter@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.IO.FileSystem@4.3.0"
+          },
+          {
+            "nodeId": "System.IO.FileSystem.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Text.Encoding.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Text.RegularExpressions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading.Tasks.Extensions@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Xml.XDocument@4.3.0",
+        "pkgId": "System.Xml.XDocument@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Tools@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.ReaderWriter@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Xml.XmlDocument@4.3.0",
+        "pkgId": "System.Xml.XmlDocument@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.ReaderWriter@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Reflection.Emit@4.3.0",
+        "pkgId": "System.Reflection.Emit@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Primitives@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Xml.XmlSerializer@4.3.0",
+        "pkgId": "System.Xml.XmlSerializer@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Emit@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.TypeExtensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Text.RegularExpressions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.ReaderWriter@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.XmlDocument@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Private.DataContractSerialization@4.3.0",
+        "pkgId": "System.Private.DataContractSerialization@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Collections.Concurrent@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Emit.Lightweight@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.TypeExtensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Serialization.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Text.Encoding.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Text.RegularExpressions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.ReaderWriter@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.XDocument@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.XmlDocument@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.XmlSerializer@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Runtime.Serialization.Xml@4.3.0",
+        "pkgId": "System.Runtime.Serialization.Xml@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Private.DataContractSerialization@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Serialization.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.ReaderWriter@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Security.Principal@4.3.0",
+        "pkgId": "System.Security.Principal@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Security.Claims@4.3.0",
+        "pkgId": "System.Security.Claims@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Principal@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Runtime.Numerics@4.3.0",
+        "pkgId": "System.Runtime.Numerics@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Security.Cryptography.Primitives@4.3.0",
+        "pkgId": "System.Security.Cryptography.Primitives@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": [
+          {
+            "nodeId": "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          },
+          {
+            "nodeId": "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          },
+          {
+            "nodeId": "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          },
+          {
+            "nodeId": "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          },
+          {
+            "nodeId": "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          },
+          {
+            "nodeId": "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          },
+          {
+            "nodeId": "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          },
+          {
+            "nodeId": "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          },
+          {
+            "nodeId": "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          },
+          {
+            "nodeId": "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Security.Cryptography.Encoding@4.3.0",
+        "pkgId": "System.Security.Cryptography.Encoding@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Collections.Concurrent@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Handles@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple@4.3.0",
+        "pkgId": "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.native.System.Security.Cryptography.Apple@4.3.0",
+        "pkgId": "runtime.native.System.Security.Cryptography.Apple@4.3.0",
+        "deps": [
+          {
+            "nodeId": "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Security.Cryptography.Algorithms@4.3.0",
+        "pkgId": "System.Security.Cryptography.Algorithms@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Handles@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Numerics@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Encoding@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System.Security.Cryptography.Apple@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Globalization.Calendars@4.3.0",
+        "pkgId": "System.Globalization.Calendars@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Security.Cryptography.Csp@4.3.0",
+        "pkgId": "System.Security.Cryptography.Csp@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Handles@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Algorithms@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Encoding@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Security.Cryptography.OpenSsl@4.3.0",
+        "pkgId": "System.Security.Cryptography.OpenSsl@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Handles@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Numerics@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Algorithms@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Encoding@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "runtime.native.System.Net.Http@4.3.0",
+        "pkgId": "runtime.native.System.Net.Http@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Security.Cryptography.X509Certificates@4.3.0",
+        "pkgId": "System.Security.Cryptography.X509Certificates@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Globalization.Calendars@4.3.0"
+          },
+          {
+            "nodeId": "System.IO.FileSystem@4.3.0"
+          },
+          {
+            "nodeId": "System.IO.FileSystem.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Handles@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Numerics@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Algorithms@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Cng@4.5.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Csp@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Encoding@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.OpenSsl@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System.Net.Http@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.IdentityModel.Tokens@5.2.0",
+        "pkgId": "Microsoft.IdentityModel.Tokens@5.2.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.IdentityModel.Logging@5.2.0"
+          },
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          },
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Tools@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices.RuntimeInformation@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Serialization.Xml@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Claims@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Algorithms@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.X509Certificates@4.3.0"
+          },
+          {
+            "nodeId": "System.Text.RegularExpressions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Collections.NonGeneric@4.3.0",
+        "pkgId": "System.Collections.NonGeneric@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Globalization.Extensions@4.3.0",
+        "pkgId": "System.Globalization.Extensions@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Collections.Specialized@4.3.0",
+        "pkgId": "System.Collections.Specialized@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections.NonGeneric@4.3.0"
+          },
+          {
+            "nodeId": "System.Globalization.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Diagnostics.Contracts@4.3.0",
+        "pkgId": "System.Diagnostics.Contracts@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Net.Http@4.3.0",
+        "pkgId": "System.Net.Http@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.DiagnosticSource@4.5.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Tracing@4.3.0"
+          },
+          {
+            "nodeId": "System.Globalization.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.IO.FileSystem@4.3.0"
+          },
+          {
+            "nodeId": "System.Net.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Handles@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Algorithms@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Encoding@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.OpenSsl@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.X509Certificates@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System.Net.Http@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.IdentityModel.Protocols@5.2.0",
+        "pkgId": "Microsoft.IdentityModel.Protocols@5.2.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.IdentityModel.Logging@5.2.0"
+          },
+          {
+            "nodeId": "Microsoft.IdentityModel.Tokens@5.2.0"
+          },
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          },
+          {
+            "nodeId": "System.Collections.Specialized@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Contracts@4.3.0"
+          },
+          {
+            "nodeId": "System.Net.Http@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.ObjectModel@4.3.0",
+        "pkgId": "System.ObjectModel@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Linq.Expressions@4.3.0",
+        "pkgId": "System.Linq.Expressions@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq@4.3.0"
+          },
+          {
+            "nodeId": "System.ObjectModel@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Emit@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Emit.Lightweight@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.TypeExtensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Dynamic.Runtime@4.3.0",
+        "pkgId": "System.Dynamic.Runtime@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq.Expressions@4.3.0"
+          },
+          {
+            "nodeId": "System.ObjectModel@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Emit@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.TypeExtensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.IdentityModel.Tokens.Jwt@5.2.0",
+        "pkgId": "System.IdentityModel.Tokens.Jwt@5.2.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.IdentityModel.Tokens@5.2.0"
+          },
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.IdentityModel.Protocols.OpenIdConnect@5.2.0",
+        "pkgId": "Microsoft.IdentityModel.Protocols.OpenIdConnect@5.2.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.IdentityModel.Protocols@5.2.0"
+          },
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          },
+          {
+            "nodeId": "System.Dynamic.Runtime@4.3.0"
+          },
+          {
+            "nodeId": "System.IdentityModel.Tokens.Jwt@5.2.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication.JwtBearer@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication.JwtBearer@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.IdentityModel.Protocols.OpenIdConnect@5.2.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication.MicrosoftAccount@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication.MicrosoftAccount@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.OAuth@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication.OpenIdConnect@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication.OpenIdConnect@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.OAuth@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.IdentityModel.Protocols.OpenIdConnect@5.2.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication.Twitter@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication.Twitter@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.OAuth@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.IdentityModel.Xml@5.2.0",
+        "pkgId": "Microsoft.IdentityModel.Xml@5.2.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.IdentityModel.Tokens@5.2.0"
+          },
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.IdentityModel.Tokens.Saml@5.2.0",
+        "pkgId": "Microsoft.IdentityModel.Tokens.Saml@5.2.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.IdentityModel.Tokens@5.2.0"
+          },
+          {
+            "nodeId": "Microsoft.IdentityModel.Xml@5.2.0"
+          },
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.IdentityModel.Protocols.WsFederation@5.2.0",
+        "pkgId": "Microsoft.IdentityModel.Protocols.WsFederation@5.2.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.IdentityModel.Protocols@5.2.0"
+          },
+          {
+            "nodeId": "Microsoft.IdentityModel.Tokens.Saml@5.2.0"
+          },
+          {
+            "nodeId": "Microsoft.IdentityModel.Xml@5.2.0"
+          },
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          },
+          {
+            "nodeId": "System.Xml.XmlDocument@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authentication.WsFederation@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authentication.WsFederation@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.IdentityModel.Protocols.WsFederation@5.2.0"
+          },
+          {
+            "nodeId": "System.IdentityModel.Tokens.Jwt@5.2.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authorization@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authorization@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Authorization.Policy@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Authorization.Policy@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authorization@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.CookiePolicy@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.CookiePolicy@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Cors@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Cors@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Cryptography.KeyDerivation@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Cryptography.KeyDerivation@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Cryptography.Internal@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.DataProtection.Extensions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.DataProtection.Extensions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.DataProtection@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.EntityFrameworkCore.Abstractions@2.1.0",
+        "pkgId": "Microsoft.EntityFrameworkCore.Abstractions@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.EntityFrameworkCore.Analyzers@2.1.0",
+        "pkgId": "Microsoft.EntityFrameworkCore.Analyzers@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Caching.Abstractions@2.1.0",
+        "pkgId": "Microsoft.Extensions.Caching.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Primitives@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Caching.Memory@2.1.0",
+        "pkgId": "Microsoft.Extensions.Caching.Memory@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Caching.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Linq.Queryable@4.0.1",
+        "pkgId": "System.Linq.Queryable@4.0.1",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq.Expressions@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Remotion.Linq@2.2.0",
+        "pkgId": "Remotion.Linq@2.2.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq.Expressions@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq.Queryable@4.0.1"
+          },
+          {
+            "nodeId": "System.ObjectModel@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Collections.Immutable@1.5.0",
+        "pkgId": "System.Collections.Immutable@1.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.ComponentModel.Annotations@4.5.0",
+        "pkgId": "System.ComponentModel.Annotations@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Interactive.Async@3.1.1",
+        "pkgId": "System.Interactive.Async@3.1.1",
+        "deps": [
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.EntityFrameworkCore@2.1.0",
+        "pkgId": "Microsoft.EntityFrameworkCore@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Analyzers@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Caching.Memory@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          },
+          {
+            "nodeId": "Remotion.Linq@2.2.0"
+          },
+          {
+            "nodeId": "System.Collections.Immutable@1.5.0"
+          },
+          {
+            "nodeId": "System.ComponentModel.Annotations@4.5.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.DiagnosticSource@4.5.0"
+          },
+          {
+            "nodeId": "System.Interactive.Async@3.1.1"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.EntityFrameworkCore.Relational@2.1.0",
+        "pkgId": "Microsoft.EntityFrameworkCore.Relational@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Relational@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Html.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Html.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "System.Text.Encodings.Web@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Http.Connections.Common@1.0.0",
+        "pkgId": "Microsoft.AspNetCore.Http.Connections.Common@1.0.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Connections.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          },
+          {
+            "nodeId": "System.Buffers@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Net.WebSockets.WebSocketProtocol@4.5.0",
+        "pkgId": "System.Net.WebSockets.WebSocketProtocol@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.WebSockets@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.WebSockets@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "System.Net.WebSockets.WebSocketProtocol@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Http.Connections@1.0.0",
+        "pkgId": "Microsoft.AspNetCore.Http.Connections@1.0.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authorization.Policy@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Connections.Common@1.0.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Routing@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.WebSockets@2.1.0"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.HttpsPolicy@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.HttpsPolicy@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Binder@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Identity.Core@2.1.0",
+        "pkgId": "Microsoft.Extensions.Identity.Core@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Cryptography.KeyDerivation@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "System.ComponentModel.Annotations@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Identity@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Identity@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Cookies@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Cryptography.KeyDerivation@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Identity.Core@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Identity.Stores@2.1.0",
+        "pkgId": "Microsoft.Extensions.Identity.Stores@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Identity.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          },
+          {
+            "nodeId": "System.ComponentModel.Annotations@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Identity@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Relational@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Identity.Stores@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Routing.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Net.Http.Headers@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.ResponseCaching.Abstractions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.ResponseCaching.Abstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Primitives@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.AppContext@4.3.0",
+        "pkgId": "System.AppContext@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.DotNet.PlatformAbstractions@2.1.0",
+        "pkgId": "Microsoft.DotNet.PlatformAbstractions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "System.AppContext@4.3.0"
+          },
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.IO.FileSystem@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.TypeExtensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices.RuntimeInformation@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.DependencyModel@2.1.0",
+        "pkgId": "Microsoft.Extensions.DependencyModel@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.DotNet.PlatformAbstractions@2.1.0"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Dynamic.Runtime@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.Core@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.Core@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authorization.Policy@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.ResponseCaching.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Routing@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyModel@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.DiagnosticSource@4.5.0"
+          },
+          {
+            "nodeId": "System.Threading.Tasks.Extensions@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.ApiExplorer@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.ApiExplorer@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Core@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.Cors@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.Cors@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Cors@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Core@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Localization.Abstractions@2.1.0",
+        "pkgId": "Microsoft.Extensions.Localization.Abstractions@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Localization@2.1.0",
+        "pkgId": "Microsoft.Extensions.Localization@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Localization.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.DataAnnotations@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.DataAnnotations@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Localization@2.1.0"
+          },
+          {
+            "nodeId": "System.ComponentModel.Annotations@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.CSharp@4.5.0",
+        "pkgId": "Microsoft.CSharp@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.JsonPatch@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.JsonPatch@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.CSharp@4.5.0"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.Formatters.Json@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.Formatters.Json@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.JsonPatch@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Core@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Localization@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Localization@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Localization.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Razor.Language@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Razor.Language@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.CodeAnalysis.Analyzers@1.1.0",
+        "pkgId": "Microsoft.CodeAnalysis.Analyzers@1.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Console@4.3.0",
+        "pkgId": "System.Console@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Diagnostics.FileVersionInfo@4.3.0",
+        "pkgId": "System.Diagnostics.FileVersionInfo@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.IO.FileSystem@4.3.0"
+          },
+          {
+            "nodeId": "System.IO.FileSystem.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Metadata@1.6.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "runtime.native.System.IO.Compression@4.3.0",
+        "pkgId": "runtime.native.System.IO.Compression@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.IO.Compression@4.3.0",
+        "pkgId": "System.IO.Compression@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Buffers@4.5.0"
+          },
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Handles@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System@4.3.0"
+          },
+          {
+            "nodeId": "runtime.native.System.IO.Compression@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Text.Encoding.CodePages@4.5.0",
+        "pkgId": "System.Text.Encoding.CodePages@4.5.0",
+        "deps": [
+          {
+            "nodeId": "System.Runtime.CompilerServices.Unsafe@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Threading.Tasks.Parallel@4.3.0",
+        "pkgId": "System.Threading.Tasks.Parallel@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections.Concurrent@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Tracing@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Threading.Thread@4.3.0",
+        "pkgId": "System.Threading.Thread@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.ValueTuple@4.3.0",
+        "pkgId": "System.ValueTuple@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Xml.XPath@4.3.0",
+        "pkgId": "System.Xml.XPath@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.ReaderWriter@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Xml.XPath.XDocument@4.3.0",
+        "pkgId": "System.Xml.XPath.XDocument@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq@4.3.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.ReaderWriter@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.XDocument@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.XPath@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.CodeAnalysis.Common@2.8.0",
+        "pkgId": "Microsoft.CodeAnalysis.Common@2.8.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.CodeAnalysis.Analyzers@1.1.0"
+          },
+          {
+            "nodeId": "System.AppContext@4.3.0"
+          },
+          {
+            "nodeId": "System.Collections@4.3.0"
+          },
+          {
+            "nodeId": "System.Collections.Concurrent@4.3.0"
+          },
+          {
+            "nodeId": "System.Collections.Immutable@1.5.0"
+          },
+          {
+            "nodeId": "System.Console@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Debug@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.FileVersionInfo@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.StackTrace@4.3.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.Tools@4.3.0"
+          },
+          {
+            "nodeId": "System.Dynamic.Runtime@4.3.0"
+          },
+          {
+            "nodeId": "System.IO.Compression@4.3.0"
+          },
+          {
+            "nodeId": "System.IO.FileSystem@4.3.0"
+          },
+          {
+            "nodeId": "System.IO.FileSystem.Primitives@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq@4.3.0"
+          },
+          {
+            "nodeId": "System.Linq.Expressions@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection.Metadata@1.6.0"
+          },
+          {
+            "nodeId": "System.Resources.ResourceManager@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.InteropServices@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime.Numerics@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Algorithms@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Encoding@4.3.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.X509Certificates@4.3.0"
+          },
+          {
+            "nodeId": "System.Text.Encoding.CodePages@4.5.0"
+          },
+          {
+            "nodeId": "System.Text.Encoding.Extensions@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading.Tasks.Parallel@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading.Thread@4.3.0"
+          },
+          {
+            "nodeId": "System.ValueTuple@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.ReaderWriter@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.XDocument@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.XPath.XDocument@4.3.0"
+          },
+          {
+            "nodeId": "System.Xml.XmlDocument@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.CodeAnalysis.CSharp@2.8.0",
+        "pkgId": "Microsoft.CodeAnalysis.CSharp@2.8.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.CodeAnalysis.Common@2.8.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.CodeAnalysis.Razor@2.1.0",
+        "pkgId": "Microsoft.CodeAnalysis.Razor@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Razor.Language@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.CodeAnalysis.CSharp@2.8.0"
+          },
+          {
+            "nodeId": "Microsoft.CodeAnalysis.Common@2.8.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.Razor.Extensions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.Razor.Extensions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Razor.Language@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.CodeAnalysis.Razor@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.ViewFeatures@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.ViewFeatures@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Antiforgery@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Diagnostics.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Html.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.DataAnnotations@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Formatters.Json@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.WebEncoders@2.1.0"
+          },
+          {
+            "nodeId": "Newtonsoft.Json.Bson@1.0.1"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Razor@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Razor@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Html.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Razor.Runtime@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Razor.Runtime@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Html.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Razor@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.FileProviders.Composite@2.1.0",
+        "pkgId": "Microsoft.Extensions.FileProviders.Composite@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.Razor@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.Razor@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Razor.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.ViewFeatures@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Razor.Runtime@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.CodeAnalysis.CSharp@2.8.0"
+          },
+          {
+            "nodeId": "Microsoft.CodeAnalysis.Razor@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Caching.Memory@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Composite@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.Localization@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.Localization@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Localization@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Razor@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Localization@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.RazorPages@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.RazorPages@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Razor@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.TagHelpers@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.TagHelpers@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Razor@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Razor.Runtime@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Routing.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Caching.Memory@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileSystemGlobbing@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Primitives@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Razor.Design@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Razor.Design@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.ApiExplorer@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Cors@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.DataAnnotations@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Formatters.Json@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Localization@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Razor.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.RazorPages@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.TagHelpers@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.ViewFeatures@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Razor.Design@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Caching.Memory@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.StaticFiles@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.StaticFiles@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.WebEncoders@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.FileProviders.Embedded@2.1.0",
+        "pkgId": "Microsoft.Extensions.FileProviders.Embedded@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Identity.UI@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Identity.UI@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Identity@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.StaticFiles@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Embedded@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Identity.Stores@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Localization.Routing@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Localization.Routing@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Localization@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Routing.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.MiddlewareAnalysis@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.MiddlewareAnalysis@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "System.Diagnostics.DiagnosticSource@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.Analyzers@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.Analyzers@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.Formatters.Xml@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.Formatters.Xml@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Core@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.RazorPages@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.NodeServices@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.NodeServices@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Console@2.1.0"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Owin@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Owin@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.ResponseCaching@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.ResponseCaching@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.ResponseCaching.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Caching.Memory@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.ResponseCompression@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.ResponseCompression@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Rewrite@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Rewrite@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Server.HttpSys@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Server.HttpSys@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Net.Http.Headers@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Win32.Registry@4.5.0"
+          },
+          {
+            "nodeId": "System.Security.Principal.Windows@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.Session@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.Session@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.DataProtection@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Caching.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.SignalR.Common@1.0.0",
+        "pkgId": "Microsoft.AspNetCore.SignalR.Common@1.0.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Connections.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          },
+          {
+            "nodeId": "System.Buffers@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.SignalR.Protocols.Json@1.0.0",
+        "pkgId": "Microsoft.AspNetCore.SignalR.Protocols.Json@1.0.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.SignalR.Common@1.0.0"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Threading.Channels@4.5.0",
+        "pkgId": "System.Threading.Channels@4.5.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.SignalR.Core@1.0.0",
+        "pkgId": "Microsoft.AspNetCore.SignalR.Core@1.0.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Authorization@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.SignalR.Common@1.0.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.SignalR.Protocols.Json@1.0.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "System.Reflection.Emit@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading.Channels@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.SignalR@1.0.0",
+        "pkgId": "Microsoft.AspNetCore.SignalR@1.0.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Connections@1.0.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.SignalR.Core@1.0.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.SpaServices@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.SpaServices@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.TagHelpers@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.ViewFeatures@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.NodeServices@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.SpaServices.Extensions@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.SpaServices.Extensions@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNetCore.SpaServices@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.StaticFiles@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.WebSockets@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Physical@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.EntityFrameworkCore.Design@2.1.0",
+        "pkgId": "Microsoft.EntityFrameworkCore.Design@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.CSharp@4.5.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Relational@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.EntityFrameworkCore.InMemory@2.1.0",
+        "pkgId": "Microsoft.EntityFrameworkCore.InMemory@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni@4.4.0",
+        "pkgId": "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni@4.4.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.win-x64.runtime.native.System.Data.SqlClient.sni@4.4.0",
+        "pkgId": "runtime.win-x64.runtime.native.System.Data.SqlClient.sni@4.4.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.win-x86.runtime.native.System.Data.SqlClient.sni@4.4.0",
+        "pkgId": "runtime.win-x86.runtime.native.System.Data.SqlClient.sni@4.4.0",
+        "deps": []
+      },
+      {
+        "nodeId": "runtime.native.System.Data.SqlClient.sni@4.4.0",
+        "pkgId": "runtime.native.System.Data.SqlClient.sni@4.4.0",
+        "deps": [
+          {
+            "nodeId": "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni@4.4.0"
+          },
+          {
+            "nodeId": "runtime.win-x64.runtime.native.System.Data.SqlClient.sni@4.4.0"
+          },
+          {
+            "nodeId": "runtime.win-x86.runtime.native.System.Data.SqlClient.sni@4.4.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Data.SqlClient@4.5.0",
+        "pkgId": "System.Data.SqlClient@4.5.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Win32.Registry@4.5.0"
+          },
+          {
+            "nodeId": "System.Security.Principal.Windows@4.5.0"
+          },
+          {
+            "nodeId": "System.Text.Encoding.CodePages@4.5.0"
+          },
+          {
+            "nodeId": "runtime.native.System.Data.SqlClient.sni@4.4.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.EntityFrameworkCore.SqlServer@2.1.0",
+        "pkgId": "Microsoft.EntityFrameworkCore.SqlServer@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Relational@2.1.0"
+          },
+          {
+            "nodeId": "System.Data.SqlClient@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.EntityFrameworkCore.Tools@2.1.0",
+        "pkgId": "Microsoft.EntityFrameworkCore.Tools@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Design@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Caching.SqlServer@2.1.0",
+        "pkgId": "Microsoft.Extensions.Caching.SqlServer@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Caching.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "System.Data.SqlClient@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Configuration.Ini@2.1.0",
+        "pkgId": "Microsoft.Extensions.Configuration.Ini@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.FileExtensions@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Configuration.KeyPerFile@2.1.0",
+        "pkgId": "Microsoft.Extensions.Configuration.KeyPerFile@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Physical@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Configuration.Xml@2.1.0",
+        "pkgId": "Microsoft.Extensions.Configuration.Xml@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.FileExtensions@2.1.0"
+          },
+          {
+            "nodeId": "System.Security.Cryptography.Xml@4.5.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Hosting@2.1.0",
+        "pkgId": "Microsoft.Extensions.Hosting@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Physical@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Http@2.1.0",
+        "pkgId": "Microsoft.Extensions.Http@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Logging.EventSource@2.1.0",
+        "pkgId": "Microsoft.Extensions.Logging.EventSource@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          },
+          {
+            "nodeId": "Newtonsoft.Json@11.0.2"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.Extensions.Logging.TraceSource@2.1.0",
+        "pkgId": "Microsoft.Extensions.Logging.TraceSource@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.AspNetCore.App@2.1.0",
+        "pkgId": "Microsoft.AspNetCore.App@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.AspNet.WebApi.Client@5.2.4"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Antiforgery@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Cookies@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Facebook@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Google@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.JwtBearer@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.MicrosoftAccount@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.OAuth@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.OpenIdConnect@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.Twitter@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authentication.WsFederation@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authorization@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Authorization.Policy@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Connections.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.CookiePolicy@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Cors@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Cryptography.Internal@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Cryptography.KeyDerivation@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.DataProtection@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.DataProtection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.DataProtection.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Diagnostics@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Diagnostics.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.HostFiltering@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Hosting.Server.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Html.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Connections@1.0.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Connections.Common@1.0.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Http.Features@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.HttpOverrides@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.HttpsPolicy@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Identity@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Identity.UI@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.JsonPatch@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Localization@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Localization.Routing@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.MiddlewareAnalysis@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Analyzers@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.ApiExplorer@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Cors@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.DataAnnotations@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Formatters.Json@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Formatters.Xml@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Localization@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Razor@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Razor.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.RazorPages@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.TagHelpers@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Mvc.ViewFeatures@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.NodeServices@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Owin@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Razor@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Razor.Design@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Razor.Language@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Razor.Runtime@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.ResponseCaching@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.ResponseCaching.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.ResponseCompression@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Rewrite@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Routing@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Routing.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.HttpSys@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.IISIntegration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Https@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.Session@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.SignalR@1.0.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.SignalR.Common@1.0.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.SignalR.Core@1.0.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.SignalR.Protocols.Json@1.0.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.SpaServices@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.SpaServices.Extensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.StaticFiles@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.WebSockets@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.AspNetCore.WebUtilities@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.CodeAnalysis.Razor@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Analyzers@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Design@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.InMemory@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Relational@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.SqlServer@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.EntityFrameworkCore.Tools@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Caching.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Caching.Memory@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Caching.SqlServer@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Binder@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.CommandLine@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.EnvironmentVariables@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.FileExtensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Ini@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Json@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.KeyPerFile@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.UserSecrets@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Configuration.Xml@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.DiagnosticAdapter@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Composite@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Embedded@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileProviders.Physical@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.FileSystemGlobbing@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Hosting@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Hosting.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Http@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Identity.Core@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Identity.Stores@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Localization@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Localization.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Abstractions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Configuration@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Console@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.Debug@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.EventSource@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Logging.TraceSource@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.ObjectPool@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Options.ConfigurationExtensions@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.Primitives@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Extensions.WebEncoders@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.Net.Http.Headers@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.NETCore.DotNetAppHost@2.1.0",
+        "pkgId": "Microsoft.NETCore.DotNetAppHost@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.NETCore.DotNetHostResolver@2.1.0",
+        "pkgId": "Microsoft.NETCore.DotNetHostResolver@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.NETCore.DotNetAppHost@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.NETCore.DotNetHostPolicy@2.1.0",
+        "pkgId": "Microsoft.NETCore.DotNetHostPolicy@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.NETCore.DotNetHostResolver@2.1.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.NETCore.App@2.1.0",
+        "pkgId": "Microsoft.NETCore.App@2.1.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.NETCore.DotNetHostPolicy@2.1.0"
+          },
+          {
+            "nodeId": "NETStandard.Library@2.0.3"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Data.SQLite.Core@1.0.108",
+        "pkgId": "System.Data.SQLite.Core@1.0.108",
+        "deps": []
+      },
+      {
+        "nodeId": "EntityFramework@6.0.0",
+        "pkgId": "EntityFramework@6.0.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Data.SQLite.EF6@1.0.108",
+        "pkgId": "System.Data.SQLite.EF6@1.0.108",
+        "deps": [
+          {
+            "nodeId": "EntityFramework@6.0.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Data.SQLite.Linq@1.0.108",
+        "pkgId": "System.Data.SQLite.Linq@1.0.108",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Data.SQLite@1.0.108",
+        "pkgId": "System.Data.SQLite@1.0.108",
+        "deps": [
+          {
+            "nodeId": "System.Data.SQLite.Core@1.0.108"
+          },
+          {
+            "nodeId": "System.Data.SQLite.EF6@1.0.108"
+          },
+          {
+            "nodeId": "System.Data.SQLite.Linq@1.0.108"
+          }
+        ]
+      },
+      {
+        "nodeId": "Microsoft.NETCore.Platforms@2.1.0",
+        "pkgId": "Microsoft.NETCore.Platforms@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "Microsoft.NETCore.Targets@2.1.0",
+        "pkgId": "Microsoft.NETCore.Targets@2.1.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Globalization@4.3.0",
+        "pkgId": "System.Globalization@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.IO@4.3.0",
+        "pkgId": "System.IO@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Reflection@4.3.0",
+        "pkgId": "System.Reflection@4.3.0",
+        "deps": [
+          {
+            "nodeId": "System.Reflection.Primitives@4.3.0"
+          }
+        ]
+      },
+      {
+        "nodeId": "System.Runtime@4.3.0",
+        "pkgId": "System.Runtime@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Text.Encoding@4.3.0",
+        "pkgId": "System.Text.Encoding@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "System.Threading.Tasks@4.3.0",
+        "pkgId": "System.Threading.Tasks@4.3.0",
+        "deps": []
+      },
+      {
+        "nodeId": "freqSystemDependencies@0.0.0",
+        "pkgId": "freqSystemDependencies@0.0.0",
+        "deps": [
+          {
+            "nodeId": "Microsoft.NETCore.Platforms@2.1.0"
+          },
+          {
+            "nodeId": "Microsoft.NETCore.Targets@2.1.0"
+          },
+          {
+            "nodeId": "System.Globalization@4.3.0"
+          },
+          {
+            "nodeId": "System.IO@4.3.0"
+          },
+          {
+            "nodeId": "System.Reflection@4.3.0"
+          },
+          {
+            "nodeId": "System.Runtime@4.3.0"
+          },
+          {
+            "nodeId": "System.Text.Encoding@4.3.0"
+          },
+          {
+            "nodeId": "System.Threading.Tasks@4.3.0"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -14,7 +14,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     },
     {
       description: 'parse netstandard 2.1',
-      projectPath: './test/fixtures/dotnetcore/netstandard_21',
+      projectPath: './test/fixtures/dotnetcore/netstandard21',
     },
   ])(
     'should succeed given a project file and an expected graph for test: $description',
@@ -101,7 +101,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     {
       description: 'net472 - with package.assets.json',
       projectPath: './test/fixtures/target-framework/no-dependencies',
-      manifestFile: 'obj/project.assets.json',
+      manifestFile: 'project.assets.json',
     },
     {
       description: 'net461 - no package.assets.json',
