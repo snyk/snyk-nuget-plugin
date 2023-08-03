@@ -127,7 +127,7 @@ describe('when parsing packages.config', () => {
   it.each([
     {
       projectPath: 'test/fixtures/target-framework/no-csproj',
-      manifestFile: 'project.assets.json',
+      manifestFile: 'obj/project.assets.json',
       defaultName: 'no-csproj',
     },
     {
