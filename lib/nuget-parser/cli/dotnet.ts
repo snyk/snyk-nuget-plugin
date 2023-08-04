@@ -1,23 +1,19 @@
-import * as util from 'util';
 import * as debugModule from 'debug';
-import * as childProcess from 'child_process';
 import { CliCommandError } from '../../errors';
 import * as path from 'path';
+import * as subprocess from './subprocess';
 
 const debug = debugModule('snyk');
 
-const exec = util.promisify(childProcess.exec);
-
-interface ExecResult {
-  stdout: string;
-  stderr: string;
-}
-
-async function handle(operation: string, command: string): Promise<ExecResult> {
+async function handle(
+  operation: string,
+  command: string,
+  args: string[],
+): Promise<subprocess.ExecResult> {
   debug(`running dotnet command: ${operation}: ${command}`);
 
   try {
-    return await exec(command);
+    return await subprocess.execute(command, args);
   } catch (error: unknown) {
     if (
       !(
@@ -40,10 +36,11 @@ async function handle(operation: string, command: string): Promise<ExecResult> {
 }
 
 export async function validate() {
-  const command = 'dotnet --version';
+  const command = 'dotnet';
+  const args = ['--version'];
 
   try {
-    await handle('version', command);
+    await handle('version', command, args);
   } catch (error: unknown) {
     debug('dotnet tool not found, did you install dotnet core?');
     throw error;
@@ -51,20 +48,22 @@ export async function validate() {
 }
 
 export async function restore(projectPath: string): Promise<void> {
-  const command = `dotnet restore --no-cache ${projectPath}`;
-  await handle('restore', command);
+  const command = 'dotnet';
+  const args = ['restore', '--no-cache', projectPath];
+  await handle('restore', command, args);
   return;
 }
 
 export async function publish(projectPath: string): Promise<string> {
-  let command = 'dotnet publish --nologo ';
+  const command = 'dotnet';
+  const args = ['publish', '--nologo'];
   // Self-contained: Create all required .dlls for version investigation, don't rely on the environment.
-  command += '--sc ';
+  args.push('--sc');
   // The path that contains either some form of project file, or a .sln one.
   // See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#arguments
-  command += projectPath;
+  args.push(projectPath);
 
-  const response = await handle('publish', command);
+  const response = await handle('publish', command, args);
 
   // The default output folder is [project_file_folder]/bin/[configuration]/[framework]/[runtime]/publish/
   // for a self-contained executable. Specifically determining an output folder with --output is deprecated,
