@@ -2,6 +2,7 @@
   "name": "snyk-nuget-plugin",
   "description": "Snyk CLI NuGet plugin",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "jest --coverage --runInBand",
@@ -13,7 +14,6 @@
     "build:watch": "tsc -w",
     "prepare": "npm run build"
   },
-  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/snyk/snyk-nuget-plugin.git"
