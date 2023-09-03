@@ -78,9 +78,8 @@ export async function buildDepGraphFromFiles(
   const fileContentPath = path.resolve(safeRoot, safeTargetFile);
   const fileContent = getFileContents(fileContentPath);
   const projectRootFolder = path.resolve(fileContentPath, '../../');
-  const targetFramework = await csProjParser.getTargetFrameworksFromProjFile(
-    projectRootFolder,
-  );
+  const targetFramework =
+    await csProjParser.getTargetFrameworksFromProjFile(projectRootFolder);
 
   if (!targetFramework) {
     throw new FileNotProcessableError(
@@ -123,7 +122,10 @@ export async function buildDepGraphFromFiles(
     await dotnet.validate();
 
     // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
-    const publishDir = await dotnet.publish(projectRootFolder);
+    const publishDir = await dotnet.publish(
+      projectRootFolder,
+      targetFramework.original,
+    );
     // Then inspect the dependency graph for the runtimepackage's assembly versions.
     const depsFile = path.resolve(
       publishDir,
@@ -172,9 +174,8 @@ export async function buildDepTreeFromFiles(
   let targetFramework: TargetFramework | undefined;
   try {
     if (manifestType === ManifestType.DOTNET_CORE) {
-      targetFramework = await csProjParser.getTargetFrameworksFromProjFile(
-        projectRootFolder,
-      );
+      targetFramework =
+        await csProjParser.getTargetFrameworksFromProjFile(projectRootFolder);
     } else {
       // .csproj is in the same directory as packages.config or project.json
       const fileContentParentDirectory = path.resolve(fileContentPath, '../');

@@ -54,11 +54,21 @@ export async function restore(projectPath: string): Promise<void> {
   return;
 }
 
-export async function publish(projectPath: string): Promise<string> {
+export async function publish(
+  projectPath: string,
+  targetFramework?: string,
+): Promise<string> {
   const command = 'dotnet';
   const args = ['publish', '--nologo'];
   // Self-contained: Create all required .dlls for version investigation, don't rely on the environment.
   args.push('--sc');
+
+  // If your .csproj file contains multiple <TargetFramework> references, you need to supply which one you want to publish.
+  if (targetFramework) {
+    args.push('--framework');
+    args.push(targetFramework);
+  }
+
   // The path that contains either some form of project file, or a .sln one.
   // See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#arguments
   args.push(projectPath);

@@ -176,9 +176,8 @@ describe('when calling getMinimumTargetFramework', () => {
 <package id="jQuery" version="3.2.1" />
 </packages>`,
   ])('should NOT throw', async (content) => {
-    const result = await packagesConfigParser.getMinimumTargetFramework(
-      content,
-    );
+    const result =
+      await packagesConfigParser.getMinimumTargetFramework(content);
     await expect(result).toBeUndefined();
   });
 });

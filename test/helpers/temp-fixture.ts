@@ -24,16 +24,18 @@ export function setup(files: File[]): string {
   return tempDir;
 }
 
-export function tearDown(dir: string) {
-  if (!dir) {
-    // No tempDir to tear down. Assuming the test failed somewhere.
-    // Jest won't throw an error anyway if the operation fails.
-    return;
-  }
+export function tearDown(dirs: string[]) {
+  for (const dir of dirs) {
+    if (!dir) {
+      // No tempDir to tear down. Assuming the test failed somewhere.
+      // Jest won't throw an error anyway if the operation fails.
+      return;
+    }
 
-  try {
-    fs.rmSync(dir, { recursive: true });
-  } catch (error: unknown) {
-    // Ignore it, test was tearing down anyway, and it seems Windows boxes especially don't like this.
+    try {
+      fs.rmSync(dir, { recursive: true });
+    } catch (error: unknown) {
+      // Ignore it, test was tearing down anyway, and it seems Windows boxes especially don't like this.
+    }
   }
 }
