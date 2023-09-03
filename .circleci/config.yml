@@ -151,7 +151,7 @@ workflows:
   test_and_release:
     jobs:
       - prodsec/secrets-scan:
-          name: Scan repository for secrets
+          name: scan-repo
           context:
             - snyk-bot-slack
           channel: os-team-managed-alerts
@@ -238,6 +238,8 @@ workflows:
           name: Release
           context: nodejs-app-release
           node_version: 'lts'
+          requires:
+            - scan-repo
           filters:
             branches:
               only:
