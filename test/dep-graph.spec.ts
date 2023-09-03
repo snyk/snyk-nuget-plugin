@@ -6,6 +6,8 @@ import * as tempFixture from './helpers/temp-fixture';
 import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 
 describe('when generating a dependency graph', () => {
+  const projectDirs: Record<string, string> = {};
+
   let tempDir: string;
   beforeEach(async () => {
     const fixtures: tempFixture.File[] = [
@@ -43,7 +45,7 @@ class TestFixture {
   });
 
   afterEach(() => {
-    tempFixture.tearDown(tempDir);
+    tempFixture.tearDown(Object.values(projectDirs));
   });
 
   it('generates a correct dependency graph compared to the existing depTree logic', async () => {

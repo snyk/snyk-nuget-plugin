@@ -130,7 +130,7 @@ describe('when parsing runtime assembly', () => {
       expect(runtimeAssemblies).toMatchObject(expected);
 
       // Try your best to clean up. Avoiding the `afterEach` to not have too many global variables.
-      tempFixture.tearDown(tempDir);
+      tempFixture.tearDown([tempDir]);
     },
   );
 });
