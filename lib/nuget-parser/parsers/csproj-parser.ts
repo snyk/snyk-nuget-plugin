@@ -43,18 +43,21 @@ export function getTargetFrameworksFromProjFile(
       throw new FileNotProcessableError(err);
     }
 
-    const parsedTargetFrameworks: string[] = [];
-    const propertyGroups = parsedCsprojContents?.Project?.PropertyGroup || [];
-    for (const propertyGroup of propertyGroups) {
-      const targetFrameworkSource =
-        propertyGroup?.TargetFrameworkVersion?.[0] ||
-        propertyGroup?.TargetFramework?.[0] ||
-        propertyGroup?.TargetFrameworks?.[0] ||
-        '';
+    const parsedTargetFrameworks =
+      parsedCsprojContents?.Project?.PropertyGroup?.reduce(
+        (targetFrameworks, propertyGroup) => {
+          const targetFrameworkSource =
+            propertyGroup?.TargetFrameworkVersion?.[0] ||
+            propertyGroup?.TargetFramework?.[0] ||
+            propertyGroup?.TargetFrameworks?.[0] ||
+            '';
 
-      const frameworks = targetFrameworkSource.split(';').filter(Boolean);
-      parsedTargetFrameworks.push(...frameworks);
-    }
+          return targetFrameworks
+            .concat(targetFrameworkSource.split(';'))
+            .filter(Boolean);
+        },
+        [],
+      ) || [];
 
     if (parsedTargetFrameworks.length < 1) {
       debug(
