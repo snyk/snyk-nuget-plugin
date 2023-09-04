@@ -209,7 +209,7 @@ function validateManifest(manifest) {
   }
 }
 
-export async function parse(tree, manifest) {
+export function parse(tree, manifest) {
   debug('Trying to parse dot-net-cli manifest');
 
   validateManifest(manifest);

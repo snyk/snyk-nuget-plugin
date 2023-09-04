@@ -8,7 +8,7 @@ describe('parse .csproj', () => {
       const targetFrameworkInNonFirstPropertyGroup =
         './test/fixtures/target-framework/target-framework-version-in-non-first-property-group';
 
-      const targetFramework = await getTargetFrameworksFromProjFile(
+      const targetFramework = getTargetFrameworksFromProjFile(
         targetFrameworkInNonFirstPropertyGroup,
       );
 
@@ -23,7 +23,7 @@ describe('parse .csproj', () => {
       const multipleTargetFrameworksPath =
         './test/fixtures/target-framework/csproj-multiple';
 
-      const targetFramework = await getTargetFrameworksFromProjFile(
+      const targetFramework = getTargetFrameworksFromProjFile(
         multipleTargetFrameworksPath,
       );
 
@@ -38,7 +38,7 @@ describe('parse .csproj', () => {
       const noTargetFrameworksPath =
         './test/fixtures/target-framework/no-target-framework';
 
-      const targetFramework = await getTargetFrameworksFromProjFile(
+      const targetFramework = getTargetFrameworksFromProjFile(
         noTargetFrameworksPath,
       );
 
@@ -49,7 +49,7 @@ describe('parse .csproj', () => {
       const noTargetFrameworksPath2 =
         './test/fixtures/target-framework/no-target-framework2';
 
-      const targetFramework = await getTargetFrameworksFromProjFile(
+      const targetFramework = getTargetFrameworksFromProjFile(
         noTargetFrameworksPath2,
       );
 

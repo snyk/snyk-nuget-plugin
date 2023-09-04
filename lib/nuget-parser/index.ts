@@ -79,7 +79,7 @@ export async function buildDepGraphFromFiles(
   const fileContent = getFileContents(fileContentPath);
   const projectRootFolder = path.resolve(fileContentPath, '../../');
   const targetFramework =
-    await csProjParser.getTargetFrameworksFromProjFile(projectRootFolder);
+    csProjParser.getTargetFrameworksFromProjFile(projectRootFolder);
 
   if (!targetFramework) {
     throw new FileNotProcessableError(
@@ -175,11 +175,11 @@ export async function buildDepTreeFromFiles(
   try {
     if (manifestType === ManifestType.DOTNET_CORE) {
       targetFramework =
-        await csProjParser.getTargetFrameworksFromProjFile(projectRootFolder);
+        csProjParser.getTargetFrameworksFromProjFile(projectRootFolder);
     } else {
       // .csproj is in the same directory as packages.config or project.json
       const fileContentParentDirectory = path.resolve(fileContentPath, '../');
-      targetFramework = await csProjParser.getTargetFrameworksFromProjFile(
+      targetFramework = csProjParser.getTargetFrameworksFromProjFile(
         fileContentParentDirectory,
       );
 
