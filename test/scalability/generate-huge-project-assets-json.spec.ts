@@ -23,7 +23,7 @@ function createDepTreeRecursive(rootDepName, targetsObject, remainingLevels) {
 }
 
 describe('parse large dependency tree', () => {
-  it('should parse tree when there is large dependencies tree', async () => {
+  it('should parse tree when there is large dependencies tree', () => {
     const tree = {
       dependencies: {},
       meta: {},
