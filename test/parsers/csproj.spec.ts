@@ -4,56 +4,49 @@ import * as plugin from '../../lib';
 
 describe('parse .csproj', () => {
   describe('getTargetFrameworksFromProjFile', () => {
-    it('should parse target framework version even if it is in property group that is not first', async () => {
-      const targetFrameworkInNonFirstPropertyGroup =
-        './test/fixtures/target-framework/target-framework-version-in-non-first-property-group';
-
-      const targetFramework = getTargetFrameworksFromProjFile(
-        targetFrameworkInNonFirstPropertyGroup,
-      );
-
-      expect(targetFramework).toMatchObject({
-        framework: '.NETFramework',
-        original: 'v4.7.2',
-        version: '4.7.2',
-      });
-    });
-
-    it('should return first target framework if multiple target frameworks are available', async () => {
-      const multipleTargetFrameworksPath =
-        './test/fixtures/target-framework/csproj-multiple';
-
-      const targetFramework = getTargetFrameworksFromProjFile(
-        multipleTargetFrameworksPath,
-      );
-
-      expect(targetFramework).toMatchObject({
-        framework: '.NETCore',
-        original: 'netcoreapp2.0',
-        version: '2.0',
-      });
-    });
-
-    it('should not crash if target framework is not available in project file', async () => {
-      const noTargetFrameworksPath =
-        './test/fixtures/target-framework/no-target-framework';
-
-      const targetFramework = getTargetFrameworksFromProjFile(
-        noTargetFrameworksPath,
-      );
-
-      expect(targetFramework).toBeUndefined();
-    });
-
-    it('should not crash if target framework is not available in project file when property group exists', async () => {
-      const noTargetFrameworksPath2 =
-        './test/fixtures/target-framework/no-target-framework2';
-
-      const targetFramework = getTargetFrameworksFromProjFile(
-        noTargetFrameworksPath2,
-      );
-
-      expect(targetFramework).toBeUndefined();
+    it.each([
+      {
+        description: 'it is in property group that is not first',
+        fixture:
+          './test/fixtures/target-framework/target-framework-version-in-non-first-property-group',
+        expected: [
+          {
+            framework: '.NETFramework',
+            original: 'v4.7.2',
+            version: '4.7.2',
+          },
+        ],
+      },
+      {
+        description: 'multiple target frameworks are available',
+        fixture: './test/fixtures/target-framework/csproj-multiple',
+        expected: [
+          {
+            framework: '.NETCore',
+            original: 'netcoreapp2.0',
+            version: '2.0',
+          },
+          {
+            framework: '.NETFramework',
+            original: 'net462',
+            version: '462',
+          },
+        ],
+      },
+      {
+        description: 'target framework is not available in project file',
+        fixture: './test/fixtures/target-framework/no-target-framework',
+        expected: [],
+      },
+      {
+        description:
+          'target framework is not available in project file when property group exists',
+        fixture: './test/fixtures/target-framework/no-target-framework2',
+        expected: [],
+      },
+    ])('should parse if $description', ({ fixture, expected }) => {
+      const targetFrameworks = getTargetFrameworksFromProjFile(fixture);
+      expect(targetFrameworks).toMatchObject(expected);
     });
   });
 
