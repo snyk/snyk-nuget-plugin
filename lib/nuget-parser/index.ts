@@ -78,10 +78,10 @@ export async function buildDepGraphFromFiles(
   const fileContentPath = path.resolve(safeRoot, safeTargetFile);
   const fileContent = getFileContents(fileContentPath);
   const projectRootFolder = path.resolve(fileContentPath, '../../');
-  const targetFramework =
-    await csProjParser.getTargetFrameworksFromProjFile(projectRootFolder);
+  const targetFrameworks =
+    csProjParser.getTargetFrameworksFromProjFile(projectRootFolder);
 
-  if (!targetFramework) {
+  if (targetFrameworks.length <= 0) {
     throw new FileNotProcessableError(
       `unable to detect a target framework in ${projectRootFolder}, a valid one is needed to continue down this path.`,
     );
@@ -109,6 +109,9 @@ export async function buildDepGraphFromFiles(
       );
     }
   }
+
+  // TODO: OSM-347 - use more than just the first one we find
+  const targetFramework = targetFrameworks[0];
 
   let assemblyVersions: AssemblyVersions = {};
   if (useRuntimeDependencies) {
@@ -171,24 +174,27 @@ export async function buildDepTreeFromFiles(
     version: '0.0.0',
   };
 
-  let targetFramework: TargetFramework | undefined;
+  let targetFrameworks: TargetFramework[];
   try {
     if (manifestType === ManifestType.DOTNET_CORE) {
-      targetFramework =
-        await csProjParser.getTargetFrameworksFromProjFile(projectRootFolder);
+      targetFrameworks =
+        csProjParser.getTargetFrameworksFromProjFile(projectRootFolder);
     } else {
       // .csproj is in the same directory as packages.config or project.json
       const fileContentParentDirectory = path.resolve(fileContentPath, '../');
-      targetFramework = await csProjParser.getTargetFrameworksFromProjFile(
+      targetFrameworks = csProjParser.getTargetFrameworksFromProjFile(
         fileContentParentDirectory,
       );
 
       // finally, for the .NETFramework project, try to assume the framework using dotnet-deps-parser
-      if (!targetFramework) {
+      if (targetFrameworks.length <= 0) {
         // currently only process packages.config files
         if (manifestType === ManifestType.PACKAGES_CONFIG) {
-          targetFramework =
+          const minimumTargetFramework =
             await packagesConfigParser.getMinimumTargetFramework(fileContent);
+          if (minimumTargetFramework) {
+            targetFrameworks = [minimumTargetFramework];
+          }
         }
       }
     }
@@ -196,8 +202,11 @@ export async function buildDepTreeFromFiles(
     return Promise.reject(error);
   }
 
+  // TODO: OSM-347 - use more than just the first one we find
+  const targetFramework =
+    targetFrameworks.length > 0 ? targetFrameworks[0].original : undefined;
   tree.meta = {
-    targetFramework: targetFramework ? targetFramework.original : undefined, // TODO implement for more than one TF
+    targetFramework: targetFramework,
   };
 
   const parser = PARSERS[manifestType];

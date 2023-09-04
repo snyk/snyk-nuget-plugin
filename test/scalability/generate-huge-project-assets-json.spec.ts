@@ -23,7 +23,7 @@ function createDepTreeRecursive(rootDepName, targetsObject, remainingLevels) {
 }
 
 describe('parse large dependency tree', () => {
-  it('should parse tree when there is large dependencies tree', async () => {
+  it('should parse tree when there is large dependencies tree', () => {
     const tree = {
       dependencies: {},
       meta: {},
@@ -229,7 +229,7 @@ describe('parse large dependency tree', () => {
       createDepTreeRecursive(`${key}/1.0.0`, manifest.targets, remainingLevel);
     });
 
-    const result = await parse(tree, manifest);
+    const result = parse(tree, manifest);
 
     expect(Object.keys(result.dependencies.jquery.dependencies).length).toBe(
       rootDepNum,
