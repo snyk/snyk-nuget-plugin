@@ -103,6 +103,7 @@ with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new
       options['assets-project-name'],
       useRuntimeDependencies,
       options['project-name-prefix'],
+      options['target-framework'],
     );
     return {
       dependencyGraph: result.dependencyGraph,

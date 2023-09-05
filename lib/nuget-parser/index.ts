@@ -69,6 +69,7 @@ export async function buildDepGraphFromFiles(
   useProjectNameFromAssetsFile: boolean,
   useRuntimeDependencies: boolean,
   projectNamePrefix?: string,
+  targetFramework?: string,
 ): Promise<{
   dependencyGraph: depGraphLib.DepGraph;
   targetFramework: string | undefined;
@@ -78,13 +79,25 @@ export async function buildDepGraphFromFiles(
   const fileContentPath = path.resolve(safeRoot, safeTargetFile);
   const fileContent = getFileContents(fileContentPath);
   const projectRootFolder = path.resolve(fileContentPath, '../../');
-  const targetFrameworks =
-    csProjParser.getTargetFrameworksFromProjFile(projectRootFolder);
+  const targetFrameworks = csProjParser
+    .getTargetFrameworksFromProjFile(projectRootFolder)
+    // The rest of the type is not needed in this context
+    .map((tf) => tf.original);
 
   if (targetFrameworks.length <= 0) {
     throw new FileNotProcessableError(
       `unable to detect a target framework in ${projectRootFolder}, a valid one is needed to continue down this path.`,
     );
+  }
+
+  if (targetFramework && !targetFrameworks.includes(targetFramework)) {
+    console.log(`
+\x1b[33m⚠ WARNING\x1b[0m: Supplied targetframework \x1b[4m${targetFramework}\x1b[0m was not detected in the supplied 
+manifest file. Available targetFrameworks detected was \x1b[4m${targetFrameworks.join(
+      ',',
+    )}\x1b[0m. 
+Will attempt to build dependency graph anyway, but the operation might fail.
+`);
   }
 
   const parser = PARSERS['dotnet-core-v2'];
@@ -110,14 +123,23 @@ export async function buildDepGraphFromFiles(
     }
   }
 
-  // TODO: OSM-347 - use more than just the first one we find
-  const targetFramework = targetFrameworks[0];
+  // TODO: OSM-347 - return vulnerability scans for all
+  let decidedTargetFramework: string;
+  if (!targetFramework) {
+    console.log(`
+    No targetFramework supplied, defaulting to using the first in the list of the manifest (\x1b[4m${targetFrameworks[0]}\x1b[0m).
+    Supply a targetFramework by using the \x1b[4m--target-framework\x1b[0m argument. 
+    `);
+    decidedTargetFramework = targetFrameworks[0];
+  } else {
+    decidedTargetFramework = targetFramework;
+  }
 
   let assemblyVersions: AssemblyVersions = {};
   if (useRuntimeDependencies) {
-    if (!runtimeAssembly.isSupported(targetFramework)) {
+    if (!runtimeAssembly.isSupported(decidedTargetFramework)) {
       throw new FileNotProcessableError(
-        `runtime resolution flag is currently only supported for: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied versions was parsed as: ${targetFramework?.framework}.`,
+        `runtime resolution flag is currently only supported for: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied versions was parsed as: ${decidedTargetFramework}.`,
       );
     }
 
@@ -127,7 +149,7 @@ export async function buildDepGraphFromFiles(
     // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
     const publishDir = await dotnet.publish(
       projectRootFolder,
-      targetFramework.original,
+      decidedTargetFramework,
     );
     // Then inspect the dependency graph for the runtimepackage's assembly versions.
     const depsFile = path.resolve(
@@ -144,7 +166,7 @@ export async function buildDepGraphFromFiles(
   );
   return {
     dependencyGraph: depGraph,
-    targetFramework: targetFramework?.original,
+    targetFramework: decidedTargetFramework,
   };
 }
 
