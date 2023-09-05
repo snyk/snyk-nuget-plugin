@@ -2,7 +2,11 @@ import * as nugetParser from './nuget-parser';
 import * as path from 'path';
 import * as paketParser from 'snyk-paket-parser';
 import { InspectResult, ManifestType } from './nuget-parser/types';
-import { FileNotProcessableError, InvalidTargetFile } from './errors';
+import {
+  CliCommandError,
+  FileNotProcessableError,
+  InvalidTargetFile,
+} from './errors';
 
 function determineManifestType(filename: string): ManifestType {
   switch (true) {
@@ -64,6 +68,14 @@ export async function inspect(
         options.strict,
       )
       .then(createPackageTree);
+  }
+
+  if (options['target-framework'] && !options['dotnet-runtime-resolution']) {
+    return Promise.reject(
+      new CliCommandError(
+        'target framework flag is currently only supported when also scanning with runtime resolution using the `--dotnet-runtime-resolution` flag',
+      ),
+    );
   }
 
   if (options['dotnet-runtime-resolution']) {
