@@ -3,7 +3,6 @@ import * as runtimeAssembly from '../lib/nuget-parser/runtime-assembly';
 import * as tempFixture from './helpers/temp-fixture';
 import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 import * as path from 'path';
-import { TargetFramework } from '../lib/nuget-parser/types';
 
 // Include some random C# code that will make `dotnet publish` happy.
 const program: tempFixture.File = {
@@ -23,49 +22,47 @@ class TestFixture {
 describe('when parsing runtime assembly', () => {
   it.each([
     {
-      targetFramework: {},
+      targetFramework: '',
       expected: false,
     },
     {
-      targetFramework: { original: 'foobar' },
+      targetFramework: 'foobar',
       expected: false,
     },
     // Windows Store
     {
-      targetFramework: { original: 'netcore45' },
+      targetFramework: 'netcore45',
       expected: false,
     },
     // .NET Standard
     {
-      targetFramework: { original: 'netstandard1.5' },
+      targetFramework: 'netstandard1.5',
       expected: true,
     },
     // .NET Core
     {
-      targetFramework: { original: 'netcoreapp3.1' },
+      targetFramework: 'netcoreapp3.1',
       expected: true,
     },
     // .NET >= 5
     {
-      targetFramework: { original: 'net7.0' },
+      targetFramework: 'net7.0',
       expected: true,
     },
     // .NET Framework < 5
     {
-      targetFramework: { original: 'net403' },
+      targetFramework: 'net403',
       expected: false,
     },
     // .NET Framework < 5
     {
-      targetFramework: { original: 'net48' },
+      targetFramework: 'net48',
       expected: false,
     },
   ])(
     'accepts or rejects specific target frameworks for runtime assembly parsing when targetFramework is: $targetFramework.original',
     ({ targetFramework, expected }) => {
-      expect(
-        runtimeAssembly.isSupported(targetFramework as TargetFramework),
-      ).toEqual(expected);
+      expect(runtimeAssembly.isSupported(targetFramework)).toEqual(expected);
     },
   );
 
