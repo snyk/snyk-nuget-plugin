@@ -91,13 +91,11 @@ export async function buildDepGraphFromFiles(
   }
 
   if (targetFramework && !targetFrameworks.includes(targetFramework)) {
-    console.log(`
-\x1b[33m⚠ WARNING\x1b[0m: Supplied targetframework \x1b[4m${targetFramework}\x1b[0m was not detected in the supplied 
-manifest file. Available targetFrameworks detected was \x1b[4m${targetFrameworks.join(
+    console.log(`\x1b[33m⚠ WARNING\x1b[0m: Supplied targetframework \x1b[1m${targetFramework}\x1b[0m was not detected in the supplied 
+manifest file. Available targetFrameworks detected was \x1b[1m${targetFrameworks.join(
       ',',
     )}\x1b[0m. 
-Will attempt to build dependency graph anyway, but the operation might fail.
-`);
+Will attempt to build dependency graph anyway, but the operation might fail.`);
   }
 
   const parser = PARSERS['dotnet-core-v2'];
@@ -126,10 +124,8 @@ Will attempt to build dependency graph anyway, but the operation might fail.
   // TODO: OSM-347 - return vulnerability scans for all
   let decidedTargetFramework: string;
   if (!targetFramework) {
-    console.log(`
-    No targetFramework supplied, defaulting to using the first in the list of the manifest (\x1b[4m${targetFrameworks[0]}\x1b[0m).
-    Supply a targetFramework by using the \x1b[4m--target-framework\x1b[0m argument. 
-    `);
+    console.log(`No targetFramework supplied, defaulting to using the first in the list of the manifest (\x1b[1m${targetFrameworks[0]}\x1b[0m).
+Supply a targetFramework by using the \x1b[1m--target-framework\x1b[0m argument.`);
     decidedTargetFramework = targetFrameworks[0];
   } else {
     decidedTargetFramework = targetFramework;
