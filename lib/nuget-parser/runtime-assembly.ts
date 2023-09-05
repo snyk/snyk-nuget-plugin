@@ -1,8 +1,4 @@
-import {
-  AssemblyVersions,
-  RuntimeAssemblyVersions,
-  TargetFramework,
-} from './types';
+import { AssemblyVersions, RuntimeAssemblyVersions } from './types';
 import * as errors from '../errors/';
 import * as fs from 'fs';
 import { isEmpty } from 'lodash';
@@ -25,13 +21,9 @@ interface Versions {
 // .json graphs, requiring a whole other parsing strategy to extract tne runtime dependencies.
 // For a list of version naming currently available, see
 // https://learn.microsoft.com/en-us/dotnet/standard/frameworks#supported-target-frameworks
-export function isSupported(targetFramework: TargetFramework): boolean {
-  if (!('original' in targetFramework)) {
-    return false;
-  }
-
+export function isSupported(targetFramework: string): boolean {
   // Everything that does not start with 'net' is already game over. E.g. Windows Phone (wp) or silverlight (sl) etc.
-  if (!targetFramework.original.startsWith('net')) {
+  if (!targetFramework.startsWith('net')) {
     return false;
   }
 
@@ -41,7 +33,7 @@ export function isSupported(targetFramework: TargetFramework): boolean {
   // - .NET Standard: netstandardN.N and
   // - .NET Framework: netNNN, all of which we support except the latter.
   // So if there's a dot, we're good.
-  if (targetFramework.original.includes('.')) {
+  if (targetFramework.includes('.')) {
     return true;
   }
 
