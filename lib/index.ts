@@ -2,7 +2,11 @@ import * as nugetParser from './nuget-parser';
 import * as path from 'path';
 import * as paketParser from 'snyk-paket-parser';
 import { InspectResult, ManifestType } from './nuget-parser/types';
-import { FileNotProcessableError, InvalidTargetFile } from './errors';
+import {
+  CliCommandError,
+  FileNotProcessableError,
+  InvalidTargetFile,
+} from './errors';
 
 function determineManifestType(filename: string): ManifestType {
   switch (true) {
@@ -66,6 +70,14 @@ export async function inspect(
       .then(createPackageTree);
   }
 
+  if (options['target-framework'] && !options['dotnet-runtime-resolution']) {
+    return Promise.reject(
+      new CliCommandError(
+        'target framework flag is currently only supported when also scanning with runtime resolution using the `--dotnet-runtime-resolution` flag',
+      ),
+    );
+  }
+
   if (options['dotnet-runtime-resolution']) {
     if (manifestType !== ManifestType.DOTNET_CORE) {
       return Promise.reject(
@@ -79,8 +91,7 @@ export async function inspect(
 \x1b[33m⚠ WARNING\x1b[0m: Testing a .NET project with runtime resolution enabled. 
 This should be considered experimental and not relied upon for production use.
 Please report issues with this beta feature by submitting a support ticket, and attach the output of running this command
-with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new\x1b[0m.
-`);
+with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new\x1b[0m.`);
 
     // TODO: Replaced by a CLI argument when project is stabilized
     const useRuntimeDependencies = true;
@@ -91,6 +102,7 @@ with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new
       options['assets-project-name'],
       useRuntimeDependencies,
       options['project-name-prefix'],
+      options['target-framework'],
     );
     return {
       dependencyGraph: result.dependencyGraph,
