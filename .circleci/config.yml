@@ -11,6 +11,13 @@ defaults: &defaults
       default: ''
   working_directory: ~/snyk-nuget-plugin
 
+
+matrix_unix_node_version: &matrix_unix_node_version
+  version: ['16.20', '18.16', '20.3']
+
+matrix_windows_node_version: &matrix_windows_node_version
+  version: ['16.20.0', '18.16.0', '20.3.1']
+
 windows_defaults: &windows_defaults
   environment:
     npm_config_loglevel: silent
@@ -160,78 +167,30 @@ workflows:
           name: Lint
           context: nodejs-install
           node_version: '16.20'
-          filters:
-            branches:
-              ignore:
-                - main
 
       # UNIX tests
       - test-unix:
-          name: Unix Tests for Node=16
+          matrix:
+            alias: test-unix
+            parameters:
+              <<: *matrix_unix_node_version
+          name: Unix Tests for Node
           context: nodejs-install
-          node_version: '16.20'
+          node_version: << matrix.version >>
           requires:
             - Lint
-          filters:
-            branches:
-              ignore:
-                - main
-
-      - test-unix:
-          name: Unix Tests for Node=18
-          context: nodejs-install
-          node_version: '18.16'
-          requires:
-            - Lint
-          filters:
-            branches:
-              ignore:
-                - main
-
-      - test-unix:
-          name: Unix Tests for Node=20
-          context: nodejs-install
-          node_version: '20.3'
-          requires:
-            - Lint
-          filters:
-            branches:
-              ignore:
-                - main
 
       # Windows tests
       - test-windows:
-          name: Windows Tests for Node=16
+          matrix:
+            alias: test-unix
+            parameters:
+              <<: *matrix_windoes_node_version
+          name: Windows Tests for Node
           context: nodejs-install
-          node_version: '16.20.0'
+          node_version: << matrix.version >>
           requires:
             - Lint
-          filters:
-            branches:
-              ignore:
-                - main
-
-      - test-windows:
-          name: Windows Tests for Node=18
-          context: nodejs-install
-          node_version: '18.16.0'
-          requires:
-            - Lint
-          filters:
-            branches:
-              ignore:
-                - main
-
-      - test-windows:
-          name: Windows Tests for Node=20
-          context: nodejs-install
-          node_version: '20.3.1'
-          requires:
-            - Lint
-          filters:
-            branches:
-              ignore:
-                - main
 
       # Release
       - release:
@@ -240,6 +199,8 @@ workflows:
           node_version: 'lts'
           requires:
             - scan-repo
+            - Unix Tests for Node
+            - Windows Tests for Node
           filters:
             branches:
               only:
