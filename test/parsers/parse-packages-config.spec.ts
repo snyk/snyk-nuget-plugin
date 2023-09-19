@@ -6,6 +6,7 @@ import * as dotNetFrameworkParser from '../../lib/nuget-parser/parsers/dotnet-fr
 import * as fs from 'fs';
 import * as path from 'path';
 import { InvalidFolderFormatError } from '../../lib/errors/invalid-folder-format-error';
+import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 
 const projectPath = './test/fixtures/packages-config/with-packages-dir';
 
@@ -20,6 +21,15 @@ describe('when calling plugin on projects containing packages.config', () => {
     const result = await plugin.inspect(appPath, manifestFile, {
       packagesFolder: projectPath + '/packages',
     });
+
+    if (pluginApi.isMultiResult(result)) {
+      throw new Error('should not get multi-results yet');
+    }
+
+    if (!result?.package?.dependencies) {
+      throw new Error('no valid depTree found in result');
+    }
+
     expect(result.package.dependencies.jQuery).toBeTruthy();
     expect(result.package.dependencies['Moment.js']).toBeFalsy();
     expect(result).toEqual(expected);
@@ -35,6 +45,15 @@ describe('when calling plugin on projects containing packages.config', () => {
     const result = await plugin.inspect(appPath, manifestFile, {
       packagesFolder: projectPath + '/packages',
     });
+
+    if (pluginApi.isMultiResult(result)) {
+      throw new Error('should not get multi-results yet');
+    }
+
+    if (!result?.package?.dependencies) {
+      throw new Error('no valid depTree found in result');
+    }
+
     expect(result.package.dependencies['Moment.js']).toBeTruthy();
     expect(result.package.dependencies.jQuery).toBeFalsy();
     expect(result).toEqual(expected);
@@ -47,12 +66,21 @@ describe('when calling plugin on projects containing packages.config', () => {
       fs.readFileSync(path.resolve(appPat, 'expected.json'), 'utf-8'),
     );
 
-    const res = await plugin.inspect(appPat, manifestFile, {
+    const result = await plugin.inspect(appPat, manifestFile, {
       packagesFolder: projectPath + '/packages',
     });
-    expect(res.package.dependencies.jQuery).toBeTruthy();
-    expect(res.package.dependencies.jQuery.version === '3.2.1').toBeTruthy();
-    expect(res).toEqual(expected);
+
+    if (pluginApi.isMultiResult(result)) {
+      throw new Error('should not get multi-results yet');
+    }
+
+    if (!result?.package?.dependencies) {
+      throw new Error('no valid depTree found in result');
+    }
+
+    expect(result.package.dependencies.jQuery).toBeTruthy();
+    expect(result.package.dependencies.jQuery.version === '3.2.1').toBeTruthy();
+    expect(result).toEqual(expected);
   });
 });
 
@@ -112,7 +140,7 @@ describe('when parsing packages.config', () => {
       plugin: {
         name: 'snyk-nuget-plugin',
         targetFile: 'packages.config',
-        targetRuntime: 'net45',
+        runtime: 'net45',
       },
     });
   });
@@ -139,14 +167,24 @@ describe('when parsing packages.config', () => {
     'should parse project with and without name prefix',
     async ({ projectPath, manifestFile, defaultName }) => {
       // With prefix
-      let res = await plugin.inspect(projectPath, manifestFile, {
+      let result = await plugin.inspect(projectPath, manifestFile, {
         'project-name-prefix': 'custom-prefix/',
       });
-      expect(res.package.name).toBe(`custom-prefix/${defaultName}`);
+
+      if (pluginApi.isMultiResult(result) || !result?.package) {
+        throw new Error('received invalid depTree');
+      }
+
+      expect(result.package.name).toBe(`custom-prefix/${defaultName}`);
 
       // Without
-      res = await plugin.inspect(projectPath, manifestFile, {});
-      expect(res.package.name).toBe(defaultName);
+      result = await plugin.inspect(projectPath, manifestFile, {});
+
+      if (pluginApi.isMultiResult(result) || !result?.package) {
+        throw new Error('received invalid depTree');
+      }
+
+      expect(result.package.name).toBe(defaultName);
     },
   );
 });

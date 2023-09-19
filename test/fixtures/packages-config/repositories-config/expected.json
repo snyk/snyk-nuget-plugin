@@ -19,6 +19,6 @@
   "plugin": {
     "name": "snyk-nuget-plugin",
     "targetFile": "packages.config",
-    "targetRuntime": "v4.6.1"
+    "runtime": "v4.6.1"
   }
 }

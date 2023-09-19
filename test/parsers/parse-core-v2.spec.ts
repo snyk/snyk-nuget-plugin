@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as plugin from '../../lib';
 import * as dotnet from '../../lib/nuget-parser/cli/dotnet';
+import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 
 describe('when generating depGraphs and runtime assemblies using the v2 parser', () => {
   it.each([
@@ -31,6 +32,10 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         'dotnet-runtime-resolution': true,
         'target-framework': targetFramework,
       });
+
+      if (pluginApi.isMultiResult(result)) {
+        throw new Error('received invalid depTree');
+      }
 
       const expectedGraph = JSON.parse(
         fs.readFileSync(
