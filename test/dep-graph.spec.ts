@@ -66,7 +66,7 @@ class TestFixture {
       tempDir,
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
-      false
+      false,
     );
     expect(withRuntimeDeps.dependencyGraph).toBeDefined();
 
