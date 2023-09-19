@@ -1,7 +1,8 @@
 import * as nugetParser from './nuget-parser';
 import * as path from 'path';
 import * as paketParser from 'snyk-paket-parser';
-import { InspectResult, ManifestType } from './nuget-parser/types';
+import { ManifestType } from './nuget-parser/types';
+import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 import {
   CliCommandError,
   FileNotProcessableError,
@@ -34,7 +35,7 @@ export async function inspect(
   root,
   targetFile,
   options?,
-): Promise<InspectResult> {
+): Promise<pluginApi.InspectResult> {
   options = options || {};
   let manifestType: ManifestType;
   try {
@@ -103,11 +104,10 @@ with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new
     );
     return {
       dependencyGraph: result.dependencyGraph,
-      package: 'n/a', // TODO: Will remove when everything is ported to depGraphs
       plugin: {
         name: 'snyk-nuget-plugin',
         targetFile,
-        targetRuntime: result.targetFramework,
+        runtime: result.targetFramework,
       },
     };
   }
