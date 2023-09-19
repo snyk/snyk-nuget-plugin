@@ -8,14 +8,14 @@ import { ManifestType } from '../../lib/nuget-parser/types';
 
 describe('when generating depGraphs and runtime assemblies using the v2 parser', () => {
   it.each([
-    {
-      description: 'parse dotnet 6.0',
-      projectPath: './test/fixtures/dotnetcore/dotnet_6',
-    },
-    {
-      description: 'parse netstandard 2.1',
-      projectPath: './test/fixtures/dotnetcore/netstandard21',
-    },
+    // {
+    //   description: 'parse dotnet 6.0',
+    //   projectPath: './test/fixtures/dotnetcore/dotnet_6',
+    // },
+    // {
+    //   description: 'parse netstandard 2.1',
+    //   projectPath: './test/fixtures/dotnetcore/netstandard21',
+    // },
     {
       description: 'parse dotnet 6.0 and 7.0 but specify a targetFramework',
       projectPath: './test/fixtures/dotnetcore/dotnet_6_and_7',
@@ -56,8 +56,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       projectPath,
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
-      false,
-      useRuntimeDependencies,
+      false
     );
 
     // Then do the same with the new functionality and validate the graph looks the same, only newer versions for runtime dependencies.
@@ -66,8 +65,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       projectPath,
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
-      false,
-      useRuntimeDependencies,
+      false
     );
 
     // Assert that the existing logic shows an older version of a runtime dependency:

@@ -28,7 +28,7 @@ function recursivelyPopulateNodes(
   depGraphBuilder: DepGraphBuilder,
   targetDeps: Record<string, DotnetPackage>,
   node: DotnetPackage,
-  runtimeAssembly?: AssemblyVersions,
+  runtimeAssembly: AssemblyVersions,
   visited?: Set<string>,
 ) {
   const parentId =
@@ -47,16 +47,14 @@ function recursivelyPopulateNodes(
 
     const childId = `${childNode.name}@${childNode.version}`;
 
-    // If we've supplied runtime assembly versions for self-contained dlls, overwrite the dependency version
+    // If we're looking at a  runtime assembly version for self-contained dlls, overwrite the dependency version
     // we've found in the graph with those from the runtime assembly, as they take precedence.
     let assemblyVersion = version;
-    if (runtimeAssembly) {
-      // The RuntimeAssembly type contains the name with a .dll suffix, as this is how .NET represents them in the
-      // dependency file. This must be stripped in order to match the elements during depGraph construction.
-      const dll = `${name}.dll`;
-      if (dll in runtimeAssembly) {
-        assemblyVersion = runtimeAssembly[dll];
-      }
+    // The RuntimeAssembly type contains the name with a .dll suffix, as this is how .NET represents them in the
+    // dependency file. This must be stripped in order to match the elements during depGraph construction.
+    const dll = `${name}.dll`;
+    if (dll in runtimeAssembly) {
+      assemblyVersion = runtimeAssembly[dll];
     }
 
     if (localVisited.has(childId)) {
@@ -92,7 +90,7 @@ function recursivelyPopulateNodes(
 function buildGraph(
   projectName: string,
   projectAssets: ProjectAssets,
-  runtimeAssembly?: AssemblyVersions,
+  runtimeAssembly: AssemblyVersions,
 ): depGraphLib.DepGraph {
   const depGraphBuilder = new DepGraphBuilder(
     { name: 'nuget' },
@@ -178,15 +176,10 @@ function buildGraph(
 export function parse(
   projectName: string,
   projectAssets: ProjectAssets,
-  runtimeAssembly?: AssemblyVersions,
+  runtimeAssembly: AssemblyVersions,
 ): depGraphLib.DepGraph {
   debug('Trying to parse .net core manifest with v2 depGraph builder');
 
-  let result;
-  if (!runtimeAssembly) {
-    result = buildGraph(projectName, projectAssets);
-  } else {
-    result = buildGraph(projectName, projectAssets, runtimeAssembly);
-  }
+  const result = buildGraph(projectName, projectAssets, runtimeAssembly);
   return result;
 }
