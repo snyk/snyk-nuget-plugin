@@ -84,6 +84,6 @@
   "plugin": {
     "name": "snyk-nuget-plugin",
     "targetFile": "obj/project.assets.json",
-    "targetRuntime": "netstandard2.1"
+    "runtime": "netstandard2.1"
   }
 }

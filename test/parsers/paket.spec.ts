@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import * as plugin from '../../lib';
+import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 
 const fixturesDir = './test/fixtures/paket';
 const simplePaket = fixturesDir + '/simple/';
@@ -42,15 +43,28 @@ const simplePaketDeps = {
 
 describe('when testing paket', () => {
   it('parse simple-paket project', async () => {
-    const tree = await plugin.inspect(simplePaket, 'paket.dependencies');
-    expect(tree.package.dependencies).toEqual(simplePaketDeps);
-    expect(tree.package.name).toBe('simple');
+    const result = await plugin.inspect(simplePaket, 'paket.dependencies');
+
+    if (pluginApi.isMultiResult(result) || !result?.package) {
+      throw new Error('received invalid depTree');
+    }
+
+    expect(result.package.dependencies).toEqual(simplePaketDeps);
+    expect(result.package.name).toBe('simple');
   });
 
   it('parse simple-paket project from upper dir', async () => {
-    const tree = await plugin.inspect(fixturesDir, 'simple/paket.dependencies');
-    expect(tree.package.dependencies).toEqual(simplePaketDeps);
-    expect(tree.package.name).toBe('simple');
+    const result = await plugin.inspect(
+      fixturesDir,
+      'simple/paket.dependencies',
+    );
+
+    if (pluginApi.isMultiResult(result) || !result?.package) {
+      throw new Error('received invalid depTree');
+    }
+
+    expect(result.package.dependencies).toEqual(simplePaketDeps);
+    expect(result.package.name).toBe('simple');
   });
 
   it('fail to parse paket with missing lock file project', async () => {

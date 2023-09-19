@@ -44,7 +44,7 @@ export async function inspect(
     return Promise.reject(error);
   }
 
-  const createPackageTree = (depTree) => {
+  const createPackageTree = (depTree): pluginApi.SinglePackageResult => {
     const targetFramework = depTree.meta
       ? depTree.meta.targetFramework
       : undefined;
@@ -54,7 +54,7 @@ export async function inspect(
       plugin: {
         name: 'snyk-nuget-plugin',
         targetFile,
-        targetRuntime: targetFramework,
+        runtime: targetFramework,
       },
     };
   };
