@@ -54,6 +54,16 @@ export async function restore(projectPath: string): Promise<void> {
   return;
 }
 
+export async function run(
+  projectPath: string,
+  options: string[],
+): Promise<string> {
+  const command = 'dotnet';
+  const args = ['run', '--project', projectPath].concat(options);
+  const response = await handle('run', command, args);
+  return response.stdout;
+}
+
 export async function publish(
   projectPath: string,
   targetFramework?: string,
