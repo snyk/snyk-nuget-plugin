@@ -8,7 +8,7 @@ import * as dotnetFrameworkParser from './parsers/dotnet-framework-parser';
 import * as projectJsonParser from './parsers/project-json-parser';
 import * as packagesConfigParser from './parsers/packages-config-parser';
 import { FileNotProcessableError } from '../errors';
-import { AssemblyVersions, ManifestType, TargetFramework } from './types';
+import { ManifestType, TargetFramework } from './types';
 import * as depGraphLib from '@snyk/dep-graph';
 import * as dotnet from './cli/dotnet';
 import * as runtimeAssembly from './runtime-assembly';
@@ -67,7 +67,6 @@ export async function buildDepGraphFromFiles(
   targetFile: string | undefined,
   manifestType: ManifestType,
   useProjectNameFromAssetsFile: boolean,
-  useRuntimeDependencies: boolean,
   projectNamePrefix?: string,
   targetFramework?: string,
 ): Promise<{
@@ -131,29 +130,26 @@ Supply a targetFramework by using the \x1b[1m--target-framework\x1b[0m argument.
     decidedTargetFramework = targetFramework;
   }
 
-  let assemblyVersions: AssemblyVersions = {};
-  if (useRuntimeDependencies) {
-    if (!runtimeAssembly.isSupported(decidedTargetFramework)) {
-      throw new FileNotProcessableError(
-        `runtime resolution flag is currently only supported for: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied versions was parsed as: ${decidedTargetFramework}.`,
-      );
-    }
-
-    // Ensure `dotnet` is installed on the system or fail trying.
-    await dotnet.validate();
-
-    // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
-    const publishDir = await dotnet.publish(
-      projectRootFolder,
-      decidedTargetFramework,
+  if (!runtimeAssembly.isSupported(decidedTargetFramework)) {
+    throw new FileNotProcessableError(
+      `runtime resolution flag is currently only supported for: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied versions was parsed as: ${decidedTargetFramework}.`,
     );
-    // Then inspect the dependency graph for the runtimepackage's assembly versions.
-    const depsFile = path.resolve(
-      publishDir,
-      `${projectNameFromManifestFile}.deps.json`,
-    );
-    assemblyVersions = runtimeAssembly.generateRuntimeAssemblies(depsFile);
   }
+
+  // Ensure `dotnet` is installed on the system or fail trying.
+  await dotnet.validate();
+
+  // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
+  const publishDir = await dotnet.publish(
+    projectRootFolder,
+    decidedTargetFramework,
+  );
+  // Then inspect the dependency graph for the runtimepackage's assembly versions.
+  const depsFile = path.resolve(
+    publishDir,
+    `${projectNameFromManifestFile}.deps.json`,
+  );
+  const assemblyVersions = runtimeAssembly.generateRuntimeAssemblies(depsFile);
 
   const depGraph = parser.depParser.parse(
     resolvedProjectName,
