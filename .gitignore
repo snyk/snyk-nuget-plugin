@@ -21,3 +21,7 @@ test/**/bin
 test/**/obj/**
 !test/**/obj/**/
 !*.assets.json
+
+# C# code
+lib/cs/**/bin*
+lib/cs/**/obj*

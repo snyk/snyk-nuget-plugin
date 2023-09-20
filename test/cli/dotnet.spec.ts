@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from '@jest/globals';
 import * as dotnet from '../../lib/nuget-parser/cli/dotnet';
 import * as tempFixture from '../helpers/temp-fixture';
 import * as fs from 'fs';
+import { TargetFrameworkInfo } from '../../lib/nuget-parser/types';
 
 describe('when running the dotnet cli command', () => {
   const projectDirs: Record<string, string> = {};
@@ -89,4 +90,26 @@ class TestFixture {
     const contents = fs.readdirSync(publishDir);
     expect(contents).toContain('dotnet_6_and_7.deps.json');
   });
+
+  it.each([
+    {
+      shortName: 'net6.0',
+      expected: '.NETCoreApp,Version=v6.0',
+    },
+    {
+      shortName: 'netcore451',
+      expected: '.NETCore,Version=v4.5.1',
+    },
+  ])(
+    'parses ShortName TFM to LongName using Nuget.Frameworks successfully',
+    async ({ shortName, expected }) => {
+      const response = await dotnet.run(
+        './lib/cs/NugetFrameworks/Parse/Parse.csproj',
+        [shortName],
+      );
+
+      const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
+      expect(targetFrameworkInfo.DotNetFrameworkName).toEqual(expected);
+    },
+  );
 });
