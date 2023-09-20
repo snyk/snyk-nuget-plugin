@@ -1,7 +1,7 @@
 import * as debugModule from 'debug';
 import * as depGraphLib from '@snyk/dep-graph';
 import { DepGraphBuilder } from '@snyk/dep-graph';
-import { AssemblyVersions, ProjectAssets } from '../types';
+import { AssemblyVersions, ProjectAssets, TargetFrameworkInfo } from '../types';
 import { FileNotProcessableError } from '../../errors';
 
 const debug = debugModule('snyk');
@@ -18,6 +18,42 @@ interface DotnetPackage {
 
 // Dependencies that starts with these are discarded
 const FILTERED_DEPENDENCY_PREFIX = ['runtime'];
+
+// The list of top level dependencies and transitive dependencies differ based on the target runtime we've defined.
+// In the generated dependency file created by the `dotnet` CLI, this is organized by the target framework moniker (TFM).
+// Unfortunately, Microsoft has changed the way it denominates their targets throughout the different versions,
+// see: https://learn.microsoft.com/en-us/nuget/reference/target-frameworks#supported-frameworks.
+// So the logic has to be unnecessarily complex, as we cannot just access the key in the target dictionary
+// for versions different from the newest ones of .NET 5+.
+// Even better, it changes between how it defines them inside project.frameworks and the root targets object interchangeably.
+function findTargetFrameworkMonikerInManifest(
+  targetFrameworkInfo: TargetFrameworkInfo,
+  frameworks: Record<string, any>,
+): string {
+  const shortName = targetFrameworkInfo.ShortName;
+  const longName = targetFrameworkInfo.DotNetFrameworkName;
+  const parsedFrameworks = Object.keys(frameworks);
+  debug(
+    `parsed the following frameworks in the manifest file: ${parsedFrameworks.join(
+      ',',
+    )}`,
+  );
+
+  // Try and find the "longName" (or DotNetFrameworkName) in the list of targets.
+  // The format is usually something like ".NETCoreApp,Version=v6.0". That seems to happen for older .NET target frameworks.
+  if (longName in frameworks) {
+    return longName;
+  }
+
+  // If that doesn't work, for newer versions of .NET core, they index the frameworks object by the 'shortname'.
+  if (shortName in frameworks) {
+    return shortName;
+  }
+
+  throw new FileNotProcessableError(
+    `unable to find the determined target framework (${targetFrameworkInfo.ShortName}) in any of the available target frameworks: ${parsedFrameworks}`,
+  );
+}
 
 function recursivelyPopulateNodes(
   depGraphBuilder: DepGraphBuilder,
@@ -86,6 +122,7 @@ function buildGraph(
   projectName: string,
   projectAssets: ProjectAssets,
   runtimeAssembly: AssemblyVersions,
+  targetFrameworkInfo: TargetFrameworkInfo,
 ): depGraphLib.DepGraph {
   const depGraphBuilder = new DepGraphBuilder(
     { name: 'nuget' },
@@ -101,9 +138,15 @@ function buildGraph(
     );
   }
 
-  const targetFramework = Object.keys(projectAssets.project.frameworks)[0]; // FIXME: Multiple frameworks
+  // Access all top-level dependencies from the right target point in the project.assets.json, or fail trying.
+  const directDepsMoniker = findTargetFrameworkMonikerInManifest(
+    targetFrameworkInfo,
+    projectAssets.project.frameworks,
+  );
+
+  // Those dependencies are referenced in the 'targets' member in the same assets file.
   const topLevelDeps = Object.keys(
-    projectAssets.project.frameworks[targetFramework].dependencies,
+    projectAssets.project.frameworks[directDepsMoniker].dependencies,
   );
 
   // The list of targets gets decorated differently depending on version of the TargetFramework, (.NET 5+ versions
@@ -114,11 +157,15 @@ function buildGraph(
     );
   }
 
-  // FIXME: As mentioned all over the place, we just access the first target framework we come across. There should be
-  //  at least one, regardless.
-  const targetFrameworkDependencies = Object.values(
+  // Further, they decorate them differently depending on where in the assets file it is.
+  // E.g., a direct dependency target moniker can be project -> frameworks -> 'netstandard2.0', while the
+  // transitive dependency line can be targets -> .NETStandard,Version=v2.1.
+  const transitiveDepsMoniker = findTargetFrameworkMonikerInManifest(
+    targetFrameworkInfo,
     projectAssets.targets,
-  )[0] as Record<string, DotnetPackage>;
+  );
+  const targetFrameworkDependencies: Record<string, DotnetPackage> =
+    projectAssets.targets[transitiveDepsMoniker];
 
   // Iterate over all the dependencies found in the target dependency list, and build the depGraph based off of that.
   const targetDeps: Record<string, DotnetPackage> = Object.entries(
@@ -172,9 +219,15 @@ export function parse(
   projectName: string,
   projectAssets: ProjectAssets,
   runtimeAssembly: AssemblyVersions,
+  targetFrameworkInfo: TargetFrameworkInfo,
 ): depGraphLib.DepGraph {
   debug('Trying to parse .net core manifest with v2 depGraph builder');
 
-  const result = buildGraph(projectName, projectAssets, runtimeAssembly);
+  const result = buildGraph(
+    projectName,
+    projectAssets,
+    runtimeAssembly,
+    targetFrameworkInfo,
+  );
   return result;
 }
