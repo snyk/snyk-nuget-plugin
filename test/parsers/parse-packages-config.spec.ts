@@ -140,7 +140,7 @@ describe('when parsing packages.config', () => {
       plugin: {
         name: 'snyk-nuget-plugin',
         targetFile: 'packages.config',
-        runtime: 'net45',
+        targetRuntime: 'net45',
       },
     });
   });

@@ -54,7 +54,7 @@ export async function inspect(
       plugin: {
         name: 'snyk-nuget-plugin',
         targetFile,
-        runtime: targetFramework,
+        targetRuntime: targetFramework,
       },
     };
   };
@@ -107,7 +107,7 @@ with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new
       plugin: {
         name: 'snyk-nuget-plugin',
         targetFile,
-        runtime: result.targetFramework,
+        targetRuntime: result.targetFramework,
       },
     };
   }

@@ -66,7 +66,7 @@ describe('when calling plugin.inspect with various configs', () => {
 
     expect(result.package.name).toBe('config-only');
     // expect the first found runtime to be returned by the plugin
-    expect(result.plugin.runtime).toBe('net452');
+    expect(result.plugin.targetRuntime).toBe('net452');
     expect(result.package.dependencies.jQuery).toBeTruthy();
     expect(result.package.dependencies['Moment.js']).toBeTruthy();
   });
@@ -86,7 +86,7 @@ describe('when calling plugin.inspect with various configs', () => {
 
     expect(result.package.name).toBe('net4');
     // expect the first found runtime to be returned by the plugin
-    expect(result.plugin.runtime).toBe('net4');
+    expect(result.plugin.targetRuntime).toBe('net4');
     expect(result.package.dependencies.jQuery).toBeTruthy();
     expect(result.package.dependencies.Unity).toBeTruthy();
   });

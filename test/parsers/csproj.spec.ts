@@ -69,7 +69,7 @@ describe('parse .csproj', () => {
       }
 
       expect(result.package.name).toBe('no-csproj');
-      expect(result.plugin.runtime).toBe('netcoreapp2.0');
+      expect(result.plugin.targetRuntime).toBe('netcoreapp2.0');
     });
 
     it('parse dotnet with no deps', async () => {
