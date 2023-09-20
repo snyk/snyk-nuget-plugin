@@ -100,6 +100,14 @@ class TestFixture {
       shortName: 'netcore451',
       expected: '.NETCore,Version=v4.5.1',
     },
+    {
+      shortName: 'wpa8101',
+      expected: 'WindowsPhoneApp,Version=v8.1.0.1',
+    },
+    {
+      shortName: 'klaatu barada nikto!!!',
+      expected: 'Unsupported,Version=v0.0',
+    },
   ])(
     'parses ShortName TFM to LongName using Nuget.Frameworks successfully',
     async ({ shortName, expected }) => {
@@ -109,6 +117,8 @@ class TestFixture {
       );
 
       const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
+
+      expect(targetFrameworkInfo.ShortName).toEqual(shortName);
       expect(targetFrameworkInfo.DotNetFrameworkName).toEqual(expected);
     },
   );
