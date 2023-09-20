@@ -1,6 +1,7 @@
 import { getTargetFrameworksFromProjFile } from '../../lib/nuget-parser/parsers/csproj-parser';
 import { describe, expect, it } from '@jest/globals';
 import * as plugin from '../../lib';
+import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 
 describe('parse .csproj', () => {
   describe('getTargetFrameworksFromProjFile', () => {
@@ -54,19 +55,33 @@ describe('parse .csproj', () => {
     it('parse dotnet with vbproj', async () => {
       const noProjectPath = './test/fixtures/target-framework/no-csproj/';
 
-      const res = await plugin.inspect(
+      const result = await plugin.inspect(
         noProjectPath,
         'obj/project.assets.json',
       );
-      expect(res.package.name).toBe('no-csproj');
-      expect(res.plugin.targetRuntime).toBe('netcoreapp2.0');
+
+      if (
+        pluginApi.isMultiResult(result) ||
+        !result?.package ||
+        !result?.plugin
+      ) {
+        throw new Error('received invalid depTree');
+      }
+
+      expect(result.package.name).toBe('no-csproj');
+      expect(result.plugin.targetRuntime).toBe('netcoreapp2.0');
     });
 
     it('parse dotnet with no deps', async () => {
       const noDeps = './test/fixtures/target-framework/no-dependencies/';
 
-      const res = await plugin.inspect(noDeps, 'obj/project.assets.json');
-      expect(Object.keys(res.package.dependencies).length).toBe(0);
+      const result = await plugin.inspect(noDeps, 'obj/project.assets.json');
+
+      if (pluginApi.isMultiResult(result) || !result?.package?.dependencies) {
+        throw new Error('received invalid depTree');
+      }
+
+      expect(Object.keys(result.package.dependencies).length).toBe(0);
     });
 
     it('parse dotnet with no valid framework defined', async () => {

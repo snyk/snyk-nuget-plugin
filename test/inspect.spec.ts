@@ -5,6 +5,7 @@ import * as path from 'path';
 import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 import * as depGraphLib from '@snyk/dep-graph';
 import * as depGraphLegacyLib from '@snyk/dep-graph/dist/legacy';
+import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 
 describe('when calling plugin.inspect with various configs', () => {
   it.each([
@@ -24,6 +25,9 @@ describe('when calling plugin.inspect with various configs', () => {
       const manifestFile = 'obj/project.assets.json';
 
       const result = await plugin.inspect(projectPath, manifestFile);
+      if (pluginApi.isMultiResult(result) || !result?.package?.dependencies) {
+        throw new Error('received invalid depTree');
+      }
 
       // We're working with legacy depTrees for backwards compatibility, but the fixture to compare with
       // will be over 30MB. So convert it to the much-tighter depGraph just for assertions.
@@ -51,30 +55,40 @@ describe('when calling plugin.inspect with various configs', () => {
       './test/fixtures/packages-config/config-only/';
     const packagesConfigOnlyManifestFile = 'packages.config';
 
-    const res = await plugin.inspect(
+    const result = await plugin.inspect(
       packagesConfigOnlyPath,
       packagesConfigOnlyManifestFile,
     );
-    expect(res.package.name).toBe('config-only');
-    // expect the first found targetRuntime to be returned by the plugin
-    expect(res.plugin.targetRuntime).toBe('net452');
-    expect(res.package.dependencies.jQuery).toBeTruthy();
-    expect(res.package.dependencies['Moment.js']).toBeTruthy();
+
+    if (pluginApi.isMultiResult(result) || !result?.package?.dependencies) {
+      throw new Error('received invalid depTree');
+    }
+
+    expect(result.package.name).toBe('config-only');
+    // expect the first found runtime to be returned by the plugin
+    expect(result.plugin.targetRuntime).toBe('net452');
+    expect(result.package.dependencies.jQuery).toBeTruthy();
+    expect(result.package.dependencies['Moment.js']).toBeTruthy();
   });
 
   it('should parse dotnet-cli project with packages.config containing net4 as target framework', async () => {
     const packageConfigWithNet4TFPath = './test/fixtures/packages-config/net4/';
     const packageConfigWithNet4TFManifestFile = 'packages.config';
 
-    const res = await plugin.inspect(
+    const result = await plugin.inspect(
       packageConfigWithNet4TFPath,
       packageConfigWithNet4TFManifestFile,
     );
-    expect(res.package.name).toBe('net4');
-    // expect the first found targetRuntime to be returned by the plugin
-    expect(res.plugin.targetRuntime).toBe('net4');
-    expect(res.package.dependencies.jQuery).toBeTruthy();
-    expect(res.package.dependencies.Unity).toBeTruthy();
+
+    if (pluginApi.isMultiResult(result) || !result?.package?.dependencies) {
+      throw new Error('received invalid depTree');
+    }
+
+    expect(result.package.name).toBe('net4');
+    // expect the first found runtime to be returned by the plugin
+    expect(result.plugin.targetRuntime).toBe('net4');
+    expect(result.package.dependencies.jQuery).toBeTruthy();
+    expect(result.package.dependencies.Unity).toBeTruthy();
   });
 
   it.each([
@@ -91,10 +105,14 @@ describe('when calling plugin.inspect with various configs', () => {
   ])(
     `inspect $projectPath with project-name-prefix option`,
     async ({ projectPath, manifestFile, defaultName }) => {
-      const res = await plugin.inspect(projectPath, manifestFile, {
+      const result = await plugin.inspect(projectPath, manifestFile, {
         'project-name-prefix': 'custom-prefix/',
       });
-      expect(res.package.name).toEqual(`custom-prefix/${defaultName}`);
+
+      if (pluginApi.isMultiResult(result) || !result?.package) {
+        throw new Error('received invalid depTree');
+      }
+      expect(result.package.name).toEqual(`custom-prefix/${defaultName}`);
     },
   );
 });
