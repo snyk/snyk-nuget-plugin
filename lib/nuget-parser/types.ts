@@ -6,6 +6,30 @@ export interface TargetFramework {
   version: string;
 }
 
+// The actual TargetFramework representation from Nuget.
+// Will going forward replace the `TargetFramework` model defined above, once all V1 logic has been phased out.
+export interface TargetFrameworkInfo {
+  Framework: string;
+  Version: string;
+  Platform: string;
+  PlatformVersion: string;
+  HasPlatform: boolean;
+  HasProfile: boolean;
+  Profile: string;
+  DotNetFrameworkName: string;
+  DotNetPlatformName: string;
+  IsPCL: boolean;
+  IsPackageBased: boolean;
+  AllFrameworkVersions: boolean;
+  IsUnsupported: boolean;
+  IsAgnostic: boolean;
+  IsAny: boolean;
+  IsSpecificFramework: boolean;
+  // Not a part of the actual API, but added for easy access when tossed around in the build graph logic
+  // See: https://github.com/NuGet/NuGet.Client/blob/08e07ea13985fb259b35b9ce90fd99339f0fdef2/src/NuGet.Core/NuGet.Frameworks/NuGetFramework.cs#L161
+  ShortName: string;
+}
+
 export interface Dependency {
   name: string;
   version: string;

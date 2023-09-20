@@ -9,10 +9,12 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     {
       description: 'parse dotnet 6.0',
       projectPath: './test/fixtures/dotnetcore/dotnet_6',
+      targetFramework: undefined,
     },
     {
       description: 'parse netstandard 2.1',
       projectPath: './test/fixtures/dotnetcore/netstandard21',
+      targetFramework: undefined,
     },
     {
       description: 'parse dotnet 6.0 and 7.0 but specify a targetFramework',
