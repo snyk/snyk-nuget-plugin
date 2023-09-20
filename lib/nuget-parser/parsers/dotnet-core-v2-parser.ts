@@ -2,7 +2,7 @@ import * as debugModule from 'debug';
 import * as depGraphLib from '@snyk/dep-graph';
 import { DepGraphBuilder } from '@snyk/dep-graph';
 import { AssemblyVersions, ProjectAssets, TargetFrameworkInfo } from '../types';
-import { FileNotProcessableError } from '../../errors';
+import { FileNotProcessableError, InvalidManifestError } from '../../errors';
 
 const debug = debugModule('snyk');
 
@@ -42,11 +42,13 @@ function findTargetFrameworkMonikerInManifest(
   // Try and find the "longName" (or DotNetFrameworkName) in the list of targets.
   // The format is usually something like ".NETCoreApp,Version=v6.0". That seems to happen for older .NET target frameworks.
   if (longName in frameworks) {
+    debug(`detected ${longName} in assets file, returning that`);
     return longName;
   }
 
   // If that doesn't work, for newer versions of .NET core, they index the frameworks object by the 'shortname'.
   if (shortName in frameworks) {
+    debug(`detected ${shortName} in assets file, returning that`);
     return shortName;
   }
 
@@ -133,8 +135,8 @@ function buildGraph(
   );
 
   if (Object.keys(projectAssets.project.frameworks).length <= 0) {
-    throw new FileNotProcessableError(
-      'no target frameworks found in assets file',
+    throw new InvalidManifestError(
+      'no target frameworks found in assets file (project.assets.json -> project -> frameworks -> []), cannot continue without that',
     );
   }
 
@@ -152,8 +154,8 @@ function buildGraph(
   // The list of targets gets decorated differently depending on version of the TargetFramework, (.NET 5+ versions
   // just have their key as the target (net6.0), but .NET Standard append a version, such as .NETStandard,Version=VN.N.N).
   if (Object.keys(projectAssets.targets).length <= 0) {
-    throw new FileNotProcessableError(
-      'no target dependencies in found in assets file',
+    throw new InvalidManifestError(
+      'no target dependencies in found in assets file (project.assets.json -> targets -> []), cannot continue without that',
     );
   }
 
@@ -190,8 +192,8 @@ function buildGraph(
       targetDep.startsWith(topLevelDepName),
     );
     if (!nameWithVersion) {
-      throw new Error(
-        "cant find a name and a version in assets file, something's very malformed",
+      throw new InvalidManifestError(
+        `cant find a name and a version in assets file, something's very malformed`,
       );
     }
 
