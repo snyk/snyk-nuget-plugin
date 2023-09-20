@@ -1,15 +1,10 @@
 import * as debugModule from 'debug';
 import * as depGraphLib from '@snyk/dep-graph';
 import { DepGraphBuilder } from '@snyk/dep-graph';
-import { AssemblyVersions } from '../types';
+import { AssemblyVersions, ProjectAssets } from '../types';
 import { FileNotProcessableError } from '../../errors';
 
 const debug = debugModule('snyk');
-
-interface ProjectAssets {
-  project: any;
-  targets: any;
-}
 
 interface DotnetPackage {
   type: string;
