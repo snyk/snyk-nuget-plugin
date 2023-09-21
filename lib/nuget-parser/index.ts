@@ -7,8 +7,13 @@ import * as dotnetCoreV2Parser from './parsers/dotnet-core-v2-parser';
 import * as dotnetFrameworkParser from './parsers/dotnet-framework-parser';
 import * as projectJsonParser from './parsers/project-json-parser';
 import * as packagesConfigParser from './parsers/packages-config-parser';
-import { FileNotProcessableError } from '../errors';
-import { ManifestType, TargetFramework } from './types';
+import { FileNotProcessableError, InvalidManifestError } from '../errors';
+import {
+  ManifestType,
+  ProjectAssets,
+  TargetFramework,
+  TargetFrameworkInfo,
+} from './types';
 import * as depGraphLib from '@snyk/dep-graph';
 import * as dotnet from './cli/dotnet';
 import * as runtimeAssembly from './runtime-assembly';
@@ -78,11 +83,18 @@ export async function buildDepGraphFromFiles(
   const fileContentPath = path.resolve(safeRoot, safeTargetFile);
   const fileContent = getFileContents(fileContentPath);
   const projectRootFolder = path.resolve(fileContentPath, '../../');
-  const targetFrameworks = csProjParser
-    .getTargetFrameworksFromProjFile(projectRootFolder)
-    // The rest of the type is not needed in this context
-    .map((tf) => tf.original);
 
+  const parser = PARSERS['dotnet-core-v2'];
+  const manifest: ProjectAssets =
+    await parser.fileContentParser.parse(fileContent);
+
+  if (!manifest.project?.frameworks) {
+    throw new FileNotProcessableError(
+      `unable to detect any target framework in manifest file ${safeTargetFile}, a valid one is needed to continue down this path.`,
+    );
+  }
+
+  const targetFrameworks = Object.keys(manifest.project.frameworks);
   if (targetFrameworks.length <= 0) {
     throw new FileNotProcessableError(
       `unable to detect a target framework in ${projectRootFolder}, a valid one is needed to continue down this path.`,
@@ -96,9 +108,6 @@ manifest file. Available targetFrameworks detected was \x1b[1m${targetFrameworks
     )}\x1b[0m. 
 Will attempt to build dependency graph anyway, but the operation might fail.`);
   }
-
-  const parser = PARSERS['dotnet-core-v2'];
-  const manifest = await parser.fileContentParser.parse(fileContent);
 
   let resolvedProjectName = getRootName(
     root,
@@ -151,10 +160,24 @@ Supply a targetFramework by using the \x1b[1m--target-framework\x1b[0m argument.
   );
   const assemblyVersions = runtimeAssembly.generateRuntimeAssemblies(depsFile);
 
+  // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
+  // we have maximum context to use later when building the depGraph.
+  const response = await dotnet.run(
+    path.resolve(__dirname, '../../lib/cs/NugetFrameworks/Parse/Parse.csproj'),
+    [decidedTargetFramework],
+  );
+  const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
+  if (targetFrameworkInfo.IsUnsupported) {
+    throw new InvalidManifestError(
+      `dotnet was not able to parse the target framework ${decidedTargetFramework}, it was reported unsupported by the dotnet runtime`,
+    );
+  }
+
   const depGraph = parser.depParser.parse(
     resolvedProjectName,
     manifest,
     assemblyVersions,
+    targetFrameworkInfo,
   );
   return {
     dependencyGraph: depGraph,
