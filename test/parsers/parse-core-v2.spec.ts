@@ -32,7 +32,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
 
       const result = await plugin.inspect(projectPath, manifestFile, {
         'dotnet-runtime-resolution': true,
-        'target-framework': targetFramework,
+        'dotnet-target-framework': targetFramework,
       });
 
       if (pluginApi.isMultiResult(result)) {
