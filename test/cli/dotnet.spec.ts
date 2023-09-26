@@ -3,6 +3,7 @@ import * as dotnet from '../../lib/nuget-parser/cli/dotnet';
 import * as codeGenerator from '../../lib/nuget-parser/csharp/generator';
 import * as fs from 'fs';
 import * as types from '../../lib/nuget-parser/types';
+import * as nugetFrameworksParser from '../../lib/nuget-parser/csharp/nugetframeworks_parser';
 
 describe('when running the dotnet cli command', () => {
   const projectDirs: Record<string, string> = {};
@@ -117,10 +118,9 @@ class TestFixture {
   ])(
     'parses ShortName TFM to LongName using Nuget.Frameworks successfully',
     async ({ shortName, expected }) => {
-      const response = await dotnet.run(
-        './lib/cs/NugetFrameworks/Parse/Parse.csproj',
-        [shortName],
-      );
+      const location = nugetFrameworksParser.generate();
+      await dotnet.restore(location);
+      const response = await dotnet.run(location, [shortName]);
 
       const targetFrameworkInfo: types.TargetFrameworkInfo =
         JSON.parse(response);
