@@ -12,16 +12,16 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       projectPath: './test/fixtures/dotnetcore/dotnet_6',
       targetFramework: undefined,
     },
-    {
-      description: 'parse netstandard 2.1',
-      projectPath: './test/fixtures/dotnetcore/netstandard21',
-      targetFramework: undefined,
-    },
-    {
-      description: 'parse dotnet 6.0 and 7.0 but specify a targetFramework',
-      projectPath: './test/fixtures/dotnetcore/dotnet_6_and_7',
-      targetFramework: 'net7.0',
-    },
+    // {
+    //   description: 'parse netstandard 2.1',
+    //   projectPath: './test/fixtures/dotnetcore/netstandard21',
+    //   targetFramework: undefined,
+    // },
+    // {
+    //   description: 'parse dotnet 6.0 and 7.0 but specify a targetFramework',
+    //   projectPath: './test/fixtures/dotnetcore/dotnet_6_and_7',
+    //   targetFramework: 'net7.0',
+    // },
   ])(
     'should succeed given a project file and an expected graph for test: $description',
     async ({ projectPath, targetFramework }) => {

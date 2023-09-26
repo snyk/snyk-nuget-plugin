@@ -1,11 +1,12 @@
 import { describe, expect, it } from '@jest/globals';
 import * as runtimeAssembly from '../lib/nuget-parser/runtime-assembly';
-import * as tempFixture from './helpers/temp-fixture';
+import * as codeGenerator from '../lib/nuget-parser/csharp/generator';
 import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 import * as path from 'path';
+import * as types from '../lib/nuget-parser/types';
 
 // Include some random C# code that will make `dotnet publish` happy.
-const program: tempFixture.File = {
+const program: types.DotNetFile = {
   name: 'program.cs',
   contents: `
 using System;
@@ -72,14 +73,14 @@ describe('when parsing runtime assembly', () => {
       project: {
         name: 'dotnet6.csproj',
         contents: `
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NSubstitute" Version="4.3.0"/>
+    <PackageReference Include='NSubstitute' Version='4.3.0'/>
   </ItemGroup>
 </Project>
 `,
@@ -93,14 +94,14 @@ describe('when parsing runtime assembly', () => {
       project: {
         name: 'dotnetstandard21.csproj',
         contents: `
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Microsoft.eShopWeb.ApplicationCore</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+    <PackageReference Include='System.Text.Json' Version='4.7.2' />
   </ItemGroup>
 </Project>
 `,
@@ -113,8 +114,8 @@ describe('when parsing runtime assembly', () => {
     'correctly matches the assembly versions of system dependencies: $description',
     async ({ project, expected }) => {
       // Generate and publish a dotnet project on the fly
-      const files: tempFixture.File[] = [program, project];
-      const tempDir = tempFixture.setup(files);
+      const files: types.DotNetFile[] = [program, project];
+      const tempDir = codeGenerator.generate('fixtures', files);
       const publishDir = await dotnet.publish(tempDir);
 
       // Find the project_name.deps.json from the /bin folder
@@ -127,7 +128,7 @@ describe('when parsing runtime assembly', () => {
       expect(runtimeAssemblies).toMatchObject(expected);
 
       // Try your best to clean up. Avoiding the `afterEach` to not have too many global variables.
-      tempFixture.tearDown([tempDir]);
+      codeGenerator.tearDown([tempDir]);
     },
   );
 });
