@@ -16,6 +16,7 @@ import {
 } from './types';
 import * as depGraphLib from '@snyk/dep-graph';
 import * as dotnet from './cli/dotnet';
+import * as nugetFrameworksParser from './csharp/nugetframeworks_parser';
 import * as runtimeAssembly from './runtime-assembly';
 
 const debug = debugModule('snyk');
@@ -162,10 +163,9 @@ Supply a targetFramework by using the \x1b[1m--target-framework\x1b[0m argument.
 
   // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
   // we have maximum context to use later when building the depGraph.
-  const response = await dotnet.run(
-    path.resolve(__dirname, '../../lib/cs/NugetFrameworks/Parse/Parse.csproj'),
-    [decidedTargetFramework],
-  );
+  const location = nugetFrameworksParser.generate();
+  await dotnet.restore(location);
+  const response = await dotnet.run(location, [decidedTargetFramework]);
   const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
   if (targetFrameworkInfo.IsUnsupported) {
     throw new InvalidManifestError(

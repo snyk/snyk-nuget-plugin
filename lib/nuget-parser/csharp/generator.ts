@@ -2,6 +2,9 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as types from '../types';
+import * as debugModule from 'debug';
+
+const debug = debugModule('snyk');
 
 // Importing .NET code from Typescript is not trivial and a bit lose cannon programming. However, we also want to keep
 // this project dependent on as few packages as possible, so instead of opting into some "run .NET in Typescript" package,
@@ -23,10 +26,17 @@ export function generate(
     fs.writeFileSync(tempFilePath, file.contents);
   });
 
+  debug(
+    `Generated temporary CS files (${files
+      .map((f) => f.name)
+      .join(',')}) in ${tempDir}`,
+  );
   return tempDir;
 }
 
 export function tearDown(dirs: string[]) {
+  debug(`Attempting to delete temporary CS files in ${dirs.join(',')}`);
+
   for (const dir of dirs) {
     if (!dir) {
       // No tempDir to tear down. Assuming the test failed somewhere.

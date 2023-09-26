@@ -74,3 +74,9 @@ export type AssemblyVersions = Record<string, string>;
 
 // <osx-arm64, [<System.Net.Http, 6.0.0>, ...]>
 export type RuntimeAssemblyVersions = Record<string, AssemblyVersions>;
+
+// Generate .NET files
+export interface DotNetFile {
+  name: string;
+  contents: string;
+}

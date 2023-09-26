@@ -1,8 +1,5 @@
-import * as debugModule from 'debug';
 import * as types from '../types';
 import * as generator from './generator';
-
-const debug = debugModule('snyk');
 
 export function generate(): string {
   const files: types.DotNetFile[] = [
@@ -82,6 +79,5 @@ class Program
   ];
 
   const tempDir = generator.generate('csharp', files);
-  debug(`Generated temporary CS files in ${tempDir}`);
   return tempDir;
 }
