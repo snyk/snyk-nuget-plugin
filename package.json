@@ -7,7 +7,7 @@
     "test": "npm run test:unit",
     "test:unit": "jest --coverage --runInBand",
     "lint": "npm run lint:prettier && npm run lint:eslint",
-    "lint:eslint": "eslint . --ext .ts",
+    "lint:eslint": "eslint -c .eslintrc '{lib,test}/**/*.ts'",
     "lint:prettier": "prettier --check '{lib,test}/**/*.{ts,csproj,json}' --log-level 'warn'",
     "lint:fix": "prettier --write '{lib,test}/**/*.{ts,csproj,json}' && eslint -c .eslintrc --fix '{lib,test}/**/*.ts'",
     "build": "tsc",
@@ -42,6 +42,7 @@
     "dotnet-deps-parser": "5.3.0",
     "jszip": "3.10.1",
     "lodash": "^4.17.21",
+    "node-cache": "^5.1.2",
     "snyk-paket-parser": "1.6.0",
     "tslib": "^2.6.1",
     "xml2js": "^0.6.2"

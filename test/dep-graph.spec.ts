@@ -1,8 +1,9 @@
 import { describe, expect, it } from '@jest/globals';
 import * as depGraphLib from '@snyk/dep-graph';
 import * as nugetParser from '../lib/nuget-parser';
+import * as types from '../lib/nuget-parser/types';
 import { ManifestType } from '../lib/nuget-parser/types';
-import * as tempFixture from './helpers/temp-fixture';
+import * as codeGenerator from '../lib/nuget-parser/csharp/generator';
 import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 
 describe('when generating a dependency graph', () => {
@@ -10,7 +11,7 @@ describe('when generating a dependency graph', () => {
 
   let tempDir: string;
   beforeEach(async () => {
-    const fixtures: tempFixture.File[] = [
+    const fixtures: types.DotNetFile[] = [
       {
         name: 'program.cs',
         contents: `
@@ -27,25 +28,25 @@ class TestFixture {
       {
         name: 'dotnet_6.csproj',
         contents: `
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NSubstitute" Version="4.3.0" />
+    <PackageReference Include='NSubstitute' Version='4.3.0' />
   </ItemGroup>
 </Project>
 `,
       },
     ];
-    tempDir = tempFixture.setup(fixtures);
+    tempDir = codeGenerator.generate('fixtures', fixtures);
 
     await dotnet.restore(tempDir);
   });
 
   afterEach(() => {
-    tempFixture.tearDown(Object.values(projectDirs));
+    codeGenerator.tearDown(Object.values(projectDirs));
   });
 
   it('generates a correct dependency graph compared to the existing depTree logic', async () => {

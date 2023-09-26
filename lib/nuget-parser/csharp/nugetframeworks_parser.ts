@@ -1,4 +1,32 @@
-﻿using NuGet.Frameworks;
+import * as types from '../types';
+import * as generator from './generator';
+
+export function generate(): string {
+  const files: types.DotNetFile[] = [
+    {
+      name: 'Parse.csproj',
+      contents: `
+<Project Sdk='Microsoft.NET.Sdk'>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ShortNameToLongName</RootNamespace>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include='Newtonsoft.Json' Version='13.0.3' />
+    <PackageReference Include='NuGet.Frameworks' Version='6.7.0' />
+  </ItemGroup>
+</Project>
+`,
+    },
+    {
+      name: 'Program.cs',
+      contents: `
+using NuGet.Frameworks;
 using Newtonsoft.Json;
 
 namespace ShortNameToLongName;
@@ -45,4 +73,11 @@ class Program
             Console.WriteLine($"Error: {ex.Message}");
         }
     }
+}
+`,
+    },
+  ];
+
+  const tempDir = generator.generate('csharp', files);
+  return tempDir;
 }
