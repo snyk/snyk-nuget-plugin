@@ -134,7 +134,7 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
   let decidedTargetFramework: string;
   if (!targetFramework) {
     console.log(`No targetFramework supplied, defaulting to using the first in the list of the manifest (\x1b[1m${targetFrameworks[0]}\x1b[0m).
-Supply a targetFramework by using the \x1b[1m--target-framework\x1b[0m argument.`);
+Supply a targetFramework by using the \x1b[1m--dotnet-target-framework\x1b[0m argument.`);
     decidedTargetFramework = targetFrameworks[0];
   } else {
     decidedTargetFramework = targetFramework;

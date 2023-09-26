@@ -71,7 +71,10 @@ export async function inspect(
       .then(createPackageTree);
   }
 
-  if (options['target-framework'] && !options['dotnet-runtime-resolution']) {
+  if (
+    options['dotnet-target-framework'] &&
+    !options['dotnet-runtime-resolution']
+  ) {
     return Promise.reject(
       new CliCommandError(
         'target framework flag is currently only supported when also scanning with runtime resolution using the `--dotnet-runtime-resolution` flag',
@@ -100,7 +103,7 @@ with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new
       manifestType,
       options['assets-project-name'],
       options['project-name-prefix'],
-      options['target-framework'],
+      options['dotnet-target-framework'],
     );
     return {
       dependencyGraph: result.dependencyGraph,
