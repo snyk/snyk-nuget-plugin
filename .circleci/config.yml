@@ -13,10 +13,10 @@ defaults: &defaults
 
 
 matrix_unix_node_version: &matrix_unix_node_version
-  version: ['16.20', '18.16', '20.3']
+  node_version: ["16.20", "18.16", "20.3"]
 
 matrix_windows_node_version: &matrix_windows_node_version
-  version: ['16.20.0', '18.16.0', '20.3.1']
+  node_version: ["16.20.0", "18.16.0", "20.3.1"]
 
 windows_defaults: &windows_defaults
   environment:
@@ -174,21 +174,21 @@ workflows:
             alias: test-unix
             parameters:
               <<: *matrix_unix_node_version
-          name: Unix Tests for Node
+          name: Unix Tests for Node=<< matrix.node_version >>
           context: nodejs-install
-          node_version: << matrix.version >>
+          node_version: "<< matrix.node_version >>"
           requires:
             - Lint
 
       # Windows tests
       - test-windows:
           matrix:
-            alias: test-unix
+            alias: test-windows
             parameters:
-              <<: *matrix_windoes_node_version
-          name: Windows Tests for Node
+              <<: *matrix_windows_node_version
+          name: Windows Tests for Node=<< matrix.node_version >>
           context: nodejs-install
-          node_version: << matrix.version >>
+          node_version: "<< matrix.node_version >>"
           requires:
             - Lint
 
@@ -199,8 +199,8 @@ workflows:
           node_version: 'lts'
           requires:
             - scan-repo
-            - Unix Tests for Node
-            - Windows Tests for Node
+            - test-unix
+            - test-windows
           filters:
             branches:
               only:
