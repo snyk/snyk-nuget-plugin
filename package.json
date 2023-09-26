@@ -7,7 +7,7 @@
     "test": "npm run test:unit",
     "test:unit": "jest --coverage --runInBand",
     "lint": "npm run lint:prettier && npm run lint:eslint",
-    "lint:eslint": "eslint . --ext .ts",
+    "lint:eslint": "eslint -c .eslintrc '{lib,test}/**/*.ts'",
     "lint:prettier": "prettier --check '{lib,test}/**/*.{ts,csproj,json}' --log-level 'warn'",
     "lint:fix": "prettier --write '{lib,test}/**/*.{ts,csproj,json}' && eslint -c .eslintrc --fix '{lib,test}/**/*.ts'",
     "build": "tsc",
