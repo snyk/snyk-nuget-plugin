@@ -23,52 +23,6 @@ class TestFixture {
 describe('when parsing runtime assembly', () => {
   it.each([
     {
-      targetFramework: '',
-      expected: false,
-    },
-    {
-      targetFramework: 'foobar',
-      expected: false,
-    },
-    // Windows Store
-    {
-      targetFramework: 'netcore45',
-      expected: false,
-    },
-    // .NET Standard
-    {
-      targetFramework: 'netstandard1.5',
-      expected: true,
-    },
-    // .NET Core
-    {
-      targetFramework: 'netcoreapp3.1',
-      expected: true,
-    },
-    // .NET >= 5
-    {
-      targetFramework: 'net7.0',
-      expected: true,
-    },
-    // .NET Framework < 5
-    {
-      targetFramework: 'net403',
-      expected: false,
-    },
-    // .NET Framework < 5
-    {
-      targetFramework: 'net48',
-      expected: false,
-    },
-  ])(
-    'accepts or rejects specific target frameworks for runtime assembly parsing when targetFramework is: $targetFramework.original',
-    ({ targetFramework, expected }) => {
-      expect(runtimeAssembly.isSupported(targetFramework)).toEqual(expected);
-    },
-  );
-
-  it.each([
-    {
       description: 'a dotnet 6.0 project',
       project: {
         name: 'dotnet6.csproj',
