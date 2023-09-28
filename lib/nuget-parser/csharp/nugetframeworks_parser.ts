@@ -9,11 +9,11 @@ export function generate(): string {
 <Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>ShortNameToLongName</RootNamespace>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <RollForward>LatestMajor</RollForward>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,10 +26,9 @@ export function generate(): string {
     {
       name: 'Program.cs',
       contents: `
+using System;
 using NuGet.Frameworks;
 using Newtonsoft.Json;
-
-namespace ShortNameToLongName;
 
 class Program
 {
