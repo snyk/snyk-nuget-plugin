@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as csProjParser from './parsers/csproj-parser';
 import * as debugModule from 'debug';
+import * as depsParser from 'dotnet-deps-parser';
 import * as dotnetCoreParser from './parsers/dotnet-core-parser';
 import * as dotnetCoreV2Parser from './parsers/dotnet-core-v2-parser';
 import * as dotnetFrameworkParser from './parsers/dotnet-framework-parser';
@@ -140,7 +141,7 @@ Supply a targetFramework by using the \x1b[1m--dotnet-target-framework\x1b[0m ar
     decidedTargetFramework = targetFramework;
   }
 
-  if (!runtimeAssembly.isSupported(decidedTargetFramework)) {
+  if (!depsParser.isSupportedByV2GraphGeneration(decidedTargetFramework)) {
     throw new FileNotProcessableError(
       `runtime resolution flag is currently only supported for: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied versions was parsed as: ${decidedTargetFramework}.`,
     );
