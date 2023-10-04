@@ -146,6 +146,11 @@ function buildGraph(
     projectAssets.project.frameworks,
   );
 
+  // Potentially we're scanning a project that really has no dependencies
+  if (!projectAssets.project.frameworks[directDepsMoniker].dependencies) {
+    return depGraphBuilder.build();
+  }
+
   // Those dependencies are referenced in the 'targets' member in the same assets file.
   const topLevelDeps = Object.keys(
     projectAssets.project.frameworks[directDepsMoniker].dependencies,
