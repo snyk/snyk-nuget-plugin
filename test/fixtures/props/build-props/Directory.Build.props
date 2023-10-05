@@ -1,0 +1,10 @@
+<Project>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <MyFullProjectName>My.Product.Name.$(MSBuildProjectName)</MyFullProjectName>
+        <RootNamespace>$(MyFullProjectName)</RootNamespace>
+        <AssemblyName>$(MyFullProjectName)</AssemblyName>
+    </PropertyGroup>
+</Project>

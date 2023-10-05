@@ -22,6 +22,11 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       projectPath: './test/fixtures/dotnetcore/dotnet_6_and_7',
       targetFramework: 'net7.0',
     },
+    {
+      description: 'parse dotnet 7.0 when using Directory.Build.props',
+      projectPath: './test/fixtures/props/build-props/App',
+      targetFramework: undefined,
+    },
   ])(
     'should succeed given a project file and an expected graph for test: $description',
     async ({ projectPath, targetFramework }) => {
