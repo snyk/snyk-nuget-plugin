@@ -104,7 +104,7 @@ export async function publish(
     // E.g., something like:
     // dotnet_6 -> /foo/bar/project/bin/Debug/net6.0/osx-arm64/project_name.dll
     // Either way, since we're forcing a publish of a self-contained project, all .dlls should be placed there.
-    // This logic does seem a bit popsicle and duct-tape ish, but I have yet to find a more stable solution. PRs welcome!
+    // PRs are welcome!
     .find((line) => line.endsWith('.dll') || line.endsWith('.exe'));
 
   if (!publishDirLine) {
