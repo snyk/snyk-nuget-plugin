@@ -133,12 +133,18 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     : targetFrameworks.filter((framework) => {
         if (!depsParser.isSupportedByV2GraphGeneration(framework)) {
           console.log(
-            `\x1b[33m⚠ WARNING\x1b[0m: runtime resolution flag is currently only supported for: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied version was parsed as: ${framework}, which will be skipped.`,
+            `\x1b[33m⚠ WARNING\x1b[0m: The runtime resolution flag is currently only supported for the following TargetFrameworks: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard. Detected a TargetFramework: \x1b[1m${framework}\x1b[0m, which will be skipped.`,
           );
           return false;
         }
         return true;
       });
+
+  if (decidedTargetFrameworks.length == 0) {
+    throw new InvalidManifestError(
+      `Was not able to find any supported TargetFrameworks to scan, aborting`,
+    );
+  }
 
   const results: DotnetCoreV2Results = [];
   for (const decidedTargetFramework of decidedTargetFrameworks) {
