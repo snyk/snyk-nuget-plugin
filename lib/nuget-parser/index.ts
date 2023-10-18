@@ -10,12 +10,12 @@ import * as projectJsonParser from './parsers/project-json-parser';
 import * as packagesConfigParser from './parsers/packages-config-parser';
 import { FileNotProcessableError, InvalidManifestError } from '../errors';
 import {
+  DotnetCoreV2Results,
   ManifestType,
   ProjectAssets,
   TargetFramework,
   TargetFrameworkInfo,
 } from './types';
-import * as depGraphLib from '@snyk/dep-graph';
 import * as dotnet from './cli/dotnet';
 import * as nugetFrameworksParser from './csharp/nugetframeworks_parser';
 import * as runtimeAssembly from './runtime-assembly';
@@ -76,10 +76,7 @@ export async function buildDepGraphFromFiles(
   useProjectNameFromAssetsFile: boolean,
   projectNamePrefix?: string,
   targetFramework?: string,
-): Promise<{
-  dependencyGraph: depGraphLib.DepGraph;
-  targetFramework: string | undefined;
-}> {
+): Promise<DotnetCoreV2Results> {
   const safeRoot = root || '.';
   const safeTargetFile = targetFile || '.';
   const fileContentPath = path.resolve(safeRoot, safeTargetFile);
@@ -130,60 +127,63 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
       );
     }
   }
+  // If a specific targetFramework has been requested, only query that, otherwise try to do them all
+  const decidedTargetFrameworks = targetFramework
+    ? [targetFramework]
+    : targetFrameworks.filter((framework) => {
+        if (!depsParser.isSupportedByV2GraphGeneration(framework)) {
+          console.log(
+            `\x1b[33m⚠ WARNING\x1b[0m: runtime resolution flag is currently only supported for: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied version was parsed as: ${framework}, which will be skipped.`,
+          );
+          return false;
+        }
+        return true;
+      });
 
-  // TODO: OSM-347 - return vulnerability scans for all
-  let decidedTargetFramework: string;
-  if (!targetFramework) {
-    console.log(`No targetFramework supplied, defaulting to using the first in the list of the manifest (\x1b[1m${targetFrameworks[0]}\x1b[0m).
-Supply a targetFramework by using the \x1b[1m--dotnet-target-framework\x1b[0m argument.`);
-    decidedTargetFramework = targetFrameworks[0];
-  } else {
-    decidedTargetFramework = targetFramework;
-  }
+  const results: DotnetCoreV2Results = [];
+  for (const decidedTargetFramework of decidedTargetFrameworks) {
+    // Ensure `dotnet` is installed on the system or fail trying.
+    await dotnet.validate();
 
-  if (!depsParser.isSupportedByV2GraphGeneration(decidedTargetFramework)) {
-    throw new FileNotProcessableError(
-      `runtime resolution flag is currently only supported for: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied versions was parsed as: ${decidedTargetFramework}.`,
+    // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
+    const publishDir = await dotnet.publish(
+      projectRootFolder,
+      decidedTargetFramework,
     );
-  }
 
-  // Ensure `dotnet` is installed on the system or fail trying.
-  await dotnet.validate();
-
-  // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
-  const publishDir = await dotnet.publish(
-    projectRootFolder,
-    decidedTargetFramework,
-  );
-  // Then inspect the dependency graph for the runtimepackage's assembly versions.
-  const depsFile = path.resolve(
-    publishDir,
-    `${projectNameFromManifestFile}.deps.json`,
-  );
-  const assemblyVersions = runtimeAssembly.generateRuntimeAssemblies(depsFile);
-
-  // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
-  // we have maximum context to use later when building the depGraph.
-  const location = nugetFrameworksParser.generate();
-  await dotnet.restore(location);
-  const response = await dotnet.run(location, [decidedTargetFramework]);
-  const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
-  if (targetFrameworkInfo.IsUnsupported) {
-    throw new InvalidManifestError(
-      `dotnet was not able to parse the target framework ${decidedTargetFramework}, it was reported unsupported by the dotnet runtime`,
+    // Then inspect the dependency graph for the runtimepackage's assembly versions.
+    const depsFile = path.resolve(
+      publishDir,
+      `${projectNameFromManifestFile}.deps.json`,
     );
+    const assemblyVersions =
+      runtimeAssembly.generateRuntimeAssemblies(depsFile);
+
+    // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
+    // we have maximum context to use later when building the depGraph.
+    const location = nugetFrameworksParser.generate();
+    await dotnet.restore(location);
+    const response = await dotnet.run(location, [decidedTargetFramework]);
+    const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
+    if (targetFrameworkInfo.IsUnsupported) {
+      throw new InvalidManifestError(
+        `dotnet was not able to parse the target framework ${decidedTargetFramework}, it was reported unsupported by the dotnet runtime`,
+      );
+    }
+
+    const depGraph = parser.depParser.parse(
+      resolvedProjectName,
+      manifest,
+      assemblyVersions,
+      targetFrameworkInfo,
+    );
+    results.push({
+      dependencyGraph: depGraph,
+      targetFramework: decidedTargetFramework,
+    });
   }
 
-  const depGraph = parser.depParser.parse(
-    resolvedProjectName,
-    manifest,
-    assemblyVersions,
-    targetFrameworkInfo,
-  );
-  return {
-    dependencyGraph: depGraph,
-    targetFramework: decidedTargetFramework,
-  };
+  return results;
 }
 
 export async function buildDepTreeFromFiles(
