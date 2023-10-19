@@ -89,4 +89,4 @@ export interface DotnetCoreV2Result {
   targetFramework: string | undefined;
 }
 
-export type DotnetCoreV2Results = DotnetCoreV2Result[]
+export type DotnetCoreV2Results = DotnetCoreV2Result[];

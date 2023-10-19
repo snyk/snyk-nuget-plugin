@@ -7797,9 +7797,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0": [
-      "NSubstitute >= 4.3.0"
-    ]
+    "net7.0": ["NSubstitute >= 4.3.0"]
   },
   "packageFolders": {
     "/Users/kasparmoss/.nuget/packages/": {}
@@ -7829,9 +7827,7 @@
         }
       },
       "warningProperties": {
-        "warnAsError": [
-          "NU1605"
-        ]
+        "warnAsError": ["NU1605"]
       }
     },
     "frameworks": {

@@ -100,8 +100,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       description: 'net472 - with package.assets.json',
       projectPath: './test/fixtures/target-framework/no-dependencies/',
       manifestFile: 'obj/project.assets.json',
-      expectedErrorMessage:
-        /not able to find any supported TargetFrameworks/,
+      expectedErrorMessage: /not able to find any supported TargetFrameworks/,
     },
     {
       description: 'net461 - no package.assets.json',
