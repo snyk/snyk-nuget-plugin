@@ -118,7 +118,7 @@ with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new
 
     for (const result of results) {
       multiProjectResult.scannedProjects.push({
-        targetFile: targetFile,
+        targetFile: `${targetFile} [${result.targetFramework}]`, // Improve UX for the CLI to define what targetFramework was scanned.
         depGraph: result.dependencyGraph,
         meta: {
           targetRuntime: result.targetFramework,
