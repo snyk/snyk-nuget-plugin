@@ -63,12 +63,16 @@ class TestFixture {
 
     // Then do the same with the new functionality and validate the graph looks the same,
     // only with newer versions for the runtime-specific dependencies. The rest should be identical.
-    const withRuntimeDeps = await nugetParser.buildDepGraphFromFiles(
+    const withRuntimeDepsResults = await nugetParser.buildDepGraphFromFiles(
       tempDir,
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,
     );
+
+    expect(withRuntimeDepsResults.length).toEqual(1);
+
+    const withRuntimeDeps = withRuntimeDepsResults[0];
     expect(withRuntimeDeps.dependencyGraph).toBeDefined();
 
     // Assert that the existing logic shows an older version of a runtime dependency:
@@ -133,12 +137,13 @@ class TestFixture {
     const tempDir = projectDirs['noDeps'];
     await dotnet.restore(tempDir);
 
-    const result = await nugetParser.buildDepGraphFromFiles(
+    const results = await nugetParser.buildDepGraphFromFiles(
       tempDir,
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,
     );
-    expect(result.dependencyGraph).toBeDefined();
+    expect(results.length).toEqual(1);
+    expect(results[0].dependencyGraph).toBeDefined();
   });
 });
