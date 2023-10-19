@@ -246,7 +246,8 @@ export async function buildDepTreeFromFiles(
     return Promise.reject(error);
   }
 
-  // TODO: OSM-347 - use more than just the first one we find
+  // Only supports the first targetFramework we find.
+  // Use the newer `buildDepGraphFromFiles` for better support for multiple target frameworks.
   const targetFramework =
     targetFrameworks.length > 0 ? targetFrameworks[0].original : undefined;
   tree.meta = {
