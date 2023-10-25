@@ -1,3 +1,5 @@
+import * as depGraphLib from '@snyk/dep-graph';
+
 export interface TargetFramework {
   framework: string;
   original: string;
@@ -80,3 +82,11 @@ export interface DotNetFile {
   name: string;
   contents: string;
 }
+
+// V2 dependency graph result
+export interface DotnetCoreV2Result {
+  dependencyGraph: depGraphLib.DepGraph;
+  targetFramework: string | undefined;
+}
+
+export type DotnetCoreV2Results = DotnetCoreV2Result[];

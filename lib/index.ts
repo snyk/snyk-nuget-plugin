@@ -8,6 +8,7 @@ import {
   FileNotProcessableError,
   InvalidTargetFile,
 } from './errors';
+import { MultiProjectResult } from '@snyk/cli-interface/legacy/plugin';
 
 function determineManifestType(filename: string): ManifestType {
   switch (true) {
@@ -97,7 +98,7 @@ This should be considered experimental and not relied upon for production use.
 Please report issues with this beta feature by submitting a support ticket, and attach the output of running this command
 with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new\x1b[0m.`);
 
-    const result = await nugetParser.buildDepGraphFromFiles(
+    const results = await nugetParser.buildDepGraphFromFiles(
       root,
       targetFile,
       manifestType,
@@ -105,14 +106,27 @@ with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new
       options['project-name-prefix'],
       options['dotnet-target-framework'],
     );
-    return {
-      dependencyGraph: result.dependencyGraph,
+
+    // Construct a MultiProjectResult to send to either the CLI or the SCM scanner.
+    const multiProjectResult: MultiProjectResult = {
       plugin: {
         name: 'snyk-nuget-plugin',
         targetFile,
-        targetRuntime: result.targetFramework,
       },
+      scannedProjects: [],
     };
+
+    for (const result of results) {
+      multiProjectResult.scannedProjects.push({
+        targetFile: targetFile,
+        depGraph: result.dependencyGraph,
+        meta: {
+          targetRuntime: result.targetFramework,
+        },
+      });
+    }
+
+    return multiProjectResult;
   }
 
   return nugetParser
