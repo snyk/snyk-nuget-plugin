@@ -1,0 +1,11 @@
+{
+  "depGraph": {
+    "schemaVersion": "1.3.0",
+    "pkgManager": {
+      "name": "nuget"
+    },
+    "pkgs": [
+    ]
+  }
+}
+

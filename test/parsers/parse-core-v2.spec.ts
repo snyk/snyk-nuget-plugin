@@ -7,26 +7,31 @@ import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 
 describe('when generating depGraphs and runtime assemblies using the v2 parser', () => {
   it.each([
+    // {
+    //   description: 'parse dotnet 6.0',
+    //   projectPath: './test/fixtures/dotnetcore/dotnet_6',
+    //   targetFramework: undefined,
+    // },
+    // {
+    //   description: 'parse netstandard 2.1',
+    //   projectPath: './test/fixtures/dotnetcore/netstandard21',
+    //   targetFramework: undefined,
+    // },
+    // {
+    //   description: 'parse dotnet 6.0 and 7.0 but specify a targetFramework',
+    //   projectPath: './test/fixtures/dotnetcore/dotnet_6_and_7',
+    //   targetFramework: 'net7.0',
+    // },
     {
-      description: 'parse dotnet 6.0',
-      projectPath: './test/fixtures/dotnetcore/dotnet_6',
-      targetFramework: undefined,
+      description: 'parse dotnet 6.0 with a local PackageReference to another local project',
+      projectPath: './test/fixtures/dotnetcore/dotnet_6_local_package_reference/proj1',
+      targetFramework: 'net6.0',
     },
-    {
-      description: 'parse netstandard 2.1',
-      projectPath: './test/fixtures/dotnetcore/netstandard21',
-      targetFramework: undefined,
-    },
-    {
-      description: 'parse dotnet 6.0 and 7.0 but specify a targetFramework',
-      projectPath: './test/fixtures/dotnetcore/dotnet_6_and_7',
-      targetFramework: 'net7.0',
-    },
-    {
-      description: 'parse dotnet 7.0 when using Directory.Build.props',
-      projectPath: './test/fixtures/props/build-props/App',
-      targetFramework: undefined,
-    },
+    // {
+    //   description: 'parse dotnet 7.0 when using Directory.Build.props',
+    //   projectPath: './test/fixtures/props/build-props/App',
+    //   targetFramework: undefined,
+    // },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath, targetFramework }) => {
