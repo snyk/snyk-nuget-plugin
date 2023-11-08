@@ -75,6 +75,11 @@ export async function publish(
   // Self-contained: Create all required .dlls for version investigation, don't rely on the environment.
   args.push('--sc');
 
+  // Use the current runtime of whatever platform we are on.
+  // This ensures that .dlls will be packaged containing the runtime assembly versions.
+  // TODO: (OSM-521) if/when we allow this to be dynamic based on user input, remember to change this.
+  args.push('--use-current-runtime');
+
   // If your .csproj file contains multiple <TargetFramework> references, you need to supply which one you want to publish.
   if (targetFramework) {
     args.push('--framework');
