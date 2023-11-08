@@ -195,7 +195,7 @@ function buildGraph(
   const topLevelDepPackages = topLevelDeps.reduce((acc, topLevelDepName) => {
     const nameWithVersion = Object.keys(targetDeps).find((targetDep) =>
       // Lowercase the comparison, as .csproj <PackageReference>s are not case-sensitive, and can be written however you like.
-        targetDep.toLowerCase().startsWith(topLevelDepName.toLowerCase()),
+      targetDep.toLowerCase().startsWith(topLevelDepName.toLowerCase()),
     );
     if (!nameWithVersion) {
       throw new InvalidManifestError(
