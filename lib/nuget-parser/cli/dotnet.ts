@@ -99,6 +99,9 @@ export async function publish(
   // and will potentially also support multiple target frameworks.
   const publishDirLine = response.stdout
     .split(/[\r\n]+/)
+    // Projects that are referring to other local projects in their PackageReference item groups will also be restored
+    // in a chained operation. The project we're interested in will be shown last, thus we reverse it.
+    .reverse()
     // TODO: For multiple target frameworks, replace `find` with a map or something of that kind to return more than the first.
     // The first thing to get published ought to be the project's own .dll or .exe file, depending on the architecture.
     // E.g., something like:

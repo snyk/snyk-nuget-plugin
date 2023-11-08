@@ -23,6 +23,13 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework: 'net7.0',
     },
     {
+      description:
+        'parse dotnet 6.0 with a local PackageReference to another local project',
+      projectPath:
+        './test/fixtures/dotnetcore/dotnet_6_local_package_reference/proj1',
+      targetFramework: 'net6.0',
+    },
+    {
       description: 'parse dotnet 7.0 when using Directory.Build.props',
       projectPath: './test/fixtures/props/build-props/App',
       targetFramework: undefined,
