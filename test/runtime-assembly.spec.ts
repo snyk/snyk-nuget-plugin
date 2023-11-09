@@ -44,6 +44,26 @@ describe('when parsing runtime assembly', () => {
       },
     },
     {
+      description: 'a dotnet 6.0 project with missing runtime identifier',
+      project: {
+        name: 'dotnet6.csproj',
+        contents: `
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DeepCloner" Version="0.10.4" />
+  </ItemGroup>
+</Project>
+`,
+      },
+      expected: {
+        'Microsoft.CSharp.dll': '6.0.0',
+      },
+    },
+    {
       description: 'a dotnet standard 2.1 project',
       project: {
         name: 'dotnetstandard21.csproj',
