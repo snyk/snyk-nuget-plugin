@@ -34,6 +34,11 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       projectPath: './test/fixtures/props/build-props/App',
       targetFramework: undefined,
     },
+    {
+      description: 'parse dotnet 6.0 that does not specify a runtimeIdentifier',
+        projectPath: './test/fixtures/dotnetcore/nuget-app-6-no-rid',
+      targetFramework: undefined,
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath, targetFramework }) => {
