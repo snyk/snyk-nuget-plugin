@@ -6,9 +6,9 @@
     },
     "pkgs": [
       {
-        "id": "nuget-app-6-no-rid@1.0.0",
+        "id": "dotnet_6_no_rid@1.0.0",
         "info": {
-          "name": "nuget-app-6-no-rid",
+          "name": "dotnet_6_no_rid",
           "version": "1.0.0"
         }
       },
@@ -459,7 +459,7 @@
       "nodes": [
         {
           "nodeId": "root-node",
-          "pkgId": "nuget-app-6-no-rid@1.0.0",
+          "pkgId": "dotnet_6_no_rid@1.0.0",
           "deps": [
             {
               "nodeId": "DeepCloner@0.10.4"

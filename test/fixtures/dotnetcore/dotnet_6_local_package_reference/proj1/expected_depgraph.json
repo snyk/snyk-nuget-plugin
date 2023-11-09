@@ -20,10 +20,10 @@
         }
       },
       {
-        "id": "Castle.Core@4.0.0",
+        "id": "Castle.Core@4.4.1",
         "info": {
           "name": "Castle.Core",
-          "version": "4.0.0"
+          "version": "4.4.1"
         }
       },
       {
@@ -540,7 +540,7 @@
         },
         {
           "nodeId": "Castle.Core@4.4.1",
-          "pkgId": "Castle.Core@4.0.0",
+          "pkgId": "Castle.Core@4.4.1",
           "deps": [
             {
               "nodeId": "NETStandard.Library@1.6.1"
