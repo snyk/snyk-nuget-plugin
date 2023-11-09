@@ -19,8 +19,6 @@ test/**/bin
 
 # dotnet restore:
 test/**/obj
-#!test/**/obj/**/
-#!*.assets.json
 
 # C# code
 lib/cs/**/bin*
