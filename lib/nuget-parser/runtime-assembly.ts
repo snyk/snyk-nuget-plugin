@@ -23,6 +23,8 @@ interface Versions {
 // The `dotnet publish` will give a good estimate of what runtime dependencies are going to be used, so we inspect
 // that for information.
 // See https://natemcmaster.com/blog/2017/12/21/netcore-primitives/ for a good overview.
+// And https://github.com/dotnet/sdk/blob/main/documentation/specs/runtime-configuration-file.md for the official
+// explanation of what the `deps.json` file is doing that we are traversing.
 export function generateRuntimeAssemblies(filePath: string): AssemblyVersions {
   debug('extracting runtime assemblies from ' + filePath);
 
