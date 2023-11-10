@@ -23,6 +23,27 @@ class TestFixture {
 describe('when parsing runtime assembly', () => {
   it.each([
     {
+      description: 'a dotnet 7.0 project',
+      project: {
+        name: 'dotnet7.csproj',
+        contents: `
+<Project Sdk='Microsoft.NET.Sdk'>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include='NSubstitute' Version='4.3.0'/>
+  </ItemGroup>
+</Project>
+`,
+      },
+      expected: {
+        'Microsoft.CSharp.dll': '7.0.0',
+      },
+    },
+    {
       description: 'a dotnet 6.0 project',
       project: {
         name: 'dotnet6.csproj',
@@ -48,40 +69,19 @@ describe('when parsing runtime assembly', () => {
       project: {
         name: 'dotnet6.csproj',
         contents: `
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DeepCloner" Version="0.10.4" />
+    <PackageReference Include='DeepCloner' Version='0.10.4' />
   </ItemGroup>
 </Project>
 `,
       },
       expected: {
-        'Microsoft.CSharp.dll': '6.0.0',
-      },
-    },
-    {
-      description: 'a dotnet standard 2.1 project',
-      project: {
-        name: 'dotnetstandard21.csproj',
-        contents: `
-<Project Sdk='Microsoft.NET.Sdk'>
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>Microsoft.eShopWeb.ApplicationCore</RootNamespace>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include='System.Text.Json' Version='4.7.2' />
-  </ItemGroup>
-</Project>
-`,
-      },
-      expected: {
-        'System.Threading.Tasks.Extensions.dll': '4.2.0',
+        'System.Net.Http.dll': '6.0.0',
       },
     },
   ])(

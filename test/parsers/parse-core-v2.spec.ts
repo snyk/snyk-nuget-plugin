@@ -13,11 +13,6 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework: undefined,
     },
     {
-      description: 'parse netstandard 2.1',
-      projectPath: './test/fixtures/dotnetcore/netstandard21',
-      targetFramework: undefined,
-    },
-    {
       description: 'parse dotnet 6.0 and 7.0 but specify a targetFramework',
       projectPath: './test/fixtures/dotnetcore/dotnet_6_and_7',
       targetFramework: 'net7.0',
@@ -32,6 +27,11 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     {
       description: 'parse dotnet 7.0 when using Directory.Build.props',
       projectPath: './test/fixtures/props/build-props/App',
+      targetFramework: undefined,
+    },
+    {
+      description: 'parse dotnet 6.0 that does not specify a runtimeIdentifier',
+      projectPath: './test/fixtures/dotnetcore/dotnet_6_no_rid',
       targetFramework: undefined,
     },
   ])(

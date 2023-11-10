@@ -18,9 +18,7 @@ coverage/
 test/**/bin
 
 # dotnet restore:
-test/**/obj/**
-!test/**/obj/**/
-!*.assets.json
+test/**/obj
 
 # C# code
 lib/cs/**/bin*

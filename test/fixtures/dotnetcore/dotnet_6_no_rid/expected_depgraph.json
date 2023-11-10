@@ -6,24 +6,17 @@
     },
     "pkgs": [
       {
-        "id": "dotnet_6@1.0.0",
+        "id": "dotnet_6_no_rid@1.0.0",
         "info": {
-          "name": "dotnet_6",
+          "name": "dotnet_6_no_rid",
           "version": "1.0.0"
         }
       },
       {
-        "id": "NSubstitute@4.3.0",
+        "id": "DeepCloner@0.10.4",
         "info": {
-          "name": "NSubstitute",
-          "version": "4.3.0"
-        }
-      },
-      {
-        "id": "Castle.Core@4.4.1",
-        "info": {
-          "name": "Castle.Core",
-          "version": "4.4.1"
+          "name": "DeepCloner",
+          "version": "0.10.4"
         }
       },
       {
@@ -459,62 +452,6 @@
           "name": "System.Xml.XDocument",
           "version": "6.0.0"
         }
-      },
-      {
-        "id": "System.Collections.Specialized@6.0.0",
-        "info": {
-          "name": "System.Collections.Specialized",
-          "version": "6.0.0"
-        }
-      },
-      {
-        "id": "System.Collections.NonGeneric@6.0.0",
-        "info": {
-          "name": "System.Collections.NonGeneric",
-          "version": "6.0.0"
-        }
-      },
-      {
-        "id": "System.ComponentModel@6.0.0",
-        "info": {
-          "name": "System.ComponentModel",
-          "version": "6.0.0"
-        }
-      },
-      {
-        "id": "System.ComponentModel.TypeConverter@6.0.0",
-        "info": {
-          "name": "System.ComponentModel.TypeConverter",
-          "version": "6.0.0"
-        }
-      },
-      {
-        "id": "System.ComponentModel.Primitives@6.0.0",
-        "info": {
-          "name": "System.ComponentModel.Primitives",
-          "version": "6.0.0"
-        }
-      },
-      {
-        "id": "System.Diagnostics.TraceSource@6.0.0",
-        "info": {
-          "name": "System.Diagnostics.TraceSource",
-          "version": "6.0.0"
-        }
-      },
-      {
-        "id": "System.Dynamic.Runtime@6.0.0",
-        "info": {
-          "name": "System.Dynamic.Runtime",
-          "version": "6.0.0"
-        }
-      },
-      {
-        "id": "System.Xml.XmlDocument@6.0.0",
-        "info": {
-          "name": "System.Xml.XmlDocument",
-          "version": "6.0.0"
-        }
       }
     ],
     "graph": {
@@ -522,55 +459,19 @@
       "nodes": [
         {
           "nodeId": "root-node",
-          "pkgId": "dotnet_6@1.0.0",
+          "pkgId": "dotnet_6_no_rid@1.0.0",
           "deps": [
             {
-              "nodeId": "NSubstitute@4.3.0"
+              "nodeId": "DeepCloner@0.10.4"
             }
           ]
         },
         {
-          "nodeId": "NSubstitute@4.3.0",
-          "pkgId": "NSubstitute@4.3.0",
-          "deps": [
-            {
-              "nodeId": "Castle.Core@4.4.1"
-            }
-          ]
-        },
-        {
-          "nodeId": "Castle.Core@4.4.1",
-          "pkgId": "Castle.Core@4.4.1",
+          "nodeId": "DeepCloner@0.10.4",
+          "pkgId": "DeepCloner@0.10.4",
           "deps": [
             {
               "nodeId": "NETStandard.Library@1.6.1"
-            },
-            {
-              "nodeId": "System.Collections.Specialized@4.3.0"
-            },
-            {
-              "nodeId": "System.ComponentModel@4.3.0"
-            },
-            {
-              "nodeId": "System.ComponentModel.TypeConverter@4.3.0"
-            },
-            {
-              "nodeId": "System.Diagnostics.TraceSource@4.3.0"
-            },
-            {
-              "nodeId": "System.Dynamic.Runtime@4.3.0"
-            },
-            {
-              "nodeId": "System.Reflection@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Reflection.Emit@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Reflection.TypeExtensions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Xml.XmlDocument@4.3.0"
             }
           ]
         },
@@ -2536,319 +2437,6 @@
               "pruned": "true"
             }
           }
-        },
-        {
-          "nodeId": "System.Collections.Specialized@4.3.0",
-          "pkgId": "System.Collections.Specialized@6.0.0",
-          "deps": [
-            {
-              "nodeId": "System.Collections.NonGeneric@4.3.0"
-            },
-            {
-              "nodeId": "System.Globalization@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Globalization.Extensions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Threading@4.3.0:pruned"
-            }
-          ]
-        },
-        {
-          "nodeId": "System.Collections.NonGeneric@4.3.0",
-          "pkgId": "System.Collections.NonGeneric@6.0.0",
-          "deps": [
-            {
-              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Globalization@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Threading@4.3.0:pruned"
-            }
-          ]
-        },
-        {
-          "nodeId": "System.Globalization.Extensions@4.3.0:pruned",
-          "pkgId": "System.Globalization.Extensions@6.0.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "System.ComponentModel@4.3.0",
-          "pkgId": "System.ComponentModel@6.0.0",
-          "deps": [
-            {
-              "nodeId": "System.Runtime@4.3.0:pruned"
-            }
-          ]
-        },
-        {
-          "nodeId": "System.ComponentModel.TypeConverter@4.3.0",
-          "pkgId": "System.ComponentModel.TypeConverter@6.0.0",
-          "deps": [
-            {
-              "nodeId": "System.Collections@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Collections.NonGeneric@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Collections.Specialized@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.ComponentModel@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.ComponentModel.Primitives@4.3.0"
-            },
-            {
-              "nodeId": "System.Globalization@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Linq@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Reflection@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Reflection.Extensions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Reflection.Primitives@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Reflection.TypeExtensions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Threading@4.3.0:pruned"
-            }
-          ]
-        },
-        {
-          "nodeId": "System.Collections.NonGeneric@4.3.0:pruned",
-          "pkgId": "System.Collections.NonGeneric@6.0.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "System.Collections.Specialized@4.3.0:pruned",
-          "pkgId": "System.Collections.Specialized@6.0.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "System.ComponentModel@4.3.0:pruned",
-          "pkgId": "System.ComponentModel@6.0.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "System.ComponentModel.Primitives@4.3.0",
-          "pkgId": "System.ComponentModel.Primitives@6.0.0",
-          "deps": [
-            {
-              "nodeId": "System.ComponentModel@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime@4.3.0:pruned"
-            }
-          ]
-        },
-        {
-          "nodeId": "System.Reflection.TypeExtensions@4.3.0:pruned",
-          "pkgId": "System.Reflection.TypeExtensions@6.0.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "System.Diagnostics.TraceSource@4.3.0",
-          "pkgId": "System.Diagnostics.TraceSource@6.0.0",
-          "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "System.Collections@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Globalization@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Threading@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System@4.3.0:pruned"
-            }
-          ]
-        },
-        {
-          "nodeId": "System.Dynamic.Runtime@4.3.0",
-          "pkgId": "System.Dynamic.Runtime@6.0.0",
-          "deps": [
-            {
-              "nodeId": "System.Collections@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Linq@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Linq.Expressions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.ObjectModel@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Reflection@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Reflection.Emit@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Reflection.Primitives@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Reflection.TypeExtensions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Threading@4.3.0:pruned"
-            }
-          ]
-        },
-        {
-          "nodeId": "System.Linq.Expressions@4.3.0:pruned",
-          "pkgId": "System.Linq.Expressions@6.0.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "System.Reflection.Emit@4.3.0:pruned",
-          "pkgId": "System.Reflection.Emit@6.0.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "System.Xml.XmlDocument@4.3.0",
-          "pkgId": "System.Xml.XmlDocument@6.0.0",
-          "deps": [
-            {
-              "nodeId": "System.Collections@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Globalization@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.IO@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Text.Encoding@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Threading@4.3.0:pruned"
-            },
-            {
-              "nodeId": "System.Xml.ReaderWriter@4.3.0:pruned"
-            }
-          ]
         }
       ]
     }
