@@ -34,6 +34,11 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       projectPath: './test/fixtures/dotnetcore/dotnet_6_no_rid',
       targetFramework: undefined,
     },
+    {
+      description: 'parse dotnet 8.0',
+      projectPath: './test/fixtures/dotnetcore/dotnet_8',
+      targetFramework: undefined,
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath, targetFramework }) => {
