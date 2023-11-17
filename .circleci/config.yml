@@ -66,12 +66,12 @@ commands:
     parameters:
       dotnet_version:
         type: string
-        default: '7.0'
+        default: '8.0'
     steps:
       - restore_cache:
           name: Restore Dotnet executable
           keys:
-            - dotnet-cli-{{ arch }}-{{ .Branch }}-v2
+            - dotnet-cli-{{ arch }}-{{ .Branch }}-{{<< parameters.dotnet_version >>}}
       - run:
           name: Download and install dotnet
           command: |
@@ -83,7 +83,7 @@ commands:
               exit
             fi
       - save_cache:
-          key: dotnet-cli-{{ arch }}-{{ .Branch }}-v2
+          key: dotnet-cli-{{ arch }}-{{ .Branch }}-{{<< parameters.dotnet_version >>}}
           paths:
             - ~/.local/apps/dotnet
             - ~/.local/bin/dotnet
