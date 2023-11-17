@@ -17,7 +17,7 @@ interface DotnetPackage {
 }
 
 // Dependencies that starts with these are discarded
-const FILTERED_DEPENDENCY_PREFIX = ['runtime'];
+export const FILTERED_DEPENDENCY_PREFIX = ['runtime'];
 
 // The list of top level dependencies and transitive dependencies differ based on the target runtime we've defined.
 // In the generated dependency file created by the `dotnet` CLI, this is organized by the target framework moniker (TFM).
