@@ -97,9 +97,10 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         ),
       );
 
-      result.scannedProjects.forEach((scannedProject, i) => {
-        expect(scannedProject.depGraph?.toJSON()).toEqual(expectedGraphs[i]);
-      });
+      const toJson = result.scannedProjects.map(
+        (result) => result.depGraph?.toJSON(),
+      );
+      expect(toJson).toEqual(expectedGraphs);
     },
   );
 
