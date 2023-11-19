@@ -209,20 +209,6 @@
         }
       },
       {
-        "id": "runtime.native.System@4.3.0",
-        "info": {
-          "name": "runtime.native.System",
-          "version": "4.3.0"
-        }
-      },
-      {
-        "id": "runtime.native.System.IO.Compression@4.3.0",
-        "info": {
-          "name": "runtime.native.System.IO.Compression",
-          "version": "4.3.0"
-        }
-      },
-      {
         "id": "System.IO.Compression.ZipFile@6.0.0",
         "info": {
           "name": "System.IO.Compression.ZipFile",
@@ -356,20 +342,6 @@
         }
       },
       {
-        "id": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
-        "info": {
-          "name": "runtime.native.System.Security.Cryptography.OpenSsl",
-          "version": "4.3.0"
-        }
-      },
-      {
-        "id": "runtime.native.System.Security.Cryptography.Apple@4.3.0",
-        "info": {
-          "name": "runtime.native.System.Security.Cryptography.Apple",
-          "version": "4.3.0"
-        }
-      },
-      {
         "id": "System.Security.Cryptography.OpenSsl@6.0.0",
         "info": {
           "name": "System.Security.Cryptography.OpenSsl",
@@ -395,13 +367,6 @@
         "info": {
           "name": "System.Security.Cryptography.Csp",
           "version": "6.0.0"
-        }
-      },
-      {
-        "id": "runtime.native.System.Net.Http@4.3.0",
-        "info": {
-          "name": "runtime.native.System.Net.Http",
-          "version": "4.3.0"
         }
       },
       {
@@ -1195,12 +1160,6 @@
             },
             {
               "nodeId": "System.Threading.Tasks@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System@4.3.0"
-            },
-            {
-              "nodeId": "runtime.native.System.IO.Compression@4.3.0"
             }
           ]
         },
@@ -1313,16 +1272,6 @@
               "pruned": "true"
             }
           }
-        },
-        {
-          "nodeId": "runtime.native.System@4.3.0",
-          "pkgId": "runtime.native.System@4.3.0",
-          "deps": []
-        },
-        {
-          "nodeId": "runtime.native.System.IO.Compression@4.3.0",
-          "pkgId": "runtime.native.System.IO.Compression@4.3.0",
-          "deps": []
         },
         {
           "nodeId": "System.IO.Compression.ZipFile@4.3.0",
@@ -1711,15 +1660,6 @@
             },
             {
               "nodeId": "System.Threading.Tasks@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System.Net.Http@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0:pruned"
             }
           ]
         },
@@ -1835,12 +1775,6 @@
             },
             {
               "nodeId": "System.Text.Encoding@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System.Security.Cryptography.Apple@4.3.0"
-            },
-            {
-              "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0:pruned"
             }
           ]
         },
@@ -1898,9 +1832,6 @@
             },
             {
               "nodeId": "System.Text.Encoding@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0"
             }
           ]
         },
@@ -1942,28 +1873,8 @@
           ]
         },
         {
-          "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
-          "pkgId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
-          "deps": []
-        },
-        {
           "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned",
           "pkgId": "System.Security.Cryptography.Primitives@6.0.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "runtime.native.System.Security.Cryptography.Apple@4.3.0",
-          "pkgId": "runtime.native.System.Security.Cryptography.Apple@4.3.0",
-          "deps": []
-        },
-        {
-          "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0:pruned",
-          "pkgId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0",
           "deps": [],
           "info": {
             "labels": {
@@ -2020,9 +1931,6 @@
             },
             {
               "nodeId": "System.Text.Encoding@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0:pruned"
             }
           ]
         },
@@ -2115,15 +2023,6 @@
             },
             {
               "nodeId": "System.Threading@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System.Net.Http@4.3.0"
-            },
-            {
-              "nodeId": "runtime.native.System.Security.Cryptography.OpenSsl@4.3.0:pruned"
             }
           ]
         },
@@ -2232,31 +2131,6 @@
           }
         },
         {
-          "nodeId": "runtime.native.System@4.3.0:pruned",
-          "pkgId": "runtime.native.System@4.3.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "runtime.native.System.Net.Http@4.3.0",
-          "pkgId": "runtime.native.System.Net.Http@4.3.0",
-          "deps": []
-        },
-        {
-          "nodeId": "runtime.native.System.Net.Http@4.3.0:pruned",
-          "pkgId": "runtime.native.System.Net.Http@4.3.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
           "nodeId": "System.Net.Primitives@4.3.0:pruned",
           "pkgId": "System.Net.Primitives@6.0.0",
           "deps": [],
@@ -2331,9 +2205,6 @@
             },
             {
               "nodeId": "System.Threading@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System@4.3.0:pruned"
             }
           ]
         },
@@ -2740,9 +2611,6 @@
             },
             {
               "nodeId": "System.Threading@4.3.0:pruned"
-            },
-            {
-              "nodeId": "runtime.native.System@4.3.0:pruned"
             }
           ]
         },
