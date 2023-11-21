@@ -13,6 +13,7 @@ import {
   DotnetCoreV2Results,
   ManifestType,
   ProjectAssets,
+  PublishedProjectDeps,
   TargetFramework,
   TargetFrameworkInfo,
 } from './types';
@@ -158,12 +159,18 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     );
 
     // Then inspect the dependency graph for the runtimepackage's assembly versions.
-    const depsFile = path.resolve(
+    const depsFilePath = path.resolve(
       publishDir,
       `${projectNameFromManifestFile}.deps.json`,
     );
+
+    const depsFile = fs.readFileSync(depsFilePath);
+    const publishedProjectDeps: PublishedProjectDeps = JSON.parse(
+      depsFile.toString('utf-8'),
+    );
+
     const assemblyVersions =
-      runtimeAssembly.generateRuntimeAssemblies(depsFile);
+      runtimeAssembly.generateRuntimeAssemblies(publishedProjectDeps);
 
     // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
     // we have maximum context to use later when building the depGraph.
@@ -180,6 +187,7 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     const depGraph = parser.depParser.parse(
       resolvedProjectName,
       manifest,
+      publishedProjectDeps,
       assemblyVersions,
       targetFrameworkInfo,
     );

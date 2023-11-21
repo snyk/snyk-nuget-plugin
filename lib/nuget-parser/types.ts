@@ -71,6 +71,13 @@ export interface ProjectAssets {
   project: Project;
 }
 
+// .NET core's published project.deps.json
+export interface PublishedProjectDeps {
+  runtimeTarget: Record<string, any>;
+  targets: Record<string, any>;
+  libraries: Record<string, any>;
+}
+
 // <System.Net.Http, 6.0.0, ...>
 export type AssemblyVersions = Record<string, string>;
 

@@ -1,8 +1,13 @@
 import * as debugModule from 'debug';
 import * as depGraphLib from '@snyk/dep-graph';
 import { DepGraphBuilder } from '@snyk/dep-graph';
-import { AssemblyVersions, ProjectAssets, TargetFrameworkInfo } from '../types';
-import { FileNotProcessableError, InvalidManifestError } from '../../errors';
+import {
+  AssemblyVersions,
+  ProjectAssets,
+  PublishedProjectDeps,
+  TargetFrameworkInfo,
+} from '../types';
+import { InvalidManifestError } from '../../errors';
 
 const debug = debugModule('snyk');
 
@@ -25,44 +30,6 @@ export const FILTERED_DEPENDENCY_PREFIX = [
   // dependencies are causing noise for the customers and are not of interested.
   'runtime',
 ];
-
-// The list of top level dependencies and transitive dependencies differ based on the target runtime we've defined.
-// In the generated dependency file created by the `dotnet` CLI, this is organized by the target framework moniker (TFM).
-// Unfortunately, Microsoft has changed the way it denominates their targets throughout the different versions,
-// see: https://learn.microsoft.com/en-us/nuget/reference/target-frameworks#supported-frameworks.
-// So the logic has to be unnecessarily complex, as we cannot just access the key in the target dictionary
-// for versions different from the newest ones of .NET 5+.
-// Even better, it changes between how it defines them inside project.frameworks and the root targets object interchangeably.
-function findTargetFrameworkMonikerInManifest(
-  targetFrameworkInfo: TargetFrameworkInfo,
-  frameworks: Record<string, any>,
-): string {
-  const shortName = targetFrameworkInfo.ShortName;
-  const longName = targetFrameworkInfo.DotNetFrameworkName;
-  const parsedFrameworks = Object.keys(frameworks);
-  debug(
-    `parsed the following frameworks in the manifest file: ${parsedFrameworks.join(
-      ',',
-    )}`,
-  );
-
-  // Try and find the "longName" (or DotNetFrameworkName) in the list of targets.
-  // The format is usually something like ".NETCoreApp,Version=v6.0". That seems to happen for older .NET target frameworks.
-  if (longName in frameworks) {
-    debug(`detected ${longName} in assets file, returning that`);
-    return longName;
-  }
-
-  // If that doesn't work, for newer versions of .NET core, they index the frameworks object by the 'shortname'.
-  if (shortName in frameworks) {
-    debug(`detected ${shortName} in assets file, returning that`);
-    return shortName;
-  }
-
-  throw new FileNotProcessableError(
-    `unable to find the determined target framework (${targetFrameworkInfo.ShortName}) in any of the available target frameworks: ${parsedFrameworks}`,
-  );
-}
 
 function recursivelyPopulateNodes(
   depGraphBuilder: DepGraphBuilder,
@@ -137,6 +104,7 @@ function recursivelyPopulateNodes(
 function buildGraph(
   projectName: string,
   projectAssets: ProjectAssets,
+  publishedProjectDeps: PublishedProjectDeps,
   runtimeAssembly: AssemblyVersions,
   targetFrameworkInfo: TargetFrameworkInfo,
 ): depGraphLib.DepGraph {
@@ -148,69 +116,64 @@ function buildGraph(
     },
   );
 
-  if (Object.keys(projectAssets.project.frameworks).length <= 0) {
+  // That's what `dotnet` wants to call this project. Which is not always the same as what Snyk wants to call it.
+  const restoreProjectName = `${projectAssets.project.restore.projectName}/${projectAssets.project.version}`;
+
+  // We publish to one RID and one only, so we can safely assume that the true dependencies will exist in this key.
+  // E.g. targets -> .NETCoreApp,Version=v8.0/osx-arm64
+  const runtimeTarget = publishedProjectDeps.runtimeTarget.name;
+
+  // Those dependencies are referenced in the 'targets' member in the same .deps file.
+  if (Object.keys(publishedProjectDeps.targets).length <= 0) {
     throw new InvalidManifestError(
-      'no target frameworks found in assets file (project.assets.json -> project -> frameworks -> []), cannot continue without that',
+      'no target dependencies in found in published deps file (project.deps.json -> targets -> []), cannot continue without that',
     );
   }
 
-  // Access all top-level dependencies from the right target point in the project.assets.json, or fail trying.
-  const directDepsMoniker = findTargetFrameworkMonikerInManifest(
-    targetFrameworkInfo,
-    projectAssets.project.frameworks,
-  );
-
-  // Potentially we're scanning a project that really has no dependencies
-  if (!projectAssets.project.frameworks[directDepsMoniker].dependencies) {
-    return depGraphBuilder.build();
-  }
-
-  // Those dependencies are referenced in the 'targets' member in the same assets file.
-  const topLevelDeps = Object.keys(
-    projectAssets.project.frameworks[directDepsMoniker].dependencies,
-  );
-
-  // The list of targets gets decorated differently depending on version of the TargetFramework, (.NET 5+ versions
-  // just have their key as the target (net6.0), but .NET Standard append a version, such as .NETStandard,Version=VN.N.N).
-  if (Object.keys(projectAssets.targets).length <= 0) {
+  if (!(runtimeTarget in publishedProjectDeps.targets)) {
     throw new InvalidManifestError(
-      'no target dependencies in found in assets file (project.assets.json -> targets -> []), cannot continue without that',
+      `no ${runtimeTarget} found in targets object, cannot continue without it`,
     );
   }
 
-  // Further, they decorate them differently depending on where in the assets file it is.
-  // E.g., a direct dependency target moniker can be project -> frameworks -> 'netstandard2.0', while the
-  // transitive dependency line can be targets -> .NETStandard,Version=v2.1.
-  const transitiveDepsMoniker = findTargetFrameworkMonikerInManifest(
-    targetFrameworkInfo,
-    projectAssets.targets,
+  if (!(restoreProjectName in publishedProjectDeps.targets[runtimeTarget])) {
+    throw new InvalidManifestError(
+      `no ${restoreProjectName} found in ${runtimeTarget} object, cannot continue without it`,
+    );
+  }
+
+  const topLevelDependencies = Object.keys(
+    publishedProjectDeps.targets[runtimeTarget][restoreProjectName]
+      .dependencies,
   );
-  const targetFrameworkDependencies: Record<string, DotnetPackage> =
-    projectAssets.targets[transitiveDepsMoniker];
 
   // Iterate over all the dependencies found in the target dependency list, and build the depGraph based off of that.
-  const targetDeps: Record<string, DotnetPackage> = Object.entries(
-    targetFrameworkDependencies,
+  const targetDependencies: Record<string, DotnetPackage> = Object.entries(
+    publishedProjectDeps.targets[runtimeTarget],
   ).reduce((acc, entry) => {
     const [nameWithVersion, pkg] = entry;
     return { ...acc, [nameWithVersion]: pkg };
   }, {});
 
-  const topLevelDepPackages = topLevelDeps.reduce((acc, topLevelDepName) => {
-    const nameWithVersion = Object.keys(targetDeps).find((targetDep) =>
-      // Lowercase the comparison, as .csproj <PackageReference>s are not case-sensitive, and can be written however you like.
-      targetDep.toLowerCase().startsWith(topLevelDepName.toLowerCase()),
-    );
-    if (!nameWithVersion) {
-      throw new InvalidManifestError(
-        `cant find a name and a version in assets file, something's very malformed`,
+  const topLevelDepPackages = topLevelDependencies.reduce(
+    (acc, topLevelDepName) => {
+      const nameWithVersion = Object.keys(targetDependencies).find(
+        (targetDep) =>
+          // Lowercase the comparison, as .csproj <PackageReference>s are not case-sensitive, and can be written however you like.
+          targetDep.toLowerCase().startsWith(topLevelDepName.toLowerCase()),
       );
-    }
+      if (!nameWithVersion) {
+        throw new InvalidManifestError(
+          `cant find a name and a version in assets file, something's very malformed`,
+        );
+      }
 
-    const [name, version] = nameWithVersion.split('/');
+      const [name, version] = nameWithVersion.split('/');
 
-    return { ...acc, [name]: version };
-  }, {});
+      return { ...acc, [name]: version };
+    },
+    {},
+  );
 
   const rootNode = {
     type: 'root',
@@ -219,7 +182,7 @@ function buildGraph(
 
   recursivelyPopulateNodes(
     depGraphBuilder,
-    targetDeps,
+    targetDependencies,
     rootNode,
     runtimeAssembly,
   );
@@ -230,6 +193,7 @@ function buildGraph(
 export function parse(
   projectName: string,
   projectAssets: ProjectAssets,
+  publishedProjectDeps: PublishedProjectDeps,
   runtimeAssembly: AssemblyVersions,
   targetFrameworkInfo: TargetFrameworkInfo,
 ): depGraphLib.DepGraph {
@@ -238,6 +202,7 @@ export function parse(
   const result = buildGraph(
     projectName,
     projectAssets,
+    publishedProjectDeps,
     runtimeAssembly,
     targetFrameworkInfo,
   );
