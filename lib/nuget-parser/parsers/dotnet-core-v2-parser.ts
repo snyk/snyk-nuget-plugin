@@ -5,7 +5,6 @@ import {
   AssemblyVersions,
   ProjectAssets,
   PublishedProjectDeps,
-  TargetFrameworkInfo,
 } from '../types';
 import { InvalidManifestError } from '../../errors';
 
@@ -106,7 +105,6 @@ function buildGraph(
   projectAssets: ProjectAssets,
   publishedProjectDeps: PublishedProjectDeps,
   runtimeAssembly: AssemblyVersions,
-  targetFrameworkInfo: TargetFrameworkInfo,
 ): depGraphLib.DepGraph {
   const depGraphBuilder = new DepGraphBuilder(
     { name: 'nuget' },
@@ -195,7 +193,6 @@ export function parse(
   projectAssets: ProjectAssets,
   publishedProjectDeps: PublishedProjectDeps,
   runtimeAssembly: AssemblyVersions,
-  targetFrameworkInfo: TargetFrameworkInfo,
 ): depGraphLib.DepGraph {
   debug('Trying to parse .net core manifest with v2 depGraph builder');
 
@@ -204,7 +201,6 @@ export function parse(
     projectAssets,
     publishedProjectDeps,
     runtimeAssembly,
-    targetFrameworkInfo,
   );
   return result;
 }
