@@ -198,7 +198,6 @@ workflows:
           node_version: '16.20'
           <<: *filters_branches_ignore_main
 
-      # UNIX tests
       - test-unix:
           matrix:
             alias: test-unix
@@ -211,7 +210,6 @@ workflows:
             - Lint
           <<: *filters_branches_ignore_main
 
-      # Windows tests
       - test-windows:
           matrix:
             alias: test-windows
@@ -224,15 +222,8 @@ workflows:
             - Lint
           <<: *filters_branches_ignore_main
 
-
-      # Release
       - release:
           name: Release
           context: nodejs-app-release
           node_version: 'lts'
-          requires:
-            - scan-repo
-            - test-unix
-            - test-windows
           <<: *filters_branches_only_main
-
