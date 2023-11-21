@@ -1,6 +1,5 @@
-import { AssemblyVersions } from './types';
+import { AssemblyVersions, PublishedProjectDeps } from './types';
 import * as errors from '../errors/';
-import * as fs from 'fs';
 import { isEmpty } from 'lodash';
 import * as debugModule from 'debug';
 
@@ -25,11 +24,12 @@ interface Versions {
 // See https://natemcmaster.com/blog/2017/12/21/netcore-primitives/ for a good overview.
 // And https://github.com/dotnet/sdk/blob/main/documentation/specs/runtime-configuration-file.md for the official
 // explanation of what the `deps.json` file is doing that we are traversing.
-export function generateRuntimeAssemblies(filePath: string): AssemblyVersions {
-  debug('extracting runtime assemblies from ' + filePath);
+export function generateRuntimeAssemblies(
+  deps: PublishedProjectDeps,
+): AssemblyVersions {
+  const runtimeTargetName = deps.runtimeTarget.name;
 
-  const depsFile = fs.readFileSync(filePath);
-  const deps = JSON.parse(depsFile.toString('utf-8'));
+  debug(`extracting runtime assemblies from ${runtimeTargetName}`);
 
   if (!deps.targets) {
     throw new errors.FileNotProcessableError(
@@ -112,7 +112,7 @@ export function generateRuntimeAssemblies(filePath: string): AssemblyVersions {
     );
   }
 
-  debug('finished extracting runtime assemblies from ' + filePath);
+  debug(`finished extracting runtime assemblies from ${runtimeTargetName}`);
 
   return runtimeAssemblyVersions;
 }
