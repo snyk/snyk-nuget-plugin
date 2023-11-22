@@ -4,6 +4,7 @@ import * as codeGenerator from '../lib/nuget-parser/csharp/generator';
 import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 import * as path from 'path';
 import * as types from '../lib/nuget-parser/types';
+import * as fs from 'fs';
 
 // Include some random C# code that will make `dotnet publish` happy.
 const program: types.DotNetFile = {
@@ -96,8 +97,10 @@ describe('when parsing runtime assembly', () => {
       const projectName = path.parse(project.name).name;
       const assetsFile = path.resolve(publishDir, `${projectName}.deps.json`);
 
-      const runtimeAssemblies =
-        runtimeAssembly.generateRuntimeAssemblies(assetsFile);
+      const depsFile = fs.readFileSync(assetsFile);
+      const deps = JSON.parse(depsFile.toString('utf-8'));
+
+      const runtimeAssemblies = runtimeAssembly.generateRuntimeAssemblies(deps);
 
       expect(runtimeAssemblies).toMatchObject(expected);
 

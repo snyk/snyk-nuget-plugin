@@ -480,6 +480,20 @@
           "name": "System.Xml.XmlDocument",
           "version": "6.0.0"
         }
+      },
+      {
+        "id": "proj2@1.0.0",
+        "info": {
+          "name": "proj2",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "id": "System.Text.Encodings.Web@6.0.0",
+        "info": {
+          "name": "System.Text.Encodings.Web",
+          "version": "6.0.0"
+        }
       }
     ],
     "graph": {
@@ -491,6 +505,9 @@
           "deps": [
             {
               "nodeId": "NSubstitute@4.3.0"
+            },
+            {
+              "nodeId": "proj2@1.0.0"
             }
           ]
         },
@@ -2717,6 +2734,20 @@
               "nodeId": "System.Xml.ReaderWriter@4.3.0:pruned"
             }
           ]
+        },
+        {
+          "nodeId": "proj2@1.0.0",
+          "pkgId": "proj2@1.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Text.Encodings.Web@4.7.2"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Text.Encodings.Web@4.7.2",
+          "pkgId": "System.Text.Encodings.Web@6.0.0",
+          "deps": []
         }
       ]
     }

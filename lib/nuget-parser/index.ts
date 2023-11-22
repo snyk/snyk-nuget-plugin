@@ -13,6 +13,7 @@ import {
   DotnetCoreV2Results,
   ManifestType,
   ProjectAssets,
+  PublishedProjectDeps,
   TargetFramework,
   TargetFrameworkInfo,
 } from './types';
@@ -84,16 +85,16 @@ export async function buildDepGraphFromFiles(
   const projectRootFolder = path.resolve(fileContentPath, '../../');
 
   const parser = PARSERS['dotnet-core-v2'];
-  const manifest: ProjectAssets =
+  const projectAssets: ProjectAssets =
     await parser.fileContentParser.parse(fileContent);
 
-  if (!manifest.project?.frameworks) {
+  if (!projectAssets.project?.frameworks) {
     throw new FileNotProcessableError(
       `unable to detect any target framework in manifest file ${safeTargetFile}, a valid one is needed to continue down this path.`,
     );
   }
 
-  const targetFrameworks = Object.keys(manifest.project.frameworks);
+  const targetFrameworks = Object.keys(projectAssets.project.frameworks);
   if (targetFrameworks.length <= 0) {
     throw new FileNotProcessableError(
       `unable to detect a target framework in ${projectRootFolder}, a valid one is needed to continue down this path.`,
@@ -114,7 +115,8 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     projectNamePrefix,
   );
 
-  const projectNameFromManifestFile = manifest?.project?.restore?.projectName;
+  const projectNameFromManifestFile =
+    projectAssets?.project?.restore?.projectName;
   if (
     manifestType === ManifestType.DOTNET_CORE &&
     useProjectNameFromAssetsFile
@@ -158,12 +160,18 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     );
 
     // Then inspect the dependency graph for the runtimepackage's assembly versions.
-    const depsFile = path.resolve(
+    const depsFilePath = path.resolve(
       publishDir,
       `${projectNameFromManifestFile}.deps.json`,
     );
+
+    const depsFile = fs.readFileSync(depsFilePath);
+    const publishedProjectDeps: PublishedProjectDeps = JSON.parse(
+      depsFile.toString('utf-8'),
+    );
+
     const assemblyVersions =
-      runtimeAssembly.generateRuntimeAssemblies(depsFile);
+      runtimeAssembly.generateRuntimeAssemblies(publishedProjectDeps);
 
     // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
     // we have maximum context to use later when building the depGraph.
@@ -179,9 +187,9 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
 
     const depGraph = parser.depParser.parse(
       resolvedProjectName,
-      manifest,
+      projectAssets,
+      publishedProjectDeps,
       assemblyVersions,
-      targetFrameworkInfo,
     );
     results.push({
       dependencyGraph: depGraph,
