@@ -249,7 +249,7 @@ class TestFixture {
 <Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <!-- Writes the targetFramework name as net7.0-windows7.0 in the assets file,  which the rest of the ecosystem
+    <!-- Writes the targetFramework name as net7.0-windows7.0 in the assets file, which the rest of the ecosystem
      doesn't understand. The generated assets file will name the targetAlias net7.0-windows, which we should pick up. -->
     <TargetFramework>net7.0-windows</TargetFramework>
   </PropertyGroup>

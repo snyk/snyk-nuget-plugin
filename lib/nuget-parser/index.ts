@@ -100,7 +100,6 @@ export async function buildDepGraphFromFiles(
     ([key, value]) => ('targetAlias' in value ? value.targetAlias : key),
   );
 
-  // const targetFrameworks = Object.keys(projectAssets.project.frameworks);
   if (targetFrameworks.length <= 0) {
     throw new FileNotProcessableError(
       `unable to detect a target framework in ${projectRootFolder}, a valid one is needed to continue down this path.`,
