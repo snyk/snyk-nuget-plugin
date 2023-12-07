@@ -227,4 +227,48 @@ class TestFixture {
     };
     expect(depGraph.getPkgs()).toContainEqual(pkg);
   });
+
+  it('extracts and uses a framework targetAlias if detected', async () => {
+    const files: types.DotNetFile[] = [
+      {
+        name: 'program.cs',
+        contents: `
+using System;
+
+class TestFixture {
+    static public void Main(String[] args)
+    {
+      Console.WriteLine("Hello, World!");
+    }
+}
+`,
+      },
+      {
+        name: 'withAlias.csproj',
+        contents: `
+<Project Sdk='Microsoft.NET.Sdk'>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- Writes the targetFramework name as net7.0-windows7.0 in the assets file,  which the rest of the ecosystem
+     doesn't understand. The generated assets file will name the targetAlias net7.0-windows, which we should pick up. -->
+    <TargetFramework>net7.0-windows</TargetFramework>
+  </PropertyGroup>
+</Project>
+`,
+      },
+    ];
+    const fixtureName = 'withTargetAlias';
+    projectDirs[fixtureName] = codeGenerator.generate('fixtures', files);
+    const tempDir = projectDirs[fixtureName];
+    await dotnet.restore(tempDir);
+
+    const results = await nugetParser.buildDepGraphFromFiles(
+      tempDir,
+      'obj/project.assets.json',
+      ManifestType.DOTNET_CORE,
+      false,
+    );
+    expect(results.length).toEqual(1);
+    expect(results[0].targetFramework).toEqual('net7.0-windows');
+  });
 });
