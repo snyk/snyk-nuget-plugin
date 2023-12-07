@@ -94,7 +94,12 @@ export async function buildDepGraphFromFiles(
     );
   }
 
-  const targetFrameworks = Object.keys(projectAssets.project.frameworks);
+  // Scan all 'frameworks' detected in the project.assets.json file, and use the targetAlias if detected and
+  // otherwise the raw key name, as it's not guaranteed that all framework objects contains a targetAlias.
+  const targetFrameworks = Object.entries(projectAssets.project.frameworks).map(
+    ([key, value]) => ('targetAlias' in value ? value.targetAlias : key),
+  );
+
   if (targetFrameworks.length <= 0) {
     throw new FileNotProcessableError(
       `unable to detect a target framework in ${projectRootFolder}, a valid one is needed to continue down this path.`,
