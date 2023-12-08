@@ -114,9 +114,6 @@ function buildGraph(
     },
   );
 
-  // That's what `dotnet` wants to call this project. Which is not always the same as what Snyk wants to call it.
-  const restoreProjectName = `${projectAssets.project.restore.projectName}/${projectAssets.project.version}`;
-
   // We publish to one RID and one only, so we can safely assume that the true dependencies will exist in this key.
   // E.g. targets -> .NETCoreApp,Version=v8.0/osx-arm64
   const runtimeTarget = publishedProjectDeps.runtimeTarget.name;
@@ -134,9 +131,16 @@ function buildGraph(
     );
   }
 
-  if (!(restoreProjectName in publishedProjectDeps.targets[runtimeTarget])) {
+  // What `dotnet` wants to call this project is not always the same as what Snyk wants to call it, and the version
+  // postfix is not the same as what's defined in `project.assets.json` due to NuGet version normalization, which is
+  // not applied during publish, only during restore. So we have to rely on the fact that the name is enough.
+  const restoreProjectName = Object.keys(
+    publishedProjectDeps.targets[runtimeTarget],
+  ).find((f) => f.startsWith(projectAssets.project.restore.projectName));
+
+  if (!restoreProjectName) {
     throw new InvalidManifestError(
-      `no ${restoreProjectName} found in ${runtimeTarget} object, cannot continue without it`,
+      `no project name containing ${projectAssets.project.restore.projectName} found in ${runtimeTarget} object, cannot continue without it`,
     );
   }
 
