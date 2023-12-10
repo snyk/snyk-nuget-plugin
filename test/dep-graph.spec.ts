@@ -271,4 +271,82 @@ class TestFixture {
     expect(results.length).toEqual(1);
     expect(results[0].targetFramework).toEqual('net7.0-windows');
   });
+
+  // NuGet normalizes version numbers, which causes a discrepancy between what `project.assets.json` defines as
+  // "project version", and how that package name is referenced in `project.deps.json` after publish.
+  // E.g. a version might be defined as 13.0.0 in `project.assets.json` but referenced as `Package/13` in the .deps file.
+  it.each([
+    { version: '1', expected: '1.0.0' },
+    { version: '1.2', expected: '1.2.0' },
+    {
+      version: '1.2.3',
+      expected: '1.2.3',
+    },
+    { version: '1.2.3.4', expected: '1.2.3.4' },
+    { version: '1.0.0', expected: '1.0.0' },
+    {
+      version: '1.01.3',
+      expected: '1.1.3',
+    },
+    { version: '1.2.3.0', expected: '1.2.3' },
+  ])(
+    'succeeds in creating a dependency graph with version: $version',
+    async ({ version, expected }) => {
+      const files: types.DotNetFile[] = [
+        {
+          name: 'program.cs',
+          contents: `
+using System;
+
+class TestFixture {
+    static public void Main(String[] args)
+    {
+      Console.WriteLine("Hello, World!");
+    }
+}
+`,
+        },
+        {
+          name: 'Logging.csproj',
+          contents: `
+<Project Sdk='Microsoft.NET.Sdk'>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <AssemblyName>Logging</AssemblyName>
+        <RootNamespace>Logging</RootNamespace>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+</Project>
+`,
+        },
+        {
+          name: 'Directory.Build.props',
+          contents: `
+<Project>
+  <PropertyGroup>
+    <Version>${version}</Version>
+  </PropertyGroup>
+</Project>
+`,
+        },
+      ];
+      const fixtureName = `withVersion-${version}`;
+      projectDirs[fixtureName] = codeGenerator.generate('fixtures', files);
+      const tempDir = projectDirs[fixtureName];
+      await dotnet.restore(tempDir);
+
+      const results = await nugetParser.buildDepGraphFromFiles(
+        tempDir,
+        'obj/project.assets.json',
+        ManifestType.DOTNET_CORE,
+        false,
+      );
+      expect(results.length).toEqual(1);
+
+      const rooktPkgVersion = results['0'].dependencyGraph
+        .toJSON()
+        .graph.nodes['0'].pkgId.split('@')[1];
+      expect(rooktPkgVersion).toEqual(expected);
+    },
+  );
 });
