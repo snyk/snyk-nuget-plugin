@@ -106,25 +106,13 @@ class TestFixture {
     expect(baselinePathsToRoot).toEqual(withRuntimeDepsPathsToRoot);
   });
 
-  it('does not crash when parsing a project with no dependencies', async () => {
-    // Generate some random project
-    const files: types.DotNetFile[] = [
-      {
-        name: 'program.cs',
-        contents: `
-using System;
-class TestFixture {
-    static public void Main(String[] args)
+  it.each([
     {
-      var client = new System.Net.Http.HttpClient();
-      Console.WriteLine("Hello, World!");
-    }
-}
-`,
-      },
-      {
-        name: 'no_deps.csproj',
-        contents: `
+      description: 'no dependencies',
+      files: [
+        {
+          name: 'no_deps.csproj',
+          contents: `
 <Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -132,22 +120,62 @@ class TestFixture {
   </PropertyGroup>
 </Project>
 `,
-      },
-    ];
-    const fixtureName = 'noDeps';
-    projectDirs[fixtureName] = codeGenerator.generate('fixtures', files);
-    const tempDir = projectDirs[fixtureName];
-    await dotnet.restore(tempDir);
+        },
+      ],
+    },
+    {
+      description: 'preserved compilation context',
+      files: [
+        {
+          name: 'withCompilationContext.csproj',
+          contents: `
+<Project Sdk='Microsoft.NET.Sdk.Web'>
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+  </PropertyGroup>
+</Project>
+`,
+        },
+      ],
+    },
+  ])(
+    'succeeds to generate a dependency graph for a project with: $description',
+    async ({ description, files }) => {
+      const fixtureName = description.replace(/\s/g, '-');
+      const program = {
+        name: 'program.cs',
+        contents: `
+using System;
 
-    const results = await nugetParser.buildDepGraphFromFiles(
-      tempDir,
-      'obj/project.assets.json',
-      ManifestType.DOTNET_CORE,
-      false,
-    );
-    expect(results.length).toEqual(1);
-    expect(results[0].dependencyGraph).toBeDefined();
-  });
+class TestFixture {
+    static public void Main(String[] args)
+    {
+      Console.WriteLine("Hello, World!");
+    }
+}
+`,
+      };
+
+      const filesWithProgram = files.concat(program);
+
+      projectDirs[fixtureName] = codeGenerator.generate(
+        'fixtures',
+        filesWithProgram,
+      );
+      const tempDir = projectDirs[fixtureName];
+      await dotnet.restore(tempDir);
+
+      const results = await nugetParser.buildDepGraphFromFiles(
+        tempDir,
+        'obj/project.assets.json',
+        ManifestType.DOTNET_CORE,
+        false,
+      );
+      expect(results.length).toEqual(1);
+      expect(results[0].dependencyGraph).toBeDefined();
+    },
+  );
 
   it('correctly understands package overrides with central package management', async () => {
     const files: types.DotNetFile[] = [

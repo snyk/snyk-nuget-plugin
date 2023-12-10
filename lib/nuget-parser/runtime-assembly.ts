@@ -5,8 +5,6 @@ import * as debugModule from 'debug';
 
 const debug = debugModule('snyk');
 
-type Targets = Record<string, object>;
-
 // For the difference between the two, see:
 // https://learn.microsoft.com/en-us/troubleshoot/developer/visualstudio/general/assembly-version-assembly-file-version
 interface Versions {
@@ -37,30 +35,30 @@ export function generateRuntimeAssemblies(
     );
   }
 
-  // Run through all TargetFrameworks, indexed for example
-  // .NETCoreApp,Version=v6.0/osx-arm64,
-  // .NETCoreApp,Version=v6.0/alpine-armv6
+  if (!(runtimeTargetName in deps.targets)) {
+    throw new errors.FileNotProcessableError(
+      `could not locate ${runtimeTargetName} in list of targets, cannot continue`,
+    );
+  }
+
+  // Run through all runtimepacks in target, indexed for example as
+  // runtimepack.Microsoft.NETCore.App.Runtime.osx-arm64/7.0.14
+  // runtimepack.Microsoft.AspNetCore.App.Runtime.osx-arm64/7.0.14
   // ... etc.
   // See all: https://github.com/dotnet/runtime/blob/bd83e17052d3c09022bad1d91dca860ca6b27ab9/src/libraries/Microsoft.NETCore.Platforms/src/runtime.json
   let runtimeAssemblyVersions: AssemblyVersions = {};
-  Object.entries(deps.targets as Targets).forEach(([target, dependencies]) => {
-    // Ignore target frameworks without dependencies, as they hold no dlls and thus no assembly versions to gauge.
-    if (isEmpty(dependencies)) {
-      return;
-    }
 
-    // Since we're running `dotnet publish` with `--use-current-runtime`, this should exist in the dependency list,
-    // but guard against it to ensure good user feedback in case we did something wrong.
-    const runtimePack = Object.keys(dependencies).find((dep) =>
-      dep.startsWith('runtimepack'),
+  const runtimePacks = Object.keys(deps.targets[runtimeTargetName]).filter(
+    (t) => t.startsWith('runtimepack'),
+  );
+  if (runtimePacks.length <= 0) {
+    throw new errors.FileNotProcessableError(
+      `could not find any runtimepack.* identifiers in ${runtimeTargetName}, cannot continue`,
     );
+  }
 
-    if (!runtimePack) {
-      throw new errors.FileNotProcessableError(
-        `could not find any runtimepack.* identifier in the ${target} dependency`,
-      );
-    }
-
+  runtimePacks.forEach((runtimePack) => {
+    const dependencies = deps.targets[runtimeTargetName][runtimePack];
     // The runtimepack contains all the current RuntimeIdentifier (RID) assemblies which we are interested in.
     // Such as
     //   "runtimepack.Microsoft.NETCore.App.Runtime.osx-arm64/6.0.16": {
@@ -69,13 +67,13 @@ export function generateRuntimeAssemblies(
     //          }
     //   }
     // We traverse all those and store them for the dependency graph build.
-    if (!('runtime' in dependencies[runtimePack])) {
+    if (!('runtime' in dependencies)) {
       throw new errors.FileNotProcessableError(
         `could not find any runtime list in the ${runtimePack} dependency`,
       );
     }
 
-    const runtimes = dependencies[runtimePack]['runtime'];
+    const runtimes = dependencies['runtime'];
 
     // Dig down into the specific runtimepack which contains all the assembly versions of
     // the bundled DLLs for the given runtime, as:
@@ -92,18 +90,14 @@ export function generateRuntimeAssemblies(
     //  (...)
     // We currently only address assemblyVersions. FileVersion might become relevant, depending
     // on how vulnerabilities are reported in the future.
-    runtimeAssemblyVersions = Object.entries(runtimes as Versions).reduce(
-      (acc, [dll, versions]) => {
+    runtimeAssemblyVersions = {
+      ...runtimeAssemblyVersions,
+      ...Object.entries(runtimes as Versions).reduce((acc, [dll, versions]) => {
         // Take the version number (N.N.N.N) and remove the last element, in order for vulndb to understand anything.
         acc[dll] = versions.assemblyVersion.split('.').slice(0, -1).join('.');
         return acc;
-      },
-      {},
-    );
-
-    // `dotnet publish` does not support multiple consecutive `--runtime` parameters, so there should really only
-    // be one. Thus, drop iterating more.
-    return;
+      }, {}),
+    };
   });
 
   if (isEmpty(runtimeAssemblyVersions)) {
