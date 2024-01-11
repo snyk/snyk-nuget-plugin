@@ -50,6 +50,15 @@ describe('when calling plugin.inspect with various configs', () => {
     },
   );
 
+  it('fails gracefully on malformed packages.config', async () => {
+    const filePath = './test/fixtures/packages-config/malformed/';
+    const manifestFile = 'packages.config';
+
+    await expect(
+      async () => await plugin.inspect(filePath, manifestFile),
+    ).rejects.toThrow('Could not find a <packages> tag');
+  });
+
   it('should parse dotnet-cli project with packages.config only', async () => {
     const packagesConfigOnlyPath =
       './test/fixtures/packages-config/config-only/';
