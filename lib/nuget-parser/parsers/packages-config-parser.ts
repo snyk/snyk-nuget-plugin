@@ -3,6 +3,7 @@ import * as debugModule from 'debug';
 import { Dependency, TargetFramework } from '../types';
 import * as depsParser from 'dotnet-deps-parser';
 import { toReadableFramework } from '../framework';
+import { InvalidManifestError } from '../../errors';
 
 const debug = debugModule('snyk');
 
@@ -27,14 +28,18 @@ export function parse(fileContent) {
   parseXML.parseString(fileContent, (err, result) => {
     if (err) {
       throw err;
-    } else {
-      const packages = result.packages.package || [];
-
-      packages.forEach(function scanPackagesConfigNode(node) {
-        const installedDependency = fromPackagesConfigEntry(node);
-        installedPackages.push(installedDependency);
-      });
     }
+    if (!('packages' in result)) {
+      throw new InvalidManifestError(
+        `Could not find a <packages> tag in your packages.config file. Please read this guide \x1b[4mhttps://learn.microsoft.com/en-us/nuget/reference/packages-config#schema\x1b[0m.`,
+      );
+    }
+
+    const packages = result.packages.package || [];
+    packages.forEach(function scanPackagesConfigNode(node) {
+      const installedDependency = fromPackagesConfigEntry(node);
+      installedPackages.push(installedDependency);
+    });
   });
   return installedPackages;
 }
