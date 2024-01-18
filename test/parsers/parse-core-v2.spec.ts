@@ -40,15 +40,19 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       projectPath: './test/fixtures/dotnetcore/dotnet_8',
       targetFramework: undefined,
     },
+    {
+      description: 'parse dotnet 8.0 with custom project and output path',
+      projectPath:
+        './test/fixtures/dotnetcore/dotnet_8_custom_project_and_output_path/nested_csproj',
+      targetFramework: undefined,
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath, targetFramework }) => {
       // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-      await dotnet.restore(projectPath);
+      const manifestFilePath = await dotnet.restore(projectPath);
 
-      const manifestFile = 'obj/project.assets.json';
-
-      const result = await plugin.inspect(projectPath, manifestFile, {
+      const result = await plugin.inspect(projectPath, manifestFilePath, {
         'dotnet-runtime-resolution': true,
         'dotnet-target-framework': targetFramework,
       });
@@ -102,8 +106,8 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         ),
       );
 
-      const toJson = result.scannedProjects.map(
-        (result) => result.depGraph?.toJSON(),
+      const toJson = result.scannedProjects.map((result) =>
+        result.depGraph?.toJSON(),
       );
       expect(toJson).toEqual(expectedGraphs);
     },
