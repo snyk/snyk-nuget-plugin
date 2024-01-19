@@ -82,7 +82,6 @@ export async function buildDepGraphFromFiles(
   const safeTargetFile = targetFile || '.';
   const fileContentPath = path.resolve(safeRoot, safeTargetFile);
   const fileContent = getFileContents(fileContentPath);
-  const projectRootFolder = path.resolve(fileContentPath, '../../');
 
   const parser = PARSERS['dotnet-core-v2'];
   const projectAssets: ProjectAssets =
@@ -102,7 +101,7 @@ export async function buildDepGraphFromFiles(
 
   if (targetFrameworks.length <= 0) {
     throw new FileNotProcessableError(
-      `unable to detect a target framework in ${projectRootFolder}, a valid one is needed to continue down this path.`,
+      `unable to detect a target framework in ${safeTargetFile}, a valid one is needed to continue down this path.`,
     );
   }
 
@@ -114,11 +113,7 @@ manifest file. Available targetFrameworks detected was \x1b[1m${targetFrameworks
 Will attempt to build dependency graph anyway, but the operation might fail.`);
   }
 
-  let resolvedProjectName = getRootName(
-    root,
-    projectRootFolder,
-    projectNamePrefix,
-  );
+  let resolvedProjectName = getRootName(root, safeRoot, projectNamePrefix);
 
   const projectNameFromManifestFile =
     projectAssets?.project?.restore?.projectName;
@@ -152,17 +147,13 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
       `Was not able to find any supported TargetFrameworks to scan, aborting`,
     );
   }
+  // Ensure `dotnet` is installed on the system or fail trying.
+  await dotnet.validate();
 
   const results: DotnetCoreV2Results = [];
   for (const decidedTargetFramework of decidedTargetFrameworks) {
-    // Ensure `dotnet` is installed on the system or fail trying.
-    await dotnet.validate();
-
     // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
-    const publishDir = await dotnet.publish(
-      projectRootFolder,
-      decidedTargetFramework,
-    );
+    const publishDir = await dotnet.publish(safeRoot, decidedTargetFramework);
 
     // Then inspect the dependency graph for the runtimepackage's assembly versions.
     const depsFilePath = path.resolve(
