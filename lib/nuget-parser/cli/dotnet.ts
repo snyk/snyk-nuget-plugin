@@ -52,7 +52,14 @@ export async function validate() {
 
 export async function restore(projectPath: string): Promise<string> {
   const command = 'dotnet';
-  const args = ['restore', '--no-cache', '--verbosity', 'normal', projectPath];
+  const args = [
+    'restore',
+    // Get a larger amount of debugging information to stdout in case something fails.
+    // Useful for customers to attempt self-debugging before raising support requests.
+    '--verbosity',
+    'normal',
+    projectPath,
+  ];
   const result = await handle('restore', command, args);
 
   // A customer can define a <BaseOutPutPath> that redirects where `dotnet` saves the assets file. This will
@@ -109,8 +116,9 @@ export async function publish(
   const tempDir = fs.mkdtempSync(
     path.join(os.tmpdir(), `snyk-nuget-plugin-publish-csharp-`),
   );
-  args.push('--output');
-  args.push(tempDir);
+  // See https://learn.microsoft.com/en-us/dotnet/core/compatibility/sdk/7.0/solution-level-output-no-longer-valid#recommended-action
+  // about why we're not using `--output` for this.
+  args.push(`--property:PublishDir=${tempDir}`);
 
   // The path that contains either some form of project file, or a .sln one.
   // See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#arguments
