@@ -116,8 +116,9 @@ export async function publish(
   const tempDir = fs.mkdtempSync(
     path.join(os.tmpdir(), `snyk-nuget-plugin-publish-csharp-`),
   );
-  args.push('--output');
-  args.push(tempDir);
+  // See https://learn.microsoft.com/en-us/dotnet/core/compatibility/sdk/7.0/solution-level-output-no-longer-valid#recommended-action
+  // about why we're not using `--output` for this.
+  args.push(`--property:PublishDir=${tempDir}`);
 
   // The path that contains either some form of project file, or a .sln one.
   // See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#arguments
