@@ -52,7 +52,14 @@ export async function validate() {
 
 export async function restore(projectPath: string): Promise<string> {
   const command = 'dotnet';
-  const args = ['restore', '--no-cache', '--verbosity', 'normal', projectPath];
+  const args = [
+    'restore',
+    // Get a larger amount of debugging information to stdout in case something fails.
+    // Useful for customers to attempt self-debugging before raising support requests.
+    '--verbosity',
+    'normal',
+    projectPath,
+  ];
   const result = await handle('restore', command, args);
 
   // A customer can define a <BaseOutPutPath> that redirects where `dotnet` saves the assets file. This will
