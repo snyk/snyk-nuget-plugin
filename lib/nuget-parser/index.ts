@@ -150,6 +150,11 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
   // Ensure `dotnet` is installed on the system or fail trying.
   await dotnet.validate();
 
+  // Write a .NET Framework Parser to a temporary directory for validating TargetFrameworks.
+  const nugetFrameworksParserLocation = nugetFrameworksParser.generate();
+  await dotnet.restore(nugetFrameworksParserLocation);
+
+  // Loop through all TargetFrameworks supplied and generate a dependency graph for each.
   const results: DotnetCoreV2Results = [];
   for (const decidedTargetFramework of decidedTargetFrameworks) {
     // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
@@ -171,9 +176,9 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
 
     // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
     // we have maximum context to use later when building the depGraph.
-    const location = nugetFrameworksParser.generate();
-    await dotnet.restore(location);
-    const response = await dotnet.run(location, [decidedTargetFramework]);
+    const response = await dotnet.run(nugetFrameworksParserLocation, [
+      decidedTargetFramework,
+    ]);
     const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
     if (targetFrameworkInfo.IsUnsupported) {
       throw new InvalidManifestError(
@@ -187,6 +192,7 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
       publishedProjectDeps,
       assemblyVersions,
     );
+
     results.push({
       dependencyGraph: depGraph,
       targetFramework: decidedTargetFramework,
