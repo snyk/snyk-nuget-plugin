@@ -60,7 +60,7 @@ function recursivelyPopulateNodes(
 
     const childId = `${childNode.name}@${childNode.version}`;
 
-    // If we're looking at a  runtime assembly version for self-contained dlls, overwrite the dependency version
+    // If we're looking at a runtime assembly version for self-contained dlls, overwrite the dependency version
     // we've found in the graph with those from the runtime assembly, as they take precedence.
     let assemblyVersion = version;
     // The RuntimeAssembly type contains the name with a .dll suffix, as this is how .NET represents them in the
