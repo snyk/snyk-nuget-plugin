@@ -10,7 +10,7 @@ describe('when parsing .NET core', () => {
       {
         description: 'different target monikers',
         projectPath:
-          './test/fixtures/dotnetcore/netcoreapp20_target_monikers_differ/',
+          './test/fixtures/dotnetcore/netcoreapp21_target_monikers_differ/',
       },
       {
         description: 'assembly name from .csproj',

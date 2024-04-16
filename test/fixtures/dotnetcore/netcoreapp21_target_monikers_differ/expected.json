@@ -77,7 +77,7 @@
         }
       }
     },
-    "name": "netcoreapp20_target_monikers_differ",
+    "name": "netcoreapp21_target_monikers_differ",
     "packageFormatVersion": "nuget:0.0.0",
     "version": "1.0.0"
   },
