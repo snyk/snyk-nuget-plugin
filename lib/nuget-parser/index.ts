@@ -10,6 +10,7 @@ import * as projectJsonParser from './parsers/project-json-parser';
 import * as packagesConfigParser from './parsers/packages-config-parser';
 import { FileNotProcessableError, InvalidManifestError } from '../errors';
 import {
+  AssemblyVersions,
   DotnetCoreV2Results,
   ManifestType,
   ProjectAssets,
@@ -171,8 +172,15 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
       depsFile.toString('utf-8'),
     );
 
-    const assemblyVersions =
-      runtimeAssembly.generateRuntimeAssemblies(publishedProjectDeps);
+    let assemblyVersions: AssemblyVersions = {};
+    // Specifically targeting .NET Standard frameworks will not provide any specific runtime assembly information in
+    // the published artifacts files, and can thus not be read more precisely than the .deps file will tell us up-front.
+    // This probably makes sense when looking at https://dotnet.microsoft.com/en-us/platform/dotnet-standard#versions.
+    // As such, we don't generate any runtime assemblies and generate the dependency graph without it.
+    if (!decidedTargetFramework.includes('netstandard')) {
+      assemblyVersions =
+        runtimeAssembly.generateRuntimeAssemblies(publishedProjectDeps);
+    }
 
     // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
     // we have maximum context to use later when building the depGraph.
