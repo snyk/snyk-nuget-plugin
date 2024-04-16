@@ -15,7 +15,7 @@ describe('when calling plugin on projects containing packages.config', () => {
     const appPath = projectPath + '/only_jquery/';
     const manifestFile = 'packages.config';
     const expected = JSON.parse(
-      fs.readFileSync(path.resolve(appPath, 'expected.json'), 'utf-8'),
+      fs.readFileSync(path.resolve(appPath, 'expected_depgraph.json'), 'utf-8'),
     );
 
     const result = await plugin.inspect(appPath, manifestFile, {
@@ -39,7 +39,7 @@ describe('when calling plugin on projects containing packages.config', () => {
     const appPath = projectPath + '/only_momentjs/';
     const manifestFile = 'packages.config';
     const expected = JSON.parse(
-      fs.readFileSync(path.resolve(appPath, 'expected.json'), 'utf-8'),
+      fs.readFileSync(path.resolve(appPath, 'expected_depgraph.json'), 'utf-8'),
     );
 
     const result = await plugin.inspect(appPath, manifestFile, {
@@ -63,7 +63,7 @@ describe('when calling plugin on projects containing packages.config', () => {
     const appPat = projectPath + '/only_jquery_but_wrong_version/';
     const manifestFile = 'packages.config';
     const expected = JSON.parse(
-      fs.readFileSync(path.resolve(appPat, 'expected.json'), 'utf-8'),
+      fs.readFileSync(path.resolve(appPat, 'expected_depgraph.json'), 'utf-8'),
     );
 
     const result = await plugin.inspect(appPat, manifestFile, {
@@ -91,7 +91,10 @@ describe('when calling plugin on project containing a repositories.config', () =
     const manifestFile = 'packages.config';
     const packagesFolder = projectPath + '/packages';
     const expectedTree = JSON.parse(
-      fs.readFileSync(path.resolve(projectPath, 'expected.json'), 'utf-8'),
+      fs.readFileSync(
+        path.resolve(projectPath, 'expected_depgraph.json'),
+        'utf-8',
+      ),
     );
     const result = await plugin.inspect(projectPath, manifestFile, {
       packagesFolder,

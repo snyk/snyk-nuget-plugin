@@ -46,6 +46,11 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         './test/fixtures/dotnetcore/dotnet_8_custom_project_and_output_path/nested_csproj',
       targetFramework: undefined,
     },
+    {
+      description: 'parse netstandard 2.1 project',
+      projectPath: './test/fixtures/dotnetcore/netstandard21',
+      targetFramework: undefined,
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath, targetFramework }) => {

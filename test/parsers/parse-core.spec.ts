@@ -10,7 +10,7 @@ describe('when parsing .NET core', () => {
       {
         description: 'different target monikers',
         projectPath:
-          './test/fixtures/dotnetcore/netcoreapp20_target_monikers_differ/',
+          './test/fixtures/dotnetcore/netstandard21_target_monikers_differ/',
       },
       {
         description: 'assembly name from .csproj',
@@ -24,7 +24,10 @@ describe('when parsing .NET core', () => {
 
         const manifestFile = 'obj/project.assets.json';
         const expectedTree = JSON.parse(
-          fs.readFileSync(path.resolve(projectPath, 'expected.json'), 'utf-8'),
+          fs.readFileSync(
+            path.resolve(projectPath, 'expected_depgraph.json'),
+            'utf-8',
+          ),
         );
 
         const result = await plugin.inspect(projectPath, manifestFile);

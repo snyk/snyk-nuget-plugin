@@ -10,7 +10,7 @@ describe('when testing a project.json file', () => {
   it('returns the expected dependency tree', async () => {
     const expected = JSON.parse(
       fs
-        .readFileSync(path.resolve(projectJsonDir, 'expected.json'))
+        .readFileSync(path.resolve(projectJsonDir, 'expected_depgraph.json'))
         .toString('utf-8'),
     );
 
