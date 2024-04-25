@@ -51,6 +51,12 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       projectPath: './test/fixtures/dotnetcore/netstandard21',
       targetFramework: undefined,
     },
+    {
+      description:
+        'dotnet project that includes azure functions putting deps file in a /bin subdirectory',
+      projectPath: './test/fixtures/dotnetcore/dotnet_8_with_azure_functions',
+      targetFramework: undefined,
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath, targetFramework }) => {

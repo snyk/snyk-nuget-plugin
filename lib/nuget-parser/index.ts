@@ -8,7 +8,11 @@ import * as dotnetCoreV2Parser from './parsers/dotnet-core-v2-parser';
 import * as dotnetFrameworkParser from './parsers/dotnet-framework-parser';
 import * as projectJsonParser from './parsers/project-json-parser';
 import * as packagesConfigParser from './parsers/packages-config-parser';
-import { FileNotProcessableError, InvalidManifestError } from '../errors';
+import {
+  CliCommandError,
+  FileNotProcessableError,
+  InvalidManifestError,
+} from '../errors';
 import {
   AssemblyVersions,
   DotnetCoreV2Results,
@@ -69,6 +73,34 @@ function getFileContents(fileContentPath: string): string {
   } catch (error: unknown) {
     throw new FileNotProcessableError(error);
   }
+}
+
+// `dotnet` can publish the .deps file to a variety of places inside the publish folder, depending on what you're
+// including and targeting. Instead of trying different directories, just scan them all. In most cases, the file
+// will be in the root directory. (See https://github.com/Azure/azure-functions-vs-build-sdk/issues/518)
+function findDepsFilePathInPublishDir(dir: string): string | null {
+  for (const item of fs.readdirSync(dir)) {
+    const itemPath = path.join(dir, item);
+
+    // The file is usually <project>.deps.json, but in edge cases, `dotnet` names it for you.
+    if (itemPath.endsWith('deps.json')) {
+      return itemPath;
+    }
+
+    if (!fs.statSync(itemPath).isDirectory()) {
+      continue;
+    }
+
+    // Otherwise, look in a nested dir for the same thing.
+    const foundFilePath = findDepsFilePathInPublishDir(itemPath);
+    if (!foundFilePath) {
+      continue;
+    }
+
+    return foundFilePath;
+  }
+
+  return null;
 }
 
 export async function buildDepGraphFromFiles(
@@ -162,10 +194,13 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     const publishDir = await dotnet.publish(safeRoot, decidedTargetFramework);
 
     // Then inspect the dependency graph for the runtimepackage's assembly versions.
-    const depsFilePath = path.resolve(
-      publishDir,
-      `${projectNameFromManifestFile}.deps.json`,
-    );
+    const filename = `${projectNameFromManifestFile}.deps.json`;
+    const depsFilePath = findDepsFilePathInPublishDir(publishDir);
+    if (!depsFilePath) {
+      throw new CliCommandError(
+        `unable to locate ${filename} anywhere inside ${publishDir}, file is needed for runtime resolution to occur, aborting`,
+      );
+    }
 
     const depsFile = fs.readFileSync(depsFilePath);
     const publishedProjectDeps: PublishedProjectDeps = JSON.parse(
