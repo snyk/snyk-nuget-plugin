@@ -123,6 +123,10 @@ export async function publish(
     args.push(targetFramework);
   }
 
+  // See https://devblogs.microsoft.com/nuget/enable-repeatable-package-restores-using-a-lock-file/
+  // Forces the usage of the lockfile for PackageReference packages to ensure that the locked versions are published
+  args.push('-p:RestoreLockedMode=true');
+
   // Define a temporary output dir to use for detecting .dlls to use for runtime version assembly detection.
   const tempDir = fs.mkdtempSync(
     path.join(os.tmpdir(), `snyk-nuget-plugin-publish-csharp-`),

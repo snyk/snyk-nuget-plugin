@@ -98,6 +98,70 @@ class TestFixture {
     expect(contents).toContain('dotnet_6_and_7.deps.json');
   });
 
+  it('publishes correcttly when a .NET project includes a lockfile', async () => {
+    const fixtures: types.DotNetFile[] = [
+      {
+        name: 'program.cs',
+        contents: `
+using System;
+class TestFixture {
+    static public void Main(String[] args)
+    {
+      var client = new System.Net.Http.HttpClient();
+      Console.WriteLine("Hello, World!");
+    }
+}
+`,
+      },
+      {
+        name: 'testproject.csproj',
+        contents: `
+        <Project Sdk="Microsoft.NET.Sdk">
+
+        <PropertyGroup>
+          <OutputType>Exe</OutputType>
+          <TargetFramework>net7.0</TargetFramework>
+          <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+          <RuntimeIdentifier>osx-arm64</RuntimeIdentifier>
+        </PropertyGroup>
+      
+        <ItemGroup>
+          <PackageReference Include="Newtonsoft.Json" Version="12.*" />  </ItemGroup>
+      
+      </Project>
+      `,
+      },
+      {
+        name: 'packages.lock.json',
+        contents: `
+        {
+          "version": 1,
+          "dependencies": {
+            "net7.0": {
+              "Newtonsoft.Json": {
+                "type": "Direct",
+                "requested": "[12.*, )",
+                "resolved": "12.0.3",
+                "contentHash": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg=="
+              }
+            },
+            "net7.0/osx-arm64": {}
+          }
+        }
+`,
+      },
+    ];
+    projectDirs['publishWithLockfile'] = codeGenerator.generate(
+      'fixtures',
+      fixtures,
+    );
+
+    const publishDir = await dotnet.publish(projectDirs['publishWithLockfile']);
+
+    const contents = fs.readdirSync(publishDir);
+    expect(contents).toContain('testproject.deps.json');
+  });
+
   it.each([
     {
       shortName: 'net6.0',
