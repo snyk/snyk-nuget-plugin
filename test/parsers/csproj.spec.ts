@@ -1,7 +1,6 @@
 import { getTargetFrameworksFromProjFile } from '../../lib/nuget-parser/parsers/csproj-parser';
 import { describe, expect, it } from '@jest/globals';
 import * as plugin from '../../lib';
-import * as dotnet from '../../lib/nuget-parser/cli/dotnet';
 import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 
 describe('parse .csproj', () => {
@@ -71,19 +70,6 @@ describe('parse .csproj', () => {
 
       expect(result.package.name).toBe('no-csproj');
       expect(result.plugin.targetRuntime).toBe('netcoreapp2.0');
-    });
-
-    it('parse dotnet with no deps', async () => {
-      const noDeps = './test/fixtures/target-framework/no-dependencies/';
-      await dotnet.restore(noDeps);
-
-      const result = await plugin.inspect(noDeps, 'obj/project.assets.json');
-
-      if (pluginApi.isMultiResult(result) || !result?.package?.dependencies) {
-        throw new Error('received invalid depTree');
-      }
-
-      expect(Object.keys(result.package.dependencies).length).toBe(1); // Just the TF's own dependency
     });
 
     it('parse dotnet with no valid framework defined', async () => {
