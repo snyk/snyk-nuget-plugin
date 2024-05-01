@@ -83,7 +83,7 @@ describe('parse .csproj', () => {
         throw new Error('received invalid depTree');
       }
 
-      expect(Object.keys(result.package.dependencies).length).toBe(0);
+      expect(Object.keys(result.package.dependencies).length).toBe(1); // Just the TF's own dependency
     });
 
     it('parse dotnet with no valid framework defined', async () => {
