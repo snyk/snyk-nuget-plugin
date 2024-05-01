@@ -155,18 +155,37 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       description: 'net472 - with package.assets.json',
       projectPath: './test/fixtures/target-framework/no-dependencies/',
       manifestFile: 'obj/project.assets.json',
+      requiresRestore: true,
       expectedErrorMessage: /not able to find any supported TargetFrameworks/,
     },
     {
       description: 'net461 - no package.assets.json',
       projectPath: './test/fixtures/packages-config/repositories-config/',
       manifestFile: 'project.json',
+      requiresRestore: false,
       expectedErrorMessage:
         /runtime resolution flag is currently only supported/,
     },
+    {
+      description: 'dotnet core project - unpublishable',
+      projectPath: './test/fixtures/dotnetcore/dotnet_8_unpublishable/',
+      manifestFile: 'obj/project.assets.json',
+      requiresRestore: true,
+      expectedErrorMessage:
+        /as the project has the MSBuild property IsPublishable set to false/,
+    },
   ])(
     'does not allow the runtime option to be set on unsupported projects: $description',
-    async ({ projectPath, manifestFile, expectedErrorMessage }) => {
+    async ({
+      projectPath,
+      manifestFile,
+      requiresRestore,
+      expectedErrorMessage,
+    }) => {
+      if (requiresRestore) {
+        await dotnet.restore(projectPath);
+      }
+
       await expect(
         async () =>
           await plugin.inspect(projectPath, manifestFile, {

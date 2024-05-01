@@ -1,6 +1,7 @@
 import { getTargetFrameworksFromProjFile } from '../../lib/nuget-parser/parsers/csproj-parser';
 import { describe, expect, it } from '@jest/globals';
 import * as plugin from '../../lib';
+import * as dotnet from '../../lib/nuget-parser/cli/dotnet';
 import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 
 describe('parse .csproj', () => {
@@ -74,6 +75,7 @@ describe('parse .csproj', () => {
 
     it('parse dotnet with no deps', async () => {
       const noDeps = './test/fixtures/target-framework/no-dependencies/';
+      await dotnet.restore(noDeps);
 
       const result = await plugin.inspect(noDeps, 'obj/project.assets.json');
 

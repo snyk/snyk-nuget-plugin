@@ -189,7 +189,16 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
 
   // Loop through all TargetFrameworks supplied and generate a dependency graph for each.
   const results: DotnetCoreV2Results = [];
+  let property = '';
   for (const decidedTargetFramework of decidedTargetFrameworks) {
+    // Ensure the project can be published. If not, we cannot scan published dependencies, thus cannot read the dependency graph
+    property = await dotnet.getProperty('IsPublishable', safeRoot);
+    if (property === 'false') {
+      throw new CliCommandError(
+        `unable to scan project in ${safeRoot} as the project has the MSBuild property IsPublishable set to false. Snyk must be able to publish the solution in order to accurately scan dependencies.`,
+      );
+    }
+
     // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
     const publishDir = await dotnet.publish(safeRoot, decidedTargetFramework);
 
