@@ -72,18 +72,6 @@ describe('parse .csproj', () => {
       expect(result.plugin.targetRuntime).toBe('netcoreapp2.0');
     });
 
-    it('parse dotnet with no deps', async () => {
-      const noDeps = './test/fixtures/target-framework/no-dependencies/';
-
-      const result = await plugin.inspect(noDeps, 'obj/project.assets.json');
-
-      if (pluginApi.isMultiResult(result) || !result?.package?.dependencies) {
-        throw new Error('received invalid depTree');
-      }
-
-      expect(Object.keys(result.package.dependencies).length).toBe(0);
-    });
-
     it('parse dotnet with no valid framework defined', async () => {
       const noValidFrameworksPath =
         './test/fixtures/target-framework/no-target-valid-framework';

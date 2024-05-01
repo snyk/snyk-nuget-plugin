@@ -50,6 +50,16 @@ export async function validate() {
   }
 }
 
+export async function getProperty(
+  name: string,
+  projectPath: string,
+): Promise<string> {
+  const command = 'dotnet';
+  const args = ['msbuild', `-getProperty:${name}`, projectPath];
+  const result = await handle('getProperty', command, args);
+  return result.stdout.trim();
+}
+
 export async function restore(projectPath: string): Promise<string> {
   const command = 'dotnet';
   const args = [
