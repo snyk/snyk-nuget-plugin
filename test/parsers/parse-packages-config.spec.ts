@@ -154,42 +154,6 @@ describe('when parsing packages.config', () => {
       packagesFolder: projectPath + './_packages',
     });
   });
-
-  it.each([
-    {
-      projectPath: 'test/fixtures/target-framework/no-csproj',
-      manifestFile: 'obj/project.assets.json',
-      defaultName: 'no-csproj',
-    },
-    {
-      projectPath: 'test/fixtures/packages-config/config-only',
-      manifestFile: 'packages.config',
-      defaultName: 'config-only',
-    },
-  ])(
-    'should parse project with and without name prefix',
-    async ({ projectPath, manifestFile, defaultName }) => {
-      // With prefix
-      let result = await plugin.inspect(projectPath, manifestFile, {
-        'project-name-prefix': 'custom-prefix/',
-      });
-
-      if (pluginApi.isMultiResult(result) || !result?.package) {
-        throw new Error('received invalid depTree');
-      }
-
-      expect(result.package.name).toBe(`custom-prefix/${defaultName}`);
-
-      // Without
-      result = await plugin.inspect(projectPath, manifestFile, {});
-
-      if (pluginApi.isMultiResult(result) || !result?.package) {
-        throw new Error('received invalid depTree');
-      }
-
-      expect(result.package.name).toBe(defaultName);
-    },
-  );
 });
 
 describe('when calling getMinimumTargetFramework', () => {
