@@ -38,12 +38,13 @@ async function handle(
   }
 }
 
-export async function validate() {
+export async function validate(): Promise<string> {
   const command = 'dotnet';
   const args = ['--version'];
 
   try {
-    await handle('version', command, args);
+    const result = await handle('version', command, args);
+    return result.stdout.trim();
   } catch (error: unknown) {
     debug('dotnet tool not found, did you install dotnet core?');
     throw error;
