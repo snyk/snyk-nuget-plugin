@@ -180,8 +180,10 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
       `Was not able to find any supported TargetFrameworks to scan, aborting`,
     );
   }
+
   // Ensure `dotnet` is installed on the system or fail trying.
-  await dotnet.validate();
+  const version = await dotnet.validate();
+  const majorVersion = parseInt(version.split('.')[0], 10);
 
   // Write a .NET Framework Parser to a temporary directory for validating TargetFrameworks.
   const nugetFrameworksParserLocation = nugetFrameworksParser.generate();
@@ -189,14 +191,16 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
 
   // Loop through all TargetFrameworks supplied and generate a dependency graph for each.
   const results: DotnetCoreV2Results = [];
-  let property = '';
   for (const decidedTargetFramework of decidedTargetFrameworks) {
     // Ensure the project can be published. If not, we cannot scan published dependencies, thus cannot read the dependency graph
-    property = await dotnet.getProperty('IsPublishable', safeRoot);
-    if (property === 'false') {
-      throw new CliCommandError(
-        `unable to scan project in ${safeRoot} as the project has the MSBuild property IsPublishable set to false. Snyk must be able to publish the solution in order to accurately scan dependencies.`,
-      );
+    // But don't do it if we're running on anything older than .NET 8. There, the msbuild switch doesn't work.
+    if (majorVersion >= 8) {
+      const property = await dotnet.getProperty('IsPublishable', safeRoot);
+      if (property === 'false') {
+        throw new CliCommandError(
+          `unable to scan project in ${safeRoot} as the project has the MSBuild property IsPublishable set to false. Snyk must be able to publish the solution in order to accurately scan dependencies.`,
+        );
+      }
     }
 
     // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
