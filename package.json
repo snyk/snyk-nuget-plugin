@@ -6,6 +6,7 @@
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "jest --coverage --runInBand",
+    "test:smoke": "jest --coverage --silent=false --detectOpenHandles --testMatch **/*.spec.smoke.ts --bail",
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:eslint": "eslint -c .eslintrc '{lib,test}/**/*.ts'",
     "lint:prettier": "prettier --check '{lib,test}/**/*.{ts,csproj,json}' --log-level 'warn'",
