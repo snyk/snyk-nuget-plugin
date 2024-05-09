@@ -6,24 +6,30 @@ orbs:
   prodsec: snyk/prodsec-orb@1.0
 
 defaults: &defaults
-  parameters:
+  parameters: &default_parameters_list
     node_version:
       type: string
-      default: ''
+      default: ""
   working_directory: ~/snyk-nuget-plugin
 
+defaults_test: &defaults_test
+  <<: *defaults
+  parameters:
+    <<: *default_parameters_list
+    test_type:
+      type: enum
+      enum: [ "unit", "smoke" ]
+    dotnet_version:
+      type: string
+
 matrix_unix_node_version: &matrix_unix_node_version
-  node_version: ["16.20", "18.16", "20.3"]
+  node_version: [ "16.20", "18.16", "20.3" ]
 
 matrix_windows_node_version: &matrix_windows_node_version
-  node_version: ["16.20.0", "18.16.0", "20.3.1"]
+  node_version: [ "16.20.0", "18.16.0", "20.3.1" ]
 
-windows_defaults: &windows_defaults
-  environment:
-    npm_config_loglevel: silent
-  executor:
-    name: win/default
-    shell: bash
+matrix_dotnet_version: &matrix_dotnet_version
+  dotnet_version: [ "8.0", "7.0", "6.0" ]
 
 filters_branches_only_main: &filters_branches_only_main
   filters:
@@ -64,10 +70,9 @@ commands:
     parameters:
       os:
         type: enum
-        enum: ['unix', 'windows']
+        enum: [ "unix", "windows" ]
       dotnet_version:
         type: string
-        default: '8.0'
     steps:
       - restore_cache:
           name: Restore Dotnet executable
@@ -75,26 +80,26 @@ commands:
             - dotnet-cli-{{ arch }}-{{<< parameters.dotnet_version >>}}-v3
       - when:
           condition:
-            equal: [ 'unix', << parameters.os >> ]
+            equal: [ "unix", << parameters.os >> ]
           steps:
-          - run:
-              name: Download and install dotnet
-              command: |
-                if ! command -v dotnet &> /dev/null
-                then
-                  echo "dotnet could not be found, downloading and installing"
-                  curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel << parameters.dotnet_version >> --install-dir ~/.local/apps/dotnet
-                  ln -s ~/.local/apps/dotnet/dotnet ~/.local/bin/
-                  exit
-                fi
-          - save_cache:
-              key: dotnet-cli-{{ arch }}-{{<< parameters.dotnet_version >>}}-v3
-              paths:
-                - ~/.local/apps/dotnet
-                - ~/.local/bin/dotnet
+            - run:
+                name: Download and install dotnet
+                command: |
+                  if ! command -v dotnet &> /dev/null
+                  then
+                    echo "dotnet could not be found, downloading and installing"
+                    curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel << parameters.dotnet_version >> --install-dir ~/.local/apps/dotnet
+                    ln -s ~/.local/apps/dotnet/dotnet ~/.local/bin/
+                    exit
+                  fi
+            - save_cache:
+                key: dotnet-cli-{{ arch }}-{{<< parameters.dotnet_version >>}}-v3
+                paths:
+                  - ~/.local/apps/dotnet
+                  - ~/.local/bin/dotnet
       - when:
           condition:
-            equal: [ 'windows', << parameters.os >> ]
+            equal: [ "windows", << parameters.os >> ]
           steps:
             - run:
                 name: Download and install dotnet
@@ -134,40 +139,45 @@ jobs:
           command: npm run lint
 
   test-windows:
+    <<: *defaults_test
     environment:
-      DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
-    <<: *defaults
-    <<: *windows_defaults
+      DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+      npm_config_loglevel: silent
+    executor:
+      name: win/default
+      shell: bash
     steps:
       - run: git config --global core.autocrlf false
       - checkout
       - install_dotnet:
-          os: 'windows'
+          os: "windows"
+          dotnet_version: << parameters.dotnet_version >>
       - show_dotnet_version
       - node/install
       - node_install_packages
       - show_node_version
       - run:
           name: Run tests
-          command: npm test
+          command: npm run test:<< parameters.test_type >>
           shell: bash.exe
 
   test-unix:
+    <<: *defaults_test
     environment:
-      DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
-    <<: *defaults
+      DOTNET_CLI_TELEMETRY_OPTOUT: "true"
     docker:
       - image: cimg/node:<< parameters.node_version >>
     steps:
       - checkout
       - install_dotnet:
-          os: 'unix'
+          os: "unix"
+          dotnet_version: << parameters.dotnet_version >>
       - show_dotnet_version
       - node_install_packages
       - show_node_version
       - run:
           name: Run tests
-          command: npm test
+          command: npm run test:<< parameters.test_type >>
 
   release:
     <<: *defaults
@@ -195,15 +205,31 @@ workflows:
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: '16.20'
+          node_version: "16.20"
           <<: *filters_branches_ignore_main
 
       - test-unix:
           matrix:
-            alias: test-unix
+            alias: test-unix-unit
             parameters:
               <<: *matrix_unix_node_version
-          name: Unix Tests for Node=<< matrix.node_version >>
+              test_type: [ "unit" ]
+              dotnet_version: [ "8.0" ]
+          name: Unix Unit Tests for Node=<< matrix.node_version >>
+          context: nodejs-install
+          node_version: "<< matrix.node_version >>"
+          requires:
+            - Lint
+          <<: *filters_branches_ignore_main
+
+      - test-unix:
+          matrix:
+            alias: test-unix-smoke
+            parameters:
+              <<: *matrix_dotnet_version
+              test_type: [ "smoke" ]
+              node_version: [ "lts" ]
+          name: Unix Smoke Tests for Node=<< matrix.node_version >>-Dotnet=<< matrix.dotnet_version >>
           context: nodejs-install
           node_version: "<< matrix.node_version >>"
           requires:
@@ -212,10 +238,26 @@ workflows:
 
       - test-windows:
           matrix:
-            alias: test-windows
+            alias: test-windows-unit
             parameters:
               <<: *matrix_windows_node_version
-          name: Windows Tests for Node=<< matrix.node_version >>
+              test_type: [ "unit" ]
+              dotnet_version: [ "8.0" ]
+          name: Windows Unit Tests for Node=<< matrix.node_version >>
+          context: nodejs-install
+          node_version: "<< matrix.node_version >>"
+          requires:
+            - Lint
+          <<: *filters_branches_ignore_main
+
+      - test-windows:
+          matrix:
+            alias: test-windows-smoke
+            parameters:
+              <<: *matrix_dotnet_version
+              test_type: [ "smoke" ]
+              node_version: [ "lts" ]
+          name: Windows Smoke Tests for Node=<< matrix.node_version >>-Dotnet=<< matrix.dotnet_version >>
           context: nodejs-install
           node_version: "<< matrix.node_version >>"
           requires:
@@ -225,5 +267,5 @@ workflows:
       - release:
           name: Release
           context: nodejs-app-release
-          node_version: 'lts'
+          node_version: "lts"
           <<: *filters_branches_only_main
