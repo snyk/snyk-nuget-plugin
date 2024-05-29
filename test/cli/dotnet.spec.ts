@@ -122,11 +122,12 @@ class TestFixture {
           <OutputType>Exe</OutputType>
           <TargetFramework>net7.0</TargetFramework>
           <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-          <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+          <RuntimeIdentifiers>linux-x64;win-x64</RuntimeIdentifiers>
         </PropertyGroup>
       
         <ItemGroup>
-          <PackageReference Include="Newtonsoft.Json" Version="12.*" />  </ItemGroup>
+          <PackageReference Include="Newtonsoft.Json" Version="12.*" />
+         </ItemGroup>
       
       </Project>
       `,
@@ -145,7 +146,8 @@ class TestFixture {
                 "contentHash": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg=="
               }
             },
-            "net7.0/linux-x64": {}
+            "net7.0/linux-x64": {},
+            "net7.0/win-x64": {}
           }
         }
 `,
