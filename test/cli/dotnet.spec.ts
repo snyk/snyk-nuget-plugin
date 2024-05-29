@@ -98,7 +98,7 @@ class TestFixture {
     expect(contents).toContain('dotnet_6_and_7.deps.json');
   });
 
-  it('publishes correcttly when a .NET project includes a lockfile', async () => {
+  it('publishes correctly when a .NET project includes a lockfile', async () => {
     const fixtures: types.DotNetFile[] = [
       {
         name: 'program.cs',
@@ -122,7 +122,7 @@ class TestFixture {
           <OutputType>Exe</OutputType>
           <TargetFramework>net7.0</TargetFramework>
           <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-          <RuntimeIdentifier>osx-arm64</RuntimeIdentifier>
+          <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
         </PropertyGroup>
       
         <ItemGroup>
@@ -145,7 +145,7 @@ class TestFixture {
                 "contentHash": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg=="
               }
             },
-            "net7.0/osx-arm64": {}
+            "net7.0/linux-x64": {}
           }
         }
 `,
