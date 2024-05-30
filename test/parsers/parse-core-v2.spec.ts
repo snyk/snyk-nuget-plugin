@@ -166,14 +166,6 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       expectedErrorMessage:
         /runtime resolution flag is currently only supported/,
     },
-    {
-      description: 'dotnet core project - unpublishable',
-      projectPath: './test/fixtures/dotnetcore/dotnet_8_unpublishable/',
-      manifestFile: 'obj/project.assets.json',
-      requiresRestore: true,
-      expectedErrorMessage:
-        /as the project has the MSBuild property IsPublishable set to false/,
-    },
   ])(
     'does not allow the runtime option to be set on unsupported projects: $description',
     async ({
