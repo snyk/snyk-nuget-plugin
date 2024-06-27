@@ -188,11 +188,23 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
   const nugetFrameworksParserLocation = nugetFrameworksParser.generate();
   await dotnet.restore(nugetFrameworksParserLocation);
 
+  // Access the path of this project, to ensure we get the right .csproj file, in case of multiples present
+  const projectPath = projectAssets.project.restore.projectPath;
+  if (!projectPath) {
+    console.log(
+      `\x1b[33m⚠ WARNING\x1b[0m: Could not detect any projectPath in the project assets file, if your solution contains multiple projects in the same folder, this operation might fail.`,
+    );
+  }
+
   // Loop through all TargetFrameworks supplied and generate a dependency graph for each.
   const results: DotnetCoreV2Results = [];
   for (const decidedTargetFramework of decidedTargetFrameworks) {
     // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
-    const publishDir = await dotnet.publish(safeRoot, decidedTargetFramework);
+    const publishDir = await dotnet.publish(
+      // Attempt to feed it the full path to the project file itself, as multiple could exist. If that fails, don't break the flow, just send the folder as previously
+      projectPath || safeRoot,
+      decidedTargetFramework,
+    );
 
     // Then inspect the dependency graph for the runtimepackage's assembly versions.
     const filename = `${projectNameFromManifestFile}.deps.json`;

@@ -11,11 +11,13 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     {
       description: 'parse dotnet 6.0',
       projectPath: './test/fixtures/dotnetcore/dotnet_6',
+      projectFile: 'dotnet_6.csproj',
       targetFramework: undefined,
     },
     {
       description: 'parse dotnet 6.0 and 7.0 but specify a targetFramework',
       projectPath: './test/fixtures/dotnetcore/dotnet_6_and_7',
+      projectFile: 'dotnet_6_and_7.csproj',
       targetFramework: 'net7.0',
     },
     {
@@ -23,45 +25,62 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         'parse dotnet 6.0 with a local PackageReference to another local project',
       projectPath:
         './test/fixtures/dotnetcore/dotnet_6_local_package_reference/proj1',
+      projectFile: 'proj1.csproj',
       targetFramework: 'net6.0',
     },
     {
       description: 'parse dotnet 7.0 when using Directory.Build.props',
       projectPath: './test/fixtures/props/build-props/App',
+      projectFile: 'App.csproj',
       targetFramework: undefined,
     },
     {
       description: 'parse dotnet 6.0 that does not specify a runtimeIdentifier',
       projectPath: './test/fixtures/dotnetcore/dotnet_6_no_rid',
+      projectFile: 'dotnet_6.csproj',
       targetFramework: undefined,
     },
     {
       description: 'parse dotnet 8.0',
       projectPath: './test/fixtures/dotnetcore/dotnet_8',
+      projectFile: 'dotnet_8.csproj',
       targetFramework: undefined,
     },
     {
       description: 'parse dotnet 8.0 with custom project and output path',
       projectPath:
         './test/fixtures/dotnetcore/dotnet_8_custom_project_and_output_path/nested_csproj',
+      projectFile: 'dotnet_8.csproj',
       targetFramework: undefined,
     },
     {
       description: 'parse netstandard 2.1 project',
       projectPath: './test/fixtures/dotnetcore/netstandard21',
+      projectFile: 'netstandard21.csproj',
       targetFramework: undefined,
     },
     {
       description:
         'dotnet project that includes azure functions putting deps file in a /bin subdirectory',
       projectPath: './test/fixtures/dotnetcore/dotnet_8_with_azure_functions',
+      projectFile: 'dotnet_8_with_azure_functions.csproj',
       targetFramework: undefined,
+    },
+    {
+      description:
+        'dotnet project with multiple .csproj files in the same folder',
+      projectPath:
+        './test/fixtures/dotnetcore/dotnet_8_multiple_projects_same_folder',
+      projectFile: 'dotnet_8_first.csproj',
+      targetFramework: 'net8.0',
     },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
-    async ({ projectPath, targetFramework }) => {
+    async ({ projectPath, projectFile, targetFramework }) => {
       // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-      const manifestFilePath = await dotnet.restore(projectPath);
+      const manifestFilePath = await dotnet.restore(
+        path.resolve(projectPath, projectFile),
+      );
 
       const result = await plugin.inspect(projectPath, manifestFilePath, {
         'dotnet-runtime-resolution': true,
