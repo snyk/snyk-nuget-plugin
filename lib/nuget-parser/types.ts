@@ -54,9 +54,20 @@ export enum ManifestType {
   PAKET = 'paket',
 }
 
+interface Restore {
+  projectUniqueName: string;
+  projectName: string;
+  projectPath: string;
+  packagesPath: string;
+  outputPath: string;
+  projectStyle: string;
+  configFilePaths: string[];
+  originalTargetFrameworks: string[];
+}
+
 interface Project {
   version: string;
-  restore: Record<string, any>;
+  restore: Restore;
   frameworks: Record<string, any>;
   runtimeIdentifierGraphPath: string;
 }
