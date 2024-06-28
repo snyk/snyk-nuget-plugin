@@ -1,5 +1,4 @@
 import * as debugModule from 'debug';
-import * as errors from '../../errors';
 import { CliCommandError } from '../../errors';
 import * as path from 'path';
 import * as subprocess from './subprocess';
@@ -51,7 +50,7 @@ export async function validate(): Promise<string> {
   }
 }
 
-export async function restore(projectPath: string): Promise<string> {
+export async function restore(projectPath: string): Promise<void> {
   const command = 'dotnet';
   const args = [
     'restore',
@@ -61,26 +60,8 @@ export async function restore(projectPath: string): Promise<string> {
     'normal',
     `"${projectPath}"`,
   ];
-  const result = await handle('restore', command, args);
-
-  // A customer can define a <BaseOutPutPath> that redirects where `dotnet` saves the assets file. This will
-  // get picked up by the dotnet tool and reported in the output logs.
-  const regex = /Path:\s+(.*project.assets.json)/g;
-  const matches = result.stdout.matchAll(regex);
-
-  const manifestFiles: string[] = [];
-  for (const match of matches) {
-    manifestFiles.push(match[1]);
-  }
-
-  if (manifestFiles.length === 0) {
-    throw new errors.FileNotProcessableError(
-      'found no information in stdout about the whereabouts of the assets file',
-    );
-  }
-
-  // Return the last element in the log, as it might be mentioning local asset files in reverse order.
-  return manifestFiles[manifestFiles.length - 1];
+  await handle('restore', command, args);
+  return;
 }
 
 export async function run(

@@ -15,7 +15,12 @@ describe('generating v2 depgraphs using all supported .NET SDKs', () => {
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath }) => {
       // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-      const manifestFilePath = await dotnet.restore(projectPath);
+      await dotnet.restore(projectPath);
+      const manifestFilePath = path.resolve(
+        projectPath,
+        'obj',
+        'project.assets.json',
+      );
 
       const result = await plugin.inspect(projectPath, manifestFilePath, {
         'dotnet-runtime-resolution': true,
