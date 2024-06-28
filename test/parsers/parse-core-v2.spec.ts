@@ -74,6 +74,12 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       projectFile: 'dotnet_8_first.csproj',
       targetFramework: 'net8.0',
     },
+    {
+      description: 'dotnet project with whitespaces in paths',
+      projectPath: './test/fixtures/dotnetcore/dotnet_8 with spaces in path',
+      projectFile: 'dotnet 8.csproj',
+      targetFramework: 'net8.0',
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath, projectFile, targetFramework }) => {

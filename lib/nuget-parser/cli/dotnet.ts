@@ -59,13 +59,13 @@ export async function restore(projectPath: string): Promise<string> {
     // Useful for customers to attempt self-debugging before raising support requests.
     '--verbosity',
     'normal',
-    projectPath,
+    `"${projectPath}"`,
   ];
   const result = await handle('restore', command, args);
 
   // A customer can define a <BaseOutPutPath> that redirects where `dotnet` saves the assets file. This will
   // get picked up by the dotnet tool and reported in the output logs.
-  const regex = /Path:\s+(\S+project.assets.json)/g;
+  const regex = /Path:\s+(.*project.assets.json)/g;
   const matches = result.stdout.matchAll(regex);
 
   const manifestFiles: string[] = [];
@@ -128,7 +128,7 @@ export async function publish(
 
   // The path that contains either some form of project file, or a .sln one.
   // See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#arguments
-  args.push(projectPath);
+  args.push(`"${projectPath}"`);
 
   await handle('publish', command, args);
 
