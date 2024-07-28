@@ -91,6 +91,15 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework: 'net8.0',
       manifestFilePath: 'obj/project.assets.json',
     },
+    {
+      description:
+        'parse dotnet 8.0 with a local PackageReference to the root project',
+      projectPath:
+        './test/fixtures/dotnetcore/dotnet_8_local_package_reference/SecondaryProj',
+      projectFile: 'SecondaryProj.csproj',
+      targetFramework: 'net8.0',
+      manifestFilePath: 'obj/project.assets.json',
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath, projectFile, manifestFilePath, targetFramework }) => {
