@@ -75,16 +75,35 @@ function getFileContents(fileContentPath: string): string {
   }
 }
 
+function tryToGetFileByName(dir: string, filename: string): null | Buffer {
+  const depsFilePath = path.join(dir, filename);
+  try {
+    const depsFile = fs.readFileSync(depsFilePath);
+    if (depsFile) return depsFile;
+  } catch (_) {
+    // Due to race conditions, fs docs suggests to not use .stat or .access to check if a file exists
+    // but instead we should to try and read it.
+    // https://nodejs.org/api/fs.html#fsstatpath-options-callback
+  }
+  return null;
+}
+
 // `dotnet` can publish the .deps file to a variety of places inside the publish folder, depending on what you're
 // including and targeting. Instead of trying different directories, just scan them all. In most cases, the file
 // will be in the root directory. (See https://github.com/Azure/azure-functions-vs-build-sdk/issues/518)
-function findDepsFilePathInPublishDir(dir: string): string | null {
+function findDepsFileInPublishDir(dir: string, filename): Buffer | null {
+  let renamedFile: Buffer | null = null;
+
+  // Try to get the file via full path.
+  const namedFile = tryToGetFileByName(dir, filename);
+  if (namedFile) return namedFile;
+
   for (const item of fs.readdirSync(dir)) {
     const itemPath = path.join(dir, item);
 
     // The file is usually <project>.deps.json, but in edge cases, `dotnet` names it for you.
     if (itemPath.endsWith('deps.json')) {
-      return itemPath;
+      renamedFile = fs.readFileSync(itemPath);
     }
 
     if (!fs.statSync(itemPath).isDirectory()) {
@@ -92,15 +111,15 @@ function findDepsFilePathInPublishDir(dir: string): string | null {
     }
 
     // Otherwise, look in a nested dir for the same thing.
-    const foundFilePath = findDepsFilePathInPublishDir(itemPath);
-    if (!foundFilePath) {
+    const foundFile = findDepsFileInPublishDir(itemPath, filename);
+    if (!foundFile) {
       continue;
     }
 
-    return foundFilePath;
+    return foundFile;
   }
 
-  return null;
+  return renamedFile || null;
 }
 
 export async function buildDepGraphFromFiles(
@@ -208,14 +227,14 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
 
     // Then inspect the dependency graph for the runtimepackage's assembly versions.
     const filename = `${projectNameFromManifestFile}.deps.json`;
-    const depsFilePath = findDepsFilePathInPublishDir(publishDir);
-    if (!depsFilePath) {
+    const depsFile = findDepsFileInPublishDir(publishDir, filename);
+
+    if (!depsFile) {
       throw new CliCommandError(
         `unable to locate ${filename} anywhere inside ${publishDir}, file is needed for runtime resolution to occur, aborting`,
       );
     }
 
-    const depsFile = fs.readFileSync(depsFilePath);
     const publishedProjectDeps: PublishedProjectDeps = JSON.parse(
       depsFile.toString('utf-8'),
     );
