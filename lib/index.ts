@@ -92,7 +92,7 @@ export async function inspect(
       );
     }
 
-    console.log(`
+    console.error(`
 \x1b[33m⚠ WARNING\x1b[0m: Testing a .NET project with runtime resolution enabled. 
 This should be considered experimental and not relied upon for production use.
 Please report issues with this beta feature by submitting a support ticket, and attach the output of running this command

@@ -158,7 +158,7 @@ export async function buildDepGraphFromFiles(
   }
 
   if (targetFramework && !targetFrameworks.includes(targetFramework)) {
-    console.log(`\x1b[33m⚠ WARNING\x1b[0m: Supplied targetframework \x1b[1m${targetFramework}\x1b[0m was not detected in the supplied 
+    console.error(`\x1b[33m⚠ WARNING\x1b[0m: Supplied targetframework \x1b[1m${targetFramework}\x1b[0m was not detected in the supplied 
 manifest file. Available targetFrameworks detected was \x1b[1m${targetFrameworks.join(
       ',',
     )}\x1b[0m. 
@@ -186,7 +186,7 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     ? [targetFramework]
     : targetFrameworks.filter((framework) => {
         if (!depsParser.isSupportedByV2GraphGeneration(framework)) {
-          console.log(
+          console.error(
             `\x1b[33m⚠ WARNING\x1b[0m: The runtime resolution flag is currently only supported for the following TargetFrameworks: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard. Detected a TargetFramework: \x1b[1m${framework}\x1b[0m, which will be skipped.`,
           );
           return false;
@@ -210,7 +210,7 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
   // Access the path of this project, to ensure we get the right .csproj file, in case of multiples present
   const projectPath = projectAssets.project.restore.projectPath;
   if (!projectPath) {
-    console.log(
+    console.error(
       `\x1b[33m⚠ WARNING\x1b[0m: Could not detect any projectPath in the project assets file, if your solution contains multiple projects in the same folder, this operation might fail.`,
     );
   }
