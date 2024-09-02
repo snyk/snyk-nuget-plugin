@@ -53,6 +53,13 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       manifestFilePath: 'obj/project.assets.json',
     },
     {
+      description: 'parse dotnet 8.0 with <IsPublishable> turned to false',
+      projectPath: './test/fixtures/dotnetcore/dotnet_8_is_not_publishable',
+      projectFile: 'dotnet_8.csproj',
+      targetFramework: undefined,
+      manifestFilePath: 'obj/project.assets.json',
+    },
+    {
       description: 'parse dotnet 8.0 with custom project and output path',
       projectPath:
         './test/fixtures/dotnetcore/dotnet_8_custom_project_and_output_path/nested_csproj',
