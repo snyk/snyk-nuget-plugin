@@ -103,6 +103,11 @@ export async function publish(
   // about why we're not using `--output` for this.
   args.push(`--property:PublishDir=${tempDir}`);
 
+  // Some projects can have <IsPublishable> turned to false, that won't allow `publish` command to generate the binary we
+  // need for resolution, so we're going to force <IsPublishable> to be true.
+  // See https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#msbuild
+  args.push('--p:IsPublishable=true');
+
   // The path that contains either some form of project file, or a .sln one.
   // See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#arguments
   args.push(`"${projectPath}"`);
