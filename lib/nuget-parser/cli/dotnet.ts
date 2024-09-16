@@ -99,14 +99,20 @@ export async function publish(
     path.join(os.tmpdir(), `snyk-nuget-plugin-publish-csharp-`),
   );
 
+  // Changing the PublishDir a temporary directory.
   // See https://learn.microsoft.com/en-us/dotnet/core/compatibility/sdk/7.0/solution-level-output-no-longer-valid#recommended-action
   // about why we're not using `--output` for this.
-  args.push(`--property:PublishDir=${tempDir}`);
 
   // Some projects can have <IsPublishable> turned to false, that won't allow `publish` command to generate the binary we
   // need for resolution, so we're going to force <IsPublishable> to be true.
   // See https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#msbuild
-  args.push('--p:IsPublishable=true');
+
+  // Some projects can have <PublishSingleFile> turned on, that won't generate the self-container binary we need,
+  // so we're disabling it during our scan.
+  // See https://learn.microsoft.com/en-us/dotnet/core/deploying/single-file/overview?tabs=cli
+  args.push(
+    `--p:PublishDir=${tempDir};IsPublishable=true;PublishSingleFile=false`,
+  );
 
   // The path that contains either some form of project file, or a .sln one.
   // See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#arguments
