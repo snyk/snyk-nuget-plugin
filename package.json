@@ -40,7 +40,7 @@
     "@snyk/cli-interface": "^2.14.0",
     "@snyk/dep-graph": "^2.8.1",
     "debug": "^4.3.4",
-    "dotnet-deps-parser": "5.5.3",
+    "dotnet-deps-parser": "5.6.0",
     "jszip": "3.10.1",
     "lodash": "^4.17.21",
     "node-cache": "^5.1.2",
