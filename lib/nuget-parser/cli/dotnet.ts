@@ -111,7 +111,7 @@ export async function publish(
   // so we're disabling it during our scan.
   // See https://learn.microsoft.com/en-us/dotnet/core/deploying/single-file/overview?tabs=cli
   args.push(
-    `--p:PublishDir=${tempDir};IsPublishable=true;PublishSingleFile=false`,
+    `--p:PublishDir=${tempDir};SnykTest=true;IsPublishable=true;PublishSingleFile=false`,
   );
 
   // The path that contains either some form of project file, or a .sln one.
