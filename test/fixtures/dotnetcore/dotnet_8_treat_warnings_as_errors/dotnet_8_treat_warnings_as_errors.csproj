@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors>CS0618</WarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Vulnerable dependency -->
+    <PackageVersion Include="System.Text.Json" Version="8.0.0" />
+  </ItemGroup>
+</Project>
