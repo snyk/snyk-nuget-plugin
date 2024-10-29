@@ -114,7 +114,7 @@ export async function publish(
   // Some projects can have <TreatWarningsAsErrors> tuned on, that will throw errors on any warning, making the project impossible to scan.
   // Or, they can have a list of warning codes in <WarningsAsErrors> that will do the same thing as above. So we're disabling them.
   args.push(
-    `--p:PublishDir=${tempDir};IsPublishable=true;PublishSingleFile=false;TreatWarningsAsErrors=false;WarningsAsErrors=`,
+    `--p:PublishDir=${tempDir};SnykTest=true;IsPublishable=true;PublishSingleFile=false;TreatWarningsAsErrors=false;WarningsAsErrors=`,
   );
 
   // The path that contains either some form of project file, or a .sln one.
