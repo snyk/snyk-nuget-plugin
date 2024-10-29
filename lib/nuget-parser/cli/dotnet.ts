@@ -59,6 +59,7 @@ export async function restore(projectPath: string): Promise<void> {
     '--verbosity',
     'normal',
     `"${projectPath}"`,
+    '--p=TreatWarningsAsErrors=false;WarningsAsErrors=',
   ];
   await handle('restore', command, args);
   return;
