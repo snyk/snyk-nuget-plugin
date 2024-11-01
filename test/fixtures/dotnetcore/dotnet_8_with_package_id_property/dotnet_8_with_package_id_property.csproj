@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Company>Snyk</Company>
+    <PackageId>Snyk.Project.Name</PackageId>
+    <Authors>Snyk</Authors>
+    <Description>This is a description</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.13.3" />
+  </ItemGroup>
+</Project>
