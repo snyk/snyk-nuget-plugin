@@ -100,6 +100,16 @@ function recursivelyPopulateNodes(
   }
 }
 
+function getRestoredProjectName(
+  publishedProjectDeps: PublishedProjectDeps,
+  runtimeTarget: string,
+  projectName: string,
+) {
+  return Object.keys(publishedProjectDeps.targets[runtimeTarget]).find((f) =>
+    f.startsWith(projectName),
+  );
+}
+
 function buildGraph(
   projectName: string,
   projectAssets: ProjectAssets,
@@ -134,13 +144,19 @@ function buildGraph(
   // What `dotnet` wants to call this project is not always the same as what Snyk wants to call it, and the version
   // postfix is not the same as what's defined in `project.assets.json` due to NuGet version normalization, which is
   // not applied during publish, only during restore. So we have to rely on the fact that the name is enough.
-  const restoreProjectName = Object.keys(
-    publishedProjectDeps.targets[runtimeTarget],
-  ).find((f) => f.startsWith(projectAssets.project.restore.projectName));
+  const restoreProjectName =
+    getRestoredProjectName(
+      publishedProjectDeps,
+      runtimeTarget,
+      projectAssets.project.restore.projectName,
+    ) ||
+    // Last attempt to find the target using the .csproj filename.
+    // <PackageId> property overrides most of the naming when restoring, but when publishing, the actual filename is used as the target.
+    getRestoredProjectName(publishedProjectDeps, runtimeTarget, projectName);
 
   if (!restoreProjectName) {
     throw new InvalidManifestError(
-      `no project name containing ${projectAssets.project.restore.projectName} found in ${runtimeTarget} object, cannot continue without it`,
+      `no project name containing ${projectAssets.project.restore.projectName} or ${projectName} found in ${runtimeTarget} object, cannot continue without it`,
     );
   }
 
