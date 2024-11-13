@@ -489,10 +489,10 @@
         }
       },
       {
-        "id": "System.Text.Encodings.Web@6.0.0",
+        "id": "System.Text.Encodings.Web@4.7.2",
         "info": {
           "name": "System.Text.Encodings.Web",
-          "version": "6.0.0"
+          "version": "4.7.2"
         }
       }
     ],
@@ -2746,7 +2746,7 @@
         },
         {
           "nodeId": "System.Text.Encodings.Web@4.7.2",
-          "pkgId": "System.Text.Encodings.Web@6.0.0",
+          "pkgId": "System.Text.Encodings.Web@4.7.2",
           "deps": []
         }
       ]
