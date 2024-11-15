@@ -72,7 +72,10 @@ export async function run(
   const command = 'dotnet';
   const args = ['run', '--project', projectPath].concat(options);
   const response = await handle('run', command, args);
-  return response.stdout;
+  const stdout = response.stdout;
+  return stdout.slice(
+    stdout.indexOf('{') !== -1 ? stdout.indexOf('{') : stdout.length,
+  );
 }
 
 export async function publish(
