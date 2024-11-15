@@ -72,7 +72,7 @@ export async function run(
   const command = 'dotnet';
   const args = ['run', '--project', projectPath].concat(options);
   const response = await handle('run', command, args);
-  return response.stdout;
+  return response.stdout.replaceAll(`\x1b]9;4;0;\x1b\\`, '');
 }
 
 export async function publish(

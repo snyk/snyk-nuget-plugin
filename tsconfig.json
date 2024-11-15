@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "pretty": true,
-    "target": "es2019",
+    "target": "es2021",
     "module": "commonjs",
     "sourceMap": true,
     "declaration": true,
