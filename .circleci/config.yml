@@ -29,7 +29,7 @@ matrix_windows_node_version: &matrix_windows_node_version
   node_version: [ "16.20.0", "18.16.0", "20.3.1" ]
 
 matrix_dotnet_version: &matrix_dotnet_version
-  dotnet_version: [ "8.0", "7.0", "6.0" ]
+  dotnet_version: [ "9.0", "8.0", "7.0", "6.0" ]
 
 filters_branches_only_main: &filters_branches_only_main
   filters:
@@ -238,7 +238,7 @@ workflows:
             parameters:
               <<: *matrix_unix_node_version
               test_type: [ "unit" ]
-              dotnet_version: [ "8.0" ]
+              dotnet_version: [ "9.0" ]
           name: Unix Unit Tests for Node=<< matrix.node_version >>
           context: nodejs-install
           node_version: "<< matrix.node_version >>"
@@ -266,7 +266,7 @@ workflows:
             parameters:
               <<: *matrix_windows_node_version
               test_type: [ "unit" ]
-              dotnet_version: [ "8.0" ]
+              dotnet_version: [ "9.0" ]
           name: Windows Unit Tests for Node=<< matrix.node_version >>
           context: nodejs-install
           node_version: "<< matrix.node_version >>"
