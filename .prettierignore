@@ -1,0 +1,2 @@
+# Bellow manifest file is UTF-16LE encoded, and prettier will fail on it.
+test/fixtures/target-framework/target-framework-utf16le/target-framework-utf16le.csproj
