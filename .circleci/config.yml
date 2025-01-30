@@ -217,6 +217,7 @@ workflows:
           context:
             - snyk-bot-slack
           channel: os-team-managed-alerts
+          trusted-branch: main
           <<: *filters_branches_ignore_main
 
       - security-scans:

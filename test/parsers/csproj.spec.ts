@@ -45,6 +45,13 @@ describe('parse .csproj', () => {
         fixture: './test/fixtures/target-framework/no-target-framework2',
         expected: [],
       },
+      {
+        description: 'manifest file is UTF-16LE encoded',
+        fixture: './test/fixtures/target-framework/target-framework-utf16le',
+        expected: [
+          { framework: '.NETFramework', original: 'net462', version: '462' },
+        ],
+      },
     ])('should parse if $description', ({ fixture, expected }) => {
       const targetFrameworks = getTargetFrameworksFromProjFile(fixture);
       expect(targetFrameworks).toMatchObject(expected);

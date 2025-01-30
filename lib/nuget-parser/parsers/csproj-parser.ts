@@ -24,6 +24,20 @@ function findFile(rootDir, filter) {
   return;
 }
 
+function readEncodedFile(path: string) {
+  const buffer = fs.readFileSync(path);
+
+  const firstChar = buffer.readUInt16LE(0);
+  let contents: string;
+  if (firstChar === 0xfeff) {
+    contents = buffer.toString('utf16le');
+  } else {
+    contents = buffer.toString('utf8');
+  }
+
+  return contents;
+}
+
 export function getTargetFrameworksFromProjFile(
   rootDir: string,
 ): TargetFramework[] {
@@ -35,53 +49,58 @@ export function getTargetFrameworksFromProjFile(
   }
 
   debug(`Checking .NET framework version in .csproj file ${csprojPath}`);
-  const csprojContents = fs.readFileSync(csprojPath, 'utf-8');
+
+  const csprojContents = readEncodedFile(csprojPath);
 
   let result: TargetFramework[] = [];
-  parseXML.parseString(csprojContents, (err, parsedCsprojContents) => {
-    if (err) {
-      throw new FileNotProcessableError(err);
-    }
+  try {
+    parseXML.parseString(csprojContents, (err, parsedCsprojContents) => {
+      if (err) {
+        throw new FileNotProcessableError(err);
+      }
 
-    const parsedTargetFrameworks =
-      parsedCsprojContents?.Project?.PropertyGroup?.reduce(
-        (targetFrameworks, propertyGroup) => {
-          const targetFrameworkSource =
-            propertyGroup?.TargetFrameworkVersion?.[0] ||
-            propertyGroup?.TargetFramework?.[0] ||
-            propertyGroup?.TargetFrameworks?.[0] ||
-            '';
+      const parsedTargetFrameworks =
+        parsedCsprojContents?.Project?.PropertyGroup?.reduce(
+          (targetFrameworks, propertyGroup) => {
+            const targetFrameworkSource =
+              propertyGroup?.TargetFrameworkVersion?.[0] ||
+              propertyGroup?.TargetFramework?.[0] ||
+              propertyGroup?.TargetFrameworks?.[0] ||
+              '';
 
-          return targetFrameworks
-            .concat(targetFrameworkSource.split(';'))
-            .filter(Boolean);
-        },
-        [],
-      ) || [];
+            return targetFrameworks
+              .concat(targetFrameworkSource.split(';'))
+              .filter(Boolean);
+          },
+          [],
+        ) || [];
 
-    if (parsedTargetFrameworks.length < 1) {
-      debug(
-        'Could not find TargetFrameworkVersion/TargetFramework' +
-          '/TargetFrameworks defined in the Project.PropertyGroup field of ' +
-          'your .csproj file',
-      );
-      result = [];
+      if (parsedTargetFrameworks.length < 1) {
+        debug(
+          'Could not find TargetFrameworkVersion/TargetFramework' +
+            '/TargetFrameworks defined in the Project.PropertyGroup field of ' +
+            'your .csproj file',
+        );
+        result = [];
+        return;
+      }
+
+      const targetFrameworks = parsedTargetFrameworks
+        .map(toReadableFramework)
+        .filter(Boolean);
+
+      if (parsedTargetFrameworks.length > 1 && targetFrameworks.length < 1) {
+        debug(
+          'Could not find valid/supported .NET version in csproj file located at' +
+            csprojPath,
+        );
+      }
+      result = targetFrameworks;
       return;
-    }
-
-    const targetFrameworks = parsedTargetFrameworks
-      .map(toReadableFramework)
-      .filter(Boolean);
-
-    if (parsedTargetFrameworks.length > 1 && targetFrameworks.length < 1) {
-      debug(
-        'Could not find valid/supported .NET version in csproj file located at' +
-          csprojPath,
-      );
-    }
-    result = targetFrameworks;
-    return;
-  });
+    });
+  } catch (err) {
+    throw new FileNotProcessableError(`Could not parse ${csprojPath}`);
+  }
 
   return result;
 }
