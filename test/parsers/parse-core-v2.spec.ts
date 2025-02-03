@@ -147,6 +147,14 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework: 'net8.0',
       manifestFilePath: 'obj/project.assets.json',
     },
+    {
+      description: 'parse dotnet 8.0 transitive false positive',
+      projectPath:
+        './test/fixtures/dotnetcore/dotnet_8_transitive_false_positive/FirstProject',
+      projectFile: 'dotnet_8_transitive_false_positive.csproj',
+      targetFramework: 'net8.0',
+      manifestFilePath: 'obj/project.assets.json',
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath, projectFile, manifestFilePath, targetFramework }) => {

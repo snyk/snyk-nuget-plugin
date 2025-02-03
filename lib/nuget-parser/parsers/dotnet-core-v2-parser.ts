@@ -110,7 +110,7 @@ function getRestoredProjectName(
   );
 }
 
-export function extractLocalProjects(libs: Record<string, any>): string[] {
+function extractLocalProjects(libs: Record<string, any>): string[] {
   const localPackages: string[] = [];
 
   for (const [key, value] of Object.entries(libs)) {
@@ -124,6 +124,10 @@ export function extractLocalProjects(libs: Record<string, any>): string[] {
   }
 
   return localPackages;
+}
+
+function getDllName(depName: string): string {
+  return `${depName}.dll`;
 }
 
 function buildGraph(
@@ -201,17 +205,30 @@ function buildGraph(
       publishedProjectDeps.libraries,
     );
 
-    // Overwriting the runtime versions with the versions declared in the manifest files.
     const targets = publishedProjectDeps.targets[runtimeTarget];
+
+    // Overwriting the runtime versions with the values used in local projects.
     for (const pgkName of localPackagesNames) {
       if (targets[pgkName]?.dependencies) {
         for (const [key, value] of Object.entries(
           targets[pgkName].dependencies,
         )) {
-          const dllName = `${key}.dll`;
+          const dllName = getDllName(key);
           if (runtimeAssembly[dllName]) {
             runtimeAssembly[dllName] = value as string;
           }
+        }
+      }
+    }
+
+    // Overwriting the runtime versions with the values used in fetched packages.
+    for (const [key, value] of Object.entries(targets)) {
+      if (value && Object.keys(value).length === 0) {
+        const [depName, depVersion] = key.split('/');
+        const dllName = getDllName(depName);
+        // NuGet’s dependency resolution mechanism will choose the higher available version.
+        if (runtimeAssembly[dllName] && depVersion > runtimeAssembly[dllName]) {
+          runtimeAssembly[dllName] = depVersion as string;
         }
       }
     }
