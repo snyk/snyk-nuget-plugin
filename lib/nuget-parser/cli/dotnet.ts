@@ -117,8 +117,11 @@ export async function publish(
 
   // Some projects can have <TreatWarningsAsErrors> tuned on, that will throw errors on any warning, making the project impossible to scan.
   // Or, they can have a list of warning codes in <WarningsAsErrors> that will do the same thing as above. So we're disabling them.
+
+  // Some projects may include duplicate files in the publish output due to shared dependencies or multi-targeting,
+  // causing build failures. We're disabling <ErrorOnDuplicatePublishOutputFiles> to allow publish to proceed without errors.
   args.push(
-    `--p:PublishDir=${tempDir};SnykTest=true;IsPublishable=true;PublishSingleFile=false;TreatWarningsAsErrors=false;WarningsAsErrors=`,
+    `--p:PublishDir=${tempDir};SnykTest=true;IsPublishable=true;PublishSingleFile=false;TreatWarningsAsErrors=false;ErrorOnDuplicatePublishOutputFiles=false;WarningsAsErrors=`,
   );
 
   // The path that contains either some form of project file, or a .sln one.

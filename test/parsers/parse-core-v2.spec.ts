@@ -155,6 +155,15 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework: 'net8.0',
       manifestFilePath: 'obj/project.assets.json',
     },
+    {
+      description:
+        'parse dotnet 8.0 multiple publish output files with the same relative path',
+      projectPath:
+        './test/fixtures/dotnetcore/dotnet_8_duplicate_publish_output_files/FirstProject',
+      projectFile: 'dotnet_8_duplicate_publish_output.csproj',
+      targetFramework: 'net8.0',
+      manifestFilePath: 'obj/project.assets.json',
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath, projectFile, manifestFilePath, targetFramework }) => {
