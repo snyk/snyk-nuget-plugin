@@ -65,9 +65,8 @@ function recursivelyPopulateNodes(
     let assemblyVersion = version;
     // The RuntimeAssembly type contains the name with a .dll suffix, as this is how .NET represents them in the
     // dependency file. This must be stripped in order to match the elements during depGraph construction.
-    const dll = `${name}.dll`;
-    if (dll in runtimeAssembly) {
-      assemblyVersion = runtimeAssembly[dll];
+    if (name in runtimeAssembly) {
+      assemblyVersion = runtimeAssembly[name];
     }
 
     if (localVisited.has(childId)) {
@@ -108,26 +107,6 @@ function getRestoredProjectName(
   return Object.keys(publishedProjectDeps.targets[runtimeTarget]).find((f) =>
     f.startsWith(projectName),
   );
-}
-
-function extractLocalProjects(libs: Record<string, any>): string[] {
-  const localPackages: string[] = [];
-
-  for (const [key, value] of Object.entries(libs)) {
-    if (!key.includes('runtimepack')) {
-      // Local projects (.csproj files) don't have values declared for these two properties.
-      // https://github.com/dotnet/sdk/blob/main/documentation/specs/runtime-configuration-file.md#libraries-section-depsjson
-      if (!value.serviceable && !value.sha512 && value.type === 'project') {
-        localPackages.push(key);
-      }
-    }
-  }
-
-  return localPackages;
-}
-
-function getDllName(depName: string): string {
-  return `${depName}.dll`;
 }
 
 function buildGraph(
@@ -198,41 +177,6 @@ function buildGraph(
     type: 'root',
     dependencies: topLevelDepPackages,
   } as DotnetPackage;
-
-  // runtimeAssembly doesn't have entries if the target framework is `netstandard`
-  if (Object.keys(runtimeAssembly).length > 0) {
-    const localPackagesNames = extractLocalProjects(
-      publishedProjectDeps.libraries,
-    );
-
-    const targets = publishedProjectDeps.targets[runtimeTarget];
-
-    // Overwriting the runtime versions with the values used in local projects.
-    for (const pgkName of localPackagesNames) {
-      if (targets[pgkName]?.dependencies) {
-        for (const [key, value] of Object.entries(
-          targets[pgkName].dependencies,
-        )) {
-          const dllName = getDllName(key);
-          if (runtimeAssembly[dllName]) {
-            runtimeAssembly[dllName] = value as string;
-          }
-        }
-      }
-    }
-
-    // Overwriting the runtime versions with the values used in fetched packages.
-    for (const [key, value] of Object.entries(targets)) {
-      if (value && Object.keys(value).length === 0) {
-        const [depName, depVersion] = key.split('/');
-        const dllName = getDllName(depName);
-        // NuGet’s dependency resolution mechanism will choose the higher available version.
-        if (runtimeAssembly[dllName] && depVersion > runtimeAssembly[dllName]) {
-          runtimeAssembly[dllName] = depVersion as string;
-        }
-      }
-    }
-  }
 
   recursivelyPopulateNodes(
     depGraphBuilder,

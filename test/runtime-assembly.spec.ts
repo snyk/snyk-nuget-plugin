@@ -21,6 +21,17 @@ class TestFixture {
 `,
 };
 
+// Include a global.json file in order to fetch the right assembly versions.
+const globalJson: types.DotNetFile = {
+  name: 'global.json',
+  contents: `{
+    "sdk": {
+      "version": "6.0.428"
+    }
+  }
+  `,
+};
+
 describe('when parsing runtime assembly', () => {
   it.each([
     {
@@ -41,7 +52,7 @@ describe('when parsing runtime assembly', () => {
 `,
       },
       expected: {
-        'Microsoft.CSharp.dll': '7.0.0',
+        'Microsoft.CSharp': '4.4.0',
       },
     },
     {
@@ -62,7 +73,7 @@ describe('when parsing runtime assembly', () => {
 `,
       },
       expected: {
-        'Microsoft.CSharp.dll': '6.0.0',
+        'Microsoft.CSharp': '4.4.0',
       },
     },
     {
@@ -82,14 +93,14 @@ describe('when parsing runtime assembly', () => {
 `,
       },
       expected: {
-        'System.Net.Http.dll': '6.0.0',
+        'System.Net.Http': '4.3.0',
       },
     },
   ])(
     'correctly matches the assembly versions of system dependencies: $description',
     async ({ project, expected }) => {
       // Generate and publish a dotnet project on the fly
-      const files: types.DotNetFile[] = [program, project];
+      const files: types.DotNetFile[] = [program, globalJson, project];
       const tempDir = codeGenerator.generate('fixtures', files);
       const publishDir = await dotnet.publish(tempDir);
 
@@ -100,7 +111,10 @@ describe('when parsing runtime assembly', () => {
       const depsFile = fs.readFileSync(assetsFile);
       const deps = JSON.parse(depsFile.toString('utf-8'));
 
-      const runtimeAssemblies = runtimeAssembly.generateRuntimeAssemblies(deps);
+      const runtimeAssemblies = await runtimeAssembly.generateRuntimeAssemblies(
+        deps,
+        tempDir,
+      );
 
       expect(runtimeAssemblies).toMatchObject(expected);
 
