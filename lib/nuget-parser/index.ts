@@ -221,7 +221,7 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     let projectFolder: string = '';
     // Get the project folder path
     if (projectPath) {
-      projectFolder = projectPath.slice(0, projectPath.lastIndexOf('/'));
+      projectFolder = path.dirname(projectPath);
     }
     // An important failure point here will be a reference to a version of the dotnet SDK that is
     // not installed in the environment. Ex: global.json specifies 6.0.100, but the only version install in the env is 8.0.100

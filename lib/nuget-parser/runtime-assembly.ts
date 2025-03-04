@@ -3,6 +3,7 @@ import { FileNotProcessableError, CliCommandError } from '../errors/';
 import * as debugModule from 'debug';
 import * as dotnet from './cli/dotnet';
 import * as fs from 'fs';
+import * as path from 'path';
 
 const debug = debugModule('snyk');
 
@@ -98,7 +99,7 @@ export async function generateRuntimeAssemblies(
   const runtimeVersion = findLatestMatchingVersion(localRuntimes, sdkVersion);
 
   try {
-    const overridesPath: string = `${sdkPath.slice(0, sdkPath.lastIndexOf('/'))}${PACKS_PATH}${runtimeVersion}/${PACKAGE_OVERRIDES_FILE}`;
+    const overridesPath: string = `${path.dirname(sdkPath)}${PACKS_PATH}${runtimeVersion}/${PACKAGE_OVERRIDES_FILE}`;
     const overridesAssemblies: string = fs.readFileSync(overridesPath, 'utf-8');
     for (const pkg of overridesAssemblies.split('\n')) {
       if (pkg) {
