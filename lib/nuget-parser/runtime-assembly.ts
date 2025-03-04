@@ -1,8 +1,4 @@
-import {
-  AssemblyVersions,
-  TargetFrameworkInfo,
-  PublishedProjectDeps,
-} from './types';
+import { AssemblyVersions, PublishedProjectDeps } from './types';
 import { FileNotProcessableError, CliCommandError } from '../errors/';
 import * as debugModule from 'debug';
 import * as dotnet from './cli/dotnet';
@@ -72,12 +68,9 @@ function findLatestMatchingVersion(input: string, sdkVersion: string): string {
 // And https://github.com/dotnet/sdk/blob/main/documentation/specs/runtime-configuration-file.md for the official
 // explanation of what the `deps.json` file is doing that we are traversing.
 export async function generateRuntimeAssemblies(
-  targetFrameworkInfo: TargetFrameworkInfo,
   projectPath: string,
 ): Promise<AssemblyVersions> {
-  debug(
-    `Extracting runtime assemblies from ${targetFrameworkInfo.DotNetFrameworkName}`,
-  );
+  debug(`Extracting runtime assemblies`);
 
   const runtimeAssemblyVersions: AssemblyVersions = {};
 
@@ -110,7 +103,8 @@ export async function generateRuntimeAssemblies(
     for (const pkg of overridesAssemblies.split('\n')) {
       if (pkg) {
         const [name, version] = pkg.split('|');
-        runtimeAssemblyVersions[name] = version;
+        // Trim any carriage return
+        runtimeAssemblyVersions[name] = version.trim();
       }
     }
   } catch (err) {
@@ -125,8 +119,6 @@ export async function generateRuntimeAssemblies(
     );
   }
 
-  debug(
-    `Finished extracting runtime assemblies from ${targetFrameworkInfo.DotNetFrameworkName}`,
-  );
+  debug(`Finished extracting runtime assemblies`);
   return runtimeAssemblyVersions;
 }

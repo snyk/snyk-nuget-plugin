@@ -269,7 +269,6 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     // As such, we don't generate any runtime assemblies and generate the dependency graph without it.
     if (!decidedTargetFramework.includes('netstandard')) {
       assemblyVersions = await runtimeAssembly.generateRuntimeAssemblies(
-        targetFrameworkInfo,
         projectFolder || safeRoot,
       );
     }
