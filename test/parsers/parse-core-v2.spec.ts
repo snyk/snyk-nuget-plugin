@@ -188,9 +188,9 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
           'utf-8',
         ),
       );
-      expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
-        expectedGraph.depGraph,
-      );
+      expect(
+        JSON.stringify(result.scannedProjects[0].depGraph?.toJSON()),
+      ).toEqual(JSON.stringify(expectedGraph.depGraph));
     },
     1000000,
   );
