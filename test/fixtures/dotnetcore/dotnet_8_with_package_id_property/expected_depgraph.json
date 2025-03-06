@@ -20,10 +20,10 @@
         }
       },
       {
-        "id": "NETStandard.Library@2.0.0",
+        "id": "NETStandard.Library@2.0.3",
         "info": {
           "name": "NETStandard.Library",
-          "version": "2.0.0"
+          "version": "2.0.3"
         }
       },
       {
@@ -57,7 +57,7 @@
         },
         {
           "nodeId": "NETStandard.Library@2.0.0",
-          "pkgId": "NETStandard.Library@2.0.0",
+          "pkgId": "NETStandard.Library@2.0.3",
           "deps": [
             {
               "nodeId": "Microsoft.NETCore.Platforms@1.1.0"

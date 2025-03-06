@@ -12,6 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BaseProj.csproj" />
+    <ProjectReference Include="..\BaseProj\BaseProj.csproj" />
   </ItemGroup>
 </Project>
