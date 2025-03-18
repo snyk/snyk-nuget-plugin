@@ -187,7 +187,7 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     : targetFrameworks.filter((framework) => {
         if (!depsParser.isSupportedByV2GraphGeneration(framework)) {
           console.warn(
-            `\x1b[33m⚠ WARNING\x1b[0m: The runtime resolution flag is currently only supported for the following TargetFrameworks: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard. Detected a TargetFramework: \x1b[1m${framework}\x1b[0m, which will be skipped.`,
+            `\x1b[33m⚠ WARNING\x1b[0m: The runtime resolution flag is currently only supported for the following TargetFrameworks: .NET versions 6 and higher, all versions of .NET Core and all versions of .NET Standard. Detected a TargetFramework: \x1b[1m${framework}\x1b[0m, which will be skipped.`,
           );
           return false;
         }

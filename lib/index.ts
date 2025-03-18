@@ -87,7 +87,7 @@ export async function inspect(
     if (manifestType !== ManifestType.DOTNET_CORE) {
       return Promise.reject(
         new FileNotProcessableError(
-          `runtime resolution flag is currently only supported for: .NET versions 5 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied project type was parsed as ${manifestType}.`,
+          `runtime resolution flag is currently only supported for: .NET versions 6 and higher, all versions of .NET Core and all versions of .NET Standard projects. Supplied project type was parsed as ${manifestType}.`,
         ),
       );
     }
