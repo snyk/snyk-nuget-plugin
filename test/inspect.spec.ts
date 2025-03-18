@@ -7,6 +7,10 @@ import * as depGraphLib from '@snyk/dep-graph';
 import * as depGraphLegacyLib from '@snyk/dep-graph/dist/legacy';
 import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 
+const INSPECT_OPTIONS = {
+  useFixForImprovedDotnetFalsePositives: true,
+};
+
 describe('when calling plugin.inspect with various configs', () => {
   it.each([
     {
@@ -24,7 +28,11 @@ describe('when calling plugin.inspect with various configs', () => {
 
       const manifestFile = 'obj/project.assets.json';
 
-      const result = await plugin.inspect(projectPath, manifestFile);
+      const result = await plugin.inspect(
+        projectPath,
+        manifestFile,
+        INSPECT_OPTIONS,
+      );
       if (pluginApi.isMultiResult(result) || !result?.package?.dependencies) {
         throw new Error('received invalid depTree');
       }
@@ -55,7 +63,7 @@ describe('when calling plugin.inspect with various configs', () => {
     const manifestFile = 'packages.config';
 
     await expect(
-      async () => await plugin.inspect(filePath, manifestFile),
+      async () => await plugin.inspect(filePath, manifestFile, INSPECT_OPTIONS),
     ).rejects.toThrow('Could not find a <packages> tag');
   });
 
@@ -67,6 +75,7 @@ describe('when calling plugin.inspect with various configs', () => {
     const result = await plugin.inspect(
       packagesConfigOnlyPath,
       packagesConfigOnlyManifestFile,
+      INSPECT_OPTIONS,
     );
 
     if (pluginApi.isMultiResult(result) || !result?.package?.dependencies) {
@@ -87,6 +96,7 @@ describe('when calling plugin.inspect with various configs', () => {
     const result = await plugin.inspect(
       packageConfigWithNet4TFPath,
       packageConfigWithNet4TFManifestFile,
+      INSPECT_OPTIONS,
     );
 
     if (pluginApi.isMultiResult(result) || !result?.package?.dependencies) {
@@ -116,6 +126,7 @@ describe('when calling plugin.inspect with various configs', () => {
     async ({ projectPath, manifestFile, defaultName }) => {
       const result = await plugin.inspect(projectPath, manifestFile, {
         'project-name-prefix': 'custom-prefix/',
+        ...INSPECT_OPTIONS,
       });
 
       if (pluginApi.isMultiResult(result) || !result?.package) {

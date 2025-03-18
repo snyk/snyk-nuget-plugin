@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import * as runtimeAssembly from '../lib/nuget-parser/runtime-assembly';
+import * as runtimeAssembly from '../lib/nuget-parser/runtime-assembly-v2';
 import * as codeGenerator from '../lib/nuget-parser/csharp/generator';
 import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 import * as types from '../lib/nuget-parser/types';

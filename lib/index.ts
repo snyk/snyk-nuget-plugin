@@ -103,6 +103,7 @@ with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new
       targetFile,
       manifestType,
       options['assets-project-name'],
+      options['useFixForImprovedDotnetFalsePositives'] || false,
       options['project-name-prefix'],
       options['dotnet-target-framework'],
     );

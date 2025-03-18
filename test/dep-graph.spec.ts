@@ -78,6 +78,7 @@ class TestFixture {
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,
+      true,
     );
 
     expect(withRuntimeDepsResults.length).toEqual(1);
@@ -180,6 +181,7 @@ class TestFixture {
         'obj/project.assets.json',
         ManifestType.DOTNET_CORE,
         false,
+        true,
       );
       expect(results.length).toEqual(1);
       expect(results[0].dependencyGraph).toBeDefined();
@@ -245,6 +247,7 @@ class TestFixture {
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,
+      true,
     );
     expect(results.length).toEqual(1);
 
@@ -304,6 +307,7 @@ class TestFixture {
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,
+      true,
     );
     expect(results.length).toEqual(1);
     expect(results[0].targetFramework).toEqual('net7.0-windows');
@@ -377,6 +381,7 @@ class TestFixture {
         'obj/project.assets.json',
         ManifestType.DOTNET_CORE,
         false,
+        true,
       );
       expect(results.length).toEqual(1);
 

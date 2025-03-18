@@ -35,6 +35,7 @@ function recursivelyPopulateNodes(
   targetDeps: Record<string, DotnetPackage>,
   node: DotnetPackage,
   runtimeAssembly: AssemblyVersions,
+  useFixForImprovedDotnetFalsePositives: boolean,
   visited?: Set<string>,
 ) {
   const parentId =
@@ -63,10 +64,18 @@ function recursivelyPopulateNodes(
     // If we're looking at a runtime assembly version for self-contained dlls, overwrite the dependency version
     // we've found in the graph with those from the runtime assembly, as they take precedence.
     let assemblyVersion = version;
-    // The RuntimeAssembly type contains the name with a .dll suffix, as this is how .NET represents them in the
-    // dependency file. This must be stripped in order to match the elements during depGraph construction.
-    if (name in runtimeAssembly) {
-      assemblyVersion = runtimeAssembly[name];
+
+    if (useFixForImprovedDotnetFalsePositives) {
+      if (name in runtimeAssembly) {
+        assemblyVersion = runtimeAssembly[name];
+      }
+    } else {
+      // The RuntimeAssembly type contains the name with a .dll suffix, as this is how .NET represents them in the
+      // dependency file. This must be stripped in order to match the elements during depGraph construction.
+      const dll = `${name}.dll`;
+      if (dll in runtimeAssembly) {
+        assemblyVersion = runtimeAssembly[dll];
+      }
     }
 
     if (localVisited.has(childId)) {
@@ -94,6 +103,7 @@ function recursivelyPopulateNodes(
       targetDeps,
       childNode,
       runtimeAssembly,
+      useFixForImprovedDotnetFalsePositives,
       localVisited,
     );
   }
@@ -109,11 +119,32 @@ function getRestoredProjectName(
   );
 }
 
+function extractLocalProjects(libs: Record<string, any>): string[] {
+  const localPackages: string[] = [];
+
+  for (const [key, value] of Object.entries(libs)) {
+    if (!key.includes('runtimepack')) {
+      // Local projects (.csproj files) don't have values declared for these two properties.
+      // https://github.com/dotnet/sdk/blob/main/documentation/specs/runtime-configuration-file.md#libraries-section-depsjson
+      if (!value.serviceable && !value.sha512 && value.type === 'project') {
+        localPackages.push(key);
+      }
+    }
+  }
+
+  return localPackages;
+}
+
+function getDllName(depName: string): string {
+  return `${depName}.dll`;
+}
+
 function buildGraph(
   projectName: string,
   projectAssets: ProjectAssets,
   publishedProjectDeps: PublishedProjectDeps,
   runtimeAssembly: AssemblyVersions,
+  useFixForImprovedDotnetFalsePositives: boolean,
 ): depGraphLib.DepGraph {
   const depGraphBuilder = new DepGraphBuilder(
     { name: 'nuget' },
@@ -178,11 +209,52 @@ function buildGraph(
     dependencies: topLevelDepPackages,
   } as DotnetPackage;
 
+  if (!useFixForImprovedDotnetFalsePositives) {
+    // runtimeAssembly doesn't have entries if the target framework is `netstandard`
+    if (Object.keys(runtimeAssembly).length > 0) {
+      const localPackagesNames = extractLocalProjects(
+        publishedProjectDeps.libraries,
+      );
+
+      const targets = publishedProjectDeps.targets[runtimeTarget];
+
+      // Overwriting the runtime versions with the values used in local projects.
+      for (const pgkName of localPackagesNames) {
+        if (targets[pgkName]?.dependencies) {
+          for (const [key, value] of Object.entries(
+            targets[pgkName].dependencies,
+          )) {
+            const dllName = getDllName(key);
+            if (runtimeAssembly[dllName]) {
+              runtimeAssembly[dllName] = value as string;
+            }
+          }
+        }
+      }
+
+      // Overwriting the runtime versions with the values used in fetched packages.
+      for (const [key, value] of Object.entries(targets)) {
+        if (value && Object.keys(value).length === 0) {
+          const [depName, depVersion] = key.split('/');
+          const dllName = getDllName(depName);
+          // NuGet’s dependency resolution mechanism will choose the higher available version.
+          if (
+            runtimeAssembly[dllName] &&
+            depVersion > runtimeAssembly[dllName]
+          ) {
+            runtimeAssembly[dllName] = depVersion as string;
+          }
+        }
+      }
+    }
+  }
+
   recursivelyPopulateNodes(
     depGraphBuilder,
     targetDependencies,
     rootNode,
     runtimeAssembly,
+    useFixForImprovedDotnetFalsePositives,
   );
 
   return depGraphBuilder.build();
@@ -193,6 +265,7 @@ export function parse(
   projectAssets: ProjectAssets,
   publishedProjectDeps: PublishedProjectDeps,
   runtimeAssembly: AssemblyVersions,
+  useFixForImprovedDotnetFalsePositives: boolean,
 ): depGraphLib.DepGraph {
   debug('Trying to parse .net core manifest with v2 depGraph builder');
 
@@ -201,6 +274,7 @@ export function parse(
     projectAssets,
     publishedProjectDeps,
     runtimeAssembly,
+    useFixForImprovedDotnetFalsePositives,
   );
   return result;
 }

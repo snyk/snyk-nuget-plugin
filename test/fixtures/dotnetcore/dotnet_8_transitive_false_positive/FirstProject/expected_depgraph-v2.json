@@ -90,10 +90,10 @@
         }
       },
       {
-        "id": "Microsoft.Extensions.Logging.Abstractions@8.0.2",
+        "id": "Microsoft.Extensions.Logging.Abstractions@8.0.3",
         "info": {
           "name": "Microsoft.Extensions.Logging.Abstractions",
-          "version": "8.0.2"
+          "version": "8.0.3"
         }
       },
       {
@@ -104,17 +104,17 @@
         }
       },
       {
-        "id": "System.Memory@8.0.0",
+        "id": "System.Memory@4.5.5",
         "info": {
           "name": "System.Memory",
-          "version": "8.0.0"
+          "version": "4.5.5"
         }
       },
       {
-        "id": "System.Threading.Channels@8.0.0",
+        "id": "System.Threading.Channels@7.0.0",
         "info": {
           "name": "System.Threading.Channels",
-          "version": "8.0.0"
+          "version": "7.0.0"
         }
       },
       {
@@ -139,10 +139,10 @@
         }
       },
       {
-        "id": "Microsoft.Extensions.Logging.Configuration@8.0.0",
+        "id": "Microsoft.Extensions.Logging.Configuration@8.0.1",
         "info": {
           "name": "Microsoft.Extensions.Logging.Configuration",
-          "version": "8.0.0"
+          "version": "8.0.1"
         }
       },
       {
@@ -188,10 +188,10 @@
         }
       },
       {
-        "id": "System.Diagnostics.DiagnosticSource@8.0.0",
+        "id": "System.Diagnostics.DiagnosticSource@4.4.0",
         "info": {
           "name": "System.Diagnostics.DiagnosticSource",
-          "version": "8.0.0"
+          "version": "4.4.0"
         }
       },
       {
@@ -431,7 +431,7 @@
         },
         {
           "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2",
-          "pkgId": "Microsoft.Extensions.Logging.Abstractions@8.0.2",
+          "pkgId": "Microsoft.Extensions.Logging.Abstractions@8.0.3",
           "deps": [
             {
               "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
@@ -440,7 +440,7 @@
         },
         {
           "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2:pruned",
-          "pkgId": "Microsoft.Extensions.Logging.Abstractions@8.0.2",
+          "pkgId": "Microsoft.Extensions.Logging.Abstractions@8.0.3",
           "deps": [],
           "info": {
             "labels": {
@@ -472,12 +472,12 @@
         },
         {
           "nodeId": "System.Memory@4.5.5",
-          "pkgId": "System.Memory@8.0.0",
+          "pkgId": "System.Memory@4.5.5",
           "deps": []
         },
         {
           "nodeId": "System.Threading.Channels@7.0.0",
-          "pkgId": "System.Threading.Channels@8.0.0",
+          "pkgId": "System.Threading.Channels@7.0.0",
           "deps": []
         },
         {
@@ -558,7 +558,7 @@
         },
         {
           "nodeId": "Microsoft.Extensions.Logging.Configuration@8.0.0",
-          "pkgId": "Microsoft.Extensions.Logging.Configuration@8.0.0",
+          "pkgId": "Microsoft.Extensions.Logging.Configuration@8.0.1",
           "deps": [
             {
               "nodeId": "Microsoft.Extensions.Configuration@8.0.0"
@@ -676,7 +676,7 @@
         },
         {
           "nodeId": "System.Diagnostics.DiagnosticSource@8.0.0",
-          "pkgId": "System.Diagnostics.DiagnosticSource@8.0.0",
+          "pkgId": "System.Diagnostics.DiagnosticSource@4.4.0",
           "deps": []
         },
         {

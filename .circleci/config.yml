@@ -70,7 +70,7 @@ commands:
       - restore_cache:
           name: Restore Dotnet executable
           keys:
-            - dotnet-cli-{{ arch }}-v7
+            - dotnet-cli-{{ arch }}-v8
       - when:
           condition:
             equal: [ "unix", << parameters.os >> ]
@@ -78,21 +78,21 @@ commands:
             - run:
                 name: Download and install dotnet
                 command: |
-                      DOTNET_VERSIONS=("9.0" "8.0" "7.0" "6.0")
+                      DOTNET_VERSIONS=("9.0.201" "8.0.406" "7.0.410" "6.0.428")
 
                       if ! command -v dotnet &> /dev/null
                       then
                         echo "dotnet could not be found or was of wrong version, removing existing and downloading new"
                         
                       for version in "${DOTNET_VERSIONS[@]}"; do
-                        curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel $version --install-dir ~/.local/apps/dotnet
+                        curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version $version --install-dir ~/.local/apps/dotnet
                       done
 
                       ln -s ~/.local/apps/dotnet/dotnet ~/.local/bin/
                       exit
                       fi
             - save_cache:
-                key: dotnet-cli-{{ arch }}-v7
+                key: dotnet-cli-{{ arch }}-v8
                 paths:
                   - ~/.local/apps/dotnet
                   - ~/.local/bin/dotnet
@@ -115,7 +115,7 @@ commands:
                       }
                 shell: powershell.exe
             - save_cache:
-                key: dotnet-cli-{{ arch }}-v7
+                key: dotnet-cli-{{ arch }}-8
                 paths:
                   - C:\Program Files\dotnet
 

@@ -90,10 +90,10 @@
         }
       },
       {
-        "id": "Microsoft.Extensions.Logging.Abstractions@8.0.2",
+        "id": "Microsoft.Extensions.Logging.Abstractions@8.0.3",
         "info": {
           "name": "Microsoft.Extensions.Logging.Abstractions",
-          "version": "8.0.2"
+          "version": "8.0.3"
         }
       },
       {
@@ -104,17 +104,17 @@
         }
       },
       {
-        "id": "System.Memory@8.0.0",
+        "id": "System.Memory@4.5.5",
         "info": {
           "name": "System.Memory",
-          "version": "8.0.0"
+          "version": "4.5.5"
         }
       },
       {
-        "id": "System.Threading.Channels@8.0.0",
+        "id": "System.Threading.Channels@7.0.0",
         "info": {
           "name": "System.Threading.Channels",
-          "version": "8.0.0"
+          "version": "7.0.0"
         }
       },
       {
@@ -139,10 +139,10 @@
         }
       },
       {
-        "id": "Microsoft.Extensions.Logging.Configuration@8.0.0",
+        "id": "Microsoft.Extensions.Logging.Configuration@8.0.1",
         "info": {
           "name": "Microsoft.Extensions.Logging.Configuration",
-          "version": "8.0.0"
+          "version": "8.0.1"
         }
       },
       {
@@ -188,10 +188,10 @@
         }
       },
       {
-        "id": "System.Diagnostics.DiagnosticSource@8.0.0",
+        "id": "System.Diagnostics.DiagnosticSource@4.4.0",
         "info": {
           "name": "System.Diagnostics.DiagnosticSource",
-          "version": "8.0.0"
+          "version": "4.4.0"
         }
       },
       {
@@ -202,6 +202,20 @@
         }
       },
       {
+        "id": "System.Text.Json@8.0.5",
+        "info": {
+          "name": "System.Text.Json",
+          "version": "8.0.5"
+        }
+      },
+      {
+        "id": "System.Text.Encodings.Web@8.0.0",
+        "info": {
+          "name": "System.Text.Encodings.Web",
+          "version": "8.0.0"
+        }
+      },
+      {
         "id": "dotnet_8_second_project@1.0.0",
         "info": {
           "name": "dotnet_8_second_project",
@@ -209,38 +223,10 @@
         }
       },
       {
-        "id": "Microsoft.EntityFrameworkCore@8.0.12",
+        "id": "System.Formats.Asn1@8.0.2",
         "info": {
-          "name": "Microsoft.EntityFrameworkCore",
-          "version": "8.0.12"
-        }
-      },
-      {
-        "id": "Microsoft.EntityFrameworkCore.Abstractions@8.0.12",
-        "info": {
-          "name": "Microsoft.EntityFrameworkCore.Abstractions",
-          "version": "8.0.12"
-        }
-      },
-      {
-        "id": "Microsoft.EntityFrameworkCore.Analyzers@8.0.12",
-        "info": {
-          "name": "Microsoft.EntityFrameworkCore.Analyzers",
-          "version": "8.0.12"
-        }
-      },
-      {
-        "id": "Microsoft.Extensions.Caching.Memory@8.0.1",
-        "info": {
-          "name": "Microsoft.Extensions.Caching.Memory",
-          "version": "8.0.1"
-        }
-      },
-      {
-        "id": "Microsoft.Extensions.Caching.Abstractions@8.0.0",
-        "info": {
-          "name": "Microsoft.Extensions.Caching.Abstractions",
-          "version": "8.0.0"
+          "name": "System.Formats.Asn1",
+          "version": "8.0.2"
         }
       }
     ],
@@ -253,6 +239,9 @@
           "deps": [
             {
               "nodeId": "Aspire.RabbitMQ.Client@8.2.2"
+            },
+            {
+              "nodeId": "System.Text.Json@8.0.4"
             },
             {
               "nodeId": "dotnet_8_second_project@1.0.0"
@@ -431,7 +420,7 @@
         },
         {
           "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2",
-          "pkgId": "Microsoft.Extensions.Logging.Abstractions@8.0.2",
+          "pkgId": "Microsoft.Extensions.Logging.Abstractions@8.0.3",
           "deps": [
             {
               "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
@@ -440,7 +429,7 @@
         },
         {
           "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2:pruned",
-          "pkgId": "Microsoft.Extensions.Logging.Abstractions@8.0.2",
+          "pkgId": "Microsoft.Extensions.Logging.Abstractions@8.0.3",
           "deps": [],
           "info": {
             "labels": {
@@ -472,12 +461,12 @@
         },
         {
           "nodeId": "System.Memory@4.5.5",
-          "pkgId": "System.Memory@8.0.0",
+          "pkgId": "System.Memory@4.5.5",
           "deps": []
         },
         {
           "nodeId": "System.Threading.Channels@7.0.0",
-          "pkgId": "System.Threading.Channels@8.0.0",
+          "pkgId": "System.Threading.Channels@7.0.0",
           "deps": []
         },
         {
@@ -558,7 +547,7 @@
         },
         {
           "nodeId": "Microsoft.Extensions.Logging.Configuration@8.0.0",
-          "pkgId": "Microsoft.Extensions.Logging.Configuration@8.0.0",
+          "pkgId": "Microsoft.Extensions.Logging.Configuration@8.0.1",
           "deps": [
             {
               "nodeId": "Microsoft.Extensions.Configuration@8.0.0"
@@ -573,7 +562,7 @@
               "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
             },
             {
-              "nodeId": "Microsoft.Extensions.Logging@8.0.1"
+              "nodeId": "Microsoft.Extensions.Logging@8.0.0"
             },
             {
               "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2:pruned"
@@ -609,11 +598,11 @@
           }
         },
         {
-          "nodeId": "Microsoft.Extensions.Logging@8.0.1",
+          "nodeId": "Microsoft.Extensions.Logging@8.0.0",
           "pkgId": "Microsoft.Extensions.Logging@8.0.1",
           "deps": [
             {
-              "nodeId": "Microsoft.Extensions.DependencyInjection@8.0.1"
+              "nodeId": "Microsoft.Extensions.DependencyInjection@8.0.0"
             },
             {
               "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2:pruned"
@@ -624,7 +613,7 @@
           ]
         },
         {
-          "nodeId": "Microsoft.Extensions.DependencyInjection@8.0.1",
+          "nodeId": "Microsoft.Extensions.DependencyInjection@8.0.0",
           "pkgId": "Microsoft.Extensions.DependencyInjection@8.0.1",
           "deps": [
             {
@@ -676,7 +665,7 @@
         },
         {
           "nodeId": "System.Diagnostics.DiagnosticSource@8.0.0",
-          "pkgId": "System.Diagnostics.DiagnosticSource@8.0.0",
+          "pkgId": "System.Diagnostics.DiagnosticSource@4.4.0",
           "deps": []
         },
         {
@@ -695,71 +684,35 @@
           }
         },
         {
+          "nodeId": "System.Text.Json@8.0.4",
+          "pkgId": "System.Text.Json@8.0.5",
+          "deps": [
+            {
+              "nodeId": "System.Text.Encodings.Web@8.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Text.Encodings.Web@8.0.0",
+          "pkgId": "System.Text.Encodings.Web@8.0.0",
+          "deps": []
+        },
+        {
           "nodeId": "dotnet_8_second_project@1.0.0",
           "pkgId": "dotnet_8_second_project@1.0.0",
           "deps": [
             {
-              "nodeId": "Microsoft.EntityFrameworkCore@8.0.12"
+              "nodeId": "System.Formats.Asn1@8.0.1"
+            },
+            {
+              "nodeId": "System.Text.Json@8.0.4"
             }
           ]
         },
         {
-          "nodeId": "Microsoft.EntityFrameworkCore@8.0.12",
-          "pkgId": "Microsoft.EntityFrameworkCore@8.0.12",
-          "deps": [
-            {
-              "nodeId": "Microsoft.EntityFrameworkCore.Abstractions@8.0.12"
-            },
-            {
-              "nodeId": "Microsoft.EntityFrameworkCore.Analyzers@8.0.12"
-            },
-            {
-              "nodeId": "Microsoft.Extensions.Caching.Memory@8.0.1"
-            },
-            {
-              "nodeId": "Microsoft.Extensions.Logging@8.0.1"
-            }
-          ]
-        },
-        {
-          "nodeId": "Microsoft.EntityFrameworkCore.Abstractions@8.0.12",
-          "pkgId": "Microsoft.EntityFrameworkCore.Abstractions@8.0.12",
+          "nodeId": "System.Formats.Asn1@8.0.1",
+          "pkgId": "System.Formats.Asn1@8.0.2",
           "deps": []
-        },
-        {
-          "nodeId": "Microsoft.EntityFrameworkCore.Analyzers@8.0.12",
-          "pkgId": "Microsoft.EntityFrameworkCore.Analyzers@8.0.12",
-          "deps": []
-        },
-        {
-          "nodeId": "Microsoft.Extensions.Caching.Memory@8.0.1",
-          "pkgId": "Microsoft.Extensions.Caching.Memory@8.0.1",
-          "deps": [
-            {
-              "nodeId": "Microsoft.Extensions.Caching.Abstractions@8.0.0"
-            },
-            {
-              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2"
-            },
-            {
-              "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2"
-            },
-            {
-              "nodeId": "Microsoft.Extensions.Options@8.0.2"
-            },
-            {
-              "nodeId": "Microsoft.Extensions.Primitives@8.0.0:pruned"
-            }
-          ]
-        },
-        {
-          "nodeId": "Microsoft.Extensions.Caching.Abstractions@8.0.0",
-          "pkgId": "Microsoft.Extensions.Caching.Abstractions@8.0.0",
-          "deps": [
-            {
-              "nodeId": "Microsoft.Extensions.Primitives@8.0.0"
-            }
-          ]
         }
       ]
     }
