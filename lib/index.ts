@@ -95,8 +95,8 @@ export async function inspect(
     console.warn(`
 \x1b[33m⚠ WARNING\x1b[0m: Testing a .NET project with runtime resolution enabled. 
 This should be considered experimental and not relied upon for production use.
-Please report issues with this beta feature by submitting a support ticket, and attach the output of running this command
-with the debug (-d) flag at \x1b[4mhttps://support.snyk.io/hc/en-us/requests/new\x1b[0m.`);
+Please report issues with this beta feature by submitting a support case, and attach the output of running this command
+with the debug (-d) flag at \x1b[4mhttp://support.snyk.io\x1b[0m.`);
 
     const results = await nugetParser.buildDepGraphFromFiles(
       root,
