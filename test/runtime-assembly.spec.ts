@@ -1,10 +1,8 @@
 import { describe, expect, it } from '@jest/globals';
-import * as runtimeAssembly from '../lib/nuget-parser/runtime-assembly';
+import * as runtimeAssembly from '../lib/nuget-parser/runtime-assembly-v2';
 import * as codeGenerator from '../lib/nuget-parser/csharp/generator';
 import * as dotnet from '../lib/nuget-parser/cli/dotnet';
-import * as path from 'path';
 import * as types from '../lib/nuget-parser/types';
-import * as fs from 'fs';
 
 // Include some random C# code that will make `dotnet publish` happy.
 const program: types.DotNetFile = {
@@ -41,7 +39,15 @@ describe('when parsing runtime assembly', () => {
 `,
       },
       expected: {
-        'Microsoft.CSharp.dll': '7.0.0',
+        'Microsoft.CSharp': '4.7.0',
+      },
+      globalJson: {
+        name: 'global.json',
+        contents: `{
+          "sdk": {
+            "version": "7.0.410"
+          }
+        }`,
       },
     },
     {
@@ -62,7 +68,15 @@ describe('when parsing runtime assembly', () => {
 `,
       },
       expected: {
-        'Microsoft.CSharp.dll': '6.0.0',
+        'Microsoft.CSharp': '4.7.0',
+      },
+      globalJson: {
+        name: 'global.json',
+        contents: `{
+    "sdk": {
+      "version": "6.0.428"
+    }
+  }`,
       },
     },
     {
@@ -82,25 +96,27 @@ describe('when parsing runtime assembly', () => {
 `,
       },
       expected: {
-        'System.Net.Http.dll': '6.0.0',
+        'System.Net.Http': '4.3.4',
+      },
+      globalJson: {
+        name: 'global.json',
+        contents: `{
+          "sdk": {
+            "version": "6.0.428"
+          }
+        }`,
       },
     },
   ])(
     'correctly matches the assembly versions of system dependencies: $description',
-    async ({ project, expected }) => {
+    async ({ project, expected, globalJson }) => {
       // Generate and publish a dotnet project on the fly
-      const files: types.DotNetFile[] = [program, project];
+      const files: types.DotNetFile[] = [program, globalJson, project];
       const tempDir = codeGenerator.generate('fixtures', files);
       const publishDir = await dotnet.publish(tempDir);
 
-      // Find the project_name.deps.json from the /bin folder
-      const projectName = path.parse(project.name).name;
-      const assetsFile = path.resolve(publishDir, `${projectName}.deps.json`);
-
-      const depsFile = fs.readFileSync(assetsFile);
-      const deps = JSON.parse(depsFile.toString('utf-8'));
-
-      const runtimeAssemblies = runtimeAssembly.generateRuntimeAssemblies(deps);
+      const runtimeAssemblies =
+        await runtimeAssembly.generateRuntimeAssemblies(publishDir);
 
       expect(runtimeAssemblies).toMatchObject(expected);
 

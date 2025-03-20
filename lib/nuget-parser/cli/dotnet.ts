@@ -11,11 +11,14 @@ async function handle(
   operation: string,
   command: string,
   args: string[],
+  projectPath?: string,
 ): Promise<subprocess.ExecResult> {
   debug(`running dotnet command: ${operation}: ${command}`);
 
+  const options = projectPath ? { cwd: projectPath } : {};
+
   try {
-    return await subprocess.execute(command, args);
+    return await subprocess.execute(command, args, options);
   } catch (error: unknown) {
     if (
       !(
@@ -30,7 +33,7 @@ async function handle(
       );
     }
 
-    const message = error.stdout || error.stderr;
+    const message = error.stderr || error.stdout;
     throw new CliCommandError(
       `dotnet ${operation} failed with error: ${message}`,
     );
@@ -43,6 +46,21 @@ export async function validate(): Promise<string> {
 
   try {
     const result = await handle('version', command, args);
+    return result.stdout.trim();
+  } catch (error: unknown) {
+    debug('dotnet tool not found, did you install dotnet core?');
+    throw error;
+  }
+}
+
+export async function execute(
+  args: string[],
+  projectPath: string,
+): Promise<string> {
+  const command = `dotnet`;
+
+  try {
+    const result = await handle('execute', command, args, projectPath);
     return result.stdout.trim();
   } catch (error: unknown) {
     debug('dotnet tool not found, did you install dotnet core?');

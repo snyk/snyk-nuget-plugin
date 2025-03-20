@@ -19,17 +19,12 @@ defaults_test: &defaults_test
     test_type:
       type: enum
       enum: [ "unit", "smoke" ]
-    dotnet_version:
-      type: string
 
 matrix_unix_node_version: &matrix_unix_node_version
   node_version: [ "16.20", "18.16", "20.3" ]
 
 matrix_windows_node_version: &matrix_windows_node_version
   node_version: [ "16.20.0", "18.16.0", "20.3.1" ]
-
-matrix_dotnet_version: &matrix_dotnet_version
-  dotnet_version: [ "9.0", "8.0", "7.0", "6.0" ]
 
 filters_branches_only_main: &filters_branches_only_main
   filters:
@@ -71,13 +66,11 @@ commands:
       os:
         type: enum
         enum: [ "unix", "windows" ]
-      dotnet_version:
-        type: string
     steps:
       - restore_cache:
           name: Restore Dotnet executable
           keys:
-            - dotnet-cli-{{ arch }}-{{<< parameters.dotnet_version >>}}-v3
+            - dotnet-cli-{{ arch }}-v8
       - when:
           condition:
             equal: [ "unix", << parameters.os >> ]
@@ -85,15 +78,21 @@ commands:
             - run:
                 name: Download and install dotnet
                 command: |
-                  if ! command -v dotnet &> /dev/null
-                  then
-                    echo "dotnet could not be found, downloading and installing"
-                    curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel << parameters.dotnet_version >> --install-dir ~/.local/apps/dotnet
-                    ln -s ~/.local/apps/dotnet/dotnet ~/.local/bin/
-                    exit
-                  fi
+                      DOTNET_VERSIONS=("9.0.201" "8.0.406" "7.0.410" "6.0.428")
+
+                      if ! command -v dotnet &> /dev/null
+                      then
+                        echo "dotnet could not be found or was of wrong version, removing existing and downloading new"
+                        
+                      for version in "${DOTNET_VERSIONS[@]}"; do
+                        curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version $version --install-dir ~/.local/apps/dotnet
+                      done
+
+                      ln -s ~/.local/apps/dotnet/dotnet ~/.local/bin/
+                      exit
+                      fi
             - save_cache:
-                key: dotnet-cli-{{ arch }}-{{<< parameters.dotnet_version >>}}-v3
+                key: dotnet-cli-{{ arch }}-v8
                 paths:
                   - ~/.local/apps/dotnet
                   - ~/.local/bin/dotnet
@@ -103,18 +102,20 @@ commands:
           steps:
             - run:
                 name: Download and install dotnet
-                # dotnet is already installed on Windows, so we can't check by just running it. Need to validate the version it returns.
+                # dotnet is already installed on Windows, removing it and install the desired versions.
                 command: |
-                  if [[ ! $(dotnet --version 2>&1) =~ ^<< parameters.dotnet_version >> ]]
-                  then
-                    echo "dotnet could not be found or was of wrong version, removing existing and downloading new"
-                    rm -rf "C:\Program Files\dotnet"
-                    curl -sSL https://dot.net/v1/dotnet-install.ps1 > dotnet-install.ps1
-                    powershell -File dotnet-install.ps1 -Channel << parameters.dotnet_version >> -InstallDir "C:\Program Files\dotnet"
-                  fi
-                shell: bash.exe
+                      $DOTNET_VERSIONS = @("9.0.2xx", "8.0.4xx", "7.0.4xx", "6.0.4xx")
+
+                      # Remove existing dotnet installation
+                      Remove-Item -Path "C:\Program Files\dotnet" -Recurse -Force -ErrorAction SilentlyContinue
+
+                      Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile "dotnet-install.ps1"
+                      foreach ($version in $DOTNET_VERSIONS) {
+                          powershell -File "dotnet-install.ps1" -Channel $version -InstallDir "C:\Program Files\dotnet"
+                      }
+                shell: powershell.exe
             - save_cache:
-                key: dotnet-cli-{{ arch }}-{{<< parameters.dotnet_version >>}}-v3
+                key: dotnet-cli-{{ arch }}-8
                 paths:
                   - C:\Program Files\dotnet
 
@@ -168,7 +169,6 @@ jobs:
       - checkout
       - install_dotnet:
           os: "windows"
-          dotnet_version: << parameters.dotnet_version >>
       - show_dotnet_version
       - node/install
       - node_install_packages
@@ -188,7 +188,6 @@ jobs:
       - checkout
       - install_dotnet:
           os: "unix"
-          dotnet_version: << parameters.dotnet_version >>
       - show_dotnet_version
       - node_install_packages
       - show_node_version
@@ -239,7 +238,6 @@ workflows:
             parameters:
               <<: *matrix_unix_node_version
               test_type: [ "unit" ]
-              dotnet_version: [ "9.0" ]
           name: Unix Unit Tests for Node=<< matrix.node_version >>
           context: nodejs-install
           node_version: "<< matrix.node_version >>"
@@ -251,10 +249,9 @@ workflows:
           matrix:
             alias: test-unix-smoke
             parameters:
-              <<: *matrix_dotnet_version
               test_type: [ "smoke" ]
               node_version: [ "lts" ]
-          name: Unix Smoke Tests for Node=<< matrix.node_version >>-Dotnet=<< matrix.dotnet_version >>
+          name: Unix Smoke Tests for Node=<< matrix.node_version >>
           context: nodejs-install
           node_version: "<< matrix.node_version >>"
           requires:
@@ -267,7 +264,6 @@ workflows:
             parameters:
               <<: *matrix_windows_node_version
               test_type: [ "unit" ]
-              dotnet_version: [ "9.0" ]
           name: Windows Unit Tests for Node=<< matrix.node_version >>
           context: nodejs-install
           node_version: "<< matrix.node_version >>"
@@ -279,10 +275,9 @@ workflows:
           matrix:
             alias: test-windows-smoke
             parameters:
-              <<: *matrix_dotnet_version
               test_type: [ "smoke" ]
               node_version: [ "lts" ]
-          name: Windows Smoke Tests for Node=<< matrix.node_version >>-Dotnet=<< matrix.dotnet_version >>
+          name: Windows Smoke Tests for Node=<< matrix.node_version >>
           context: nodejs-install
           node_version: "<< matrix.node_version >>"
           requires:

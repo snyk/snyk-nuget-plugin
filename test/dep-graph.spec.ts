@@ -45,6 +45,15 @@ class TestFixture {
 </Project>
 `,
       },
+      {
+        name: 'global.json',
+        contents: `{
+  "sdk": {
+    "version": "9.0.200"
+  }
+}
+`,
+      },
     ];
     const fixtureName = 'dotnet6';
     projectDirs[fixtureName] = codeGenerator.generate('fixtures', files);
@@ -69,6 +78,7 @@ class TestFixture {
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,
+      true,
     );
 
     expect(withRuntimeDepsResults.length).toEqual(1);
@@ -87,11 +97,11 @@ class TestFixture {
       .pkgPathsToRoot(pkg)
       .map((inner) => inner.map(({ name }) => ({ name })));
 
-    // Assert that with runtime deps it correctly reflects the net6.0 runtime version of the same package:
+    // Assert that with runtime deps it correctly reflects the net9.0 runtime version of the same package:
     expect(withRuntimeDeps.dependencyGraph).toBeDefined();
     pkg = {
       name: 'System.Net.Http',
-      version: '6.0.0',
+      version: '4.3.4',
     };
     expect(withRuntimeDeps.dependencyGraph.getPkgs()).toContainEqual(pkg);
     const withRuntimeDepsPathsToRoot = withRuntimeDeps.dependencyGraph
@@ -171,6 +181,7 @@ class TestFixture {
         'obj/project.assets.json',
         ManifestType.DOTNET_CORE,
         false,
+        true,
       );
       expect(results.length).toEqual(1);
       expect(results[0].dependencyGraph).toBeDefined();
@@ -236,6 +247,7 @@ class TestFixture {
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,
+      true,
     );
     expect(results.length).toEqual(1);
 
@@ -295,6 +307,7 @@ class TestFixture {
       'obj/project.assets.json',
       ManifestType.DOTNET_CORE,
       false,
+      true,
     );
     expect(results.length).toEqual(1);
     expect(results[0].targetFramework).toEqual('net7.0-windows');
@@ -368,6 +381,7 @@ class TestFixture {
         'obj/project.assets.json',
         ManifestType.DOTNET_CORE,
         false,
+        true,
       );
       expect(results.length).toEqual(1);
 

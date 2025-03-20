@@ -7,7 +7,7 @@ import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 import { FILTERED_DEPENDENCY_PREFIX } from '../../lib/nuget-parser/parsers/dotnet-core-v2-parser';
 
 describe('when generating depGraphs and runtime assemblies using the v2 parser', () => {
-  it.each([
+  const dotnetCoreProjectList = [
     {
       description: 'parse dotnet 6.0',
       projectPath: './test/fixtures/dotnetcore/dotnet_6',
@@ -164,7 +164,9 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework: 'net8.0',
       manifestFilePath: 'obj/project.assets.json',
     },
-  ])(
+  ];
+
+  it.each(dotnetCoreProjectList)(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({ projectPath, projectFile, manifestFilePath, targetFramework }) => {
       // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
@@ -195,6 +197,38 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     1000000,
   );
 
+  it.each(dotnetCoreProjectList)(
+    'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description - FP FF on',
+    async ({ projectPath, projectFile, manifestFilePath, targetFramework }) => {
+      // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
+      await dotnet.restore(path.resolve(projectPath, projectFile));
+      const projectAssetsJson = path.resolve(projectPath, manifestFilePath);
+
+      const result = await plugin.inspect(projectPath, projectAssetsJson, {
+        'dotnet-runtime-resolution': true,
+        'dotnet-target-framework': targetFramework,
+        useFixForImprovedDotnetFalsePositives: true,
+      });
+
+      if (!pluginApi.isMultiResult(result)) {
+        throw new Error('expected a multiResult response from inspection');
+      }
+
+      expect(result.scannedProjects.length).toEqual(1);
+
+      const expectedGraph = JSON.parse(
+        fs.readFileSync(
+          path.resolve(projectPath, 'expected_depgraph-v2.json'),
+          'utf-8',
+        ),
+      );
+      expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
+        expectedGraph.depGraph,
+      );
+    },
+    1000000,
+  );
+
   it.each([
     {
       description: 'parse dotnet 6.0 and 7.0',
@@ -211,6 +245,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
 
       const result = await plugin.inspect(projectPath, manifestFile, {
         'dotnet-runtime-resolution': true,
+        useFixForImprovedDotnetFalsePositives: true,
       });
 
       if (!pluginApi.isMultiResult(result)) {
@@ -239,6 +274,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     const manifestFile = 'obj/project.assets.json';
     const result = await plugin.inspect(projectPath, manifestFile, {
       'dotnet-runtime-resolution': true,
+      useFixForImprovedDotnetFalsePositives: true,
     });
 
     if (!pluginApi.isMultiResult(result)) {
@@ -291,6 +327,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         async () =>
           await plugin.inspect(projectPath, manifestFile, {
             'dotnet-runtime-resolution': true,
+            useFixForImprovedDotnetFalsePositives: true,
           }),
       ).rejects.toThrow(expectedErrorMessage);
     },

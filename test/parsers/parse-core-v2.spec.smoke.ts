@@ -24,6 +24,7 @@ describe('generating v2 depgraphs using all supported .NET SDKs', () => {
 
       const result = await plugin.inspect(projectPath, manifestFilePath, {
         'dotnet-runtime-resolution': true,
+        useFixForImprovedDotnetFalsePositives: true,
       });
 
       if (!pluginApi.isMultiResult(result)) {
@@ -34,7 +35,7 @@ describe('generating v2 depgraphs using all supported .NET SDKs', () => {
 
       const expectedGraph = JSON.parse(
         fs.readFileSync(
-          path.resolve(projectPath, 'expected_depgraph.json'),
+          path.resolve(projectPath, 'expected_depgraph-v2.json'),
           'utf-8',
         ),
       );

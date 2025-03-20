@@ -1,0 +1,75 @@
+{
+  "depGraph": {
+    "schemaVersion": "1.3.0",
+    "pkgManager": {
+      "name": "nuget"
+    },
+    "pkgs": [
+      {
+        "id": "dotnet_8_with_package_id_property@1.0.0",
+        "info": {
+          "name": "dotnet_8_with_package_id_property",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "id": "NUnit@3.13.3",
+        "info": {
+          "name": "NUnit",
+          "version": "3.13.3"
+        }
+      },
+      {
+        "id": "NETStandard.Library@2.0.3",
+        "info": {
+          "name": "NETStandard.Library",
+          "version": "2.0.3"
+        }
+      },
+      {
+        "id": "Microsoft.NETCore.Platforms@1.1.0",
+        "info": {
+          "name": "Microsoft.NETCore.Platforms",
+          "version": "1.1.0"
+        }
+      }
+    ],
+    "graph": {
+      "rootNodeId": "root-node",
+      "nodes": [
+        {
+          "nodeId": "root-node",
+          "pkgId": "dotnet_8_with_package_id_property@1.0.0",
+          "deps": [
+            {
+              "nodeId": "NUnit@3.13.3"
+            }
+          ]
+        },
+        {
+          "nodeId": "NUnit@3.13.3",
+          "pkgId": "NUnit@3.13.3",
+          "deps": [
+            {
+              "nodeId": "NETStandard.Library@2.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "NETStandard.Library@2.0.0",
+          "pkgId": "NETStandard.Library@2.0.3",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.NETCore.Platforms@1.1.0",
+          "pkgId": "Microsoft.NETCore.Platforms@1.1.0",
+          "deps": []
+        }
+      ]
+    }
+  }
+}
