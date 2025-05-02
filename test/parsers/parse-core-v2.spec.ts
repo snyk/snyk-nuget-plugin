@@ -135,7 +135,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       description: 'parse dotnet 8.0 with PackageId property',
       projectPath:
         './test/fixtures/dotnetcore/dotnet_8_with_package_id_property',
-      projectFile: 'dotnet_8_with_package_id_property.csproj',
+      projectFile: 'dotnet_8_with_package_id.csproj',
       targetFramework: 'net8.0',
       manifestFilePath: 'obj/project.assets.json',
     },
