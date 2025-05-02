@@ -7,6 +7,7 @@ import {
   PublishedProjectDeps,
 } from '../types';
 import { InvalidManifestError } from '../../errors';
+import { basename, extname } from 'path';
 
 const debug = debugModule('snyk');
 
@@ -174,11 +175,13 @@ function buildGraph(
   // What `dotnet` wants to call this project is not always the same as what Snyk wants to call it, and the version
   // postfix is not the same as what's defined in `project.assets.json` due to NuGet version normalization, which is
   // not applied during publish, only during restore. So we have to rely on the fact that the name is enough.
+  const csprojPath = projectAssets.project.restore.projectUniqueName;
+  const csprojFileName = basename(csprojPath, extname(csprojPath));
   const restoreProjectName =
     getRestoredProjectName(
       publishedProjectDeps,
       runtimeTarget,
-      projectAssets.project.restore.projectName,
+      csprojFileName,
     ) ||
     // Last attempt to find the target using the .csproj filename.
     // <PackageId> property overrides most of the naming when restoring, but when publishing, the actual filename is used as the target.
