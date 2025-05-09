@@ -178,13 +178,20 @@ function buildGraph(
   const csprojPath = projectAssets.project.restore.projectUniqueName;
   const csprojFileName = basename(csprojPath, extname(csprojPath));
   const restoreProjectName =
+    // Attempt to find the target using the .csproj filename.
+    // <PackageId> property overrides most of the naming when restoring, but when publishing, the actual filename is used as the target.
     getRestoredProjectName(
       publishedProjectDeps,
       runtimeTarget,
       csprojFileName,
     ) ||
-    // Last attempt to find the target using the .csproj filename.
-    // <PackageId> property overrides most of the naming when restoring, but when publishing, the actual filename is used as the target.
+    // Attempt to find the target using restored project name.
+    getRestoredProjectName(
+      publishedProjectDeps,
+      runtimeTarget,
+      projectAssets?.project?.restore?.projectName,
+    ) ||
+    // Last attempt to find the target using the Snyk project name.
     getRestoredProjectName(publishedProjectDeps, runtimeTarget, projectName);
 
   if (!restoreProjectName) {

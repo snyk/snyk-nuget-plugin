@@ -6,9 +6,9 @@
     },
     "pkgs": [
       {
-        "id": "prefix_dotnet_8_with_package_id_property@1.0.0",
+        "id": "dotnet_8_different_project_name@1.0.0",
         "info": {
-          "name": "prefix_dotnet_8_with_package_id_property",
+          "name": "dotnet_8_different_project_name",
           "version": "1.0.0"
         }
       },
@@ -20,10 +20,10 @@
         }
       },
       {
-        "id": "NETStandard.Library@2.0.0",
+        "id": "NETStandard.Library@2.0.3",
         "info": {
           "name": "NETStandard.Library",
-          "version": "2.0.0"
+          "version": "2.0.3"
         }
       },
       {
@@ -39,7 +39,7 @@
       "nodes": [
         {
           "nodeId": "root-node",
-          "pkgId": "prefix_dotnet_8_with_package_id_property@1.0.0",
+          "pkgId": "dotnet_8_different_project_name@1.0.0",
           "deps": [
             {
               "nodeId": "NUnit@3.13.3"
@@ -57,7 +57,7 @@
         },
         {
           "nodeId": "NETStandard.Library@2.0.0",
-          "pkgId": "NETStandard.Library@2.0.0",
+          "pkgId": "NETStandard.Library@2.0.3",
           "deps": [
             {
               "nodeId": "Microsoft.NETCore.Platforms@1.1.0"
