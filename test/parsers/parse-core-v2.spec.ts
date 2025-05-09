@@ -132,12 +132,20 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       manifestFilePath: 'obj/project.assets.json',
     },
     {
-      description: 'parse dotnet 8.0 with PackageId property',
-      projectPath:
-        './test/fixtures/dotnetcore/dotnet_8_with_package_id_property',
-      projectFile: 'dotnet_8_with_package_id.csproj',
+      description: 'parse dotnet 8.0 different project name',
+      projectPath: './test/fixtures/dotnetcore/dotnet_8_different_project_name',
+      projectFile: 'dotnet_8_foo.csproj',
       targetFramework: 'net8.0',
       manifestFilePath: 'obj/project.assets.json',
+    },
+    {
+      description: 'parse dotnet 8.0 with snyk name',
+      projectPath:
+        './test/fixtures/dotnetcore/dotnet_8_with_package_id_property',
+      projectFile: 'dotnet_8_with_package_id_property.csproj',
+      targetFramework: 'net8.0',
+      manifestFilePath: 'obj/project.assets.json',
+      projectNamePrefix: 'prefix_',
     },
     {
       description: 'parse dotnet 8.0 false positive',
@@ -168,7 +176,13 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
 
   it.each(dotnetCoreProjectList)(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
-    async ({ projectPath, projectFile, manifestFilePath, targetFramework }) => {
+    async ({
+      projectPath,
+      projectFile,
+      manifestFilePath,
+      targetFramework,
+      projectNamePrefix,
+    }) => {
       // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
       await dotnet.restore(path.resolve(projectPath, projectFile));
       const projectAssetsJson = path.resolve(projectPath, manifestFilePath);
@@ -176,6 +190,9 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       const result = await plugin.inspect(projectPath, projectAssetsJson, {
         'dotnet-runtime-resolution': true,
         'dotnet-target-framework': targetFramework,
+        ...(projectNamePrefix
+          ? { 'project-name-prefix': projectNamePrefix }
+          : {}),
       });
 
       if (!pluginApi.isMultiResult(result)) {
@@ -199,7 +216,13 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
 
   it.each(dotnetCoreProjectList)(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description - FP FF on',
-    async ({ projectPath, projectFile, manifestFilePath, targetFramework }) => {
+    async ({
+      projectPath,
+      projectFile,
+      manifestFilePath,
+      targetFramework,
+      projectNamePrefix,
+    }) => {
       // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
       await dotnet.restore(path.resolve(projectPath, projectFile));
       const projectAssetsJson = path.resolve(projectPath, manifestFilePath);
@@ -208,6 +231,9 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         'dotnet-runtime-resolution': true,
         'dotnet-target-framework': targetFramework,
         useFixForImprovedDotnetFalsePositives: true,
+        ...(projectNamePrefix
+          ? { 'project-name-prefix': projectNamePrefix }
+          : {}),
       });
 
       if (!pluginApi.isMultiResult(result)) {
