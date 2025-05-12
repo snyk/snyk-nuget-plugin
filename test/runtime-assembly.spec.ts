@@ -1,8 +1,11 @@
 import { describe, expect, it } from '@jest/globals';
-import * as runtimeAssembly from '../lib/nuget-parser/runtime-assembly-v2';
+import * as runtimeAssembly from '../lib/nuget-parser/runtime-assembly';
+import * as runtimeAssemblyV2 from '../lib/nuget-parser/runtime-assembly-v2';
 import * as codeGenerator from '../lib/nuget-parser/csharp/generator';
 import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 import * as types from '../lib/nuget-parser/types';
+import * as path from 'path';
+import * as fs from 'fs';
 
 // Include some random C# code that will make `dotnet publish` happy.
 const program: types.DotNetFile = {
@@ -115,10 +118,22 @@ describe('when parsing runtime assembly', () => {
       const tempDir = codeGenerator.generate('fixtures', files);
       const publishDir = await dotnet.publish(tempDir);
 
-      const runtimeAssemblies =
-        await runtimeAssembly.generateRuntimeAssemblies(publishDir);
+      // Find the project_name.deps.json from the /bin folder
+      const projectName = path.parse(project.name).name;
+      const assetsFile = path.resolve(publishDir, `${projectName}.deps.json`);
 
-      expect(runtimeAssemblies).toMatchObject(expected);
+      const depsFile = fs.readFileSync(assetsFile);
+      const deps = JSON.parse(depsFile.toString('utf-8'));
+
+      const runtimeAssemblies = runtimeAssembly.generateRuntimeAssemblies(deps);
+
+      const runtimeAssembliesV2 =
+        await runtimeAssemblyV2.generateRuntimeAssemblies(
+          publishDir,
+          runtimeAssemblies,
+        );
+
+      expect(runtimeAssembliesV2).toMatchObject(expected);
 
       // Try your best to clean up. Avoiding the `afterEach` to not have too many global variables.
       codeGenerator.tearDown([tempDir]);
