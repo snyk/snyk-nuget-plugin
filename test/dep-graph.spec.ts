@@ -101,7 +101,7 @@ class TestFixture {
     expect(withRuntimeDeps.dependencyGraph).toBeDefined();
     pkg = {
       name: 'System.Net.Http',
-      version: '4.3.4',
+      version: '6.0.0',
     };
     expect(withRuntimeDeps.dependencyGraph.getPkgs()).toContainEqual(pkg);
     const withRuntimeDepsPathsToRoot = withRuntimeDeps.dependencyGraph

@@ -255,12 +255,15 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
 
     let assemblyVersions: AssemblyVersions = {};
 
-    // Specifically targeting .NET Standard frameworks will not provide any specific runtime assembly information in
-    // the published artifacts files, and can thus not be read more precisely than the .deps file will tell us up-front.
-    // This probably makes sense when looking at https://dotnet.microsoft.com/en-us/platform/dotnet-standard#versions.
-    // As such, we don't generate any runtime assemblies and generate the dependency graph without it.
-    if (useFixForImprovedDotnetFalsePositives) {
-      if (!decidedTargetFramework.includes('netstandard')) {
+    if (!decidedTargetFramework.includes('netstandard')) {
+      assemblyVersions =
+        runtimeAssembly.generateRuntimeAssemblies(publishedProjectDeps);
+
+      // Specifically targeting .NET Standard frameworks will not provide any specific runtime assembly information in
+      // the published artifacts files, and can thus not be read more precisely than the .deps file will tell us up-front.
+      // This probably makes sense when looking at https://dotnet.microsoft.com/en-us/platform/dotnet-standard#versions.
+      // As such, we don't generate any runtime assemblies and generate the dependency graph without it.
+      if (useFixForImprovedDotnetFalsePositives) {
         let projectFolder: string = '';
         // Get the project folder path
         if (projectPath) {
@@ -273,12 +276,8 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
 
         assemblyVersions = await runtimeAssemblyV2.generateRuntimeAssemblies(
           projectFolder || safeRoot,
+          assemblyVersions,
         );
-      }
-    } else {
-      if (!decidedTargetFramework.includes('netstandard')) {
-        assemblyVersions =
-          runtimeAssembly.generateRuntimeAssemblies(publishedProjectDeps);
       }
     }
 

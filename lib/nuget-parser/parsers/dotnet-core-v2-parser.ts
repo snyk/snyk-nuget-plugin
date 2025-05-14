@@ -66,17 +66,11 @@ function recursivelyPopulateNodes(
     // we've found in the graph with those from the runtime assembly, as they take precedence.
     let assemblyVersion = version;
 
-    if (useFixForImprovedDotnetFalsePositives) {
-      if (name in runtimeAssembly) {
-        assemblyVersion = runtimeAssembly[name];
-      }
-    } else {
-      // The RuntimeAssembly type contains the name with a .dll suffix, as this is how .NET represents them in the
-      // dependency file. This must be stripped in order to match the elements during depGraph construction.
-      const dll = `${name}.dll`;
-      if (dll in runtimeAssembly) {
-        assemblyVersion = runtimeAssembly[dll];
-      }
+    // The RuntimeAssembly type contains the name with a .dll suffix, as this is how .NET represents them in the
+    // dependency file. This must be stripped in order to match the elements during depGraph construction.
+    const dll = `${name}.dll`;
+    if (dll in runtimeAssembly) {
+      assemblyVersion = runtimeAssembly[dll];
     }
 
     if (localVisited.has(childId)) {
