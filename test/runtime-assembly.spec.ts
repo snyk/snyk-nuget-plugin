@@ -42,7 +42,7 @@ describe('when parsing runtime assembly', () => {
 `,
       },
       expected: {
-        'Microsoft.CSharp': '4.7.0',
+        'Microsoft.CSharp.dll': '7.0.0',
       },
       globalJson: {
         name: 'global.json',
@@ -71,7 +71,7 @@ describe('when parsing runtime assembly', () => {
 `,
       },
       expected: {
-        'Microsoft.CSharp': '4.7.0',
+        'Microsoft.CSharp.dll': '6.0.0',
       },
       globalJson: {
         name: 'global.json',
@@ -99,7 +99,7 @@ describe('when parsing runtime assembly', () => {
 `,
       },
       expected: {
-        'System.Net.Http': '4.3.4',
+        'System.Net.Http.dll': '6.0.0',
       },
       globalJson: {
         name: 'global.json',
