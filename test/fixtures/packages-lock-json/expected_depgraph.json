@@ -1,0 +1,120 @@
+{
+  "Microsoft.AspNetCore.Authorization": {
+    "name": "Microsoft.AspNetCore.Authorization",
+    "version": "9.0.4",
+    "dependencies": {
+      "Microsoft.AspNetCore.Metadata": {
+        "name": "Microsoft.AspNetCore.Metadata",
+        "version": "9.0.4",
+        "dependencies": {}
+      },
+      "Microsoft.Extensions.Logging.Abstractions": {
+        "name": "Microsoft.Extensions.Logging.Abstractions",
+        "version": "9.0.4",
+        "dependencies": {}
+      },
+      "Microsoft.Extensions.Options": {
+        "name": "Microsoft.Extensions.Options",
+        "version": "9.0.4",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": {
+            "name": "Microsoft.Extensions.Primitives",
+            "version": "9.0.4",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  "Microsoft.Extensions.Http": {
+    "name": "Microsoft.Extensions.Http",
+    "version": "9.0.4",
+    "dependencies": {
+      "Microsoft.Extensions.Configuration.Abstractions": {
+        "name": "Microsoft.Extensions.Configuration.Abstractions",
+        "version": "9.0.4",
+        "dependencies": {}
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions": {
+        "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+        "version": "9.0.4",
+        "dependencies": {}
+      },
+      "Microsoft.Extensions.Diagnostics": {
+        "name": "Microsoft.Extensions.Diagnostics",
+        "version": "9.0.4",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": {
+            "name": "Microsoft.Extensions.Configuration",
+            "version": "9.0.4",
+            "dependencies": {}
+          },
+          "Microsoft.Extensions.Diagnostics.Abstractions": {
+            "name": "Microsoft.Extensions.Diagnostics.Abstractions",
+            "version": "9.0.4",
+            "dependencies": {}
+          },
+          "Microsoft.Extensions.Options.ConfigurationExtensions": {
+            "name": "Microsoft.Extensions.Options.ConfigurationExtensions",
+            "version": "9.0.4",
+            "dependencies": {
+              "Microsoft.Extensions.Configuration.Binder": {
+                "name": "Microsoft.Extensions.Configuration.Binder",
+                "version": "9.0.4",
+                "dependencies": {}
+              }
+            }
+          }
+        }
+      },
+      "Microsoft.Extensions.Logging": {
+        "name": "Microsoft.Extensions.Logging",
+        "version": "9.0.4",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": {
+            "name": "Microsoft.Extensions.DependencyInjection",
+            "version": "9.0.4",
+            "dependencies": {}
+          }
+        }
+      }
+    }
+  },
+  "Swashbuckle.AspNetCore": {
+    "name": "Swashbuckle.AspNetCore",
+    "version": "6.2.3",
+    "dependencies": {
+      "Microsoft.Extensions.ApiDescription.Server": {
+        "name": "Microsoft.Extensions.ApiDescription.Server",
+        "version": "3.0.0",
+        "dependencies": {}
+      },
+      "Swashbuckle.AspNetCore.Swagger": {
+        "name": "Swashbuckle.AspNetCore.Swagger",
+        "version": "6.2.3",
+        "dependencies": {
+          "Microsoft.OpenApi": {
+            "name": "Microsoft.OpenApi",
+            "version": "1.2.3",
+            "dependencies": {}
+          }
+        }
+      },
+      "Swashbuckle.AspNetCore.SwaggerGen": {
+        "name": "Swashbuckle.AspNetCore.SwaggerGen",
+        "version": "6.2.3",
+        "dependencies": {}
+      },
+      "Swashbuckle.AspNetCore.SwaggerUI": {
+        "name": "Swashbuckle.AspNetCore.SwaggerUI",
+        "version": "6.2.3",
+        "dependencies": {}
+      }
+    }
+  },
+  "Swashbuckle.AspNetCore.ReDoc": {
+    "name": "Swashbuckle.AspNetCore.ReDoc",
+    "version": "6.5.0",
+    "dependencies": {}
+  }
+}

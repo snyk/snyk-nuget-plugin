@@ -7,6 +7,7 @@ import * as dotnetCoreParser from './parsers/dotnet-core-parser';
 import * as dotnetCoreV2Parser from './parsers/dotnet-core-v2-parser';
 import * as dotnetFrameworkParser from './parsers/dotnet-framework-parser';
 import * as projectJsonParser from './parsers/project-json-parser';
+import * as packagesLockJsonParser from './parsers/packages-lock-json-parser';
 import * as packagesConfigParser from './parsers/packages-config-parser';
 import {
   CliCommandError,
@@ -45,6 +46,10 @@ const PARSERS = {
   'project.json': {
     depParser: dotnetFrameworkParser,
     fileContentParser: projectJsonParser,
+  },
+  'packages.lock.json': {
+    depParser: packagesLockJsonParser,
+    fileContentParser: JSON,
   },
 };
 
