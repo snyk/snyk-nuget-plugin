@@ -18,8 +18,12 @@ const PACKAGE_DELIMITER = '@';
 //           "Microsoft.Extensions.DependencyInjection.Abstractions": "[9.0.4, )"
 //         }
 //       },
+// - Should frequent dependencies be appended in the tree under `freqSystemDependencies`? -> currently no
 
-// Dependencies that starts with these are discarded
+// Whether to skip duplicated packages' sub-dependencies.
+const DEDUPLICATE = true;
+
+// Dependencies that starts with these are discarded.
 export const FILTERED_DEPENDENCY_PREFIX = [
   // `runtime` and `runtime.native` are a bit of a hot topic, see more https://github.com/dotnet/core/issues/7568.
   // For our case, we are already creating the correct dependencies and their respective runtime version numbers based
@@ -28,6 +32,18 @@ export const FILTERED_DEPENDENCY_PREFIX = [
   // dependencies are causing noise for the customers and are not of interested.
   'runtime',
 ];
+
+// These dependencies are discarded.
+const FREQUENT_DEPENDENCIES = new Set([
+  'Microsoft.NETCore.Platforms',
+  'Microsoft.NETCore.Targets',
+  'System.Runtime',
+  'System.IO',
+  'System.Text.Encoding',
+  'System.Threading.Tasks',
+  'System.Reflection',
+  'System.Globalization',
+]);
 
 type DepVersion = { name: string; version: string };
 
@@ -42,8 +58,8 @@ type DepTree = {
     name: string;
     version: string;
     dependencies: DepTree;
-  }
-}
+  };
+};
 
 type DependencyType = 'Transitive' | 'Project' | 'CentralTransitive' | 'Direct';
 
@@ -70,8 +86,14 @@ function findDependency(
   dependency: DepVersion,
 ): DepFlatList | undefined {
   // Exact version match.
-  if (dependencies[`${dependency.name}${PACKAGE_DELIMITER}${dependency.version}`] !== undefined) {
-    return dependencies[`${dependency.name}${PACKAGE_DELIMITER}${dependency.version}`];
+  if (
+    dependencies[
+      `${dependency.name}${PACKAGE_DELIMITER}${dependency.version}`
+    ] !== undefined
+  ) {
+    return dependencies[
+      `${dependency.name}${PACKAGE_DELIMITER}${dependency.version}`
+    ];
   }
 
   // First version match.
@@ -125,15 +147,25 @@ function buildBfsTree(
     };
 
     if (
+      DEDUPLICATE &&
       knownDependencies.includes(
         `${subDependency.name}${PACKAGE_DELIMITER}${subDependency.version}`,
       )
     ) {
+      // Include the duplicated dependency itself but not its own dependencies, to avoid very large graphs.
       continue;
+    } else if (DEDUPLICATE) {
+      knownDependencies.push(
+        `${subDependency.name}${PACKAGE_DELIMITER}${subDependency.version}`,
+      );
     }
-    knownDependencies.push(`${subDependency.name}${PACKAGE_DELIMITER}${subDependency.version}`);
 
     for (const subDependency of dependency.dependencies) {
+      if (FREQUENT_DEPENDENCIES.has(subDependency.name)) {
+        // Skip frequent dependencies.
+        continue;
+      }
+
       queue.push({
         parent: subDependencies,
         subDependency: subDependency,
@@ -234,6 +266,7 @@ export function parse(
   const dependencies = Object.fromEntries(
     Object.entries(manifest.dependencies[tree.meta.targetFramework]).map(
       ([name, info]) => [
+        // Index dependencies by name@version.
         `${name}${PACKAGE_DELIMITER}${info.resolved}`,
         {
           name,
