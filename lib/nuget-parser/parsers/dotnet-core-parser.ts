@@ -138,6 +138,15 @@ function addPackageDepLinks(links: DepLink[], pkg: Dependency) {
   if (pkg && pkg.dependencies) {
     const from = { name: pkg.name, version: pkg.version };
     for (const name of Object.keys(pkg.dependencies)) {
+      // Ignore packages with specific prefixes, which for one reason or the other are no interesting and pollutes the
+      // graph. Refer to comments on the individual elements in the ignore list for more information.
+      if (
+        FILTERED_DEPENDENCY_PREFIX.some((prefix) => name.startsWith(prefix))
+      ) {
+        debug(`${name} matched a prefix we ignore, not adding to graph`);
+        continue;
+      }
+
       const to = { name, version: pkg.dependencies[name] };
       links.push({ from, to });
     }
@@ -152,12 +161,6 @@ function buildBfsTree(targetDeps, roots) {
     const dep = queue.shift();
     const foundPackage = findPackage(targetDeps, dep);
     if (foundPackage && !isScanned(nodes, foundPackage)) {
-      // Ignore packages with specific prefixes, which for one reason or the other are no interesting and pollutes the
-      // graph. Refer to comments on the individual elements in the ignore list for more information.
-      if (FILTERED_DEPENDENCY_PREFIX.some((prefix) => foundPackage.name.startsWith(prefix))) {
-        debug(`${foundPackage.name} matched a prefix we ignore, not adding to graph`);
-        continue;
-      }
       nodes.push(foundPackage);
       if (foundPackage.dependencies) {
         addPackageDepLinks(links, foundPackage);

@@ -18,10 +18,9 @@ const PACKAGE_DELIMITER = '@';
 //           "Microsoft.Extensions.DependencyInjection.Abstractions": "[9.0.4, )"
 //         }
 //       },
-// - Should frequent dependencies be appended in the tree under `freqSystemDependencies`? -> currently no
+// - Should frequent dependencies be appended in the tree under `freqSystemDependencies`? -> currently yes
 
-// Whether to skip duplicated packages' sub-dependencies.
-const DEDUPLICATE = true;
+const SKIP_DUPLICATED_PACKAGE_DEPENDENCIES = false;
 
 // Dependencies that starts with these are discarded.
 export const FILTERED_DEPENDENCY_PREFIX = [
@@ -86,20 +85,25 @@ function findDependency(
   dependency: DepVersion,
 ): DepFlatList | undefined {
   // Exact version match.
-  if (
+  return (
     dependencies[
       `${dependency.name}${PACKAGE_DELIMITER}${dependency.version}`
-    ] !== undefined
-  ) {
-    return dependencies[
-      `${dependency.name}${PACKAGE_DELIMITER}${dependency.version}`
-    ];
+    ] ||
+    // Name match.
+    dependencies[dependency.name]
+  );
+}
+
+function getRootFrequentDependencies(root: DepTree): DepTree {
+  if (root['freqSystemDependencies'] === undefined) {
+    root['freqSystemDependencies'] = {
+      name: 'freqSystemDependencies',
+      version: '0.0.0',
+      dependencies: {},
+    };
   }
 
-  // First version match.
-  return Object.values(dependencies)
-    .filter(({ name }) => name === dependency.name)
-    .shift();
+  return root['freqSystemDependencies'].dependencies;
 }
 
 function buildBfsTree(
@@ -110,26 +114,24 @@ function buildBfsTree(
 ): DepTree {
   const tree: DepTree = {};
 
-  const queue: {
-    parent: typeof tree;
-    subDependency: DepVersion;
-  }[] = [];
-
-  for (const rootDependency of rootDependencies) {
-    queue.push({ parent: tree, subDependency: rootDependency });
-  }
+  // Initialise the queue with root dependencies.
+  const queue = rootDependencies.map((rootDep) => ({
+    parent: tree,
+    subDependency: rootDep,
+  }));
 
   const knownDependencies: string[] = [];
   while (queue.length !== 0) {
     const { subDependency, parent } = queue.shift()!;
-    // Ignore packages with specific prefixes, which for one reason or the other are no interesting and pollutes the
-    // graph. Refer to comments on the individual elements in the ignore list for more information.
+    // Ignore packages with specific prefixes.
     if (
       FILTERED_DEPENDENCY_PREFIX.some((prefix) =>
         subDependency.name.startsWith(prefix),
       )
     ) {
-      debug(`${subDependency} matched a prefix we ignore, not adding to graph`);
+      debug(
+        `Dependency ${subDependency} matched a prefix we ignore, not adding to graph`,
+      );
       continue;
     }
 
@@ -139,7 +141,7 @@ function buildBfsTree(
       continue;
     }
 
-    const subDependencies = {};
+    const subDependencies: DepTree = {};
     parent[dependency.name] = {
       name: dependency.name,
       version: dependency.version,
@@ -147,27 +149,25 @@ function buildBfsTree(
     };
 
     if (
-      DEDUPLICATE &&
+      SKIP_DUPLICATED_PACKAGE_DEPENDENCIES &&
       knownDependencies.includes(
         `${subDependency.name}${PACKAGE_DELIMITER}${subDependency.version}`,
       )
     ) {
-      // Include the duplicated dependency itself but not its own dependencies, to avoid very large graphs.
+      // Include the duplicated dependency itself but not its dependencies, to avoid very large graphs.
       continue;
-    } else if (DEDUPLICATE) {
+    } else if (SKIP_DUPLICATED_PACKAGE_DEPENDENCIES) {
       knownDependencies.push(
         `${subDependency.name}${PACKAGE_DELIMITER}${subDependency.version}`,
       );
     }
 
     for (const subDependency of dependency.dependencies) {
-      if (FREQUENT_DEPENDENCIES.has(subDependency.name)) {
-        // Skip frequent dependencies.
-        continue;
-      }
-
       queue.push({
-        parent: subDependencies,
+        // Hoist frequent dependencies under the root node rather than nested under their parent.
+        parent: FREQUENT_DEPENDENCIES.has(subDependency.name)
+          ? getRootFrequentDependencies(tree)
+          : subDependencies,
         subDependency: subDependency,
       });
     }
@@ -241,13 +241,56 @@ function parseManifest(manifest: any): Lockfile {
   return manifest;
 }
 
+function buildDependencies(
+  manifest: Lockfile,
+  targetFramework: string,
+): {
+  [nameAndVersion: string]: {
+    name: string;
+    version: string;
+    type: DependencyType;
+    dependencies: DepVersion[];
+  };
+} {
+  return Object.fromEntries(
+    Object.entries(manifest.dependencies[targetFramework]).flatMap(
+      ([name, info]) => {
+        const packageInfo = {
+          name,
+          version: info.resolved || 'no-version',
+          type: info.type,
+          dependencies: Object.entries(info?.dependencies || []).map(
+            ([name, version]) => ({
+              name,
+              version,
+            }),
+          ),
+        };
+
+        return [
+          [
+            // Index dependencies by name@version.
+            `${name}${PACKAGE_DELIMITER}${info.resolved}`,
+            packageInfo,
+          ],
+          [
+            // And by name for when no exact version match is found ("Projects" dependencies can have a range instead).
+            name,
+            packageInfo,
+          ],
+        ];
+      },
+    ),
+  );
+}
+
 export function parse(
   tree: {
     meta: { targetFramework: string | undefined };
     dependencies: { [dependency: string]: Dependency };
   },
   fileContent: unknown,
-) {
+): typeof tree {
   debug('Trying to parse packages.lock.json format manifest');
 
   const manifest = parseManifest(fileContent);
@@ -263,29 +306,11 @@ export function parse(
     tree.meta.targetFramework = getFrameworkToRun(manifest);
   }
 
-  const dependencies = Object.fromEntries(
-    Object.entries(manifest.dependencies[tree.meta.targetFramework]).map(
-      ([name, info]) => [
-        // Index dependencies by name@version.
-        `${name}${PACKAGE_DELIMITER}${info.resolved}`,
-        {
-          name,
-          version: info.resolved || 'no-version',
-          type: info.type,
-          dependencies: Object.entries(info?.dependencies || []).map(
-            ([name, version]) => ({
-              name,
-              version,
-            }),
-          ),
-        },
-      ],
-    ),
-  );
+  const dependencies = buildDependencies(manifest, tree.meta.targetFramework);
 
-  const rootDependencies = Object.entries(dependencies)
-    .filter(([, info]) => ['Direct'].includes(info.type))
-    .map(([, info]) => ({ name: info.name, version: info.version }));
+  const rootDependencies = Object.values(dependencies).filter((info) =>
+    ['Direct'].includes(info.type),
+  );
 
   tree.dependencies = buildBfsTree(dependencies, rootDependencies);
 
