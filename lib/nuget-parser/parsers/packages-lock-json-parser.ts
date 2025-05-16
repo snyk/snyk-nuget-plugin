@@ -4,6 +4,47 @@ import type { Dependency } from '../types';
 
 const debug = debugModule('snyk');
 
+const PACKAGE_DELIMITER = '@';
+
+// Questions:
+// - Should runtime deps be filtered? -> currently yes
+// - Should we deduplicate dependencies that show up multiple times? -> currently yes
+// - How to handle dependencies with a version range (only happens for "Projects" types) -> currently using the first matching name
+//       "Jellyfin.Common": {
+//         "type": "Project",
+//         "dependencies": {
+//           "Jellyfin.Model": "[10.11.0, )",
+//           "Microsoft.Extensions.Configuration.Abstractions": "[9.0.4, )",
+//           "Microsoft.Extensions.DependencyInjection.Abstractions": "[9.0.4, )"
+//         }
+//       },
+
+// Dependencies that starts with these are discarded
+export const FILTERED_DEPENDENCY_PREFIX = [
+  // `runtime` and `runtime.native` are a bit of a hot topic, see more https://github.com/dotnet/core/issues/7568.
+  // For our case, we are already creating the correct dependencies and their respective runtime version numbers based
+  // of our runtime resolution logic. So a dependency will already be `System.Net.Http@8.0.0` if running on .NET 8, thus
+  // removing the need for a `runtime.native.System.Net.Http@8.0.0` as well. From our investigation these runtime native
+  // dependencies are causing noise for the customers and are not of interested.
+  'runtime',
+];
+
+type DepVersion = { name: string; version: string };
+
+type DepFlatList = {
+  name: string;
+  version: string;
+  dependencies: DepVersion[];
+};
+
+type DepTree = {
+  [name: string]: {
+    name: string;
+    version: string;
+    dependencies: DepTree;
+  }
+}
+
 type DependencyType = 'Transitive' | 'Project' | 'CentralTransitive' | 'Direct';
 
 interface Lockfile {
@@ -11,44 +52,68 @@ interface Lockfile {
     [framework: string]: {
       [dependency: string]: {
         type: DependencyType;
-        resolved: string;
-        dependencies: {
-          [name: string]: string;
-        };
+        resolved: string | undefined;
+        dependencies:
+          | {
+              [name: string]: string;
+            }
+          | undefined;
       };
     };
   };
 }
 
+function findDependency(
+  dependencies: {
+    [nameAndVersion: string]: DepFlatList;
+  },
+  dependency: DepVersion,
+): DepFlatList | undefined {
+  // Exact version match.
+  if (dependencies[`${dependency.name}${PACKAGE_DELIMITER}${dependency.version}`] !== undefined) {
+    return dependencies[`${dependency.name}${PACKAGE_DELIMITER}${dependency.version}`];
+  }
+
+  // First version match.
+  return Object.values(dependencies)
+    .filter(({ name }) => name === dependency.name)
+    .shift();
+}
+
 function buildBfsTree(
   dependencies: {
-    [nameAndVersion: string]: {
-      name: string;
-      version: string;
-      dependencies: string[];
-    };
+    [nameAndVersion: string]: DepFlatList;
   },
-  rootNameAndVersions: string[],
-): { [dependency: string]: Dependency } {
-  const tree: { [name: string]: Dependency } = {};
+  rootDependencies: DepVersion[],
+): DepTree {
+  const tree: DepTree = {};
 
-  const queue: { parent: typeof tree; nameAndVersion: string }[] = [];
-  for (const rootNameAndVersion of rootNameAndVersions) {
-    queue.push({ parent: tree, nameAndVersion: rootNameAndVersion });
+  const queue: {
+    parent: typeof tree;
+    subDependency: DepVersion;
+  }[] = [];
+
+  for (const rootDependency of rootDependencies) {
+    queue.push({ parent: tree, subDependency: rootDependency });
   }
 
   const knownDependencies: string[] = [];
   while (queue.length !== 0) {
-    const { nameAndVersion, parent } = queue.shift()!;
-    if (knownDependencies.includes(nameAndVersion)) {
+    const { subDependency, parent } = queue.shift()!;
+    // Ignore packages with specific prefixes, which for one reason or the other are no interesting and pollutes the
+    // graph. Refer to comments on the individual elements in the ignore list for more information.
+    if (
+      FILTERED_DEPENDENCY_PREFIX.some((prefix) =>
+        subDependency.name.startsWith(prefix),
+      )
+    ) {
+      debug(`${subDependency} matched a prefix we ignore, not adding to graph`);
       continue;
-    } else {
-      knownDependencies.push(nameAndVersion);
     }
 
-    const dependency = dependencies[nameAndVersion];
+    const dependency = findDependency(dependencies, subDependency);
     if (!dependency) {
-      debug(`Dependency ${nameAndVersion} not found`);
+      debug(`Dependency ${subDependency.name} not found`);
       continue;
     }
 
@@ -59,10 +124,19 @@ function buildBfsTree(
       dependencies: subDependencies,
     };
 
+    if (
+      knownDependencies.includes(
+        `${subDependency.name}${PACKAGE_DELIMITER}${subDependency.version}`,
+      )
+    ) {
+      continue;
+    }
+    knownDependencies.push(`${subDependency.name}${PACKAGE_DELIMITER}${subDependency.version}`);
+
     for (const subDependency of dependency.dependencies) {
       queue.push({
         parent: subDependencies,
-        nameAndVersion: subDependency,
+        subDependency: subDependency,
       });
     }
   }
@@ -160,13 +234,16 @@ export function parse(
   const dependencies = Object.fromEntries(
     Object.entries(manifest.dependencies[tree.meta.targetFramework]).map(
       ([name, info]) => [
-        `${name}@${info.resolved}`,
+        `${name}${PACKAGE_DELIMITER}${info.resolved}`,
         {
           name,
-          version: info.resolved,
+          version: info.resolved || 'no-version',
           type: info.type,
           dependencies: Object.entries(info?.dependencies || []).map(
-            ([name, version]) => `${name}@${version}`,
+            ([name, version]) => ({
+              name,
+              version,
+            }),
           ),
         },
       ],
@@ -175,7 +252,7 @@ export function parse(
 
   const rootDependencies = Object.entries(dependencies)
     .filter(([, info]) => ['Direct'].includes(info.type))
-    .map(([nameAndVersion]) => nameAndVersion);
+    .map(([, info]) => ({ name: info.name, version: info.version }));
 
   tree.dependencies = buildBfsTree(dependencies, rootDependencies);
 

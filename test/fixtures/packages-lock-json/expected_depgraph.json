@@ -11,12 +11,23 @@
       "Microsoft.Extensions.Logging.Abstractions": {
         "name": "Microsoft.Extensions.Logging.Abstractions",
         "version": "9.0.4",
-        "dependencies": {}
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": {
+            "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+            "version": "9.0.4",
+            "dependencies": {}
+          }
+        }
       },
       "Microsoft.Extensions.Options": {
         "name": "Microsoft.Extensions.Options",
         "version": "9.0.4",
         "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": {
+            "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+            "version": "9.0.4",
+            "dependencies": {}
+          },
           "Microsoft.Extensions.Primitives": {
             "name": "Microsoft.Extensions.Primitives",
             "version": "9.0.4",
@@ -33,7 +44,13 @@
       "Microsoft.Extensions.Configuration.Abstractions": {
         "name": "Microsoft.Extensions.Configuration.Abstractions",
         "version": "9.0.4",
-        "dependencies": {}
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": {
+            "name": "Microsoft.Extensions.Primitives",
+            "version": "9.0.4",
+            "dependencies": {}
+          }
+        }
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions": {
         "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
@@ -47,19 +64,67 @@
           "Microsoft.Extensions.Configuration": {
             "name": "Microsoft.Extensions.Configuration",
             "version": "9.0.4",
-            "dependencies": {}
+            "dependencies": {
+              "Microsoft.Extensions.Configuration.Abstractions": {
+                "name": "Microsoft.Extensions.Configuration.Abstractions",
+                "version": "9.0.4",
+                "dependencies": {}
+              },
+              "Microsoft.Extensions.Primitives": {
+                "name": "Microsoft.Extensions.Primitives",
+                "version": "9.0.4",
+                "dependencies": {}
+              }
+            }
           },
           "Microsoft.Extensions.Diagnostics.Abstractions": {
             "name": "Microsoft.Extensions.Diagnostics.Abstractions",
             "version": "9.0.4",
-            "dependencies": {}
+            "dependencies": {
+              "Microsoft.Extensions.DependencyInjection.Abstractions": {
+                "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+                "version": "9.0.4",
+                "dependencies": {}
+              },
+              "Microsoft.Extensions.Options": {
+                "name": "Microsoft.Extensions.Options",
+                "version": "9.0.4",
+                "dependencies": {}
+              }
+            }
           },
           "Microsoft.Extensions.Options.ConfigurationExtensions": {
             "name": "Microsoft.Extensions.Options.ConfigurationExtensions",
             "version": "9.0.4",
             "dependencies": {
+              "Microsoft.Extensions.Configuration.Abstractions": {
+                "name": "Microsoft.Extensions.Configuration.Abstractions",
+                "version": "9.0.4",
+                "dependencies": {}
+              },
               "Microsoft.Extensions.Configuration.Binder": {
                 "name": "Microsoft.Extensions.Configuration.Binder",
+                "version": "9.0.4",
+                "dependencies": {
+                  "Microsoft.Extensions.Configuration.Abstractions": {
+                    "name": "Microsoft.Extensions.Configuration.Abstractions",
+                    "version": "9.0.4",
+                    "dependencies": {}
+                  }
+                }
+              },
+              "Microsoft.Extensions.DependencyInjection.Abstractions": {
+                "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+                "version": "9.0.4",
+                "dependencies": {}
+              },
+              "Microsoft.Extensions.Options": {
+                "name": "Microsoft.Extensions.Options",
+                "version": "9.0.4",
+                "dependencies": {}
+              },
+              "Microsoft.Extensions.Primitives": {
+                "name": "Microsoft.Extensions.Primitives",
                 "version": "9.0.4",
                 "dependencies": {}
               }
@@ -74,9 +139,35 @@
           "Microsoft.Extensions.DependencyInjection": {
             "name": "Microsoft.Extensions.DependencyInjection",
             "version": "9.0.4",
+            "dependencies": {
+              "Microsoft.Extensions.DependencyInjection.Abstractions": {
+                "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+                "version": "9.0.4",
+                "dependencies": {}
+              }
+            }
+          },
+          "Microsoft.Extensions.Logging.Abstractions": {
+            "name": "Microsoft.Extensions.Logging.Abstractions",
+            "version": "9.0.4",
+            "dependencies": {}
+          },
+          "Microsoft.Extensions.Options": {
+            "name": "Microsoft.Extensions.Options",
+            "version": "9.0.4",
             "dependencies": {}
           }
         }
+      },
+      "Microsoft.Extensions.Logging.Abstractions": {
+        "name": "Microsoft.Extensions.Logging.Abstractions",
+        "version": "9.0.4",
+        "dependencies": {}
+      },
+      "Microsoft.Extensions.Options": {
+        "name": "Microsoft.Extensions.Options",
+        "version": "9.0.4",
+        "dependencies": {}
       }
     }
   },
@@ -103,7 +194,13 @@
       "Swashbuckle.AspNetCore.SwaggerGen": {
         "name": "Swashbuckle.AspNetCore.SwaggerGen",
         "version": "6.2.3",
-        "dependencies": {}
+        "dependencies": {
+          "Swashbuckle.AspNetCore.Swagger": {
+            "name": "Swashbuckle.AspNetCore.Swagger",
+            "version": "6.2.3",
+            "dependencies": {}
+          }
+        }
       },
       "Swashbuckle.AspNetCore.SwaggerUI": {
         "name": "Swashbuckle.AspNetCore.SwaggerUI",

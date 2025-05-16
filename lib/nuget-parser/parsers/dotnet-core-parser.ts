@@ -7,6 +7,16 @@ const debug = debugModule('snyk');
 
 const PACKAGE_DELIMITER = '@';
 
+// Dependencies that starts with these are discarded
+export const FILTERED_DEPENDENCY_PREFIX = [
+  // `runtime` and `runtime.native` are a bit of a hot topic, see more https://github.com/dotnet/core/issues/7568.
+  // For our case, we are already creating the correct dependencies and their respective runtime version numbers based
+  // of our runtime resolution logic. So a dependency will already be `System.Net.Http@8.0.0` if running on .NET 8, thus
+  // removing the need for a `runtime.native.System.Net.Http@8.0.0` as well. From our investigation these runtime native
+  // dependencies are causing noise for the customers and are not of interested.
+  'runtime',
+];
+
 // TODO: any convention for global vars? (gFreqDeps)
 interface FreqDepParent {
   dependencies: any;
@@ -142,6 +152,12 @@ function buildBfsTree(targetDeps, roots) {
     const dep = queue.shift();
     const foundPackage = findPackage(targetDeps, dep);
     if (foundPackage && !isScanned(nodes, foundPackage)) {
+      // Ignore packages with specific prefixes, which for one reason or the other are no interesting and pollutes the
+      // graph. Refer to comments on the individual elements in the ignore list for more information.
+      if (FILTERED_DEPENDENCY_PREFIX.some((prefix) => foundPackage.name.startsWith(prefix))) {
+        debug(`${foundPackage.name} matched a prefix we ignore, not adding to graph`);
+        continue;
+      }
       nodes.push(foundPackage);
       if (foundPackage.dependencies) {
         addPackageDepLinks(links, foundPackage);
