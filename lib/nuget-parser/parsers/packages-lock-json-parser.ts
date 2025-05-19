@@ -7,8 +7,8 @@ const debug = debugModule('snyk');
 const PACKAGE_DELIMITER = '@';
 
 // Questions:
-// - Should runtime deps be filtered? -> currently yes
-// - Should we deduplicate dependencies that show up multiple times? -> currently yes
+// - Should runtime deps be filtered out? -> currently yes
+// - Should we deduplicate dependencies that show up multiple times? -> currently no
 // - How to handle dependencies with a version range (only happens for "Projects" types) -> currently using the first matching name
 //       "Jellyfin.Common": {
 //         "type": "Project",
@@ -60,7 +60,13 @@ type DepTree = {
   };
 };
 
-type DependencyType = 'Transitive' | 'Project' | 'CentralTransitive' | 'Direct';
+const DEPENDENCY_TYPES = [
+  'Transitive',
+  'Project',
+  'CentralTransitive',
+  'Direct',
+];
+type DependencyType = (typeof DEPENDENCY_TYPES)[number];
 
 interface Lockfile {
   dependencies: {
@@ -189,10 +195,11 @@ function getFrameworkToRun(manifest: Lockfile): string {
   return selectedFrameworkKey;
 }
 
-function parseManifest(manifest: any): Lockfile {
+function parseManifest(manifest: unknown): asserts manifest is Lockfile {
   if (
     !manifest ||
     typeof manifest !== 'object' ||
+    !('dependencies' in manifest) ||
     !manifest.dependencies ||
     typeof manifest.dependencies !== 'object' ||
     Object.keys(manifest.dependencies).length === 0
@@ -212,21 +219,33 @@ function parseManifest(manifest: any): Lockfile {
     for (const dependency of Object.values(frameworkDependencies)) {
       if (
         !dependency ||
+        typeof dependency !== 'object' ||
+        // Check the dependency type matches the known list.
+        !('type' in dependency) ||
         typeof dependency.type !== 'string' ||
-        !['Transitive', 'Project', 'CentralTransitive', 'Direct'].includes(
-          dependency.type,
-        ) ||
-        (dependency.dependencies !== undefined &&
-          typeof dependency.dependencies !== 'object') ||
+        !DEPENDENCY_TYPES.includes(dependency.type) ||
+        // Optional property "dependencies" is an object.
+        ('dependencies' in dependency &&
+          !(
+            dependency.dependencies &&
+            typeof dependency.dependencies === 'object'
+          )) ||
+        // All non-"Project" dependencies must have a "resolved" version.
         (dependency.type !== 'Project' &&
-          typeof dependency.resolved !== 'string')
+          !(
+            'resolved' in dependency && typeof dependency.resolved === 'string'
+          ))
       ) {
         throw new InvalidManifestError(
           'invalid dependency format found in packages.lock.json',
         );
       }
 
-      if (dependency.dependencies !== undefined) {
+      if (
+        'dependencies' in dependency &&
+        !!dependency.dependencies &&
+        typeof dependency.dependencies === 'object'
+      ) {
         for (const value of Object.values(dependency.dependencies)) {
           if (typeof value !== 'string') {
             throw new InvalidManifestError(
@@ -237,8 +256,6 @@ function parseManifest(manifest: any): Lockfile {
       }
     }
   }
-
-  return manifest;
 }
 
 function buildDependencies(
@@ -293,7 +310,7 @@ export function parse(
 ): typeof tree {
   debug('Trying to parse packages.lock.json format manifest');
 
-  const manifest = parseManifest(fileContent);
+  parseManifest(fileContent);
 
   // If a targetFramework was not found in the proj file, we will extract it from the lock file
   // OR
@@ -301,12 +318,15 @@ export function parse(
   // Fix for https://github.com/snyk/snyk-nuget-plugin/issues/75
   if (
     !tree.meta.targetFramework ||
-    manifest.dependencies[tree.meta.targetFramework] === undefined
+    fileContent.dependencies[tree.meta.targetFramework] === undefined
   ) {
-    tree.meta.targetFramework = getFrameworkToRun(manifest);
+    tree.meta.targetFramework = getFrameworkToRun(fileContent);
   }
 
-  const dependencies = buildDependencies(manifest, tree.meta.targetFramework);
+  const dependencies = buildDependencies(
+    fileContent,
+    tree.meta.targetFramework,
+  );
 
   const rootDependencies = Object.values(dependencies).filter((info) =>
     ['Direct'].includes(info.type),
