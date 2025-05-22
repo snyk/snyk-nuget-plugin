@@ -48,6 +48,7 @@ export interface DependencyTree {
 }
 
 export enum ManifestType {
+  PACKAGES_LOCK_JSON = 'packages.lock.json',
   PROJECT_JSON = 'project.json',
   DOTNET_CORE = 'dotnet-core',
   PACKAGES_CONFIG = 'packages.config',

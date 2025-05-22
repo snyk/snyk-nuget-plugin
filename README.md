@@ -11,4 +11,4 @@ Snyk helps you find, fix and monitor for known vulnerabilities in your dependenc
 
 ## Snyk NuGet CLI Plugin
 
-The plugin provides dependency metadata for NuGet projects that manifest dependencies in `project.json`, `packages.config` or `project.assets.json` files.
+The plugin provides dependency metadata for NuGet projects that manifest dependencies in `project.json`, `packages.config`, `project.assets.json` or `packages.lock.json` files.

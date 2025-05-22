@@ -12,6 +12,9 @@ import { MultiProjectResult } from '@snyk/cli-interface/legacy/plugin';
 
 function determineManifestType(filename: string): ManifestType {
   switch (true) {
+    case /packages.lock.json$/.test(filename): {
+      return ManifestType.PACKAGES_LOCK_JSON;
+    }
     case /project.json$/.test(filename): {
       return ManifestType.PROJECT_JSON;
     }
