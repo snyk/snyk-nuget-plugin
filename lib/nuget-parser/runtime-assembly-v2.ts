@@ -58,6 +58,10 @@ function findLatestMatchingVersion(input: string, sdkVersion: string): string {
   return lastMatchVersion;
 }
 
+function getDllName(name: string) {
+  return `${name}.dll`;
+}
+
 // The Nuget dependency resolution rule of lowest applicable version
 // (see https://learn.microsoft.com/en-us/nuget/concepts/dependency-resolution#lowest-applicable-version)
 // does not apply to runtime dependencies. If you resolve a dependency graph of some package, that depends on
@@ -70,10 +74,11 @@ function findLatestMatchingVersion(input: string, sdkVersion: string): string {
 // explanation of what the `deps.json` file is doing that we are traversing.
 export async function generateRuntimeAssemblies(
   projectPath: string,
+  assemblyVersions: AssemblyVersions,
 ): Promise<AssemblyVersions> {
   debug(`Extracting runtime assemblies`);
 
-  const runtimeAssemblyVersions: AssemblyVersions = {};
+  const sdkAssemblies: AssemblyVersions = {};
 
   const { sdkVersion, sdkPath } = await extractSdkInfo(projectPath);
   try {
@@ -86,7 +91,7 @@ export async function generateRuntimeAssemblies(
       // https://github.com/dotnet/sdk/blob/main/documentation/specs/runtime-configuration-file.md#libraries-section-depsjson
       if (value.serviceable && value.sha512) {
         const [name, version] = assemblyName.split('/');
-        runtimeAssemblyVersions[name] = version;
+        sdkAssemblies[getDllName(name)] = version;
       }
     }
   } catch (err) {
@@ -97,15 +102,16 @@ export async function generateRuntimeAssemblies(
 
   const localRuntimes = await dotnet.execute(['--list-runtimes'], projectPath);
   const runtimeVersion = findLatestMatchingVersion(localRuntimes, sdkVersion);
+  const overridesAssemblies: AssemblyVersions = {};
 
   try {
     const overridesPath: string = `${path.dirname(sdkPath)}${PACKS_PATH}${runtimeVersion}/${PACKAGE_OVERRIDES_FILE}`;
-    const overridesAssemblies: string = fs.readFileSync(overridesPath, 'utf-8');
-    for (const pkg of overridesAssemblies.split('\n')) {
+    const overridesText: string = fs.readFileSync(overridesPath, 'utf-8');
+    for (const pkg of overridesText.split('\n')) {
       if (pkg) {
         const [name, version] = pkg.split('|');
         // Trim any carriage return
-        runtimeAssemblyVersions[name] = version.trim();
+        overridesAssemblies[getDllName(name)] = version.trim();
       }
     }
   } catch (err) {
@@ -114,12 +120,25 @@ export async function generateRuntimeAssemblies(
     );
   }
 
-  if (Object.keys(runtimeAssemblyVersions).length === 0) {
+  // Override the versions just for the OOB packages.
+  for (const assemblyName in assemblyVersions) {
+    // OOB packages are deeply inside the namespace. Avoid updating the version for the upper ones.
+    const shouldUpdateVersion = (assemblyName.match(/\./g) || []).length > 2;
+    if (
+      assemblyName in sdkAssemblies &&
+      !(assemblyName in overridesAssemblies) &&
+      shouldUpdateVersion
+    ) {
+      assemblyVersions[assemblyName] = sdkAssemblies[assemblyName];
+    }
+  }
+
+  if (Object.keys(assemblyVersions).length === 0) {
     throw new FileNotProcessableError(
       'Runtime assembly versions collection is empty',
     );
   }
 
   debug(`Finished extracting runtime assemblies`);
-  return runtimeAssemblyVersions;
+  return assemblyVersions;
 }
