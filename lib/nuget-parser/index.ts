@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as csProjParser from './parsers/csproj-parser';
 import * as debugModule from 'debug';
 import * as depsParser from 'dotnet-deps-parser';
+import * as dotnetCoreV3Parser from './parsers/dotnet-core-v3-parser';
 import * as dotnetCoreParser from './parsers/dotnet-core-parser';
 import * as dotnetCoreV2Parser from './parsers/dotnet-core-v2-parser';
 import * as dotnetFrameworkParser from './parsers/dotnet-framework-parser';
@@ -36,6 +37,10 @@ const PARSERS = {
   },
   'dotnet-core-v2': {
     depParser: dotnetCoreV2Parser,
+    fileContentParser: JSON,
+  },
+  'dotnet-core-v3': {
+    depParser: dotnetCoreV3Parser,
     fileContentParser: JSON,
   },
   'packages.config': {
@@ -123,100 +128,18 @@ function findDepsFileInPublishDir(dir: string, filename): Buffer | null {
   return renamedFile || null;
 }
 
-export async function buildDepGraphFromFiles(
-  root: string | undefined,
-  targetFile: string | undefined,
-  manifestType: ManifestType,
-  useProjectNameFromAssetsFile: boolean,
+// function to get results using publish
+async function getResultsWithPublish(
+  decidedTargetFrameworks: string[],
+  projectPath: string,
+  safeRoot: string,
+  projectNameFromManifestFile: string,
+  nugetFrameworksParserLocation: string,
   useFixForImprovedDotnetFalsePositives: boolean,
-  projectNamePrefix?: string,
-  targetFramework?: string,
+  resolvedProjectName: string,
+  projectAssets: ProjectAssets,
 ): Promise<DotnetCoreV2Results> {
-  const safeRoot = root || '.';
-  const safeTargetFile = targetFile || '.';
-  const fileContentPath = path.resolve(safeRoot, safeTargetFile);
-  const fileContent = getFileContents(fileContentPath);
-
   const parser = PARSERS['dotnet-core-v2'];
-  const projectAssets: ProjectAssets =
-    await parser.fileContentParser.parse(fileContent);
-
-  if (!projectAssets.project?.frameworks) {
-    throw new FileNotProcessableError(
-      `unable to detect any target framework in manifest file ${safeTargetFile}, a valid one is needed to continue down this path.`,
-    );
-  }
-
-  // Scan all 'frameworks' detected in the project.assets.json file, and use the targetAlias if detected and
-  // otherwise the raw key name, as it's not guaranteed that all framework objects contains a targetAlias.
-  const targetFrameworks = Object.entries(projectAssets.project.frameworks).map(
-    ([key, value]) => ('targetAlias' in value ? value.targetAlias : key),
-  );
-
-  if (targetFrameworks.length <= 0) {
-    throw new FileNotProcessableError(
-      `unable to detect a target framework in ${safeTargetFile}, a valid one is needed to continue down this path.`,
-    );
-  }
-
-  if (targetFramework && !targetFrameworks.includes(targetFramework)) {
-    console.warn(`\x1b[33m⚠ WARNING\x1b[0m: Supplied targetframework \x1b[1m${targetFramework}\x1b[0m was not detected in the supplied 
-manifest file. Available targetFrameworks detected was \x1b[1m${targetFrameworks.join(
-      ',',
-    )}\x1b[0m. 
-Will attempt to build dependency graph anyway, but the operation might fail.`);
-  }
-
-  let resolvedProjectName = getRootName(root, safeRoot, projectNamePrefix);
-
-  const projectNameFromManifestFile =
-    projectAssets?.project?.restore?.projectName;
-  if (
-    manifestType === ManifestType.DOTNET_CORE &&
-    useProjectNameFromAssetsFile
-  ) {
-    if (projectNameFromManifestFile) {
-      resolvedProjectName = projectNameFromManifestFile;
-    } else {
-      debug(
-        `project.assets.json file doesn't contain a value for 'projectName'. Using default value: ${resolvedProjectName}`,
-      );
-    }
-  }
-  // If a specific targetFramework has been requested, only query that, otherwise try to do them all
-  const decidedTargetFrameworks = targetFramework
-    ? [targetFramework]
-    : targetFrameworks.filter((framework) => {
-        if (!depsParser.isSupportedByV2GraphGeneration(framework)) {
-          console.warn(
-            `\x1b[33m⚠ WARNING\x1b[0m: The runtime resolution flag is currently only supported for the following TargetFrameworks: .NET versions 6 and higher, all versions of .NET Core and all versions of .NET Standard. Detected a TargetFramework: \x1b[1m${framework}\x1b[0m, which will be skipped.`,
-          );
-          return false;
-        }
-        return true;
-      });
-
-  if (decidedTargetFrameworks.length == 0) {
-    throw new InvalidManifestError(
-      `Was not able to find any supported TargetFrameworks to scan, aborting`,
-    );
-  }
-
-  // Ensure `dotnet` is installed on the system or fail trying.
-  await dotnet.validate();
-
-  // Write a .NET Framework Parser to a temporary directory for validating TargetFrameworks.
-  const nugetFrameworksParserLocation = nugetFrameworksParser.generate();
-  await dotnet.restore(nugetFrameworksParserLocation);
-
-  // Access the path of this project, to ensure we get the right .csproj file, in case of multiples present
-  const projectPath = projectAssets.project.restore.projectPath;
-  if (!projectPath) {
-    console.warn(
-      `\x1b[33m⚠ WARNING\x1b[0m: Could not detect any projectPath in the project assets file, if your solution contains multiple projects in the same folder, this operation might fail.`,
-    );
-  }
-
   // Loop through all TargetFrameworks supplied and generate a dependency graph for each.
   const results: DotnetCoreV2Results = [];
   for (const decidedTargetFramework of decidedTargetFrameworks) {
@@ -296,6 +219,172 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
   }
 
   return results;
+}
+
+// function to get results without publish
+async function getResultsWithoutPublish(
+  decidedTargetFrameworks: string[],
+  projectPath: string,
+  safeRoot: string,
+  projectNameFromManifestFile: string,
+  nugetFrameworksParserLocation: string,
+  useFixForImprovedDotnetFalsePositives: boolean,
+  resolvedProjectName: string,
+  projectAssets: ProjectAssets,
+): Promise<DotnetCoreV2Results> {
+  const parser = PARSERS['dotnet-core-v3'];
+
+  // Loop through all TargetFrameworks supplied and generate a dependency graph for each.
+  const results: DotnetCoreV2Results = [];
+  for (const decidedTargetFramework of decidedTargetFrameworks) {
+    // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
+    // we have maximum context to use later when building the depGraph.
+    const response = await dotnet.run(nugetFrameworksParserLocation, [
+      decidedTargetFramework,
+    ]);
+    const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
+    if (targetFrameworkInfo.IsUnsupported) {
+      throw new InvalidManifestError(
+        `dotnet was not able to parse the target framework ${decidedTargetFramework}, it was reported unsupported by the dotnet runtime`,
+      );
+    }
+
+    const depGraph = parser.depParser.parse(
+      resolvedProjectName,
+      decidedTargetFramework,
+      projectAssets,
+    );
+
+    results.push({
+      dependencyGraph: depGraph,
+      targetFramework: decidedTargetFramework,
+    });
+  }
+
+  return results;
+}
+
+export async function buildDepGraphFromFiles(
+  root: string | undefined,
+  targetFile: string | undefined,
+  manifestType: ManifestType,
+  useProjectNameFromAssetsFile: boolean,
+  useFixForImprovedDotnetFalsePositives: boolean,
+  useImprovedDotnetWithoutPublish: boolean,
+  dotnetRestoreAlreadyRan: boolean,
+  projectNamePrefix?: string,
+  targetFramework?: string,
+): Promise<DotnetCoreV2Results> {
+  const safeRoot = root || '.';
+  const safeTargetFile = targetFile || '.';
+  const fileContentPath = path.resolve(safeRoot, safeTargetFile);
+  const fileContent = getFileContents(fileContentPath);
+
+  const parser = PARSERS['dotnet-core-v2'];
+  const projectAssets: ProjectAssets =
+    await parser.fileContentParser.parse(fileContent);
+
+  if (!projectAssets.project?.frameworks) {
+    throw new FileNotProcessableError(
+      `unable to detect any target framework in manifest file ${safeTargetFile}, a valid one is needed to continue down this path.`,
+    );
+  }
+
+  // Scan all 'frameworks' detected in the project.assets.json file, and use the targetAlias if detected and
+  // otherwise the raw key name, as it's not guaranteed that all framework objects contains a targetAlias.
+  const targetFrameworks = Object.entries(projectAssets.project.frameworks).map(
+    ([key, value]) => ('targetAlias' in value ? value.targetAlias : key),
+  );
+
+  if (targetFrameworks.length <= 0) {
+    throw new FileNotProcessableError(
+      `unable to detect a target framework in ${safeTargetFile}, a valid one is needed to continue down this path.`,
+    );
+  }
+
+  if (targetFramework && !targetFrameworks.includes(targetFramework)) {
+    console.warn(`\x1b[33m⚠ WARNING\x1b[0m: Supplied targetframework \x1b[1m${targetFramework}\x1b[0m was not detected in the supplied 
+manifest file. Available targetFrameworks detected was \x1b[1m${targetFrameworks.join(
+      ',',
+    )}\x1b[0m. 
+Will attempt to build dependency graph anyway, but the operation might fail.`);
+  }
+
+  let resolvedProjectName = getRootName(root, safeRoot, projectNamePrefix);
+
+  const projectNameFromManifestFile =
+    projectAssets?.project?.restore?.projectName;
+  if (
+    manifestType === ManifestType.DOTNET_CORE &&
+    useProjectNameFromAssetsFile
+  ) {
+    if (projectNameFromManifestFile) {
+      resolvedProjectName = projectNameFromManifestFile;
+    } else {
+      debug(
+        `project.assets.json file doesn't contain a value for 'projectName'. Using default value: ${resolvedProjectName}`,
+      );
+    }
+  }
+  // If a specific targetFramework has been requested, only query that, otherwise try to do them all
+  const decidedTargetFrameworks = targetFramework
+    ? [targetFramework]
+    : targetFrameworks.filter((framework) => {
+        if (!depsParser.isSupportedByV2GraphGeneration(framework)) {
+          console.warn(
+            `\x1b[33m⚠ WARNING\x1b[0m: The runtime resolution flag is currently only supported for the following TargetFrameworks: .NET versions 6 and higher, all versions of .NET Core and all versions of .NET Standard. Detected a TargetFramework: \x1b[1m${framework}\x1b[0m, which will be skipped.`,
+          );
+          return false;
+        }
+        return true;
+      });
+
+  if (decidedTargetFrameworks.length == 0) {
+    throw new InvalidManifestError(
+      `Was not able to find any supported TargetFrameworks to scan, aborting`,
+    );
+  }
+
+  // Ensure `dotnet` is installed on the system or fail trying.
+  await dotnet.validate();
+
+  // Write a .NET Framework Parser to a temporary directory for validating TargetFrameworks.
+  const nugetFrameworksParserLocation = nugetFrameworksParser.generate();
+  if (!dotnetRestoreAlreadyRan) {
+    await dotnet.restore(nugetFrameworksParserLocation);
+  }
+
+  // Access the path of this project, to ensure we get the right .csproj file, in case of multiples present
+  const projectPath = projectAssets.project.restore.projectPath;
+  if (!projectPath) {
+    console.warn(
+      `\x1b[33m⚠ WARNING\x1b[0m: Could not detect any projectPath in the project assets file, if your solution contains multiple projects in the same folder, this operation might fail.`,
+    );
+  }
+
+  if (useImprovedDotnetWithoutPublish) {
+    return getResultsWithoutPublish(
+      decidedTargetFrameworks,
+      projectPath,
+      safeRoot,
+      projectNameFromManifestFile,
+      nugetFrameworksParserLocation,
+      useFixForImprovedDotnetFalsePositives,
+      resolvedProjectName,
+      projectAssets,
+    );
+  }
+
+  return getResultsWithPublish(
+    decidedTargetFrameworks,
+    projectPath,
+    safeRoot,
+    projectNameFromManifestFile,
+    nugetFrameworksParserLocation,
+    useFixForImprovedDotnetFalsePositives,
+    resolvedProjectName,
+    projectAssets,
+  );
 }
 
 export async function buildDepTreeFromFiles(
