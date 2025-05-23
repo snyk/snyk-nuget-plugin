@@ -62,6 +62,11 @@ function getDllName(name: string) {
   return `${name}.dll`;
 }
 
+function shouldOverrideAssembly(version: string) {
+  const overrideMajorVersion = +version.split('.')[0];
+  return overrideMajorVersion > 5;
+}
+
 // The Nuget dependency resolution rule of lowest applicable version
 // (see https://learn.microsoft.com/en-us/nuget/concepts/dependency-resolution#lowest-applicable-version)
 // does not apply to runtime dependencies. If you resolve a dependency graph of some package, that depends on
@@ -126,7 +131,8 @@ export async function generateRuntimeAssemblies(
     const shouldUpdateVersion = (assemblyName.match(/\./g) || []).length > 2;
     if (
       assemblyName in sdkAssemblies &&
-      !(assemblyName in overridesAssemblies) &&
+      (!(assemblyName in overridesAssemblies) ||
+        shouldOverrideAssembly(overridesAssemblies[assemblyName])) &&
       shouldUpdateVersion
     ) {
       assemblyVersions[assemblyName] = sdkAssemblies[assemblyName];
