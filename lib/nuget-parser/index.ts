@@ -22,11 +22,18 @@ import {
   PublishedProjectDeps,
   TargetFramework,
   TargetFrameworkInfo,
+  Overrides,
 } from './types';
 import * as dotnet from './cli/dotnet';
 import * as nugetFrameworksParser from './csharp/nugetframeworks_parser';
 import * as runtimeAssemblyV2 from './runtime-assembly-v2';
 import * as runtimeAssembly from './runtime-assembly';
+import {
+  extractSdkInfo,
+  findLatestMatchingVersion,
+  PACKAGE_OVERRIDES_FILE,
+  PACKS_PATH,
+} from './runtime-assembly-v2';
 
 const debug = debugModule('snyk');
 
@@ -128,7 +135,6 @@ function findDepsFileInPublishDir(dir: string, filename): Buffer | null {
   return renamedFile || null;
 }
 
-// function to get results using publish
 async function getResultsWithPublish(
   decidedTargetFrameworks: string[],
   projectPath: string,
@@ -221,18 +227,40 @@ async function getResultsWithPublish(
   return results;
 }
 
-// function to get results without publish
 async function getResultsWithoutPublish(
   decidedTargetFrameworks: string[],
   projectPath: string,
   safeRoot: string,
-  projectNameFromManifestFile: string,
   nugetFrameworksParserLocation: string,
-  useFixForImprovedDotnetFalsePositives: boolean,
   resolvedProjectName: string,
   projectAssets: ProjectAssets,
 ): Promise<DotnetCoreV2Results> {
   const parser = PARSERS['dotnet-core-v3'];
+
+  let projectFolder = projectPath ? path.dirname(projectPath) : safeRoot;
+  const { sdkVersion, sdkPath } = await extractSdkInfo(projectFolder);
+  const localRuntimes = await dotnet.execute(
+    ['--list-runtimes'],
+    projectFolder,
+  );
+  const runtimeVersion = findLatestMatchingVersion(localRuntimes, sdkVersion);
+  const overridesAssemblies: AssemblyVersions = {};
+
+  try {
+    const overridesPath: string = `${path.dirname(sdkPath)}${PACKS_PATH}${runtimeVersion}/${PACKAGE_OVERRIDES_FILE}`;
+    const overridesText: string = fs.readFileSync(overridesPath, 'utf-8');
+    for (const pkg of overridesText.split('\n')) {
+      if (pkg) {
+        const [name, version] = pkg.split('|');
+        // Trim any carriage return
+        overridesAssemblies[name] = version.trim();
+      }
+    }
+  } catch (err) {
+    throw new FileNotProcessableError(
+      `Failed to read PackageOverrides.txt, error: ${err}`,
+    );
+  }
 
   // Loop through all TargetFrameworks supplied and generate a dependency graph for each.
   const results: DotnetCoreV2Results = [];
@@ -249,10 +277,18 @@ async function getResultsWithoutPublish(
       );
     }
 
+    const overrides: Overrides = {
+      overridesAssemblies,
+      overrideVersion: targetFrameworkInfo.Version.split('.')
+        .slice(0, -1)
+        .join('.'),
+    };
+
     const depGraph = parser.depParser.parse(
       resolvedProjectName,
       decidedTargetFramework,
       projectAssets,
+      overrides,
     );
 
     results.push({
@@ -271,7 +307,6 @@ export async function buildDepGraphFromFiles(
   useProjectNameFromAssetsFile: boolean,
   useFixForImprovedDotnetFalsePositives: boolean,
   useImprovedDotnetWithoutPublish: boolean,
-  dotnetRestoreAlreadyRan: boolean,
   projectNamePrefix?: string,
   targetFramework?: string,
 ): Promise<DotnetCoreV2Results> {
@@ -350,9 +385,7 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
 
   // Write a .NET Framework Parser to a temporary directory for validating TargetFrameworks.
   const nugetFrameworksParserLocation = nugetFrameworksParser.generate();
-  if (!dotnetRestoreAlreadyRan) {
-    await dotnet.restore(nugetFrameworksParserLocation);
-  }
+  await dotnet.restore(nugetFrameworksParserLocation);
 
   // Access the path of this project, to ensure we get the right .csproj file, in case of multiples present
   const projectPath = projectAssets.project.restore.projectPath;
@@ -367,9 +400,7 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
       decidedTargetFrameworks,
       projectPath,
       safeRoot,
-      projectNameFromManifestFile,
       nugetFrameworksParserLocation,
-      useFixForImprovedDotnetFalsePositives,
       resolvedProjectName,
       projectAssets,
     );

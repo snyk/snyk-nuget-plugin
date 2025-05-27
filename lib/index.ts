@@ -105,7 +105,6 @@ with the debug (-d) flag at \x1b[4mhttp://support.snyk.io\x1b[0m.`);
       options['assets-project-name'],
       options['useFixForImprovedDotnetFalsePositives'] || false,
       options['useImprovedDotnetWithoutPublish'] || false,
-      options['dotnet-restore-already-ran'] || false,
       options['project-name-prefix'],
       options['dotnet-target-framework'],
     );

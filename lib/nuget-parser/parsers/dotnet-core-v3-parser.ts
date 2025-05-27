@@ -2,7 +2,7 @@ import * as debugModule from 'debug';
 import * as depGraphLib from '@snyk/dep-graph';
 import { DepGraphBuilder } from '@snyk/dep-graph';
 import { InvalidManifestError } from '../../errors';
-import { ProjectAssets, Target } from '../types';
+import { Overrides, ProjectAssets, Target } from '../types';
 
 const debug = debugModule('snyk');
 
@@ -20,18 +20,19 @@ function recursivelyPopulateNodes(
   depGraphBuilder: DepGraphBuilder,
   allPackagesForFramework: Record<string, Target>,
   parentID: string,
-  dependencies: Record<string, string> | undefined,
+  dependencies: Record<string, string>,
   visited: Set<string>,
+  overrides: Overrides,
 ) {
   if (!dependencies) {
     return;
   }
-
   for (const [childName, childResolvedVersion] of Object.entries(
     dependencies,
   )) {
     const localVisited = visited || new Set<string>();
-    // Ignore packages with specific prefixes
+    // Ignore packages with specific prefixes, which for one reason or the other are no interesting and pollutes the
+    // graph. Refer to comments on the individual elements in the ignore list for more information.
     if (
       FILTERED_DEPENDENCY_PREFIX.some((prefix) => childName.startsWith(prefix))
     ) {
@@ -45,17 +46,27 @@ function recursivelyPopulateNodes(
       debug(
         `Child package ${childName} not found in lock file packages for framework.`,
       );
-      continue; // Skip if child package details are missing
+      continue;
     }
 
     const childID = `${childName}@${childResolvedVersion}`;
 
-    // Check if this package (name@resolvedVersion) has already been added to the graph
+    let finalVersion = childResolvedVersion;
+
+    // If we're looking at a runtime assembly version for self-contained dlls, overwrite the dependency version
+    // we've found in the graph with those from the runtime assembly, as they take precedence.
+    if (
+      +childResolvedVersion.split('.')[0] < 6 &&
+      childName in overrides.overridesAssemblies &&
+      +overrides.overridesAssemblies[childName].split('.')[0] < 6
+    ) {
+      finalVersion = overrides.overrideVersion;
+    }
+
     if (localVisited.has(childID)) {
-      // If visited, add a pruned node and connect it
-      const prunedID = `${childID}:pruned`; // Append :pruned to the ID
+      const prunedID = `${childID}:pruned`;
       depGraphBuilder.addPkgNode(
-        { name: childName, version: childResolvedVersion },
+        { name: childName, version: finalVersion },
         prunedID,
         {
           labels: { pruned: 'true' },
@@ -63,16 +74,15 @@ function recursivelyPopulateNodes(
       );
       depGraphBuilder.connectDep(parentID, prunedID);
       debug(`Pruning duplicate dependency: ${parentID} -> ${childID}`);
-      continue; // Do not traverse dependencies of pruned nodes
+      continue;
     }
 
-    // If not visited, add the full node and connect it
     depGraphBuilder.addPkgNode(
-      { name: childName, version: childResolvedVersion },
+      { name: childName, version: finalVersion },
       childID,
     );
     depGraphBuilder.connectDep(parentID, childID);
-    localVisited.add(childID); // Mark as visited
+    localVisited.add(childID);
 
     debug(`Adding dependency: ${parentID} -> ${childID}`);
 
@@ -82,6 +92,7 @@ function recursivelyPopulateNodes(
       childID,
       childPkgEntry.dependencies,
       localVisited,
+      overrides,
     );
   }
 }
@@ -90,6 +101,7 @@ function buildDepGraph(
   projectName: string,
   targetFramework: string,
   projectAssets: ProjectAssets,
+  overrides: Overrides,
 ): depGraphLib.DepGraph {
   const depGraphBuilder = new DepGraphBuilder(
     { name: 'nuget' },
@@ -111,7 +123,7 @@ function buildDepGraph(
   if (!allPackagesForFramework) {
     // This should ideally not happen if validateManifest and parse are called first
     throw new InvalidManifestError(
-      `Target framework '${targetFramework}' not found in packages.lock.json dependencies.`,
+      `Target framework '${targetFramework}' not found in project.assets.json dependencies.`,
     );
   }
 
@@ -145,6 +157,7 @@ function buildDepGraph(
     'root-node',
     directDependencies, // Pass the direct dependencies object
     visited,
+    overrides,
   );
 
   return depGraphBuilder.build();
@@ -189,12 +202,13 @@ export function parse(
   projectName: string,
   targetFramework: string,
   projectAssets: ProjectAssets,
+  overrides: Overrides,
 ): depGraphLib.DepGraph {
   debug(
-    'Trying to parse project.assets.json manifest with v2 depGraph builder',
+    'Trying to parse project.assets.json manifest with v3 depGraph builder',
   );
 
   validateManifest(projectAssets);
 
-  return buildDepGraph(projectName, targetFramework, projectAssets);
+  return buildDepGraph(projectName, targetFramework, projectAssets, overrides);
 }

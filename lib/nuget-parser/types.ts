@@ -109,4 +109,9 @@ export interface DotnetCoreV2Result {
   targetFramework: string | undefined;
 }
 
+export type Overrides ={
+  overridesAssemblies: AssemblyVersions;
+  overrideVersion: string;
+}
+
 export type DotnetCoreV2Results = DotnetCoreV2Result[];
