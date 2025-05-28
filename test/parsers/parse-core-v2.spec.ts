@@ -211,7 +211,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         expectedGraph.depGraph,
       );
     },
-    1000000,
+    100000,
   );
 
   it.each(dotnetCoreProjectList)(
@@ -252,7 +252,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         expectedGraph.depGraph,
       );
     },
-    1000000,
+    100000,
   );
 
   it.each(dotnetCoreProjectList)(
@@ -265,7 +265,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       projectNamePrefix,
     }) => {
       // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-      await dotnet.restore(path.resolve(projectPath, projectFile));
+      await dotnet.restore(path.resolve(projectPath, projectFile), projectPath);
       const projectAssetsJson = path.resolve(projectPath, manifestFilePath);
 
       const result = await plugin.inspect(projectPath, projectAssetsJson, {
@@ -294,7 +294,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         expectedGraph.depGraph,
       );
     },
-    1000000,
+    100000,
   );
 
   it.each([

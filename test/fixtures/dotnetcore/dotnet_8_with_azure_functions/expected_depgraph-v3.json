@@ -1,0 +1,1987 @@
+{
+  "depGraph": {
+    "schemaVersion": "1.3.0",
+    "pkgManager": {
+      "name": "nuget"
+    },
+    "pkgs": [
+      {
+        "id": "dotnet_8_with_azure_functions@1.0.0",
+        "info": {
+          "name": "dotnet_8_with_azure_functions",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.NET.Sdk.Functions@4.3.0",
+        "info": {
+          "name": "Microsoft.NET.Sdk.Functions",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "Microsoft.Azure.WebJobs.Extensions@3.0.6",
+        "info": {
+          "name": "Microsoft.Azure.WebJobs.Extensions",
+          "version": "3.0.6"
+        }
+      },
+      {
+        "id": "Microsoft.Azure.WebJobs.Host.Storage@3.0.14",
+        "info": {
+          "name": "Microsoft.Azure.WebJobs.Host.Storage",
+          "version": "3.0.14"
+        }
+      },
+      {
+        "id": "WindowsAzure.Storage@9.3.1",
+        "info": {
+          "name": "WindowsAzure.Storage",
+          "version": "9.3.1"
+        }
+      },
+      {
+        "id": "NETStandard.Library@1.6.1",
+        "info": {
+          "name": "NETStandard.Library",
+          "version": "1.6.1"
+        }
+      },
+      {
+        "id": "Microsoft.Win32.Primitives@8.0.0",
+        "info": {
+          "name": "Microsoft.Win32.Primitives",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.AppContext@8.0.0",
+        "info": {
+          "name": "System.AppContext",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Collections@8.0.0",
+        "info": {
+          "name": "System.Collections",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Collections.Concurrent@8.0.0",
+        "info": {
+          "name": "System.Collections.Concurrent",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Diagnostics.Debug@8.0.0",
+        "info": {
+          "name": "System.Diagnostics.Debug",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Diagnostics.Tracing@8.0.0",
+        "info": {
+          "name": "System.Diagnostics.Tracing",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Globalization@8.0.0",
+        "info": {
+          "name": "System.Globalization",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Reflection@8.0.0",
+        "info": {
+          "name": "System.Reflection",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.IO@8.0.0",
+        "info": {
+          "name": "System.IO",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Text.Encoding@8.0.0",
+        "info": {
+          "name": "System.Text.Encoding",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Threading.Tasks@8.0.0",
+        "info": {
+          "name": "System.Threading.Tasks",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Reflection.Primitives@8.0.0",
+        "info": {
+          "name": "System.Reflection.Primitives",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Resources.ResourceManager@8.0.0",
+        "info": {
+          "name": "System.Resources.ResourceManager",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Runtime.Extensions@8.0.0",
+        "info": {
+          "name": "System.Runtime.Extensions",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Threading@8.0.0",
+        "info": {
+          "name": "System.Threading",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Console@8.0.0",
+        "info": {
+          "name": "System.Console",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Diagnostics.Tools@8.0.0",
+        "info": {
+          "name": "System.Diagnostics.Tools",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Globalization.Calendars@8.0.0",
+        "info": {
+          "name": "System.Globalization.Calendars",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.IO.Compression@8.0.0",
+        "info": {
+          "name": "System.IO.Compression",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Runtime.Handles@8.0.0",
+        "info": {
+          "name": "System.Runtime.Handles",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Runtime.InteropServices@8.0.0",
+        "info": {
+          "name": "System.Runtime.InteropServices",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.IO.Compression.ZipFile@8.0.0",
+        "info": {
+          "name": "System.IO.Compression.ZipFile",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.IO.FileSystem@8.0.0",
+        "info": {
+          "name": "System.IO.FileSystem",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.IO.FileSystem.Primitives@8.0.0",
+        "info": {
+          "name": "System.IO.FileSystem.Primitives",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Linq@8.0.0",
+        "info": {
+          "name": "System.Linq",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Linq.Expressions@8.0.0",
+        "info": {
+          "name": "System.Linq.Expressions",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.ObjectModel@8.0.0",
+        "info": {
+          "name": "System.ObjectModel",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Reflection.Emit@8.0.0",
+        "info": {
+          "name": "System.Reflection.Emit",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Reflection.Emit.ILGeneration@8.0.0",
+        "info": {
+          "name": "System.Reflection.Emit.ILGeneration",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Reflection.Emit.Lightweight@8.0.0",
+        "info": {
+          "name": "System.Reflection.Emit.Lightweight",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Reflection.Extensions@8.0.0",
+        "info": {
+          "name": "System.Reflection.Extensions",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Reflection.TypeExtensions@8.0.0",
+        "info": {
+          "name": "System.Reflection.TypeExtensions",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Net.Primitives@8.0.0",
+        "info": {
+          "name": "System.Net.Primitives",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Net.Sockets@8.0.0",
+        "info": {
+          "name": "System.Net.Sockets",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Runtime.InteropServices.RuntimeInformation@8.0.0",
+        "info": {
+          "name": "System.Runtime.InteropServices.RuntimeInformation",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Runtime.Numerics@8.0.0",
+        "info": {
+          "name": "System.Runtime.Numerics",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.Algorithms@8.0.0",
+        "info": {
+          "name": "System.Security.Cryptography.Algorithms",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.Encoding@8.0.0",
+        "info": {
+          "name": "System.Security.Cryptography.Encoding",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.Primitives@8.0.0",
+        "info": {
+          "name": "System.Security.Cryptography.Primitives",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.X509Certificates@8.0.0",
+        "info": {
+          "name": "System.Security.Cryptography.X509Certificates",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.Cng@8.0.0",
+        "info": {
+          "name": "System.Security.Cryptography.Cng",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.Csp@8.0.0",
+        "info": {
+          "name": "System.Security.Cryptography.Csp",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.OpenSsl@8.0.0",
+        "info": {
+          "name": "System.Security.Cryptography.OpenSsl",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Text.Encoding.Extensions@8.0.0",
+        "info": {
+          "name": "System.Text.Encoding.Extensions",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Threading.Timer@8.0.0",
+        "info": {
+          "name": "System.Threading.Timer",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Xml.ReaderWriter@8.0.0",
+        "info": {
+          "name": "System.Xml.ReaderWriter",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Xml.XDocument@8.0.0",
+        "info": {
+          "name": "System.Xml.XDocument",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "ncrontab.signed@3.3.0",
+        "info": {
+          "name": "ncrontab.signed",
+          "version": "3.3.0"
+        }
+      },
+      {
+        "id": "Microsoft.Azure.WebJobs.Script.ExtensionsMetadataGenerator@4.0.1",
+        "info": {
+          "name": "Microsoft.Azure.WebJobs.Script.ExtensionsMetadataGenerator",
+          "version": "4.0.1"
+        }
+      },
+      {
+        "id": "System.Runtime.Loader@8.0.0",
+        "info": {
+          "name": "System.Runtime.Loader",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "Newtonsoft.Json@13.0.1",
+        "info": {
+          "name": "Newtonsoft.Json",
+          "version": "13.0.1"
+        }
+      },
+      {
+        "id": "System.Net.Http@8.0.0",
+        "info": {
+          "name": "System.Net.Http",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.NETCore.Platforms@1.1.1",
+        "info": {
+          "name": "Microsoft.NETCore.Platforms",
+          "version": "1.1.1"
+        }
+      },
+      {
+        "id": "System.Globalization.Extensions@8.0.0",
+        "info": {
+          "name": "System.Globalization.Extensions",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Text.Encodings.Web@4.7.2",
+        "info": {
+          "name": "System.Text.Encodings.Web",
+          "version": "4.7.2"
+        }
+      },
+      {
+        "id": "System.Text.RegularExpressions@8.0.0",
+        "info": {
+          "name": "System.Text.RegularExpressions",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "System.Runtime@8.0.0",
+        "info": {
+          "name": "System.Runtime",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.NETCore.Targets@1.1.3",
+        "info": {
+          "name": "Microsoft.NETCore.Targets",
+          "version": "1.1.3"
+        }
+      }
+    ],
+    "graph": {
+      "rootNodeId": "root-node",
+      "nodes": [
+        {
+          "nodeId": "root-node",
+          "pkgId": "dotnet_8_with_azure_functions@1.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NET.Sdk.Functions@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.NET.Sdk.Functions@4.3.0",
+          "pkgId": "Microsoft.NET.Sdk.Functions@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Azure.WebJobs.Extensions@3.0.6"
+            },
+            {
+              "nodeId": "Microsoft.Azure.WebJobs.Script.ExtensionsMetadataGenerator@4.0.1"
+            },
+            {
+              "nodeId": "Newtonsoft.Json@13.0.1"
+            },
+            {
+              "nodeId": "System.Net.Http@4.3.4"
+            },
+            {
+              "nodeId": "System.Text.Encodings.Web@4.7.2"
+            },
+            {
+              "nodeId": "System.Text.RegularExpressions@4.3.1"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Azure.WebJobs.Extensions@3.0.6",
+          "pkgId": "Microsoft.Azure.WebJobs.Extensions@3.0.6",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Azure.WebJobs.Host.Storage@3.0.14"
+            },
+            {
+              "nodeId": "ncrontab.signed@3.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Azure.WebJobs.Host.Storage@3.0.14",
+          "pkgId": "Microsoft.Azure.WebJobs.Host.Storage@3.0.14",
+          "deps": [
+            {
+              "nodeId": "WindowsAzure.Storage@9.3.1"
+            }
+          ]
+        },
+        {
+          "nodeId": "WindowsAzure.Storage@9.3.1",
+          "pkgId": "WindowsAzure.Storage@9.3.1",
+          "deps": [
+            {
+              "nodeId": "NETStandard.Library@1.6.1"
+            }
+          ]
+        },
+        {
+          "nodeId": "NETStandard.Library@1.6.1",
+          "pkgId": "NETStandard.Library@1.6.1",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Win32.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.AppContext@4.3.0"
+            },
+            {
+              "nodeId": "System.Collections@4.3.0"
+            },
+            {
+              "nodeId": "System.Collections.Concurrent@4.3.0"
+            },
+            {
+              "nodeId": "System.Console@4.3.0"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Tools@4.3.0"
+            },
+            {
+              "nodeId": "System.Diagnostics.Tracing@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization.Calendars@4.3.0"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.Compression@4.3.0"
+            },
+            {
+              "nodeId": "System.IO.Compression.ZipFile@4.3.0"
+            },
+            {
+              "nodeId": "System.IO.FileSystem@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.FileSystem.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Linq@4.3.0"
+            },
+            {
+              "nodeId": "System.Linq.Expressions@4.3.0"
+            },
+            {
+              "nodeId": "System.Net.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Net.Sockets@4.3.0"
+            },
+            {
+              "nodeId": "System.ObjectModel@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices.RuntimeInformation@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.Numerics@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Algorithms@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.X509Certificates@4.3.0"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding.Extensions@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading.Timer@4.3.0"
+            },
+            {
+              "nodeId": "System.Xml.ReaderWriter@4.3.0"
+            },
+            {
+              "nodeId": "System.Xml.XDocument@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Win32.Primitives@4.3.0",
+          "pkgId": "Microsoft.Win32.Primitives@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.AppContext@4.3.0",
+          "pkgId": "System.AppContext@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Collections@4.3.0",
+          "pkgId": "System.Collections@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Collections.Concurrent@4.3.0",
+          "pkgId": "System.Collections.Concurrent@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0"
+            },
+            {
+              "nodeId": "System.Diagnostics.Tracing@4.3.0"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Collections@4.3.0:pruned",
+          "pkgId": "System.Collections@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Diagnostics.Debug@4.3.0",
+          "pkgId": "System.Diagnostics.Debug@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Diagnostics.Tracing@4.3.0",
+          "pkgId": "System.Diagnostics.Tracing@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Globalization@4.3.0",
+          "pkgId": "System.Globalization@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Reflection@4.3.0",
+          "pkgId": "System.Reflection@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.IO@4.3.0"
+            },
+            {
+              "nodeId": "System.Reflection.Primitives@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.IO@4.3.0",
+          "pkgId": "System.IO@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Text.Encoding@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Text.Encoding@4.3.0",
+          "pkgId": "System.Text.Encoding@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Threading.Tasks@4.3.0",
+          "pkgId": "System.Threading.Tasks@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Reflection.Primitives@4.3.0",
+          "pkgId": "System.Reflection.Primitives@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Resources.ResourceManager@4.3.0",
+          "pkgId": "System.Resources.ResourceManager@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Globalization@4.3.0:pruned",
+          "pkgId": "System.Globalization@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Reflection@4.3.0:pruned",
+          "pkgId": "System.Reflection@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Runtime.Extensions@4.3.0",
+          "pkgId": "System.Runtime.Extensions@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Threading@4.3.0",
+          "pkgId": "System.Threading@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Threading.Tasks@4.3.0:pruned",
+          "pkgId": "System.Threading.Tasks@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Console@4.3.0",
+          "pkgId": "System.Console@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.IO@4.3.0:pruned",
+          "pkgId": "System.IO@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Text.Encoding@4.3.0:pruned",
+          "pkgId": "System.Text.Encoding@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Diagnostics.Debug@4.3.0:pruned",
+          "pkgId": "System.Diagnostics.Debug@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Diagnostics.Tools@4.3.0",
+          "pkgId": "System.Diagnostics.Tools@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Diagnostics.Tracing@4.3.0:pruned",
+          "pkgId": "System.Diagnostics.Tracing@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Globalization.Calendars@4.3.0",
+          "pkgId": "System.Globalization.Calendars@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.IO.Compression@4.3.0",
+          "pkgId": "System.IO.Compression@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Resources.ResourceManager@4.3.0:pruned",
+          "pkgId": "System.Resources.ResourceManager@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Runtime.Extensions@4.3.0:pruned",
+          "pkgId": "System.Runtime.Extensions@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Runtime.Handles@4.3.0",
+          "pkgId": "System.Runtime.Handles@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Runtime.InteropServices@4.3.0",
+          "pkgId": "System.Runtime.InteropServices@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Reflection.Primitives@4.3.0:pruned",
+          "pkgId": "System.Reflection.Primitives@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Runtime.Handles@4.3.0:pruned",
+          "pkgId": "System.Runtime.Handles@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Threading@4.3.0:pruned",
+          "pkgId": "System.Threading@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.IO.Compression.ZipFile@4.3.0",
+          "pkgId": "System.IO.Compression.ZipFile@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.Compression@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.FileSystem@4.3.0"
+            },
+            {
+              "nodeId": "System.IO.FileSystem.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.IO.Compression@4.3.0:pruned",
+          "pkgId": "System.IO.Compression@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.IO.FileSystem@4.3.0",
+          "pkgId": "System.IO.FileSystem@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.FileSystem.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.IO.FileSystem.Primitives@4.3.0",
+          "pkgId": "System.IO.FileSystem.Primitives@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.IO.FileSystem.Primitives@4.3.0:pruned",
+          "pkgId": "System.IO.FileSystem.Primitives@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.IO.FileSystem@4.3.0:pruned",
+          "pkgId": "System.IO.FileSystem@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Linq@4.3.0",
+          "pkgId": "System.Linq@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Linq.Expressions@4.3.0",
+          "pkgId": "System.Linq.Expressions@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Linq@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.ObjectModel@4.3.0"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection.Emit@4.3.0"
+            },
+            {
+              "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection.Emit.Lightweight@4.3.0"
+            },
+            {
+              "nodeId": "System.Reflection.Extensions@4.3.0"
+            },
+            {
+              "nodeId": "System.Reflection.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection.TypeExtensions@4.3.0"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Linq@4.3.0:pruned",
+          "pkgId": "System.Linq@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.ObjectModel@4.3.0",
+          "pkgId": "System.ObjectModel@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Reflection.Emit@4.3.0",
+          "pkgId": "System.Reflection.Emit@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0"
+            },
+            {
+              "nodeId": "System.Reflection.Primitives@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0",
+          "pkgId": "System.Reflection.Emit.ILGeneration@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection.Primitives@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0:pruned",
+          "pkgId": "System.Reflection.Emit.ILGeneration@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Reflection.Emit.Lightweight@4.3.0",
+          "pkgId": "System.Reflection.Emit.Lightweight@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection.Emit.ILGeneration@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection.Primitives@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Reflection.Extensions@4.3.0",
+          "pkgId": "System.Reflection.Extensions@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Reflection.TypeExtensions@4.3.0",
+          "pkgId": "System.Reflection.TypeExtensions@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Net.Primitives@4.3.0",
+          "pkgId": "System.Net.Primitives@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Net.Sockets@4.3.0",
+          "pkgId": "System.Net.Sockets@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Net.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Net.Primitives@4.3.0:pruned",
+          "pkgId": "System.Net.Primitives@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.ObjectModel@4.3.0:pruned",
+          "pkgId": "System.ObjectModel@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Reflection.Extensions@4.3.0:pruned",
+          "pkgId": "System.Reflection.Extensions@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Runtime.InteropServices@4.3.0:pruned",
+          "pkgId": "System.Runtime.InteropServices@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Runtime.InteropServices.RuntimeInformation@4.3.0",
+          "pkgId": "System.Runtime.InteropServices.RuntimeInformation@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Runtime.Numerics@4.3.0",
+          "pkgId": "System.Runtime.Numerics@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Algorithms@4.3.0",
+          "pkgId": "System.Security.Cryptography.Algorithms@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Numerics@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Runtime.Numerics@4.3.0:pruned",
+          "pkgId": "System.Runtime.Numerics@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Encoding@4.3.0",
+          "pkgId": "System.Security.Cryptography.Encoding@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Collections.Concurrent@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Linq@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Collections.Concurrent@4.3.0:pruned",
+          "pkgId": "System.Collections.Concurrent@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Primitives@4.3.0",
+          "pkgId": "System.Security.Cryptography.Primitives@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned",
+          "pkgId": "System.Security.Cryptography.Primitives@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned",
+          "pkgId": "System.Security.Cryptography.Encoding@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.X509Certificates@4.3.0",
+          "pkgId": "System.Security.Cryptography.X509Certificates@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization.Calendars@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.FileSystem@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.FileSystem.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Numerics@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Algorithms@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Cng@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Csp@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.OpenSsl@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Globalization.Calendars@4.3.0:pruned",
+          "pkgId": "System.Globalization.Calendars@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Algorithms@4.3.0:pruned",
+          "pkgId": "System.Security.Cryptography.Algorithms@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Cng@4.3.0",
+          "pkgId": "System.Security.Cryptography.Cng@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Algorithms@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Csp@4.3.0",
+          "pkgId": "System.Security.Cryptography.Csp@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Algorithms@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.OpenSsl@4.3.0",
+          "pkgId": "System.Security.Cryptography.OpenSsl@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Numerics@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Algorithms@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Text.Encoding.Extensions@4.3.0",
+          "pkgId": "System.Text.Encoding.Extensions@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Threading.Timer@4.3.0",
+          "pkgId": "System.Threading.Timer@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Xml.ReaderWriter@4.3.0",
+          "pkgId": "System.Xml.ReaderWriter@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.FileSystem@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.FileSystem.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Text.Encoding.Extensions@4.3.0:pruned",
+          "pkgId": "System.Text.Encoding.Extensions@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Xml.XDocument@4.3.0",
+          "pkgId": "System.Xml.XDocument@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Tools@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Xml.ReaderWriter@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Diagnostics.Tools@4.3.0:pruned",
+          "pkgId": "System.Diagnostics.Tools@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Xml.ReaderWriter@4.3.0:pruned",
+          "pkgId": "System.Xml.ReaderWriter@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "ncrontab.signed@3.3.0",
+          "pkgId": "ncrontab.signed@3.3.0",
+          "deps": []
+        },
+        {
+          "nodeId": "Microsoft.Azure.WebJobs.Script.ExtensionsMetadataGenerator@4.0.1",
+          "pkgId": "Microsoft.Azure.WebJobs.Script.ExtensionsMetadataGenerator@4.0.1",
+          "deps": [
+            {
+              "nodeId": "System.Runtime.Loader@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Runtime.Loader@4.3.0",
+          "pkgId": "System.Runtime.Loader@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Newtonsoft.Json@13.0.1",
+          "pkgId": "Newtonsoft.Json@13.0.1",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Net.Http@4.3.4",
+          "pkgId": "System.Net.Http@8.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1"
+            },
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Tracing@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization.Extensions@4.3.0"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.FileSystem@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Net.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Algorithms@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.OpenSsl@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.X509Certificates@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.NETCore.Platforms@1.1.1",
+          "pkgId": "Microsoft.NETCore.Platforms@1.1.1",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Globalization.Extensions@4.3.0",
+          "pkgId": "System.Globalization.Extensions@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.OpenSsl@4.3.0:pruned",
+          "pkgId": "System.Security.Cryptography.OpenSsl@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.X509Certificates@4.3.0:pruned",
+          "pkgId": "System.Security.Cryptography.X509Certificates@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Text.Encodings.Web@4.7.2",
+          "pkgId": "System.Text.Encodings.Web@4.7.2",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Text.RegularExpressions@4.3.1",
+          "pkgId": "System.Text.RegularExpressions@8.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Runtime@4.3.1"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Runtime@4.3.1",
+          "pkgId": "System.Runtime@8.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.3"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned",
+          "pkgId": "Microsoft.NETCore.Platforms@1.1.1",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.NETCore.Targets@1.1.3",
+          "pkgId": "Microsoft.NETCore.Targets@1.1.3",
+          "deps": []
+        }
+      ]
+    }
+  }
+}

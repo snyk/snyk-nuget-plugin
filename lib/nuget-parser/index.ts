@@ -237,7 +237,7 @@ async function getResultsWithoutPublish(
 ): Promise<DotnetCoreV2Results> {
   const parser = PARSERS['dotnet-core-v3'];
 
-  let projectFolder = projectPath ? path.dirname(projectPath) : safeRoot;
+  const projectFolder = projectPath ? path.dirname(projectPath) : safeRoot;
   const { sdkVersion, sdkPath } = await extractSdkInfo(projectFolder);
   const localRuntimes = await dotnet.execute(
     ['--list-runtimes'],
@@ -284,9 +284,14 @@ async function getResultsWithoutPublish(
         .join('.'),
     };
 
+    let targetFramework = decidedTargetFramework;
+    if (targetFrameworkInfo.Framework === '.NETStandard') {
+      targetFramework = targetFrameworkInfo.DotNetFrameworkName;
+    }
+
     const depGraph = parser.depParser.parse(
       resolvedProjectName,
-      decidedTargetFramework,
+      targetFramework,
       projectAssets,
       overrides,
     );

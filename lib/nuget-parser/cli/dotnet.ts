@@ -68,7 +68,10 @@ export async function execute(
   }
 }
 
-export async function restore(projectPath: string): Promise<void> {
+export async function restore(
+  projectPath: string,
+  workingDirectory?: string,
+): Promise<void> {
   const command = 'dotnet';
   const args = [
     'restore',
@@ -79,7 +82,7 @@ export async function restore(projectPath: string): Promise<void> {
     `"${projectPath}"`,
     '--p=TreatWarningsAsErrors=false;WarningsAsErrors=',
   ];
-  await handle('restore', command, args);
+  await handle('restore', command, args, workingDirectory);
   return;
 }
 

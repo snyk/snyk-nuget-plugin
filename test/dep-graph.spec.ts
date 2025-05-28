@@ -80,7 +80,6 @@ class TestFixture {
       false,
       true,
       false,
-      false
     );
 
     expect(withRuntimeDepsResults.length).toEqual(1);
@@ -185,7 +184,6 @@ class TestFixture {
         false,
         true,
         false,
-        false
       );
       expect(results.length).toEqual(1);
       expect(results[0].dependencyGraph).toBeDefined();
@@ -253,7 +251,6 @@ class TestFixture {
       false,
       true,
       false,
-      false
     );
     expect(results.length).toEqual(1);
 
@@ -315,7 +312,6 @@ class TestFixture {
       false,
       true,
       false,
-      false
     );
     expect(results.length).toEqual(1);
     expect(results[0].targetFramework).toEqual('net7.0-windows');
@@ -391,7 +387,6 @@ class TestFixture {
         false,
         true,
         false,
-        false
       );
       expect(results.length).toEqual(1);
 

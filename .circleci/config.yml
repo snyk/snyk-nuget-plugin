@@ -175,6 +175,7 @@ jobs:
       - show_node_version
       - run:
           name: Run tests
+          no_output_timeout: 20m
           command: npm run test:<< parameters.test_type >>
           shell: bash.exe
 
@@ -193,6 +194,7 @@ jobs:
       - show_node_version
       - run:
           name: Run tests
+          no_output_timeout: 20m
           command: npm run test:<< parameters.test_type >>
 
   release:

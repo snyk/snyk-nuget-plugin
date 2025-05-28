@@ -35,7 +35,10 @@ export async function extractSdkInfo(projectPath: string): Promise<SdkInfo> {
   return { sdkVersion: match[1], sdkPath: match[3] };
 }
 
-export function findLatestMatchingVersion(input: string, sdkVersion: string): string {
+export function findLatestMatchingVersion(
+  input: string,
+  sdkVersion: string,
+): string {
   const majorSdkVersion = sdkVersion.split('.')[0];
   const regex = new RegExp(
     `Microsoft\\.NETCore\\.App ${majorSdkVersion}\\.(\\d+\\.\\d+) \\[`,
