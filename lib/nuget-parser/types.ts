@@ -72,12 +72,17 @@ interface Project {
   runtimeIdentifierGraphPath: string;
 }
 
+export interface Target {
+  type: string;
+  dependencies: Record<string, string>;
+}
+
 // .NET core's project.assets.json with the needed fields represented
 export interface ProjectAssets {
   version: number;
-  targets: Record<string, any>;
+  targets: Record<string, Record<string, Target>>;
   libraries: Record<string, any>;
-  projectFileDependencyGroups: Record<string, any>;
+  projectFileDependencyGroups: Record<string, string[]>;
   packageFolders: Record<string, any>;
   project: Project;
 }
@@ -103,5 +108,10 @@ export interface DotnetCoreV2Result {
   dependencyGraph: depGraphLib.DepGraph;
   targetFramework: string | undefined;
 }
+
+export type Overrides = {
+  overridesAssemblies: AssemblyVersions;
+  overrideVersion: string;
+};
 
 export type DotnetCoreV2Results = DotnetCoreV2Result[];

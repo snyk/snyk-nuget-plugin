@@ -8,12 +8,24 @@ import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 describe('generating v2 depgraphs using all supported .NET SDKs', () => {
   it.each([
     {
-      description: 'parse dotnet 6.0',
+      description: 'parse dotnet 6.0 with publish',
       projectPath: './test/fixtures/dotnetcore/dotnet_6',
+      useImprovedDotnetWithoutPublish: false,
+      expectedGraphFileName: 'expected_depgraph-v2.json',
+    },
+    {
+      description: 'parse dotnet 6.0 without publish',
+      projectPath: './test/fixtures/dotnetcore/dotnet_6',
+      useImprovedDotnetWithoutPublish: true,
+      expectedGraphFileName: 'expected_depgraph-v3.json',
     },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
-    async ({ projectPath }) => {
+    async ({
+      projectPath,
+      useImprovedDotnetWithoutPublish,
+      expectedGraphFileName,
+    }) => {
       // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
       await dotnet.restore(projectPath);
       const manifestFilePath = path.resolve(
@@ -25,6 +37,7 @@ describe('generating v2 depgraphs using all supported .NET SDKs', () => {
       const result = await plugin.inspect(projectPath, manifestFilePath, {
         'dotnet-runtime-resolution': true,
         useFixForImprovedDotnetFalsePositives: true,
+        useImprovedDotnetWithoutPublish,
       });
 
       if (!pluginApi.isMultiResult(result)) {
@@ -35,7 +48,7 @@ describe('generating v2 depgraphs using all supported .NET SDKs', () => {
 
       const expectedGraph = JSON.parse(
         fs.readFileSync(
-          path.resolve(projectPath, 'expected_depgraph-v2.json'),
+          path.resolve(projectPath, expectedGraphFileName),
           'utf-8',
         ),
       );

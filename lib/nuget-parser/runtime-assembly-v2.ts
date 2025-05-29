@@ -13,13 +13,13 @@ type SdkInfo = {
 };
 
 const DOTNET_DEPS_JSON = 'dotnet.deps.json';
-const PACKAGE_OVERRIDES_FILE = 'data/PackageOverrides.txt';
-const PACKS_PATH = '/packs/Microsoft.NETCore.App.Ref/';
+export const PACKAGE_OVERRIDES_FILE = 'data/PackageOverrides.txt';
+export const PACKS_PATH = '/packs/Microsoft.NETCore.App.Ref/';
 
 // Relying on dotnet to fetch the right version that the project will use.
 // Details: https://learn.microsoft.com/en-us/dotnet/core/versions/selection#the-sdk-uses-the-latest-installed-version
 // And here: https://learn.microsoft.com/en-us/dotnet/core/tools/global-json#matching-rules
-async function extractSdkInfo(projectPath: string): Promise<SdkInfo> {
+export async function extractSdkInfo(projectPath: string): Promise<SdkInfo> {
   const infoOutput = await dotnet.execute(['--info'], projectPath);
   const regex =
     /Version:\s*([\d.]+).*?\.NET SDKs installed:\s*([\s\S]*?)(?:\n\s*\1\s+\[(.*?)\])/s;
@@ -35,7 +35,10 @@ async function extractSdkInfo(projectPath: string): Promise<SdkInfo> {
   return { sdkVersion: match[1], sdkPath: match[3] };
 }
 
-function findLatestMatchingVersion(input: string, sdkVersion: string): string {
+export function findLatestMatchingVersion(
+  input: string,
+  sdkVersion: string,
+): string {
   const majorSdkVersion = sdkVersion.split('.')[0];
   const regex = new RegExp(
     `Microsoft\\.NETCore\\.App ${majorSdkVersion}\\.(\\d+\\.\\d+) \\[`,

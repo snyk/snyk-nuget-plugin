@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as csProjParser from './parsers/csproj-parser';
 import * as debugModule from 'debug';
 import * as depsParser from 'dotnet-deps-parser';
+import * as dotnetCoreV3Parser from './parsers/dotnet-core-v3-parser';
 import * as dotnetCoreParser from './parsers/dotnet-core-parser';
 import * as dotnetCoreV2Parser from './parsers/dotnet-core-v2-parser';
 import * as dotnetFrameworkParser from './parsers/dotnet-framework-parser';
@@ -21,11 +22,18 @@ import {
   PublishedProjectDeps,
   TargetFramework,
   TargetFrameworkInfo,
+  Overrides,
 } from './types';
 import * as dotnet from './cli/dotnet';
 import * as nugetFrameworksParser from './csharp/nugetframeworks_parser';
 import * as runtimeAssemblyV2 from './runtime-assembly-v2';
 import * as runtimeAssembly from './runtime-assembly';
+import {
+  extractSdkInfo,
+  findLatestMatchingVersion,
+  PACKAGE_OVERRIDES_FILE,
+  PACKS_PATH,
+} from './runtime-assembly-v2';
 
 const debug = debugModule('snyk');
 
@@ -36,6 +44,10 @@ const PARSERS = {
   },
   'dotnet-core-v2': {
     depParser: dotnetCoreV2Parser,
+    fileContentParser: JSON,
+  },
+  'dotnet-core-v3': {
+    depParser: dotnetCoreV3Parser,
     fileContentParser: JSON,
   },
   'packages.config': {
@@ -123,12 +135,183 @@ function findDepsFileInPublishDir(dir: string, filename): Buffer | null {
   return renamedFile || null;
 }
 
+async function getResultsWithPublish(
+  decidedTargetFrameworks: string[],
+  projectPath: string,
+  safeRoot: string,
+  projectNameFromManifestFile: string,
+  nugetFrameworksParserLocation: string,
+  useFixForImprovedDotnetFalsePositives: boolean,
+  resolvedProjectName: string,
+  projectAssets: ProjectAssets,
+): Promise<DotnetCoreV2Results> {
+  const parser = PARSERS['dotnet-core-v2'];
+  // Loop through all TargetFrameworks supplied and generate a dependency graph for each.
+  const results: DotnetCoreV2Results = [];
+  for (const decidedTargetFramework of decidedTargetFrameworks) {
+    // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
+    const publishDir = await dotnet.publish(
+      // Attempt to feed it the full path to the project file itself, as multiple could exist. If that fails, don't break the flow, just send the folder as previously
+      projectPath || safeRoot,
+      decidedTargetFramework,
+    );
+
+    // Then inspect the dependency graph for the runtimepackage's assembly versions.
+    const filename = `${projectNameFromManifestFile}.deps.json`;
+    const depsFile = findDepsFileInPublishDir(publishDir, filename);
+
+    if (!depsFile) {
+      throw new CliCommandError(
+        `unable to locate ${filename} anywhere inside ${publishDir}, file is needed for runtime resolution to occur, aborting`,
+      );
+    }
+
+    const publishedProjectDeps: PublishedProjectDeps = JSON.parse(
+      depsFile.toString('utf-8'),
+    );
+
+    // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
+    // we have maximum context to use later when building the depGraph.
+    const response = await dotnet.run(nugetFrameworksParserLocation, [
+      decidedTargetFramework,
+    ]);
+    const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
+    if (targetFrameworkInfo.IsUnsupported) {
+      throw new InvalidManifestError(
+        `dotnet was not able to parse the target framework ${decidedTargetFramework}, it was reported unsupported by the dotnet runtime`,
+      );
+    }
+
+    let assemblyVersions: AssemblyVersions = {};
+
+    if (!decidedTargetFramework.includes('netstandard')) {
+      assemblyVersions =
+        runtimeAssembly.generateRuntimeAssemblies(publishedProjectDeps);
+
+      // Specifically targeting .NET Standard frameworks will not provide any specific runtime assembly information in
+      // the published artifacts files, and can thus not be read more precisely than the .deps file will tell us up-front.
+      // This probably makes sense when looking at https://dotnet.microsoft.com/en-us/platform/dotnet-standard#versions.
+      // As such, we don't generate any runtime assemblies and generate the dependency graph without it.
+      if (useFixForImprovedDotnetFalsePositives) {
+        let projectFolder: string = '';
+        // Get the project folder path
+        if (projectPath) {
+          projectFolder = path.dirname(projectPath);
+        }
+        // An important failure point here will be a reference to a version of the dotnet SDK that is
+        // not installed in the environment. Ex: global.json specifies 6.0.100, but the only version install in the env is 8.0.100
+        // https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet#options-for-displaying-environment-information-and-available-commands
+        await dotnet.execute(['--version'], projectFolder);
+
+        assemblyVersions = await runtimeAssemblyV2.generateRuntimeAssemblies(
+          projectFolder || safeRoot,
+          assemblyVersions,
+        );
+      }
+    }
+
+    const depGraph = parser.depParser.parse(
+      resolvedProjectName,
+      projectAssets,
+      publishedProjectDeps,
+      assemblyVersions,
+      useFixForImprovedDotnetFalsePositives,
+    );
+
+    results.push({
+      dependencyGraph: depGraph,
+      targetFramework: decidedTargetFramework,
+    });
+  }
+
+  return results;
+}
+
+async function getResultsWithoutPublish(
+  decidedTargetFrameworks: string[],
+  projectPath: string,
+  safeRoot: string,
+  nugetFrameworksParserLocation: string,
+  resolvedProjectName: string,
+  projectAssets: ProjectAssets,
+): Promise<DotnetCoreV2Results> {
+  const parser = PARSERS['dotnet-core-v3'];
+
+  const projectFolder = projectPath ? path.dirname(projectPath) : safeRoot;
+  const { sdkVersion, sdkPath } = await extractSdkInfo(projectFolder);
+  const localRuntimes = await dotnet.execute(
+    ['--list-runtimes'],
+    projectFolder,
+  );
+  const runtimeVersion = findLatestMatchingVersion(localRuntimes, sdkVersion);
+  const overridesAssemblies: AssemblyVersions = {};
+
+  try {
+    const overridesPath: string = `${path.dirname(sdkPath)}${PACKS_PATH}${runtimeVersion}/${PACKAGE_OVERRIDES_FILE}`;
+    const overridesText: string = fs.readFileSync(overridesPath, 'utf-8');
+    for (const pkg of overridesText.split('\n')) {
+      if (pkg) {
+        const [name, version] = pkg.split('|');
+        // Trim any carriage return
+        overridesAssemblies[name] = version.trim();
+      }
+    }
+  } catch (err) {
+    throw new FileNotProcessableError(
+      `Failed to read PackageOverrides.txt, error: ${err}`,
+    );
+  }
+
+  // Loop through all TargetFrameworks supplied and generate a dependency graph for each.
+  const results: DotnetCoreV2Results = [];
+  for (const decidedTargetFramework of decidedTargetFrameworks) {
+    // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
+    // we have maximum context to use later when building the depGraph.
+    const response = await dotnet.run(nugetFrameworksParserLocation, [
+      decidedTargetFramework,
+    ]);
+    const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
+    if (targetFrameworkInfo.IsUnsupported) {
+      throw new InvalidManifestError(
+        `dotnet was not able to parse the target framework ${decidedTargetFramework}, it was reported unsupported by the dotnet runtime`,
+      );
+    }
+
+    const overrides: Overrides = {
+      overridesAssemblies,
+      overrideVersion: targetFrameworkInfo.Version.split('.')
+        .slice(0, -1)
+        .join('.'),
+    };
+
+    let targetFramework = decidedTargetFramework;
+    if (targetFrameworkInfo.Framework === '.NETStandard') {
+      targetFramework = targetFrameworkInfo.DotNetFrameworkName;
+    }
+
+    const depGraph = parser.depParser.parse(
+      resolvedProjectName,
+      targetFramework,
+      projectAssets,
+      overrides,
+    );
+
+    results.push({
+      dependencyGraph: depGraph,
+      targetFramework: decidedTargetFramework,
+    });
+  }
+
+  return results;
+}
+
 export async function buildDepGraphFromFiles(
   root: string | undefined,
   targetFile: string | undefined,
   manifestType: ManifestType,
   useProjectNameFromAssetsFile: boolean,
   useFixForImprovedDotnetFalsePositives: boolean,
+  useImprovedDotnetWithoutPublish: boolean,
   projectNamePrefix?: string,
   targetFramework?: string,
 ): Promise<DotnetCoreV2Results> {
@@ -217,85 +400,27 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     );
   }
 
-  // Loop through all TargetFrameworks supplied and generate a dependency graph for each.
-  const results: DotnetCoreV2Results = [];
-  for (const decidedTargetFramework of decidedTargetFrameworks) {
-    // Run `dotnet publish` to create a self-contained publishable binary with included .dlls for assembly version inspection.
-    const publishDir = await dotnet.publish(
-      // Attempt to feed it the full path to the project file itself, as multiple could exist. If that fails, don't break the flow, just send the folder as previously
-      projectPath || safeRoot,
-      decidedTargetFramework,
-    );
-
-    // Then inspect the dependency graph for the runtimepackage's assembly versions.
-    const filename = `${projectNameFromManifestFile}.deps.json`;
-    const depsFile = findDepsFileInPublishDir(publishDir, filename);
-
-    if (!depsFile) {
-      throw new CliCommandError(
-        `unable to locate ${filename} anywhere inside ${publishDir}, file is needed for runtime resolution to occur, aborting`,
-      );
-    }
-
-    const publishedProjectDeps: PublishedProjectDeps = JSON.parse(
-      depsFile.toString('utf-8'),
-    );
-
-    // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
-    // we have maximum context to use later when building the depGraph.
-    const response = await dotnet.run(nugetFrameworksParserLocation, [
-      decidedTargetFramework,
-    ]);
-    const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
-    if (targetFrameworkInfo.IsUnsupported) {
-      throw new InvalidManifestError(
-        `dotnet was not able to parse the target framework ${decidedTargetFramework}, it was reported unsupported by the dotnet runtime`,
-      );
-    }
-
-    let assemblyVersions: AssemblyVersions = {};
-
-    if (!decidedTargetFramework.includes('netstandard')) {
-      assemblyVersions =
-        runtimeAssembly.generateRuntimeAssemblies(publishedProjectDeps);
-
-      // Specifically targeting .NET Standard frameworks will not provide any specific runtime assembly information in
-      // the published artifacts files, and can thus not be read more precisely than the .deps file will tell us up-front.
-      // This probably makes sense when looking at https://dotnet.microsoft.com/en-us/platform/dotnet-standard#versions.
-      // As such, we don't generate any runtime assemblies and generate the dependency graph without it.
-      if (useFixForImprovedDotnetFalsePositives) {
-        let projectFolder: string = '';
-        // Get the project folder path
-        if (projectPath) {
-          projectFolder = path.dirname(projectPath);
-        }
-        // An important failure point here will be a reference to a version of the dotnet SDK that is
-        // not installed in the environment. Ex: global.json specifies 6.0.100, but the only version install in the env is 8.0.100
-        // https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet#options-for-displaying-environment-information-and-available-commands
-        await dotnet.execute(['--version'], projectFolder);
-
-        assemblyVersions = await runtimeAssemblyV2.generateRuntimeAssemblies(
-          projectFolder || safeRoot,
-          assemblyVersions,
-        );
-      }
-    }
-
-    const depGraph = parser.depParser.parse(
+  if (useImprovedDotnetWithoutPublish) {
+    return getResultsWithoutPublish(
+      decidedTargetFrameworks,
+      projectPath,
+      safeRoot,
+      nugetFrameworksParserLocation,
       resolvedProjectName,
       projectAssets,
-      publishedProjectDeps,
-      assemblyVersions,
-      useFixForImprovedDotnetFalsePositives,
     );
-
-    results.push({
-      dependencyGraph: depGraph,
-      targetFramework: decidedTargetFramework,
-    });
   }
 
-  return results;
+  return getResultsWithPublish(
+    decidedTargetFrameworks,
+    projectPath,
+    safeRoot,
+    projectNameFromManifestFile,
+    nugetFrameworksParserLocation,
+    useFixForImprovedDotnetFalsePositives,
+    resolvedProjectName,
+    projectAssets,
+  );
 }
 
 export async function buildDepTreeFromFiles(
