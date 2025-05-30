@@ -268,16 +268,16 @@
               "nodeId": "Microsoft.Extensions.Diagnostics.HealthChecks@8.0.10"
             },
             {
-              "nodeId": "Microsoft.Extensions.Hosting.Abstractions@8.0.1:pruned"
+              "nodeId": "Microsoft.Extensions.Hosting.Abstractions@8.0.1"
             },
             {
-              "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2:pruned"
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2"
             },
             {
-              "nodeId": "Microsoft.Extensions.Options@8.0.2:pruned"
+              "nodeId": "Microsoft.Extensions.Options@8.0.2"
             },
             {
-              "nodeId": "Microsoft.Extensions.Primitives@8.0.0:pruned"
+              "nodeId": "Microsoft.Extensions.Primitives@8.0.0"
             },
             {
               "nodeId": "OpenTelemetry.Extensions.Hosting@1.9.0"
@@ -367,10 +367,10 @@
               "nodeId": "Microsoft.Extensions.Hosting.Abstractions@8.0.1"
             },
             {
-              "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2:pruned"
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2"
             },
             {
-              "nodeId": "Microsoft.Extensions.Options@8.0.2:pruned"
+              "nodeId": "Microsoft.Extensions.Options@8.0.2"
             }
           ]
         },
@@ -427,26 +427,16 @@
           "pkgId": "Microsoft.Extensions.Options@8.0.2",
           "deps": [
             {
-              "nodeId": "Microsoft.Extensions.Primitives@8.0.0:pruned"
+              "nodeId": "Microsoft.Extensions.Primitives@8.0.0"
             }
           ]
-        },
-        {
-          "nodeId": "Microsoft.Extensions.Primitives@8.0.0:pruned",
-          "pkgId": "Microsoft.Extensions.Primitives@8.0.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
         },
         {
           "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@8.0.0",
           "pkgId": "Microsoft.Extensions.FileProviders.Abstractions@8.0.0",
           "deps": [
             {
-              "nodeId": "Microsoft.Extensions.Primitives@8.0.0:pruned"
+              "nodeId": "Microsoft.Extensions.Primitives@8.0.0"
             }
           ]
         },
@@ -458,36 +448,6 @@
               "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
             }
           ]
-        },
-        {
-          "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2:pruned",
-          "pkgId": "Microsoft.Extensions.Logging.Abstractions@8.0.2",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "Microsoft.Extensions.Options@8.0.2:pruned",
-          "pkgId": "Microsoft.Extensions.Options@8.0.2",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "Microsoft.Extensions.Hosting.Abstractions@8.0.1:pruned",
-          "pkgId": "Microsoft.Extensions.Hosting.Abstractions@8.0.1",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
         },
         {
           "nodeId": "OpenTelemetry.Extensions.Hosting@1.9.0",
@@ -539,6 +499,16 @@
               "nodeId": "Microsoft.Extensions.Primitives@8.0.0:pruned"
             }
           ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Primitives@8.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.Primitives@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
         },
         {
           "nodeId": "Microsoft.Extensions.Logging@8.0.0",

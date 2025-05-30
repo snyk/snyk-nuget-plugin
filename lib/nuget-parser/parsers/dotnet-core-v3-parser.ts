@@ -21,16 +21,17 @@ function recursivelyPopulateNodes(
   allPackagesForFramework: Record<string, Target>,
   parentID: string,
   dependencies: Record<string, string>,
-  visited: Set<string>,
   overrides: Overrides,
+  visited?: Set<string>,
 ) {
   if (!dependencies) {
     return;
   }
+  const visitedCopy = new Set(visited);
   for (const [childName, childResolvedVersion] of Object.entries(
     dependencies,
   )) {
-    const localVisited = visited || new Set<string>();
+    const localVisited = visitedCopy || new Set<string>();
     // Ignore packages with specific prefixes, which for one reason or the other are no interesting and pollutes the
     // graph. Refer to comments on the individual elements in the ignore list for more information.
     if (
@@ -91,8 +92,8 @@ function recursivelyPopulateNodes(
       allPackagesForFramework,
       childID,
       childPkgEntry.dependencies,
-      localVisited,
       overrides,
+      localVisited,
     );
   }
 }
@@ -148,15 +149,12 @@ function buildDepGraph(
     return depGraphBuilder.build();
   }
 
-  const visited = new Set<string>();
-
   // Start recursive population from direct dependencies
   recursivelyPopulateNodes(
     depGraphBuilder,
     allPackagesForFramework,
     'root-node',
     directDependencies, // Pass the direct dependencies object
-    visited,
     overrides,
   );
 
