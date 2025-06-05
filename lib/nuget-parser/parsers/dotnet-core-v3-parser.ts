@@ -121,7 +121,7 @@ function buildDepGraph(
 
   const assetsTargetFramework =
     Object.keys(projectAssets.targets).find((key) =>
-      key.includes(targetFramework),
+      key.startsWith(targetFramework),
     ) || targetFramework;
 
   const allPackagesForFramework = projectAssets.targets[assetsTargetFramework];
