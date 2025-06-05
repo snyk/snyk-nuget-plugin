@@ -164,6 +164,13 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       manifestFilePath: 'obj/project.assets.json',
     },
     {
+      description: 'parse dotnet 8.0 windows targeting',
+      projectPath: './test/fixtures/dotnetcore/dotnet-8-windows-targeting',
+      projectFile: 'dotnet_8_windows_targeting.csproj',
+      targetFramework: 'net8.0-windows',
+      manifestFilePath: 'obj/project.assets.json',
+    },
+    {
       description:
         'parse dotnet 8.0 multiple publish output files with the same relative path',
       projectPath:

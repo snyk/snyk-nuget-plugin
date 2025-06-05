@@ -119,18 +119,23 @@ function buildDepGraph(
     );
   }
 
-  const allPackagesForFramework = projectAssets.targets[targetFramework];
+  const assetsTargetFramework =
+    Object.keys(projectAssets.targets).find((key) =>
+      key.includes(targetFramework),
+    ) || targetFramework;
+
+  const allPackagesForFramework = projectAssets.targets[assetsTargetFramework];
 
   if (!allPackagesForFramework) {
     // This should ideally not happen if validateManifest and parse are called first
     throw new InvalidManifestError(
-      `Target framework '${targetFramework}' not found in project.assets.json dependencies.`,
+      `Target framework '${assetsTargetFramework}' not found in project.assets.json dependencies.`,
     );
   }
 
   // Identify direct dependencies for the selected framework
   const directDependencies: Record<string, string> = {};
-  projectAssets.projectFileDependencyGroups[targetFramework].forEach(
+  projectAssets.projectFileDependencyGroups[assetsTargetFramework].forEach(
     (dependency: string) => {
       const dependencySplit = dependency.split(' ');
       directDependencies[dependencySplit[0]] = dependencySplit[2];
@@ -138,7 +143,7 @@ function buildDepGraph(
   );
 
   debug(
-    `Direct dependencies found in lock file for ${targetFramework}: '${Object.keys(directDependencies)}'`,
+    `Direct dependencies found in lock file for ${assetsTargetFramework}: '${Object.keys(directDependencies)}'`,
   );
 
   if (Object.keys(directDependencies).length === 0) {
