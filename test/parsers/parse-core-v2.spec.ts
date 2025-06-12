@@ -179,6 +179,14 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework: 'net8.0',
       manifestFilePath: 'obj/project.assets.json',
     },
+    {
+      description:
+        'parse dotnet 6.0 with specific windows build number net6.0-windows10.0.19041.0',
+      projectPath: './test/fixtures/dotnetcore/dotnet_6_specific_windows_build',
+      projectFile: 'dotnet_6_specific_windows_build.csproj',
+      targetFramework: 'net6.0-windows10.0.19041.0',
+      manifestFilePath: 'obj/project.assets.json',
+    },
   ];
 
   it.each(dotnetCoreProjectList)(

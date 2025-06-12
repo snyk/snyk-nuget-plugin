@@ -119,19 +119,34 @@ function buildDepGraph(
     );
   }
 
+  const assetsTargetFrameworks = Object.keys(projectAssets.targets);
+
+  // Match the targetFramework as a prefix or a superstring of the entries in project.assets.json to handle this:
+  //  [superstring] net6.0-windows10.0.19041.0 => net6.0-windows10.0.19041
+  //  [prefix] net8.0-windows => net8.0-windows7.0
+  const partialMatches = assetsTargetFrameworks.filter(
+    (target) =>
+      target.startsWith(targetFramework) || targetFramework.startsWith(target),
+  );
+
+  // If no partial match could be found, use the first entry in project.assets.json as a last resort to avoid failing.
   const assetsTargetFramework =
-    Object.keys(projectAssets.targets).find((key) =>
-      key.startsWith(targetFramework),
-    ) || targetFramework;
+    partialMatches.length > 0 ? partialMatches[0] : assetsTargetFrameworks[0];
 
-  const allPackagesForFramework = projectAssets.targets[assetsTargetFramework];
-
-  if (!allPackagesForFramework) {
+  if (!assetsTargetFramework) {
     // This should ideally not happen if validateManifest and parse are called first
     throw new InvalidManifestError(
-      `Target framework '${assetsTargetFramework}' not found in project.assets.json dependencies.`,
+      `No target framework found in project.assets.json dependencies, ${targetFramework} requested.`,
     );
   }
+
+  if (assetsTargetFramework !== targetFramework) {
+    debug(
+      `Using ${assetsTargetFramework} instead of requested ${targetFramework} (partial matches: ${partialMatches.join(',')})`,
+    );
+  }
+
+  const allPackagesForFramework = projectAssets.targets[assetsTargetFramework];
 
   // Identify direct dependencies for the selected framework
   const directDependencies: Record<string, string> = {};
