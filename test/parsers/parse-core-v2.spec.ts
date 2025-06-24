@@ -6,6 +6,8 @@ import * as dotnet from '../../lib/nuget-parser/cli/dotnet';
 import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 import { FILTERED_DEPENDENCY_PREFIX } from '../../lib/nuget-parser/parsers/dotnet-core-v2-parser';
 
+const ISWINDOWS = process.platform === 'win32';
+
 describe('when generating depGraphs and runtime assemblies using the v2 parser', () => {
   const dotnetCoreProjectList = [
     {
@@ -291,6 +293,54 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         ...(projectNamePrefix
           ? { 'project-name-prefix': projectNamePrefix }
           : {}),
+      });
+
+      if (!pluginApi.isMultiResult(result)) {
+        throw new Error('expected a multiResult response from inspection');
+      }
+
+      expect(result.scannedProjects.length).toEqual(1);
+
+      const expectedGraph = JSON.parse(
+        fs.readFileSync(
+          path.resolve(projectPath, 'expected_depgraph-v3.json'),
+          'utf-8',
+        ),
+      );
+      expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
+        expectedGraph.depGraph,
+      );
+    },
+    100000,
+  );
+
+  (ISWINDOWS ? it.skip : it).each([
+    {
+      description: 'it is in property group that is not first - net462',
+      projectPath: './test/fixtures/target-framework/target-framework-utf16le',
+      projectFile: 'target-framework-utf16le.csproj',
+      targetFramework: 'net462',
+      manifestFilePath: 'obj/project.assets.json',
+    },
+    {
+      description: 'simple net48',
+      projectPath: './test/fixtures/target-framework/simple-net48',
+      projectFile: 'simple-net48.csproj',
+      targetFramework: 'net48',
+      manifestFilePath: 'obj/project.assets.json',
+    },
+  ])(
+    'succeeds given a project file and returns a single dependency graph for .net framework on v3: $description ',
+    async ({ projectPath, projectFile, manifestFilePath, targetFramework }) => {
+      // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
+      await dotnet.restore(path.resolve(projectPath, projectFile), projectPath);
+      const projectAssetsJson = path.resolve(projectPath, manifestFilePath);
+
+      const result = await plugin.inspect(projectPath, projectAssetsJson, {
+        'dotnet-runtime-resolution': true,
+        'dotnet-target-framework': targetFramework,
+        useFixForImprovedDotnetFalsePositives: true,
+        useImprovedDotnetWithoutPublish: true,
       });
 
       if (!pluginApi.isMultiResult(result)) {
