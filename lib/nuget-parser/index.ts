@@ -37,6 +37,8 @@ import {
 
 const debug = debugModule('snyk');
 
+const PROJECTSDK = 'Microsoft.NET.Sdk';
+
 const PARSERS = {
   'dotnet-core': {
     depParser: dotnetCoreParser,
@@ -366,10 +368,24 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
       );
     }
   }
+
   // If a specific targetFramework has been requested, only query that, otherwise try to do them all
   const decidedTargetFrameworks = targetFramework
     ? [targetFramework]
     : targetFrameworks.filter((framework) => {
+        // Passing a const value as the project sdk. Why? The targetFile it's project.assets.json, which gets generated
+        // only for the sdk style projects. The assets file won't get generated for projects which rely on packages.config.
+        // The reason behind deciding to call this method is because maybe in the future we want to not support some specific
+        // target frameworks.
+        if (useImprovedDotnetWithoutPublish) {
+          if (
+            !depsParser.isSupportedByV3GraphGeneration(framework, PROJECTSDK)
+          ) {
+            return false;
+          }
+          return true;
+        }
+
         if (!depsParser.isSupportedByV2GraphGeneration(framework)) {
           console.warn(
             `\x1b[33m⚠ WARNING\x1b[0m: The runtime resolution flag is currently only supported for the following TargetFrameworks: .NET versions 6 and higher, all versions of .NET Core and all versions of .NET Standard. Detected a TargetFramework: \x1b[1m${framework}\x1b[0m, which will be skipped.`,
