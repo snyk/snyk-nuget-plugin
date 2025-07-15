@@ -12,10 +12,14 @@ async function handle(
   command: string,
   args: string[],
   projectPath?: string,
+  env?: NodeJS.ProcessEnv,
 ): Promise<subprocess.ExecResult> {
   debug(`running dotnet command: ${operation}: ${command}`);
 
-  const options = projectPath ? { cwd: projectPath } : {};
+  const options: any = projectPath ? { cwd: projectPath } : {};
+  if (env) {
+    options.env = env;
+  }
 
   try {
     return await subprocess.execute(command, args, options);
@@ -74,15 +78,49 @@ export async function restore(
 ): Promise<void> {
   const command = 'dotnet';
   const args = [
-    'restore',
+    'msbuild',
+    `"${projectPath}"`,
+    '/t:Restore',
     // Get a larger amount of debugging information to stdout in case something fails.
     // Useful for customers to attempt self-debugging before raising support requests.
-    '--verbosity',
-    'normal',
-    `"${projectPath}"`,
-    '--p=TreatWarningsAsErrors=false;WarningsAsErrors=',
+    '/verbosity:normal',
+    // Disable build servers and force a clean restore
+    '/p:DisableBuildServers=true',
+    // Ignore failed sources to avoid workload-related source failures
+    '/p:RestoreIgnoreFailedSources=true',
+    // Disable workload resolution entirely
+    '/p:TreatWarningsAsErrors=false',
+    '/p:WarningsAsErrors=',
+    '/p:RequireRestoreConsent=false',
+    '/p:SkipWorkloadManifestUpdate=true',
+    '/p:_RequireWorkloads=false',
+    '/p:DisableWorkloadImports=true',
+    '/p:MSBuildSkipWorkloadManifestUpdates=true',
+    '/p:DisableImplicitWorkloadImports=true',
+    '/p:ImportWorkloads=false',
+    '/p:SkipValidatePackageReferences=true',
   ];
-  await handle('restore', command, args, workingDirectory);
+
+  // Set comprehensive environment variables to skip workload resolution
+  const env = {
+    ...process.env,
+    // Core workload skip variables
+    DOTNET_SKIP_WORKLOAD_RESOLUTION: 'true',
+    MSBuildIgnoreMissingWorkloads: 'true',
+    DOTNET_NOWORKLOAD: 'true',
+    // Additional skip variables
+    DOTNET_SKIP_FIRST_TIME_EXPERIENCE: '1',
+    DOTNET_CLI_TELEMETRY_OPTOUT: '1',
+    DOTNET_DISABLE_GUI_ERRORS: '1',
+    // MSBuild workload controls
+    MSBuildSkipWorkloadManifestUpdates: 'true',
+    MSBuildDisableWorkloadResolution: 'true',
+    DisableImplicitWorkloadImports: 'true',
+    _RequireWorkloads: 'false',
+    ImportWorkloads: 'false',
+  };
+
+  await handle('restore', command, args, workingDirectory, env);
   return;
 }
 

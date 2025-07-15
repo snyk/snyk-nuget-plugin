@@ -119,6 +119,31 @@ commands:
                 paths:
                   - C:\Program Files\dotnet
 
+  install_dotnet_workloads:
+    description: "Install required .NET MAUI and wasm workloads"
+    parameters:
+      dotnet-version:
+        type: string
+        description: "The .NET version string to check for wasm-tools compatibility (e.g., '8.0.406')."
+    steps:
+      - run:
+          name: Install .NET Workloads
+          command: |
+            # Install the base MAUI workloads required for the project
+            dotnet workload install \
+              macos \
+              maui-tizen \
+              maui-windows
+
+            # The wasm-tools workload is only compatible with .NET 8 and newer.
+            # This block checks the major version from the passed parameter.
+            if [ "$(echo "<< parameters.dotnet-version >>" | cut -d'.' -f1)" -ge "8" ]; then
+              echo "Installing wasm-tools for .NET << parameters.dotnet-version >>..."
+              dotnet workload install wasm-tools
+            else
+              echo "Skipping wasm-tools installation: Not on .NET 8+."
+            fi
+
   show_dotnet_version:
     description: Log Dotnet version
     steps:
@@ -169,6 +194,8 @@ jobs:
       - checkout
       - install_dotnet:
           os: "windows"
+      - install_dotnet_workloads:
+          dotnet-version: "<< parameters.node_version >>"
       - show_dotnet_version
       - node/install
       - node_install_packages
@@ -189,6 +216,8 @@ jobs:
       - checkout
       - install_dotnet:
           os: "unix"
+      - install_dotnet_workloads:
+          dotnet-version: "<< parameters.node_version >>"
       - show_dotnet_version
       - node_install_packages
       - show_node_version

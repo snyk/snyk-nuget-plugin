@@ -189,6 +189,13 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework: 'net6.0-windows10.0.19041.0',
       manifestFilePath: 'obj/project.assets.json',
     },
+    {
+      description: 'parse dotnet 9.0-ios',
+      projectPath: './test/fixtures/dotnetcore/dotnet-9-ios',
+      projectFile: 'dotnet_9_ios.csproj',
+      targetFramework: 'net9.0-ios',
+      manifestFilePath: 'obj/project.assets.json',
+    },
   ];
 
   it.each(dotnetCoreProjectList)(
