@@ -80,7 +80,7 @@ export async function restore(
     '--verbosity',
     'normal',
     `"${projectPath}"`,
-    '--p=TreatWarningsAsErrors=false;WarningsAsErrors=',
+    '--p=MSBuildEnableWorkloadResolver=true;TreatWarningsAsErrors=false;WarningsAsErrors=',
   ];
   await handle('restore', command, args, workingDirectory);
   return;
