@@ -7,6 +7,68 @@ import * as os from 'os';
 
 const debug = debugModule('snyk');
 
+function sanitizePath(filePath: string): string {
+  if (!filePath || typeof filePath !== 'string') {
+    return filePath;
+  }
+
+  // Handle quoted paths (remove quotes, sanitize, then re-add quotes)
+  let isQuoted = false;
+  let cleanPath = filePath;
+
+  if (
+    (filePath.startsWith('"') && filePath.endsWith('"')) ||
+    (filePath.startsWith("'") && filePath.endsWith("'"))
+  ) {
+    isQuoted = true;
+    cleanPath = filePath.slice(1, -1);
+  }
+
+  // Normalize path separators for cross-platform compatibility
+  cleanPath = cleanPath.replace(/\\/g, '/');
+
+  // Replace temp directory paths with <TEMP> (check this BEFORE home directory)
+  const tempDir = os.tmpdir().replace(/\\/g, '/');
+  if (cleanPath.startsWith(tempDir)) {
+    cleanPath = cleanPath.replace(tempDir, '<TEMP>');
+  }
+
+  // Replace home directory paths with <HOME>
+  const homeDir = os.homedir().replace(/\\/g, '/');
+  if (cleanPath.startsWith(homeDir)) {
+    cleanPath = cleanPath.replace(homeDir, '<HOME>');
+  }
+
+  // Replace absolute paths with relative paths when possible
+  try {
+    const cwd = process.cwd().replace(/\\/g, '/');
+    if (cleanPath.startsWith(cwd)) {
+      cleanPath = path.relative(cwd, cleanPath.replace(/\//g, path.sep)) || '.';
+      cleanPath = cleanPath.replace(/\\/g, '/'); // Normalize again after path.relative
+    }
+  } catch {
+    // Ignore errors, continue with original path
+  }
+
+  // Restore quotes if they were present
+  return isQuoted ? `"${cleanPath}"` : cleanPath;
+}
+
+function sanitizeForLogging(value: any): any {
+  if (typeof value === 'string') {
+    return sanitizePath(value);
+  } else if (Array.isArray(value)) {
+    return value.map(sanitizeForLogging);
+  } else if (typeof value === 'object' && value !== null) {
+    const sanitized: any = {};
+    for (const [key, val] of Object.entries(value)) {
+      sanitized[key] = sanitizeForLogging(val);
+    }
+    return sanitized;
+  }
+  return value;
+}
+
 async function handle(
   operation: string,
   command: string,
@@ -29,13 +91,13 @@ async function handle(
       )
     ) {
       throw new CliCommandError(
-        `dotnet ${operation} failed with error: ${error}`,
+        `dotnet ${operation} failed with error: ${error}. Command: ${command}, Args: ${JSON.stringify(sanitizeForLogging(args))}, Options: ${JSON.stringify(sanitizeForLogging(options))}`,
       );
     }
 
     const message = error.stderr || error.stdout;
     throw new CliCommandError(
-      `dotnet ${operation} failed with error: ${message}`,
+      `dotnet ${operation} failed with error: ${message}. Command: ${command}, Args: ${JSON.stringify(sanitizeForLogging(args))}, Options: ${JSON.stringify(sanitizeForLogging(options))}`,
     );
   }
 }
