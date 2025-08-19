@@ -1,0 +1,102 @@
+{
+  "depGraph": {
+    "schemaVersion": "1.3.0",
+    "pkgManager": {
+      "name": "nuget"
+    },
+    "pkgs": [
+      {
+        "id": "godot_custom_output_path@1.0.0",
+        "info": {
+          "name": "godot_custom_output_path",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "id": "Godot.SourceGenerators@4.2.1",
+        "info": {
+          "name": "Godot.SourceGenerators",
+          "version": "4.2.1"
+        }
+      },
+      {
+        "id": "GodotSharp@4.2.1",
+        "info": {
+          "name": "GodotSharp",
+          "version": "4.2.1"
+        }
+      },
+      {
+        "id": "GodotSharpEditor@4.2.1",
+        "info": {
+          "name": "GodotSharpEditor",
+          "version": "4.2.1"
+        }
+      },
+      {
+        "id": "System.Threading.Tasks.Dataflow@7.0.0",
+        "info": {
+          "name": "System.Threading.Tasks.Dataflow",
+          "version": "7.0.0"
+        }
+      }
+    ],
+    "graph": {
+      "rootNodeId": "root-node",
+      "nodes": [
+        {
+          "nodeId": "root-node",
+          "pkgId": "godot_custom_output_path@1.0.0",
+          "deps": [
+            {
+              "nodeId": "Godot.SourceGenerators@4.2.1"
+            },
+            {
+              "nodeId": "GodotSharp@4.2.1"
+            },
+            {
+              "nodeId": "GodotSharpEditor@4.2.1"
+            },
+            {
+              "nodeId": "System.Threading.Tasks.Dataflow@7.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Godot.SourceGenerators@4.2.1",
+          "pkgId": "Godot.SourceGenerators@4.2.1",
+          "deps": []
+        },
+        {
+          "nodeId": "GodotSharp@4.2.1",
+          "pkgId": "GodotSharp@4.2.1",
+          "deps": []
+        },
+        {
+          "nodeId": "GodotSharpEditor@4.2.1",
+          "pkgId": "GodotSharpEditor@4.2.1",
+          "deps": [
+            {
+              "nodeId": "GodotSharp@4.2.1:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "GodotSharp@4.2.1:pruned",
+          "pkgId": "GodotSharp@4.2.1",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Threading.Tasks.Dataflow@7.0.0",
+          "pkgId": "System.Threading.Tasks.Dataflow@7.0.0",
+          "deps": []
+        }
+      ]
+    }
+  }
+}

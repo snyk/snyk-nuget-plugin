@@ -161,6 +161,28 @@ export async function run(
   );
 }
 
+export async function getBaseIntermediateOutputPath(
+  projectPath: string,
+): Promise<string | null> {
+  const command = 'dotnet';
+  const args = [
+    'msbuild',
+    '-getProperty:BaseIntermediateOutputPath',
+    `"${projectPath}"`,
+  ];
+
+  try {
+    const result = await handle('msbuild-getProperty', command, args);
+    const outputPath = result.stdout.trim();
+    return outputPath || null;
+  } catch (error: unknown) {
+    debug(
+      `Failed to get BaseIntermediateOutputPath for ${projectPath}: ${error}`,
+    );
+    return null;
+  }
+}
+
 export async function publish(
   projectPath: string,
   targetFramework?: string,

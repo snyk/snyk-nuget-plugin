@@ -272,7 +272,25 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     100000,
   );
 
-  it.each(dotnetCoreProjectList)(
+  it.each([
+    ...dotnetCoreProjectList,
+    {
+      description: 'parse Godot project with custom BaseIntermediateOutputPath',
+      projectPath: './test/fixtures/dotnetcore/godot_custom_output_path',
+      projectFile: 'godot_custom_output_path.csproj',
+      targetFramework: 'net6.0',
+      manifestFilePath: 'obj/project.assets.json', // Will be resolved to build/intermediate/project.assets.json
+    },
+    {
+      description:
+        'parse .NET 9.0 project with custom BaseIntermediateOutputPath',
+      projectPath:
+        './test/fixtures/dotnetcore/dotnet_9_custom_intermediate_path',
+      projectFile: 'dotnet_9_custom_intermediate_path.csproj',
+      targetFramework: 'net9.0',
+      manifestFilePath: 'obj/project.assets.json', // Will be resolved to obj/build/intermediate/project.assets.json
+    },
+  ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description - new Parser',
     async ({
       projectPath,

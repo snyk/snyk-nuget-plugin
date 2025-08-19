@@ -1,0 +1,15 @@
+<Project Sdk="Godot.NET.Sdk/4.2.1">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <BaseIntermediateOutputPath
+      >.godot/mono/temp/obj/</BaseIntermediateOutputPath
+    >
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference
+      Include="System.Threading.Tasks.Dataflow"
+      Version="7.0.0"
+    />
+  </ItemGroup>
+</Project>

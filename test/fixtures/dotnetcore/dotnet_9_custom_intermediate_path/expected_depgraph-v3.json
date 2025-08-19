@@ -1,0 +1,829 @@
+{
+  "depGraph": {
+    "schemaVersion": "1.3.0",
+    "pkgManager": {
+      "name": "nuget"
+    },
+    "pkgs": [
+      {
+        "id": "dotnet_9_custom_intermediate_path@1.0.0",
+        "info": {
+          "name": "dotnet_9_custom_intermediate_path",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Hosting@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Hosting",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Configuration@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Configuration",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Configuration.Abstractions@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Configuration.Abstractions",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Primitives@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Primitives",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Configuration.Binder@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Configuration.Binder",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Configuration.CommandLine@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Configuration.CommandLine",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Configuration.EnvironmentVariables@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Configuration.EnvironmentVariables",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Configuration.FileExtensions@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Configuration.FileExtensions",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.FileProviders.Abstractions@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.FileProviders.Abstractions",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.FileProviders.Physical@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.FileProviders.Physical",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.FileSystemGlobbing@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.FileSystemGlobbing",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Configuration.Json@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Configuration.Json",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Configuration.UserSecrets@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Configuration.UserSecrets",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.DependencyInjection@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.DependencyInjection",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Diagnostics@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Diagnostics",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Diagnostics.Abstractions@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Diagnostics.Abstractions",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Options@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Options",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Options.ConfigurationExtensions@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Options.ConfigurationExtensions",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Hosting.Abstractions@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Hosting.Abstractions",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Logging.Abstractions@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Logging.Abstractions",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Logging@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Logging",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Logging.Configuration@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Logging.Configuration",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Logging.Console@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Logging.Console",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Logging.Debug@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Logging.Debug",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Logging.EventLog@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Logging.EventLog",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "System.Diagnostics.EventLog@9.0.0",
+        "info": {
+          "name": "System.Diagnostics.EventLog",
+          "version": "9.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Logging.EventSource@9.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Logging.EventSource",
+          "version": "9.0.0"
+        }
+      }
+    ],
+    "graph": {
+      "rootNodeId": "root-node",
+      "nodes": [
+        {
+          "nodeId": "root-node",
+          "pkgId": "dotnet_9_custom_intermediate_path@1.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Hosting@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Console@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Hosting@9.0.0",
+          "pkgId": "Microsoft.Extensions.Hosting@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Binder@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.CommandLine@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.EnvironmentVariables@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.FileExtensions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Json@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.UserSecrets@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Diagnostics@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.FileProviders.Physical@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Hosting.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Configuration@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Console@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Debug@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.EventLog@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.EventSource@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration@9.0.0",
+          "pkgId": "Microsoft.Extensions.Configuration@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Primitives@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0",
+          "pkgId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Primitives@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Primitives@9.0.0",
+          "pkgId": "Microsoft.Extensions.Primitives@9.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.Binder@9.0.0",
+          "pkgId": "Microsoft.Extensions.Configuration.Binder@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.CommandLine@9.0.0",
+          "pkgId": "Microsoft.Extensions.Configuration.CommandLine@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.Configuration@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.EnvironmentVariables@9.0.0",
+          "pkgId": "Microsoft.Extensions.Configuration.EnvironmentVariables@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.FileExtensions@9.0.0",
+          "pkgId": "Microsoft.Extensions.Configuration.FileExtensions@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.FileProviders.Physical@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Primitives@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@9.0.0",
+          "pkgId": "Microsoft.Extensions.FileProviders.Abstractions@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Primitives@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.FileProviders.Physical@9.0.0",
+          "pkgId": "Microsoft.Extensions.FileProviders.Physical@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.FileSystemGlobbing@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Primitives@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.FileProviders.Abstractions@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.FileSystemGlobbing@9.0.0",
+          "pkgId": "Microsoft.Extensions.FileSystemGlobbing@9.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.Json@9.0.0",
+          "pkgId": "Microsoft.Extensions.Configuration.Json@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.FileExtensions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.FileExtensions@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.Configuration.FileExtensions@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.UserSecrets@9.0.0",
+          "pkgId": "Microsoft.Extensions.Configuration.UserSecrets@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Json@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.FileProviders.Physical@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.Json@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.Configuration.Json@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.DependencyInjection@9.0.0",
+          "pkgId": "Microsoft.Extensions.DependencyInjection@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0",
+          "pkgId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Diagnostics@9.0.0",
+          "pkgId": "Microsoft.Extensions.Diagnostics@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Diagnostics.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options.ConfigurationExtensions@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Diagnostics.Abstractions@9.0.0",
+          "pkgId": "Microsoft.Extensions.Diagnostics.Abstractions@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Options@9.0.0",
+          "pkgId": "Microsoft.Extensions.Options@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Primitives@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Options.ConfigurationExtensions@9.0.0",
+          "pkgId": "Microsoft.Extensions.Options.ConfigurationExtensions@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Binder@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Primitives@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@9.0.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.Binder@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.Configuration.Binder@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Hosting.Abstractions@9.0.0",
+          "pkgId": "Microsoft.Extensions.Hosting.Abstractions@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Diagnostics.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.FileProviders.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Logging.Abstractions@9.0.0",
+          "pkgId": "Microsoft.Extensions.Logging.Abstractions@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Logging@9.0.0",
+          "pkgId": "Microsoft.Extensions.Logging@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.DependencyInjection@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.DependencyInjection@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Logging.Configuration@9.0.0",
+          "pkgId": "Microsoft.Extensions.Logging.Configuration@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Binder@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options.ConfigurationExtensions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Binder@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Logging@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.Logging@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Logging.Abstractions@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.Logging.Abstractions@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Options@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.Options@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Logging.Console@9.0.0",
+          "pkgId": "Microsoft.Extensions.Logging.Console@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Configuration@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Configuration@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Logging.Configuration@9.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.Logging.Configuration@9.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Logging.Debug@9.0.0",
+          "pkgId": "Microsoft.Extensions.Logging.Debug@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@9.0.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Logging.EventLog@9.0.0",
+          "pkgId": "Microsoft.Extensions.Logging.EventLog@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@9.0.0"
+            },
+            {
+              "nodeId": "System.Diagnostics.EventLog@9.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Diagnostics.EventLog@9.0.0",
+          "pkgId": "System.Diagnostics.EventLog@9.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Logging.EventSource@9.0.0",
+          "pkgId": "Microsoft.Extensions.Logging.EventSource@9.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@9.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@9.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Primitives@9.0.0"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
