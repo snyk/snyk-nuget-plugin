@@ -38,6 +38,7 @@ import {
 const debug = debugModule('snyk');
 
 const PROJECTSDK = 'Microsoft.NET.Sdk';
+const PROJECT_ASSETS_FILENAME = 'project.assets.json';
 
 const PARSERS = {
   'dotnet-core': {
@@ -88,6 +89,69 @@ function getFileContents(fileContentPath: string): string {
   } catch (error: unknown) {
     throw new FileNotProcessableError(error);
   }
+}
+
+async function resolveAssetsFilePath(
+  root: string,
+  targetFile: string,
+): Promise<string> {
+  const expectedAssetsFile = path.resolve(root, targetFile);
+
+  if (fs.existsSync(expectedAssetsFile)) {
+    return expectedAssetsFile;
+  }
+
+  const targetFileDir = path.dirname(expectedAssetsFile);
+  const projectDir = path.dirname(targetFileDir);
+
+  let projectFile: string | null = null;
+  try {
+    const files = fs.readdirSync(projectDir);
+    const projectFiles = files.filter(
+      (file) =>
+        file.endsWith('.csproj') ||
+        file.endsWith('.vbproj') ||
+        file.endsWith('.fsproj'),
+    );
+
+    if (projectFiles.length > 0) {
+      projectFile = path.resolve(projectDir, projectFiles[0]);
+    }
+  } catch (error) {
+    throw new FileNotProcessableError(
+      `Failed to scan project directory for .*proj files: ${error}`,
+    );
+  }
+
+  if (!projectFile) {
+    throw new FileNotProcessableError(
+      `Could not find any .csproj, .vbproj, or .fsproj files in directory: ${projectDir}`,
+    );
+  }
+
+  // Use MSBuild to get the correct BaseIntermediateOutputPath
+  const baseIntermediatePath =
+    await dotnet.getBaseIntermediateOutputPath(projectFile);
+  if (!baseIntermediatePath) {
+    throw new CliCommandError(
+      `Could not determine BaseIntermediateOutputPath for project: ${projectFile}`,
+    );
+  }
+
+  const resolvedPath = path.isAbsolute(baseIntermediatePath)
+    ? baseIntermediatePath
+    : path.resolve(projectDir, baseIntermediatePath);
+
+  const assetsFile = path.resolve(resolvedPath, PROJECT_ASSETS_FILENAME);
+
+  if (!fs.existsSync(assetsFile)) {
+    throw new FileNotProcessableError(
+      `project.assets.json not found at resolved path: ${assetsFile}. ` +
+        `Ensure 'dotnet restore' has been run successfully.`,
+    );
+  }
+
+  return assetsFile;
 }
 
 function tryToGetFileByName(dir: string, filename: string): null | Buffer {
@@ -319,7 +383,9 @@ export async function buildDepGraphFromFiles(
 ): Promise<DotnetCoreV2Results> {
   const safeRoot = root || '.';
   const safeTargetFile = targetFile || '.';
-  const fileContentPath = path.resolve(safeRoot, safeTargetFile);
+
+  // Resolve the correct assets file path using MSBuild if needed
+  const fileContentPath = await resolveAssetsFilePath(safeRoot, safeTargetFile);
   const fileContent = getFileContents(fileContentPath);
 
   const parser = PARSERS['dotnet-core-v2'];

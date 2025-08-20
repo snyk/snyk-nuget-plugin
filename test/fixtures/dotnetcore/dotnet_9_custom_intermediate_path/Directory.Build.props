@@ -1,0 +1,5 @@
+<Project>
+    <PropertyGroup>
+        <BaseIntermediateOutputPath>obj/build/intermediate/</BaseIntermediateOutputPath>
+    </PropertyGroup>
+</Project>
