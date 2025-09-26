@@ -290,6 +290,14 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework: 'net9.0',
       manifestFilePath: 'obj/project.assets.json', // Will be resolved to obj/build/intermediate/project.assets.json
     },
+    {
+      description: 'parse .NET 8.0 project with transitive pinned version',
+      projectPath:
+        './test/fixtures/dotnetcore/dotnet_8_transitive_pinned_version',
+      projectFile: 'dotnet_8_transitive_pinned_version.csproj',
+      targetFramework: 'net8.0',
+      manifestFilePath: 'obj/project.assets.json',
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description - new Parser',
     async ({
