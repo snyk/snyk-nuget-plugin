@@ -27,55 +27,6 @@
         }
       },
       {
-        "id": "RabbitMQ.Client@6.8.1",
-        "info": {
-          "name": "RabbitMQ.Client",
-          "version": "6.8.1"
-        }
-      },
-      {
-        "id": "System.Memory@4.5.5",
-        "info": {
-          "name": "System.Memory",
-          "version": "4.5.5"
-        }
-      },
-      {
-        "id": "System.Threading.Channels@7.0.0",
-        "info": {
-          "name": "System.Threading.Channels",
-          "version": "7.0.0"
-        }
-      },
-      {
-        "id": "Microsoft.Extensions.Configuration.Abstractions@8.0.0",
-        "info": {
-          "name": "Microsoft.Extensions.Configuration.Abstractions",
-          "version": "8.0.0"
-        }
-      },
-      {
-        "id": "Microsoft.Extensions.Primitives@8.0.0",
-        "info": {
-          "name": "Microsoft.Extensions.Primitives",
-          "version": "8.0.0"
-        }
-      },
-      {
-        "id": "Microsoft.Extensions.Configuration.Binder@8.0.2",
-        "info": {
-          "name": "Microsoft.Extensions.Configuration.Binder",
-          "version": "8.0.2"
-        }
-      },
-      {
-        "id": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2",
-        "info": {
-          "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
-          "version": "8.0.2"
-        }
-      },
-      {
         "id": "Microsoft.Extensions.Diagnostics.HealthChecks@8.0.10",
         "info": {
           "name": "Microsoft.Extensions.Diagnostics.HealthChecks",
@@ -94,6 +45,27 @@
         "info": {
           "name": "Microsoft.Extensions.Hosting.Abstractions",
           "version": "8.0.1"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Configuration.Abstractions@8.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Configuration.Abstractions",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Primitives@8.0.0",
+        "info": {
+          "name": "Microsoft.Extensions.Primitives",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2",
+        "info": {
+          "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+          "version": "8.0.2"
         }
       },
       {
@@ -121,6 +93,34 @@
         "id": "Microsoft.Extensions.Logging.Abstractions@8.0.2",
         "info": {
           "name": "Microsoft.Extensions.Logging.Abstractions",
+          "version": "8.0.2"
+        }
+      },
+      {
+        "id": "RabbitMQ.Client@6.8.1",
+        "info": {
+          "name": "RabbitMQ.Client",
+          "version": "6.8.1"
+        }
+      },
+      {
+        "id": "System.Memory@4.5.5",
+        "info": {
+          "name": "System.Memory",
+          "version": "4.5.5"
+        }
+      },
+      {
+        "id": "System.Threading.Channels@7.0.0",
+        "info": {
+          "name": "System.Threading.Channels",
+          "version": "7.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.Extensions.Configuration.Binder@8.0.2",
+        "info": {
+          "name": "Microsoft.Extensions.Configuration.Binder",
           "version": "8.0.2"
         }
       },
@@ -284,6 +284,9 @@
             },
             {
               "nodeId": "Polly.Core@8.4.2"
+            },
+            {
+              "nodeId": "RabbitMQ.Client@6.8.1"
             }
           ]
         },
@@ -292,69 +295,12 @@
           "pkgId": "AspNetCore.HealthChecks.Rabbitmq@8.0.2",
           "deps": [
             {
+              "nodeId": "Microsoft.Extensions.Diagnostics.HealthChecks@8.0.10"
+            },
+            {
               "nodeId": "RabbitMQ.Client@6.8.1"
             }
           ]
-        },
-        {
-          "nodeId": "RabbitMQ.Client@6.8.1",
-          "pkgId": "RabbitMQ.Client@6.8.1",
-          "deps": [
-            {
-              "nodeId": "System.Memory@4.5.5"
-            },
-            {
-              "nodeId": "System.Threading.Channels@7.0.0"
-            }
-          ]
-        },
-        {
-          "nodeId": "System.Memory@4.5.5",
-          "pkgId": "System.Memory@4.5.5",
-          "deps": []
-        },
-        {
-          "nodeId": "System.Threading.Channels@7.0.0",
-          "pkgId": "System.Threading.Channels@7.0.0",
-          "deps": []
-        },
-        {
-          "nodeId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0",
-          "pkgId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0",
-          "deps": [
-            {
-              "nodeId": "Microsoft.Extensions.Primitives@8.0.0"
-            }
-          ]
-        },
-        {
-          "nodeId": "Microsoft.Extensions.Primitives@8.0.0",
-          "pkgId": "Microsoft.Extensions.Primitives@8.0.0",
-          "deps": []
-        },
-        {
-          "nodeId": "Microsoft.Extensions.Configuration.Binder@8.0.2",
-          "pkgId": "Microsoft.Extensions.Configuration.Binder@8.0.2",
-          "deps": [
-            {
-              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0:pruned"
-            }
-          ]
-        },
-        {
-          "nodeId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0:pruned",
-          "pkgId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2",
-          "pkgId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2",
-          "deps": []
         },
         {
           "nodeId": "Microsoft.Extensions.Diagnostics.HealthChecks@8.0.10",
@@ -384,10 +330,10 @@
           "pkgId": "Microsoft.Extensions.Hosting.Abstractions@8.0.1",
           "deps": [
             {
-              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0:pruned"
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0"
             },
             {
-              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2"
             },
             {
               "nodeId": "Microsoft.Extensions.Diagnostics.Abstractions@8.0.1"
@@ -397,6 +343,46 @@
             },
             {
               "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0",
+          "pkgId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Primitives@8.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Primitives@8.0.0",
+          "pkgId": "Microsoft.Extensions.Primitives@8.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2",
+          "pkgId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2",
+          "deps": []
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Diagnostics.Abstractions@8.0.1",
+          "pkgId": "Microsoft.Extensions.Diagnostics.Abstractions@8.0.1",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@8.0.2"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@8.0.2:pruned"
             }
           ]
         },
@@ -411,23 +397,17 @@
           }
         },
         {
-          "nodeId": "Microsoft.Extensions.Diagnostics.Abstractions@8.0.1",
-          "pkgId": "Microsoft.Extensions.Diagnostics.Abstractions@8.0.1",
+          "nodeId": "Microsoft.Extensions.Options@8.0.2",
+          "pkgId": "Microsoft.Extensions.Options@8.0.2",
           "deps": [
             {
               "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
             },
             {
-              "nodeId": "Microsoft.Extensions.Options@8.0.2"
-            }
-          ]
-        },
-        {
-          "nodeId": "Microsoft.Extensions.Options@8.0.2",
-          "pkgId": "Microsoft.Extensions.Options@8.0.2",
-          "deps": [
-            {
               "nodeId": "Microsoft.Extensions.Primitives@8.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2"
             }
           ]
         },
@@ -446,22 +426,82 @@
           "deps": [
             {
               "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2"
             }
           ]
+        },
+        {
+          "nodeId": "RabbitMQ.Client@6.8.1",
+          "pkgId": "RabbitMQ.Client@6.8.1",
+          "deps": [
+            {
+              "nodeId": "System.Memory@4.5.5"
+            },
+            {
+              "nodeId": "System.Threading.Channels@7.0.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Memory@4.5.5",
+          "pkgId": "System.Memory@4.5.5",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Threading.Channels@7.0.0",
+          "pkgId": "System.Threading.Channels@7.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.Binder@8.0.2",
+          "pkgId": "Microsoft.Extensions.Configuration.Binder@8.0.2",
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0:pruned",
+          "pkgId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
         },
         {
           "nodeId": "OpenTelemetry.Extensions.Hosting@1.9.0",
           "pkgId": "OpenTelemetry.Extensions.Hosting@1.9.0",
           "deps": [
             {
+              "nodeId": "Microsoft.Extensions.Hosting.Abstractions@8.0.1:pruned"
+            },
+            {
               "nodeId": "OpenTelemetry@1.9.0"
             }
           ]
         },
         {
+          "nodeId": "Microsoft.Extensions.Hosting.Abstractions@8.0.1:pruned",
+          "pkgId": "Microsoft.Extensions.Hosting.Abstractions@8.0.1",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
           "nodeId": "OpenTelemetry@1.9.0",
           "pkgId": "OpenTelemetry@1.9.0",
           "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.Diagnostics.Abstractions@8.0.1"
+            },
             {
               "nodeId": "Microsoft.Extensions.Logging.Configuration@8.0.0"
             },
@@ -469,6 +509,16 @@
               "nodeId": "OpenTelemetry.Api.ProviderBuilderExtensions@1.9.0"
             }
           ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Options@8.0.2:pruned",
+          "pkgId": "Microsoft.Extensions.Options@8.0.2",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
         },
         {
           "nodeId": "Microsoft.Extensions.Logging.Configuration@8.0.0",
@@ -481,7 +531,19 @@
               "nodeId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0:pruned"
             },
             {
+              "nodeId": "Microsoft.Extensions.Configuration.Binder@8.0.2:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
+            },
+            {
               "nodeId": "Microsoft.Extensions.Logging@8.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@8.0.2:pruned"
             },
             {
               "nodeId": "Microsoft.Extensions.Options.ConfigurationExtensions@8.0.0"
@@ -511,18 +573,48 @@
           }
         },
         {
+          "nodeId": "Microsoft.Extensions.Configuration.Binder@8.0.2:pruned",
+          "pkgId": "Microsoft.Extensions.Configuration.Binder@8.0.2",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
           "nodeId": "Microsoft.Extensions.Logging@8.0.0",
           "pkgId": "Microsoft.Extensions.Logging@8.0.0",
           "deps": [
             {
               "nodeId": "Microsoft.Extensions.DependencyInjection@8.0.0"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@8.0.2:pruned"
             }
           ]
         },
         {
           "nodeId": "Microsoft.Extensions.DependencyInjection@8.0.0",
           "pkgId": "Microsoft.Extensions.DependencyInjection@8.0.0",
-          "deps": []
+          "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.Extensions.Logging.Abstractions@8.0.2:pruned",
+          "pkgId": "Microsoft.Extensions.Logging.Abstractions@8.0.2",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
         },
         {
           "nodeId": "Microsoft.Extensions.Options.ConfigurationExtensions@8.0.0",
@@ -530,6 +622,15 @@
           "deps": [
             {
               "nodeId": "Microsoft.Extensions.Configuration.Abstractions@8.0.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Configuration.Binder@8.0.2:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
+            },
+            {
+              "nodeId": "Microsoft.Extensions.Options@8.0.2:pruned"
             },
             {
               "nodeId": "Microsoft.Extensions.Primitives@8.0.0:pruned"
@@ -540,6 +641,9 @@
           "nodeId": "OpenTelemetry.Api.ProviderBuilderExtensions@1.9.0",
           "pkgId": "OpenTelemetry.Api.ProviderBuilderExtensions@1.9.0",
           "deps": [
+            {
+              "nodeId": "Microsoft.Extensions.DependencyInjection.Abstractions@8.0.2:pruned"
+            },
             {
               "nodeId": "OpenTelemetry.Api@1.9.0"
             }
@@ -584,6 +688,9 @@
           "deps": [
             {
               "nodeId": "System.Formats.Asn1@8.0.1"
+            },
+            {
+              "nodeId": "System.Text.Json@8.0.4:pruned"
             }
           ]
         },
@@ -591,6 +698,16 @@
           "nodeId": "System.Formats.Asn1@8.0.1",
           "pkgId": "System.Formats.Asn1@8.0.1",
           "deps": []
+        },
+        {
+          "nodeId": "System.Text.Json@8.0.4:pruned",
+          "pkgId": "System.Text.Json@8.0.4",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
         }
       ]
     }

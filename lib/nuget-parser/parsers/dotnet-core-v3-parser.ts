@@ -16,6 +16,23 @@ export const FILTERED_DEPENDENCY_PREFIX = [
   'runtime',
 ];
 
+/**
+ * Finds the actual resolved version of a package in the targets section.
+ * This is necessary because NuGet may resolve to a different version than what's
+ * declared in transitive dependencies due to version constraints and resolution rules.
+ */
+function findActualResolvedVersion(
+  allPackagesForFramework: Record<string, Target>,
+  packageName: string,
+): string | null {
+  for (const key of Object.keys(allPackagesForFramework)) {
+    if (key.startsWith(`${packageName}/`)) {
+      return key.split('/')[1];
+    }
+  }
+  return null;
+}
+
 function recursivelyPopulateNodes(
   depGraphBuilder: DepGraphBuilder,
   allPackagesForFramework: Record<string, Target>,
@@ -41,23 +58,48 @@ function recursivelyPopulateNodes(
       continue;
     }
 
-    const childPkgEntry =
+    let actualResolvedVersion: string | null = childResolvedVersion;
+
+    let childPkgEntry =
       allPackagesForFramework[`${childName}/${childResolvedVersion}`];
     if (!childPkgEntry) {
-      debug(
-        `Child package ${childName} not found in lock file packages for framework.`,
+      // Find the actual resolved version for this package name in the targets section
+      // NuGet may resolve to a different version than what's declared in transitive dependencies
+      actualResolvedVersion = findActualResolvedVersion(
+        allPackagesForFramework,
+        childName,
       );
-      continue;
+      if (!actualResolvedVersion) {
+        debug(
+          `Child package ${childName} not found in lock file packages for framework.`,
+        );
+        continue;
+      }
+
+      if (childResolvedVersion !== actualResolvedVersion) {
+        debug(
+          `Version mismatch for ${childName}: declared ${childResolvedVersion}, using resolved ${actualResolvedVersion}`,
+        );
+      }
+
+      childPkgEntry =
+        allPackagesForFramework[`${childName}/${actualResolvedVersion}`];
+      if (!childPkgEntry) {
+        debug(
+          `Child package ${childName}@${actualResolvedVersion} not found in lock file packages for framework (this should not happen).`,
+        );
+        continue;
+      }
     }
 
-    const childID = `${childName}@${childResolvedVersion}`;
+    const childID = `${childName}@${actualResolvedVersion}`;
 
-    let finalVersion = childResolvedVersion;
+    let finalVersion = actualResolvedVersion;
 
     // If we're looking at a runtime assembly version for self-contained dlls, overwrite the dependency version
     // we've found in the graph with those from the runtime assembly, as they take precedence.
     if (
-      +childResolvedVersion.split('.')[0] < 6 &&
+      +actualResolvedVersion.split('.')[0] < 6 &&
       childName in overrides.overridesAssemblies &&
       +overrides.overridesAssemblies[childName].split('.')[0] < 6
     ) {
