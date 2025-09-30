@@ -114,4 +114,12 @@ export type Overrides = {
   overrideVersion: string;
 };
 
+export type ResolvedPackagesMap = Record<
+  string,
+  {
+    readonly resolvedVersion: string;
+    readonly target: Target;
+  }
+>;
+
 export type DotnetCoreV2Results = DotnetCoreV2Result[];

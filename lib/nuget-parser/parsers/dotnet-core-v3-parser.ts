@@ -2,7 +2,7 @@ import * as debugModule from 'debug';
 import * as depGraphLib from '@snyk/dep-graph';
 import { DepGraphBuilder } from '@snyk/dep-graph';
 import { InvalidManifestError } from '../../errors';
-import { Overrides, ProjectAssets, Target } from '../types';
+import { Overrides, ProjectAssets, ResolvedPackagesMap } from '../types';
 
 const debug = debugModule('snyk');
 
@@ -16,26 +16,9 @@ export const FILTERED_DEPENDENCY_PREFIX = [
   'runtime',
 ];
 
-/**
- * Finds the actual resolved version of a package in the targets section.
- * This is necessary because NuGet may resolve to a different version than what's
- * declared in transitive dependencies due to version constraints and resolution rules.
- */
-function findActualResolvedVersion(
-  allPackagesForFramework: Record<string, Target>,
-  packageName: string,
-): string | null {
-  for (const key of Object.keys(allPackagesForFramework)) {
-    if (key.startsWith(`${packageName}/`)) {
-      return key.split('/')[1];
-    }
-  }
-  return null;
-}
-
 function recursivelyPopulateNodes(
   depGraphBuilder: DepGraphBuilder,
-  allPackagesForFramework: Record<string, Target>,
+  resolvedPackages: ResolvedPackagesMap,
   parentID: string,
   dependencies: Record<string, string>,
   overrides: Overrides,
@@ -58,38 +41,23 @@ function recursivelyPopulateNodes(
       continue;
     }
 
-    let actualResolvedVersion: string | null = childResolvedVersion;
-
-    let childPkgEntry =
-      allPackagesForFramework[`${childName}/${childResolvedVersion}`];
-    if (!childPkgEntry) {
-      // Find the actual resolved version for this package name in the targets section
-      // NuGet may resolve to a different version than what's declared in transitive dependencies
-      actualResolvedVersion = findActualResolvedVersion(
-        allPackagesForFramework,
-        childName,
+    // Find the actual resolved version and target for this package name
+    // NuGet may resolve to a different version than what's declared in transitive dependencies
+    const resolvedPackage = resolvedPackages[childName];
+    if (!resolvedPackage) {
+      debug(
+        `Child package ${childName} not found in lock file packages for framework.`,
       );
-      if (!actualResolvedVersion) {
-        debug(
-          `Child package ${childName} not found in lock file packages for framework.`,
-        );
-        continue;
-      }
+      continue;
+    }
 
-      if (childResolvedVersion !== actualResolvedVersion) {
-        debug(
-          `Version mismatch for ${childName}: declared ${childResolvedVersion}, using resolved ${actualResolvedVersion}`,
-        );
-      }
+    const { resolvedVersion: actualResolvedVersion, target: childPkgEntry } =
+      resolvedPackage;
 
-      childPkgEntry =
-        allPackagesForFramework[`${childName}/${actualResolvedVersion}`];
-      if (!childPkgEntry) {
-        debug(
-          `Child package ${childName}@${actualResolvedVersion} not found in lock file packages for framework (this should not happen).`,
-        );
-        continue;
-      }
+    if (childResolvedVersion !== actualResolvedVersion) {
+      debug(
+        `Version mismatch for ${childName}: declared ${childResolvedVersion}, using resolved ${actualResolvedVersion}`,
+      );
     }
 
     const childID = `${childName}@${actualResolvedVersion}`;
@@ -131,7 +99,7 @@ function recursivelyPopulateNodes(
 
     recursivelyPopulateNodes(
       depGraphBuilder,
-      allPackagesForFramework,
+      resolvedPackages,
       childID,
       childPkgEntry.dependencies,
       overrides,
@@ -190,6 +158,12 @@ function buildDepGraph(
 
   const allPackagesForFramework = projectAssets.targets[assetsTargetFramework];
 
+  const resolvedPackages: ResolvedPackagesMap = {};
+  for (const [key, target] of Object.entries(allPackagesForFramework)) {
+    const [name, version] = key.split('/');
+    resolvedPackages[name] = { resolvedVersion: version, target };
+  }
+
   // Identify direct dependencies for the selected framework
   const directDependencies: Record<string, string> = {};
   projectAssets.projectFileDependencyGroups[assetsTargetFramework].forEach(
@@ -214,7 +188,7 @@ function buildDepGraph(
   // Start recursive population from direct dependencies
   recursivelyPopulateNodes(
     depGraphBuilder,
-    allPackagesForFramework,
+    resolvedPackages,
     'root-node',
     directDependencies, // Pass the direct dependencies object
     overrides,
