@@ -298,6 +298,21 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework: 'net8.0',
       manifestFilePath: 'obj/project.assets.json',
     },
+    {
+      description: 'parse netstandard without overriding runtime assemblies',
+      projectPath:
+        './test/fixtures/dotnetcore/netstandard21_no_assemply_overrides',
+      projectFile: 'netstandard21_no_assemply_overrides.csproj',
+      targetFramework: 'netstandard2.1',
+      manifestFilePath: 'obj/project.assets.json',
+    },
+    {
+      description: 'parse dotnet netcoreapp3.1',
+      projectPath: './test/fixtures/dotnetcore/netcoreapp31',
+      projectFile: 'dotnet_2.csproj',
+      targetFramework: undefined,
+      manifestFilePath: 'obj/project.assets.json',
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description - new Parser',
     async ({

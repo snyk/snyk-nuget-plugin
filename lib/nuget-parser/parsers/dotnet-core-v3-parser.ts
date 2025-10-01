@@ -67,6 +67,7 @@ function recursivelyPopulateNodes(
     // If we're looking at a runtime assembly version for self-contained dlls, overwrite the dependency version
     // we've found in the graph with those from the runtime assembly, as they take precedence.
     if (
+      overrides.overrideVersion &&
       +actualResolvedVersion.split('.')[0] < 6 &&
       childName in overrides.overridesAssemblies &&
       +overrides.overridesAssemblies[childName].split('.')[0] < 6

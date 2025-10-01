@@ -111,7 +111,7 @@ export interface DotnetCoreV2Result {
 
 export type Overrides = {
   overridesAssemblies: AssemblyVersions;
-  overrideVersion: string;
+  overrideVersion: string | undefined;
 };
 
 export type ResolvedPackagesMap = Record<

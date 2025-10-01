@@ -304,28 +304,39 @@ async function getResultsWithoutPublish(
   const parser = PARSERS['dotnet-core-v3'];
 
   const projectFolder = projectPath ? path.dirname(projectPath) : safeRoot;
-  const { sdkVersion, sdkPath } = await extractSdkInfo(projectFolder);
-  const localRuntimes = await dotnet.execute(
-    ['--list-runtimes'],
-    projectFolder,
+
+  // Check if any target frameworks need runtime assembly overrides
+  const needsRuntimeOverrides = decidedTargetFrameworks.some(
+    (framework) =>
+      !framework.includes('netstandard') && !framework.includes('netcoreapp'),
   );
-  const runtimeVersion = findLatestMatchingVersion(localRuntimes, sdkVersion);
+
   const overridesAssemblies: AssemblyVersions = {};
 
-  try {
-    const overridesPath: string = `${path.dirname(sdkPath)}${PACKS_PATH}${runtimeVersion}/${PACKAGE_OVERRIDES_FILE}`;
-    const overridesText: string = fs.readFileSync(overridesPath, 'utf-8');
-    for (const pkg of overridesText.split('\n')) {
-      if (pkg) {
-        const [name, version] = pkg.split('|');
-        // Trim any carriage return
-        overridesAssemblies[name] = version.trim();
-      }
-    }
-  } catch (err) {
-    throw new FileNotProcessableError(
-      `Failed to read PackageOverrides.txt, error: ${err}`,
+  // Only load runtime overrides if we have frameworks that need them (exclude netstandard and netcoreapp)
+  if (needsRuntimeOverrides) {
+    const { sdkVersion, sdkPath } = await extractSdkInfo(projectFolder);
+    const localRuntimes = await dotnet.execute(
+      ['--list-runtimes'],
+      projectFolder,
     );
+    const runtimeVersion = findLatestMatchingVersion(localRuntimes, sdkVersion);
+
+    try {
+      const overridesPath: string = `${path.dirname(sdkPath)}${PACKS_PATH}${runtimeVersion}/${PACKAGE_OVERRIDES_FILE}`;
+      const overridesText: string = fs.readFileSync(overridesPath, 'utf-8');
+      for (const pkg of overridesText.split('\n')) {
+        if (pkg) {
+          const [name, version] = pkg.split('|');
+          // Trim any carriage return
+          overridesAssemblies[name] = version.trim();
+        }
+      }
+    } catch (err) {
+      throw new FileNotProcessableError(
+        `Failed to read PackageOverrides.txt, error: ${err}`,
+      );
+    }
   }
 
   // Loop through all TargetFrameworks supplied and generate a dependency graph for each.
@@ -345,9 +356,14 @@ async function getResultsWithoutPublish(
 
     const overrides: Overrides = {
       overridesAssemblies,
-      overrideVersion: targetFrameworkInfo.Version.split('.')
-        .slice(0, -1)
-        .join('.'),
+      // .NET Standard and .NET Core App frameworks don't need runtime assembly overrides
+      // as they don't provide specific runtime assembly information that can be read more precisely
+      // than what's available in the project.assets.json file.
+      overrideVersion:
+        decidedTargetFramework.includes('netstandard') ||
+        decidedTargetFramework.includes('netcoreapp')
+          ? undefined
+          : targetFrameworkInfo.Version.split('.').slice(0, -1).join('.'),
     };
 
     let targetFramework = decidedTargetFramework;
