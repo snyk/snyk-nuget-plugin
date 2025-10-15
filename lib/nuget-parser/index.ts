@@ -13,6 +13,7 @@ import {
   CliCommandError,
   FileNotProcessableError,
   InvalidManifestError,
+  NotSupportedEcosystem,
 } from '../errors';
 import {
   AssemblyVersions,
@@ -538,6 +539,27 @@ export async function buildDepTreeFromFiles(
     packagesFolderPath,
     projectRootFolder,
   );
+
+  if (manifestType === ManifestType.PROJECT_JSON) {
+    let json: any;
+    try {
+      json = JSON.parse(fileContent);
+    } catch (err) {
+      throw new FileNotProcessableError(`Failed to parse project.json: ${err}`);
+    }
+
+    const hasAnyRequiredProp = [
+      'dependencies',
+      'frameworks',
+      'runtimes',
+      'supports',
+    ].some((prop) => prop in json);
+    if (!hasAnyRequiredProp) {
+      throw new NotSupportedEcosystem(
+        'project.json file is not a valid project.json file',
+      );
+    }
+  }
 
   const tree = {
     dependencies: {},
