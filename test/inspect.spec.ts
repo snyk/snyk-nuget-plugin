@@ -6,6 +6,7 @@ import * as dotnet from '../lib/nuget-parser/cli/dotnet';
 import * as depGraphLib from '@snyk/dep-graph';
 import * as depGraphLegacyLib from '@snyk/dep-graph/dist/legacy';
 import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
+import { NotSupportedEcosystem } from '../lib/errors';
 
 const INSPECT_OPTIONS = {
   useFixForImprovedDotnetFalsePositives: true,
@@ -65,6 +66,15 @@ describe('when calling plugin.inspect with various configs', () => {
     await expect(
       async () => await plugin.inspect(filePath, manifestFile, INSPECT_OPTIONS),
     ).rejects.toThrow('Could not find a <packages> tag');
+  });
+
+  it('fails gracefully on NX build platform project', async () => {
+    const filePath = './test/fixtures/npm-nx-build-platform/';
+    const manifestFile = 'project.json';
+
+    await expect(
+      async () => await plugin.inspect(filePath, manifestFile, INSPECT_OPTIONS),
+    ).rejects.toThrow(NotSupportedEcosystem);
   });
 
   it('should parse dotnet-cli project with packages.config only', async () => {
