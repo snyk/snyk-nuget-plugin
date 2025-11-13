@@ -79,18 +79,30 @@ commands:
                 name: Download and install dotnet
                 command: |
                       DOTNET_VERSIONS=("9.0.201" "8.0.406" "7.0.410" "6.0.428")
+                      DOTNET_INSTALL_DIR=~/.local/apps/dotnet
 
-                      if ! command -v dotnet &> /dev/null
-                      then
-                        echo "dotnet could not be found or was of wrong version, removing existing and downloading new"
-                        
+                      echo "Installing required dotnet SDK versions to ${DOTNET_INSTALL_DIR}..."
+                      
+                      # Always install all required versions
+                      # The installer is idempotent - it won't reinstall if already present
                       for version in "${DOTNET_VERSIONS[@]}"; do
-                        curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version $version --install-dir ~/.local/apps/dotnet
+                        echo "Installing .NET SDK ${version}..."
+                        curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version $version --install-dir $DOTNET_INSTALL_DIR
                       done
 
-                      ln -s ~/.local/apps/dotnet/dotnet ~/.local/bin/
-                      exit
-                      fi
+                      # Create symlink if it doesn't exist
+                      mkdir -p ~/.local/bin
+                      ln -sf $DOTNET_INSTALL_DIR/dotnet ~/.local/bin/dotnet
+                      
+                      # Add to PATH for this session (prepend to ensure it takes precedence)
+                      export PATH=~/.local/bin:$PATH
+                      export DOTNET_ROOT=$DOTNET_INSTALL_DIR
+                      
+                      # Verify the correct dotnet is being used
+                      echo "Dotnet location: $(which dotnet)"
+                      echo "Dotnet version: $(dotnet --version)"
+                      echo "Installed SDKs:"
+                      dotnet --list-sdks
             - save_cache:
                 key: dotnet-cli-{{ arch }}-v8
                 paths:
@@ -120,11 +132,22 @@ commands:
                   - C:\Program Files\dotnet
 
   show_dotnet_version:
-    description: Log Dotnet version
+    description: Log Dotnet version and installed SDKs
     steps:
       - run:
-          name: Dotnet version
-          command: dotnet --version
+          name: Dotnet diagnostics
+          command: |
+            echo "=== Dotnet location ==="
+            which dotnet
+            echo ""
+            echo "=== Dotnet version ==="
+            dotnet --version
+            echo ""
+            echo "=== Installed SDKs ==="
+            dotnet --list-sdks
+            echo ""
+            echo "=== DOTNET_ROOT ==="
+            echo $DOTNET_ROOT
 
 jobs:
   security-scans:
@@ -183,6 +206,8 @@ jobs:
     <<: *defaults_test
     environment:
       DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+      DOTNET_ROOT: /home/circleci/.local/apps/dotnet
+      PATH: /home/circleci/.local/bin:$PATH
     docker:
       - image: cimg/node:<< parameters.node_version >>
     steps:
