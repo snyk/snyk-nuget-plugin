@@ -70,7 +70,7 @@ commands:
       - restore_cache:
           name: Restore Dotnet executable
           keys:
-            - dotnet-cli-{{ arch }}-v8
+            - dotnet-cli-{{ arch }}-v9
       - when:
           condition:
             equal: [ "unix", << parameters.os >> ]
@@ -81,18 +81,43 @@ commands:
                       DOTNET_VERSIONS=("9.0.201" "8.0.406" "7.0.410" "6.0.428")
                       DOTNET_INSTALL_DIR=~/.local/apps/dotnet
 
-                      echo "Installing required dotnet SDK versions..."
+                      # Check what was restored from cache
+                      echo "=== Checking cached installation ==="
+                      if [ -d "$DOTNET_INSTALL_DIR" ]; then
+                        echo "Found cached installation, listing SDKs:"
+                        $DOTNET_INSTALL_DIR/dotnet --list-sdks 2>/dev/null || echo "No SDKs found or dotnet not executable"
+                      else
+                        echo "No cached installation found"
+                      fi
+
+                      # Remove any existing installation to ensure only our versions are present
+                      echo ""
+                      echo "=== Cleaning existing dotnet installation ==="
+                      rm -rf $DOTNET_INSTALL_DIR
+                      rm -f ~/.local/bin/dotnet
+
+                      echo ""
+                      echo "=== Installing required dotnet SDK versions ==="
                       
-                      # Always install all required versions (installer is idempotent)
+                      # Install all required versions
                       for version in "${DOTNET_VERSIONS[@]}"; do
+                        echo "Installing .NET SDK ${version}..."
                         curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version $version --install-dir $DOTNET_INSTALL_DIR
                       done
 
                       # Create symlink
+                      echo ""
+                      echo "=== Creating symlink ==="
                       mkdir -p ~/.local/bin
                       ln -sf $DOTNET_INSTALL_DIR/dotnet ~/.local/bin/dotnet
+                      
+                      echo ""
+                      echo "=== Verification ==="
+                      echo "Symlink created: $(ls -la ~/.local/bin/dotnet)"
+                      echo "Installed SDKs:"
+                      $DOTNET_INSTALL_DIR/dotnet --list-sdks
             - save_cache:
-                key: dotnet-cli-{{ arch }}-v8
+                key: dotnet-cli-{{ arch }}-v9
                 paths:
                   - ~/.local/apps/dotnet
                   - ~/.local/bin/dotnet
@@ -115,7 +140,7 @@ commands:
                       }
                 shell: powershell.exe
             - save_cache:
-                key: dotnet-cli-{{ arch }}-8
+                key: dotnet-cli-{{ arch }}-v9
                 paths:
                   - C:\Program Files\dotnet
 
