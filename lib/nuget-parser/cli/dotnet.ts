@@ -189,6 +189,12 @@ export async function publish(
 ): Promise<string> {
   const command = 'dotnet';
   const args = ['publish', '--nologo'];
+
+  // Explicitly use Debug configuration to ensure full dependency tree is included.
+  // .NET 10 changed the default to Release for .NET 8+ projects, which can result in
+  // trimmed dependencies that are needed for complete vulnerability scanning.
+  args.push('-c', 'Debug');
+
   // Self-contained: Create all required .dlls for version investigation, don't rely on the environment.
   args.push('--sc');
 
@@ -225,8 +231,10 @@ export async function publish(
 
   // Some projects may include duplicate files in the publish output due to shared dependencies or multi-targeting,
   // causing build failures. We're disabling <ErrorOnDuplicatePublishOutputFiles> to allow publish to proceed without errors.
+
+  // Also explicitly set Configuration=Debug in MSBuild properties to ensure it's not overridden by .NET 10 SDK defaults.
   args.push(
-    `--p:PublishDir=${tempDir};SnykTest=true;IsPublishable=true;PublishSingleFile=false;TreatWarningsAsErrors=false;ErrorOnDuplicatePublishOutputFiles=false;WarningsAsErrors=`,
+    `--p:PublishDir=${tempDir};Configuration=Debug;SnykTest=true;IsPublishable=true;PublishSingleFile=false;TreatWarningsAsErrors=false;ErrorOnDuplicatePublishOutputFiles=false;WarningsAsErrors=`,
   );
 
   // The path that contains either some form of project file, or a .sln one.
