@@ -21,7 +21,7 @@ defaults_test: &defaults_test
       enum: [ "unit", "smoke" ]
 
 matrix_unix_node_version: &matrix_unix_node_version
-  node_version: [ "16.20", "18.16", "20.3" ]
+  node_version: [ "16.20.0", "18.16.0", "20.3.1" ]
 
 matrix_windows_node_version: &matrix_windows_node_version
   node_version: [ "16.20.0", "18.16.0", "20.3.1" ]
@@ -70,7 +70,7 @@ commands:
       - restore_cache:
           name: Restore Dotnet executable
           keys:
-            - dotnet-cli-{{ arch }}-v8
+            - dotnet-cli-{{ arch }}-v11
       - when:
           condition:
             equal: [ "unix", << parameters.os >> ]
@@ -80,19 +80,22 @@ commands:
                 command: |
                       DOTNET_VERSIONS=("9.0.201" "8.0.406" "7.0.410" "6.0.428")
 
-                      if ! command -v dotnet &> /dev/null
-                      then
-                        echo "dotnet could not be found or was of wrong version, removing existing and downloading new"
-                        
+                      echo "dotnet could not be found or was of wrong version, removing existing and downloading new"
+                      echo 
+                      
                       for version in "${DOTNET_VERSIONS[@]}"; do
                         curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version $version --install-dir ~/.local/apps/dotnet
                       done
 
-                      ln -s ~/.local/apps/dotnet/dotnet ~/.local/bin/
-                      exit
+
+                      mkdir -p ~/.local/bin
+                      if [ ! -L ~/.local/bin/dotnet ] || [ "$(readlink ~/.local/bin/dotnet)" != "$HOME/.local/apps/dotnet/dotnet" ]; then
+                        ln -sf ~/.local/apps/dotnet/dotnet ~/.local/bin/dotnet
                       fi
+
+                      export PATH="$HOME/.local/bin:$PATH"
             - save_cache:
-                key: dotnet-cli-{{ arch }}-v8
+                key: dotnet-cli-{{ arch }}-v11
                 paths:
                   - ~/.local/apps/dotnet
                   - ~/.local/bin/dotnet
@@ -115,7 +118,7 @@ commands:
                       }
                 shell: powershell.exe
             - save_cache:
-                key: dotnet-cli-{{ arch }}-8
+                key: dotnet-cli-{{ arch }}-11
                 paths:
                   - C:\Program Files\dotnet
 
@@ -245,7 +248,6 @@ workflows:
           node_version: "<< matrix.node_version >>"
           requires:
             - Lint
-          <<: *filters_branches_ignore_main
 
       - test-unix:
           matrix:
@@ -258,7 +260,6 @@ workflows:
           node_version: "<< matrix.node_version >>"
           requires:
             - Lint
-          <<: *filters_branches_ignore_main
 
       - test-windows:
           matrix:
@@ -271,7 +272,6 @@ workflows:
           node_version: "<< matrix.node_version >>"
           requires:
             - Lint
-          <<: *filters_branches_ignore_main
 
       - test-windows:
           matrix:
@@ -284,10 +284,14 @@ workflows:
           node_version: "<< matrix.node_version >>"
           requires:
             - Lint
-          <<: *filters_branches_ignore_main
 
       - release:
           name: Release
           context: nodejs-app-release
           node_version: "lts"
+          requires:
+            - test-unix-unit
+            - test-unix-smoke
+            - test-windows-unit
+            - test-windows-smoke
           <<: *filters_branches_only_main
