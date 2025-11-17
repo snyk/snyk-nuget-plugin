@@ -50,8 +50,11 @@ function sanitizePath(filePath: string): string {
     // Ignore errors, continue with original path
   }
 
-  // Restore quotes if they were present
-  return isQuoted ? `"${cleanPath}"` : cleanPath;
+  // Add quotes around paths that look like project/solution files for better readability in error messages
+  // or restore quotes if they were originally present
+  const shouldQuote =
+    isQuoted || /\.(csproj|sln|fsproj|vbproj|props|targets)$/i.test(cleanPath);
+  return shouldQuote ? `"${cleanPath}"` : cleanPath;
 }
 
 function sanitizeForLogging(value: any): any {
@@ -141,7 +144,7 @@ export async function restore(
     // Useful for customers to attempt self-debugging before raising support requests.
     '--verbosity',
     'normal',
-    `"${projectPath}"`,
+    projectPath, // No quotes needed - spawn passes arguments directly without shell interpretation
     '--p=MSBuildEnableWorkloadResolver=true;TreatWarningsAsErrors=false;WarningsAsErrors=',
   ];
   await handle('restore', command, args, workingDirectory);
@@ -168,9 +171,13 @@ export async function getBaseIntermediateOutputPath(
   const args = [
     'msbuild',
     '-getProperty:BaseIntermediateOutputPath',
-    `"${projectPath}"`,
+    projectPath,
   ];
 
+  // Note: We intentionally don't set the working directory here to avoid respecting global.json
+  // The -getProperty switch is only available in SDK 8+, but the property value itself doesn't
+  // change based on SDK version. By using the system default (latest) SDK, we can reliably
+  // query the property without complex fallback logic.
   try {
     const result = await handle('msbuild-getProperty', command, args);
     const outputPath = result.stdout.trim();
@@ -239,9 +246,14 @@ export async function publish(
 
   // The path that contains either some form of project file, or a .sln one.
   // See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#arguments
-  args.push(`"${projectPath}"`);
+  // Note: No quotes needed - spawn passes arguments directly without shell interpretation
+  args.push(projectPath);
 
-  await handle('publish', command, args);
+  // Set working directory to the directory containing the project file
+  // This ensures global.json and other directory-based settings are picked up
+  const workingDir = path.dirname(projectPath);
+
+  await handle('publish', command, args, workingDir);
 
   return tempDir;
 }
