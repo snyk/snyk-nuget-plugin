@@ -34,24 +34,10 @@
         }
       },
       {
-        "id": "Microsoft.NETCore.Platforms@1.1.0",
-        "info": {
-          "name": "Microsoft.NETCore.Platforms",
-          "version": "1.1.0"
-        }
-      },
-      {
         "id": "Microsoft.Win32.Primitives@4.3.0",
         "info": {
           "name": "Microsoft.Win32.Primitives",
           "version": "4.3.0"
-        }
-      },
-      {
-        "id": "Microsoft.NETCore.Targets@1.1.0",
-        "info": {
-          "name": "Microsoft.NETCore.Targets",
-          "version": "1.1.0"
         }
       },
       {
@@ -547,9 +533,6 @@
           "pkgId": "NETStandard.Library@1.6.1",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0"
-            },
-            {
               "nodeId": "Microsoft.Win32.Primitives@4.3.0"
             },
             {
@@ -681,61 +664,18 @@
           ]
         },
         {
-          "nodeId": "Microsoft.NETCore.Platforms@1.1.0",
-          "pkgId": "Microsoft.NETCore.Platforms@1.1.0",
-          "deps": []
-        },
-        {
           "nodeId": "Microsoft.Win32.Primitives@4.3.0",
           "pkgId": "Microsoft.Win32.Primitives@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
-            },
             {
               "nodeId": "System.Runtime@4.3.0"
             }
           ]
         },
         {
-          "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned",
-          "pkgId": "Microsoft.NETCore.Platforms@1.1.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
-        },
-        {
-          "nodeId": "Microsoft.NETCore.Targets@1.1.0",
-          "pkgId": "Microsoft.NETCore.Targets@1.1.0",
-          "deps": []
-        },
-        {
           "nodeId": "System.Runtime@4.3.0",
           "pkgId": "System.Runtime@4.3.0",
-          "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            }
-          ]
-        },
-        {
-          "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned",
-          "pkgId": "Microsoft.NETCore.Targets@1.1.0",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
+          "deps": []
         },
         {
           "nodeId": "System.AppContext@4.3.0",
@@ -760,12 +700,6 @@
           "nodeId": "System.Collections@4.3.0",
           "pkgId": "System.Collections@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
             {
               "nodeId": "System.Runtime@4.3.0:pruned"
             }
@@ -822,12 +756,6 @@
           "pkgId": "System.Diagnostics.Debug@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Runtime@4.3.0:pruned"
             }
           ]
@@ -836,12 +764,6 @@
           "nodeId": "System.Diagnostics.Tracing@4.3.0",
           "pkgId": "System.Diagnostics.Tracing@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
             {
               "nodeId": "System.Runtime@4.3.0:pruned"
             }
@@ -852,12 +774,6 @@
           "pkgId": "System.Globalization@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Runtime@4.3.0:pruned"
             }
           ]
@@ -866,12 +782,6 @@
           "nodeId": "System.Reflection@4.3.0",
           "pkgId": "System.Reflection@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
             {
               "nodeId": "System.IO@4.3.0"
             },
@@ -888,12 +798,6 @@
           "pkgId": "System.IO@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Runtime@4.3.0:pruned"
             },
             {
@@ -909,12 +813,6 @@
           "pkgId": "System.Text.Encoding@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Runtime@4.3.0:pruned"
             }
           ]
@@ -923,12 +821,6 @@
           "nodeId": "System.Threading.Tasks@4.3.0",
           "pkgId": "System.Threading.Tasks@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
             {
               "nodeId": "System.Runtime@4.3.0:pruned"
             }
@@ -939,12 +831,6 @@
           "pkgId": "System.Reflection.Primitives@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Runtime@4.3.0:pruned"
             }
           ]
@@ -953,12 +839,6 @@
           "nodeId": "System.Resources.ResourceManager@4.3.0",
           "pkgId": "System.Resources.ResourceManager@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
             {
               "nodeId": "System.Globalization@4.3.0:pruned"
             },
@@ -995,12 +875,6 @@
           "pkgId": "System.Runtime.Extensions@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Runtime@4.3.0:pruned"
             }
           ]
@@ -1031,12 +905,6 @@
           "nodeId": "System.Console@4.3.0",
           "pkgId": "System.Console@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
             {
               "nodeId": "System.IO@4.3.0:pruned"
             },
@@ -1083,12 +951,6 @@
           "pkgId": "System.Diagnostics.Tools@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Runtime@4.3.0:pruned"
             }
           ]
@@ -1108,12 +970,6 @@
           "pkgId": "System.Globalization.Calendars@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Globalization@4.3.0:pruned"
             },
             {
@@ -1125,9 +981,6 @@
           "nodeId": "System.IO.Compression@4.3.0",
           "pkgId": "System.IO.Compression@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
             {
               "nodeId": "System.Buffers@4.3.0"
             },
@@ -1222,12 +1075,6 @@
           "pkgId": "System.Runtime.Handles@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Runtime@4.3.0:pruned"
             }
           ]
@@ -1236,12 +1083,6 @@
           "nodeId": "System.Runtime.InteropServices@4.3.0",
           "pkgId": "System.Runtime.InteropServices@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
             {
               "nodeId": "System.Reflection@4.3.0:pruned"
             },
@@ -1333,12 +1174,6 @@
           "nodeId": "System.IO.FileSystem@4.3.0",
           "pkgId": "System.IO.FileSystem@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
             {
               "nodeId": "System.IO@4.3.0:pruned"
             },
@@ -1566,12 +1401,6 @@
           "pkgId": "System.Reflection.Extensions@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Reflection@4.3.0:pruned"
             },
             {
@@ -1595,9 +1424,6 @@
           "nodeId": "System.Net.Http@4.3.0",
           "pkgId": "System.Net.Http@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
             {
               "nodeId": "System.Collections@4.3.0:pruned"
             },
@@ -1692,9 +1518,6 @@
           "pkgId": "System.Globalization.Extensions@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Globalization@4.3.0:pruned"
             },
             {
@@ -1726,12 +1549,6 @@
           "pkgId": "System.Net.Primitives@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Runtime@4.3.0:pruned"
             },
             {
@@ -1743,9 +1560,6 @@
           "nodeId": "System.Security.Cryptography.Algorithms@4.3.0",
           "pkgId": "System.Security.Cryptography.Algorithms@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
             {
               "nodeId": "System.Collections@4.3.0:pruned"
             },
@@ -1803,9 +1617,6 @@
           "nodeId": "System.Security.Cryptography.Encoding@4.3.0",
           "pkgId": "System.Security.Cryptography.Encoding@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
             {
               "nodeId": "System.Collections@4.3.0:pruned"
             },
@@ -1962,9 +1773,6 @@
           "pkgId": "System.Security.Cryptography.X509Certificates@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Collections@4.3.0:pruned"
             },
             {
@@ -2044,9 +1852,6 @@
           "pkgId": "System.Security.Cryptography.Cng@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.IO@4.3.0:pruned"
             },
             {
@@ -2082,9 +1887,6 @@
           "nodeId": "System.Security.Cryptography.Csp@4.3.0",
           "pkgId": "System.Security.Cryptography.Csp@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
             {
               "nodeId": "System.IO@4.3.0:pruned"
             },
@@ -2147,12 +1949,6 @@
           "nodeId": "System.Net.Sockets@4.3.0",
           "pkgId": "System.Net.Sockets@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
             {
               "nodeId": "System.IO@4.3.0:pruned"
             },
@@ -2226,12 +2022,6 @@
           "pkgId": "System.Text.Encoding.Extensions@4.3.0",
           "deps": [
             {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
-            {
               "nodeId": "System.Runtime@4.3.0:pruned"
             },
             {
@@ -2267,12 +2057,6 @@
           "nodeId": "System.Threading.Timer@4.3.0",
           "pkgId": "System.Threading.Timer@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
-            {
-              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
-            },
             {
               "nodeId": "System.Runtime@4.3.0:pruned"
             }
@@ -2606,9 +2390,6 @@
           "nodeId": "System.Diagnostics.TraceSource@4.3.0",
           "pkgId": "System.Diagnostics.TraceSource@4.3.0",
           "deps": [
-            {
-              "nodeId": "Microsoft.NETCore.Platforms@1.1.0:pruned"
-            },
             {
               "nodeId": "System.Collections@4.3.0:pruned"
             },

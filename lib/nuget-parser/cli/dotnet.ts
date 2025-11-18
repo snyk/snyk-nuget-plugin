@@ -145,7 +145,7 @@ export async function restore(
     '--verbosity',
     'normal',
     projectPath, // No quotes needed - spawn passes arguments directly without shell interpretation
-    '--p=MSBuildEnableWorkloadResolver=true;TreatWarningsAsErrors=false;WarningsAsErrors=',
+    '--p=MSBuildEnableWorkloadResolver=true;TreatWarningsAsErrors=false;WarningsAsErrors=;RestoreEnablePackagePruning=false',
   ];
   await handle('restore', command, args, workingDirectory);
   return;

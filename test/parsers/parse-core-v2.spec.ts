@@ -321,13 +321,6 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       manifestFilePath: 'obj/project.assets.json',
     },
     {
-      description: 'parse dotnet 10.0 with pruning disabled',
-      projectPath: './test/fixtures/dotnetcore/dotnet_10_pruning_disabled',
-      projectFile: 'dotnet_10_pruning_disabled.csproj',
-      targetFramework: 'net10.0',
-      manifestFilePath: 'obj/project.assets.json',
-    },
-    {
       description: 'parse dotnet 10.0 with windows workload',
       projectPath: './test/fixtures/dotnetcore/dotnet_10_windows_workload',
       projectFile: 'dotnet_10_windows_workload.csproj',
