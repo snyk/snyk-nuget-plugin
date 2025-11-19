@@ -50,8 +50,11 @@ function sanitizePath(filePath: string): string {
     // Ignore errors, continue with original path
   }
 
-  // Restore quotes if they were present
-  return isQuoted ? `"${cleanPath}"` : cleanPath;
+  // Add quotes around paths that look like project/solution files for better readability in error messages
+  // or restore quotes if they were originally present
+  const shouldQuote =
+    isQuoted || /\.(csproj|sln|fsproj|vbproj|props|targets)$/i.test(cleanPath);
+  return shouldQuote ? `"${cleanPath}"` : cleanPath;
 }
 
 function sanitizeForLogging(value: any): any {
@@ -141,8 +144,8 @@ export async function restore(
     // Useful for customers to attempt self-debugging before raising support requests.
     '--verbosity',
     'normal',
-    `"${projectPath}"`,
-    '--p=MSBuildEnableWorkloadResolver=true;TreatWarningsAsErrors=false;WarningsAsErrors=',
+    projectPath, // No quotes needed - spawn passes arguments directly without shell interpretation
+    '--p=MSBuildEnableWorkloadResolver=true;TreatWarningsAsErrors=false;WarningsAsErrors=;RestoreEnablePackagePruning=false',
   ];
   await handle('restore', command, args, workingDirectory);
   return;
@@ -168,9 +171,13 @@ export async function getBaseIntermediateOutputPath(
   const args = [
     'msbuild',
     '-getProperty:BaseIntermediateOutputPath',
-    `"${projectPath}"`,
+    projectPath,
   ];
 
+  // Note: We intentionally don't set the working directory here to avoid respecting global.json
+  // The -getProperty switch is only available in SDK 8+, but the property value itself doesn't
+  // change based on SDK version. By using the system default (latest) SDK, we can reliably
+  // query the property without complex fallback logic.
   try {
     const result = await handle('msbuild-getProperty', command, args);
     const outputPath = result.stdout.trim();
@@ -189,6 +196,12 @@ export async function publish(
 ): Promise<string> {
   const command = 'dotnet';
   const args = ['publish', '--nologo'];
+
+  // Explicitly use Debug configuration to ensure full dependency tree is included.
+  // .NET 10 changed the default to Release for .NET 8+ projects, which can result in
+  // trimmed dependencies that are needed for complete vulnerability scanning.
+  args.push('-c', 'Debug');
+
   // Self-contained: Create all required .dlls for version investigation, don't rely on the environment.
   args.push('--sc');
 
@@ -225,15 +238,22 @@ export async function publish(
 
   // Some projects may include duplicate files in the publish output due to shared dependencies or multi-targeting,
   // causing build failures. We're disabling <ErrorOnDuplicatePublishOutputFiles> to allow publish to proceed without errors.
+
+  // Also explicitly set Configuration=Debug in MSBuild properties to ensure it's not overridden by .NET 10 SDK defaults.
   args.push(
-    `--p:PublishDir=${tempDir};SnykTest=true;IsPublishable=true;PublishSingleFile=false;TreatWarningsAsErrors=false;ErrorOnDuplicatePublishOutputFiles=false;WarningsAsErrors=`,
+    `--p:PublishDir=${tempDir};Configuration=Debug;SnykTest=true;IsPublishable=true;PublishSingleFile=false;TreatWarningsAsErrors=false;ErrorOnDuplicatePublishOutputFiles=false;WarningsAsErrors=`,
   );
 
   // The path that contains either some form of project file, or a .sln one.
   // See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#arguments
-  args.push(`"${projectPath}"`);
+  // Note: No quotes needed - spawn passes arguments directly without shell interpretation
+  args.push(projectPath);
 
-  await handle('publish', command, args);
+  // Set working directory to the directory containing the project file
+  // This ensures global.json and other directory-based settings are picked up
+  const workingDir = path.dirname(projectPath);
+
+  await handle('publish', command, args, workingDir);
 
   return tempDir;
 }

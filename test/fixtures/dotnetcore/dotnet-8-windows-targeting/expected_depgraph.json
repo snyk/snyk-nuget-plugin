@@ -104,20 +104,6 @@
         }
       },
       {
-        "id": "System.Memory@8.0.0",
-        "info": {
-          "name": "System.Memory",
-          "version": "8.0.0"
-        }
-      },
-      {
-        "id": "System.Threading.Channels@8.0.0",
-        "info": {
-          "name": "System.Threading.Channels",
-          "version": "8.0.0"
-        }
-      },
-      {
         "id": "Microsoft.Extensions.Configuration.Binder@8.0.2",
         "info": {
           "name": "Microsoft.Extensions.Configuration.Binder",
@@ -185,13 +171,6 @@
         "info": {
           "name": "OpenTelemetry.Api",
           "version": "1.9.0"
-        }
-      },
-      {
-        "id": "System.Diagnostics.DiagnosticSource@8.0.0",
-        "info": {
-          "name": "System.Diagnostics.DiagnosticSource",
-          "version": "8.0.0"
         }
       },
       {
@@ -416,23 +395,6 @@
         {
           "nodeId": "RabbitMQ.Client@6.8.1",
           "pkgId": "RabbitMQ.Client@6.8.1",
-          "deps": [
-            {
-              "nodeId": "System.Memory@4.5.5"
-            },
-            {
-              "nodeId": "System.Threading.Channels@7.0.0"
-            }
-          ]
-        },
-        {
-          "nodeId": "System.Memory@4.5.5",
-          "pkgId": "System.Memory@8.0.0",
-          "deps": []
-        },
-        {
-          "nodeId": "System.Threading.Channels@7.0.0",
-          "pkgId": "System.Threading.Channels@8.0.0",
           "deps": []
         },
         {
@@ -623,15 +585,6 @@
         {
           "nodeId": "OpenTelemetry.Api@1.9.0",
           "pkgId": "OpenTelemetry.Api@1.9.0",
-          "deps": [
-            {
-              "nodeId": "System.Diagnostics.DiagnosticSource@8.0.0"
-            }
-          ]
-        },
-        {
-          "nodeId": "System.Diagnostics.DiagnosticSource@8.0.0",
-          "pkgId": "System.Diagnostics.DiagnosticSource@8.0.0",
           "deps": []
         },
         {

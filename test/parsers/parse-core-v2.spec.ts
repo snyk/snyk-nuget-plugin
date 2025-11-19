@@ -313,6 +313,20 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework: undefined,
       manifestFilePath: 'obj/project.assets.json',
     },
+    {
+      description: 'parse dotnet 10.0',
+      projectPath: './test/fixtures/dotnetcore/dotnet_10',
+      projectFile: 'dotnet_10.csproj',
+      targetFramework: 'net10.0',
+      manifestFilePath: 'obj/project.assets.json',
+    },
+    {
+      description: 'parse dotnet 10.0 with windows workload',
+      projectPath: './test/fixtures/dotnetcore/dotnet_10_windows_workload',
+      projectFile: 'dotnet_10_windows_workload.csproj',
+      targetFramework: 'net10.0-windows',
+      manifestFilePath: 'obj/project.assets.json',
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description - new Parser',
     async ({
