@@ -70,7 +70,7 @@ commands:
       - restore_cache:
           name: Restore Dotnet executable
           keys:
-            - dotnet-cli-{{ arch }}-v10
+            - dotnet-cli-{{ arch }}-v11
       - when:
           condition:
             equal: [ "unix", << parameters.os >> ]
@@ -95,7 +95,7 @@ commands:
 
                       export PATH="$HOME/.local/bin:$PATH"
             - save_cache:
-                key: dotnet-cli-{{ arch }}-v10
+                key: dotnet-cli-{{ arch }}-v11
                 paths:
                   - ~/.local/apps/dotnet
                   - ~/.local/bin/dotnet
@@ -118,7 +118,7 @@ commands:
                       }
                 shell: powershell.exe
             - save_cache:
-                key: dotnet-cli-{{ arch }}-10
+                key: dotnet-cli-{{ arch }}-v11
                 paths:
                   - C:\Program Files\dotnet
 
