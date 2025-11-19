@@ -235,7 +235,6 @@ workflows:
           name: Lint
           context: nodejs-install
           node_version: "16.20"
-          <<: *filters_branches_ignore_main
 
       - test-unix:
           matrix:
