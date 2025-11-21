@@ -5,6 +5,26 @@ import * as plugin from '../../lib';
 import * as dotnet from '../../lib/nuget-parser/cli/dotnet';
 import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 
+/**
+ * Helper function to run code from within a project directory.
+ * This simulates real-world Snyk CLI usage where commands run from the project directory,
+ * ensuring that global.json and other project-level files are respected.
+ */
+async function runInProjectDir<T>(
+  projectPath: string,
+  fn: (absolutePath: string) => Promise<T>,
+): Promise<T> {
+  const originalCwd = process.cwd();
+  const absoluteProjectPath = path.resolve(originalCwd, projectPath);
+
+  try {
+    process.chdir(absoluteProjectPath);
+    return await fn(absoluteProjectPath);
+  } finally {
+    process.chdir(originalCwd);
+  }
+}
+
 describe('generating v2 depgraphs using all supported .NET SDKs', () => {
   it.each([
     {
@@ -26,35 +46,34 @@ describe('generating v2 depgraphs using all supported .NET SDKs', () => {
       useImprovedDotnetWithoutPublish,
       expectedGraphFileName,
     }) => {
-      // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-      await dotnet.restore(projectPath);
-      const manifestFilePath = path.resolve(
-        projectPath,
-        'obj',
-        'project.assets.json',
-      );
+      await runInProjectDir(projectPath, async (absoluteProjectPath) => {
+        // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
+        await dotnet.restore('.');
+        const manifestFilePath = path.resolve('obj', 'project.assets.json');
 
-      const result = await plugin.inspect(projectPath, manifestFilePath, {
-        'dotnet-runtime-resolution': true,
-        useFixForImprovedDotnetFalsePositives: true,
-        useImprovedDotnetWithoutPublish,
+        const result = await plugin.inspect(
+          absoluteProjectPath,
+          manifestFilePath,
+          {
+            'dotnet-runtime-resolution': true,
+            useFixForImprovedDotnetFalsePositives: true,
+            useImprovedDotnetWithoutPublish,
+          },
+        );
+
+        if (!pluginApi.isMultiResult(result)) {
+          throw new Error('expected a multiResult response from inspection');
+        }
+
+        expect(result.scannedProjects.length).toEqual(1);
+
+        const expectedGraph = JSON.parse(
+          fs.readFileSync(path.resolve(expectedGraphFileName), 'utf-8'),
+        );
+        expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
+          expectedGraph.depGraph,
+        );
       });
-
-      if (!pluginApi.isMultiResult(result)) {
-        throw new Error('expected a multiResult response from inspection');
-      }
-
-      expect(result.scannedProjects.length).toEqual(1);
-
-      const expectedGraph = JSON.parse(
-        fs.readFileSync(
-          path.resolve(projectPath, expectedGraphFileName),
-          'utf-8',
-        ),
-      );
-      expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
-        expectedGraph.depGraph,
-      );
     },
   );
 });
