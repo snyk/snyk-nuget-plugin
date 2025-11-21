@@ -58,63 +58,77 @@ class TestFixture {
     const fixtureName = 'dotnet6';
     projectDirs[fixtureName] = codeGenerator.generate('fixtures', files);
     const tempDir = projectDirs[fixtureName];
-    await dotnet.restore(tempDir);
 
-    // First generate the graph normally as we did before the new functionality, with depTrees and no runtime support.
-    const depTree = await nugetParser.buildDepTreeFromFiles(
-      tempDir,
-      'obj/project.assets.json',
-      undefined,
-      ManifestType.DOTNET_CORE,
-      false,
-    );
-    expect(depTree).toBeDefined();
-    const baseline = await depGraphLib.legacy.depTreeToGraph(depTree, 'nuget');
+    const originalCwd = process.cwd();
+    try {
+      // Change to project directory to simulate real-world Snyk CLI usage
+      // This ensures dotnet commands respect global.json if present
+      process.chdir(tempDir);
 
-    // Then do the same with the new functionality and validate the graph looks the same,
-    // only with newer versions for the runtime-specific dependencies. The rest should be identical.
-    const withRuntimeDepsResults = await nugetParser.buildDepGraphFromFiles(
-      tempDir,
-      'obj/project.assets.json',
-      ManifestType.DOTNET_CORE,
-      false,
-      true,
-      false,
-    );
+      await dotnet.restore('.');
 
-    expect(withRuntimeDepsResults.length).toEqual(1);
+      // First generate the graph normally as we did before the new functionality, with depTrees and no runtime support.
+      const depTree = await nugetParser.buildDepTreeFromFiles(
+        tempDir,
+        'obj/project.assets.json',
+        undefined,
+        ManifestType.DOTNET_CORE,
+        false,
+      );
+      expect(depTree).toBeDefined();
+      const baseline = await depGraphLib.legacy.depTreeToGraph(
+        depTree,
+        'nuget',
+      );
 
-    const withRuntimeDeps = withRuntimeDepsResults[0];
-    expect(withRuntimeDeps.dependencyGraph).toBeDefined();
+      // Then do the same with the new functionality and validate the graph looks the same,
+      // only with newer versions for the runtime-specific dependencies. The rest should be identical.
+      const withRuntimeDepsResults = await nugetParser.buildDepGraphFromFiles(
+        tempDir,
+        'obj/project.assets.json',
+        ManifestType.DOTNET_CORE,
+        false,
+        true,
+        false,
+      );
 
-    // Assert that the existing logic shows an older version of a runtime dependency:
-    expect(baseline).toBeDefined();
-    let pkg: depGraphLib.Pkg = {
-      name: 'System.Net.Http',
-      version: '4.3.0',
-    };
-    expect(baseline.getPkgs()).toContainEqual(pkg);
-    const baselinePathsToRoot = baseline
-      .pkgPathsToRoot(pkg)
-      .map((inner) => inner.map(({ name }) => ({ name })));
+      expect(withRuntimeDepsResults.length).toEqual(1);
 
-    // Assert that with runtime deps it correctly reflects the net9.0 runtime version of the same package:
-    expect(withRuntimeDeps.dependencyGraph).toBeDefined();
-    pkg = {
-      name: 'System.Net.Http',
-      version: '6.0.0',
-    };
-    expect(withRuntimeDeps.dependencyGraph.getPkgs()).toContainEqual(pkg);
-    const withRuntimeDepsPathsToRoot = withRuntimeDeps.dependencyGraph
-      .pkgPathsToRoot(pkg)
-      .map((inner) => inner.map(({ name }) => ({ name })));
+      const withRuntimeDeps = withRuntimeDepsResults[0];
+      expect(withRuntimeDeps.dependencyGraph).toBeDefined();
 
-    // Assert that no construction of the depGraph otherwise was destroyed in the process.
-    // The depTree will not be completely identical to the depGraph, so we cannot compare one-to-one. For instance,
-    // we've gotten rid of the 'freqDeps' among other things.
-    // Instead, we can validate that the transitive line still holds.
-    // Expected: NSubstitute -> Castle.Core -> NETStandard.Library -> System.Net.Http
-    expect(baselinePathsToRoot).toEqual(withRuntimeDepsPathsToRoot);
+      // Assert that the existing logic shows an older version of a runtime dependency:
+      expect(baseline).toBeDefined();
+      let pkg: depGraphLib.Pkg = {
+        name: 'System.Net.Http',
+        version: '4.3.0',
+      };
+      expect(baseline.getPkgs()).toContainEqual(pkg);
+      const baselinePathsToRoot = baseline
+        .pkgPathsToRoot(pkg)
+        .map((inner) => inner.map(({ name }) => ({ name })));
+
+      // Assert that with runtime deps it correctly reflects the net9.0 runtime version of the same package:
+      expect(withRuntimeDeps.dependencyGraph).toBeDefined();
+      pkg = {
+        name: 'System.Net.Http',
+        version: '6.0.0',
+      };
+      expect(withRuntimeDeps.dependencyGraph.getPkgs()).toContainEqual(pkg);
+      const withRuntimeDepsPathsToRoot = withRuntimeDeps.dependencyGraph
+        .pkgPathsToRoot(pkg)
+        .map((inner) => inner.map(({ name }) => ({ name })));
+
+      // Assert that no construction of the depGraph otherwise was destroyed in the process.
+      // The depTree will not be completely identical to the depGraph, so we cannot compare one-to-one. For instance,
+      // we've gotten rid of the 'freqDeps' among other things.
+      // Instead, we can validate that the transitive line still holds.
+      // Expected: NSubstitute -> Castle.Core -> NETStandard.Library -> System.Net.Http
+      expect(baselinePathsToRoot).toEqual(withRuntimeDepsPathsToRoot);
+    } finally {
+      // Always restore original working directory
+      process.chdir(originalCwd);
+    }
   });
 
   it.each([

@@ -174,10 +174,6 @@ export async function getBaseIntermediateOutputPath(
     projectPath,
   ];
 
-  // Note: We intentionally don't set the working directory here to avoid respecting global.json
-  // The -getProperty switch is only available in SDK 8+, but the property value itself doesn't
-  // change based on SDK version. By using the system default (latest) SDK, we can reliably
-  // query the property without complex fallback logic.
   try {
     const result = await handle('msbuild-getProperty', command, args);
     const outputPath = result.stdout.trim();
@@ -249,11 +245,7 @@ export async function publish(
   // Note: No quotes needed - spawn passes arguments directly without shell interpretation
   args.push(projectPath);
 
-  // Set working directory to the directory containing the project file
-  // This ensures global.json and other directory-based settings are picked up
-  const workingDir = path.dirname(projectPath);
-
-  await handle('publish', command, args, workingDir);
+  await handle('publish', command, args);
 
   return tempDir;
 }

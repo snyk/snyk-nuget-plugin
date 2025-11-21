@@ -8,6 +8,26 @@ import { FILTERED_DEPENDENCY_PREFIX } from '../../lib/nuget-parser/parsers/dotne
 
 const ISWINDOWS = process.platform === 'win32';
 
+/**
+ * Helper function to run code from within a project directory.
+ * This simulates real-world Snyk CLI usage where commands run from the project directory,
+ * ensuring that global.json and other project-level files are respected.
+ */
+async function runInProjectDir<T>(
+  projectPath: string,
+  fn: (absolutePath: string) => Promise<T>,
+): Promise<T> {
+  const originalCwd = process.cwd();
+  const absoluteProjectPath = path.resolve(originalCwd, projectPath);
+
+  try {
+    process.chdir(absoluteProjectPath);
+    return await fn(absoluteProjectPath);
+  } finally {
+    process.chdir(originalCwd);
+  }
+}
+
 describe('when generating depGraphs and runtime assemblies using the v2 parser', () => {
   const dotnetCoreProjectList = [
     {
@@ -200,33 +220,35 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework,
       projectNamePrefix,
     }) => {
-      // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-      await dotnet.restore(path.resolve(projectPath, projectFile));
-      const projectAssetsJson = path.resolve(projectPath, manifestFilePath);
+      await runInProjectDir(projectPath, async (absoluteProjectPath) => {
+        // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
+        await dotnet.restore(path.resolve(projectFile));
 
-      const result = await plugin.inspect(projectPath, projectAssetsJson, {
-        'dotnet-runtime-resolution': true,
-        'dotnet-target-framework': targetFramework,
-        ...(projectNamePrefix
-          ? { 'project-name-prefix': projectNamePrefix }
-          : {}),
+        const result = await plugin.inspect(
+          absoluteProjectPath,
+          manifestFilePath,
+          {
+            'dotnet-runtime-resolution': true,
+            'dotnet-target-framework': targetFramework,
+            ...(projectNamePrefix
+              ? { 'project-name-prefix': projectNamePrefix }
+              : {}),
+          },
+        );
+
+        if (!pluginApi.isMultiResult(result)) {
+          throw new Error('expected a multiResult response from inspection');
+        }
+
+        expect(result.scannedProjects.length).toEqual(1);
+
+        const expectedGraph = JSON.parse(
+          fs.readFileSync(path.resolve('expected_depgraph.json'), 'utf-8'),
+        );
+        expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
+          expectedGraph.depGraph,
+        );
       });
-
-      if (!pluginApi.isMultiResult(result)) {
-        throw new Error('expected a multiResult response from inspection');
-      }
-
-      expect(result.scannedProjects.length).toEqual(1);
-
-      const expectedGraph = JSON.parse(
-        fs.readFileSync(
-          path.resolve(projectPath, 'expected_depgraph.json'),
-          'utf-8',
-        ),
-      );
-      expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
-        expectedGraph.depGraph,
-      );
     },
     100000,
   );
@@ -240,34 +262,36 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework,
       projectNamePrefix,
     }) => {
-      // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-      await dotnet.restore(path.resolve(projectPath, projectFile));
-      const projectAssetsJson = path.resolve(projectPath, manifestFilePath);
+      await runInProjectDir(projectPath, async (absoluteProjectPath) => {
+        // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
+        await dotnet.restore(path.resolve(projectFile));
 
-      const result = await plugin.inspect(projectPath, projectAssetsJson, {
-        'dotnet-runtime-resolution': true,
-        'dotnet-target-framework': targetFramework,
-        useFixForImprovedDotnetFalsePositives: true,
-        ...(projectNamePrefix
-          ? { 'project-name-prefix': projectNamePrefix }
-          : {}),
+        const result = await plugin.inspect(
+          absoluteProjectPath,
+          manifestFilePath,
+          {
+            'dotnet-runtime-resolution': true,
+            'dotnet-target-framework': targetFramework,
+            useFixForImprovedDotnetFalsePositives: true,
+            ...(projectNamePrefix
+              ? { 'project-name-prefix': projectNamePrefix }
+              : {}),
+          },
+        );
+
+        if (!pluginApi.isMultiResult(result)) {
+          throw new Error('expected a multiResult response from inspection');
+        }
+
+        expect(result.scannedProjects.length).toEqual(1);
+
+        const expectedGraph = JSON.parse(
+          fs.readFileSync(path.resolve('expected_depgraph-v2.json'), 'utf-8'),
+        );
+        expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
+          expectedGraph.depGraph,
+        );
       });
-
-      if (!pluginApi.isMultiResult(result)) {
-        throw new Error('expected a multiResult response from inspection');
-      }
-
-      expect(result.scannedProjects.length).toEqual(1);
-
-      const expectedGraph = JSON.parse(
-        fs.readFileSync(
-          path.resolve(projectPath, 'expected_depgraph-v2.json'),
-          'utf-8',
-        ),
-      );
-      expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
-        expectedGraph.depGraph,
-      );
     },
     100000,
   );
@@ -278,7 +302,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       description: 'parse Godot project with custom BaseIntermediateOutputPath',
       projectPath: './test/fixtures/dotnetcore/godot_custom_output_path',
       projectFile: 'godot_custom_output_path.csproj',
-      targetFramework: 'net6.0',
+      targetFramework: 'net8.0',
       manifestFilePath: 'obj/project.assets.json', // Will be resolved to build/intermediate/project.assets.json
     },
     {
@@ -336,35 +360,37 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       targetFramework,
       projectNamePrefix,
     }) => {
-      // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-      await dotnet.restore(path.resolve(projectPath, projectFile), projectPath);
-      const projectAssetsJson = path.resolve(projectPath, manifestFilePath);
+      await runInProjectDir(projectPath, async (absoluteProjectPath) => {
+        // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
+        await dotnet.restore(path.resolve(projectFile));
 
-      const result = await plugin.inspect(projectPath, projectAssetsJson, {
-        'dotnet-runtime-resolution': true,
-        'dotnet-target-framework': targetFramework,
-        useFixForImprovedDotnetFalsePositives: true,
-        useImprovedDotnetWithoutPublish: true,
-        ...(projectNamePrefix
-          ? { 'project-name-prefix': projectNamePrefix }
-          : {}),
+        const result = await plugin.inspect(
+          absoluteProjectPath,
+          manifestFilePath,
+          {
+            'dotnet-runtime-resolution': true,
+            'dotnet-target-framework': targetFramework,
+            useFixForImprovedDotnetFalsePositives: true,
+            useImprovedDotnetWithoutPublish: true,
+            ...(projectNamePrefix
+              ? { 'project-name-prefix': projectNamePrefix }
+              : {}),
+          },
+        );
+
+        if (!pluginApi.isMultiResult(result)) {
+          throw new Error('expected a multiResult response from inspection');
+        }
+
+        expect(result.scannedProjects.length).toEqual(1);
+
+        const expectedGraph = JSON.parse(
+          fs.readFileSync(path.resolve('expected_depgraph-v3.json'), 'utf-8'),
+        );
+        expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
+          expectedGraph.depGraph,
+        );
       });
-
-      if (!pluginApi.isMultiResult(result)) {
-        throw new Error('expected a multiResult response from inspection');
-      }
-
-      expect(result.scannedProjects.length).toEqual(1);
-
-      const expectedGraph = JSON.parse(
-        fs.readFileSync(
-          path.resolve(projectPath, 'expected_depgraph-v3.json'),
-          'utf-8',
-        ),
-      );
-      expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
-        expectedGraph.depGraph,
-      );
     },
     100000,
   );
@@ -387,32 +413,34 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
   ])(
     'succeeds given a project file and returns a single dependency graph for .net framework on v3: $description ',
     async ({ projectPath, projectFile, manifestFilePath, targetFramework }) => {
-      // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-      await dotnet.restore(path.resolve(projectPath, projectFile), projectPath);
-      const projectAssetsJson = path.resolve(projectPath, manifestFilePath);
+      await runInProjectDir(projectPath, async (absoluteProjectPath) => {
+        // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
+        await dotnet.restore(path.resolve(projectFile));
 
-      const result = await plugin.inspect(projectPath, projectAssetsJson, {
-        'dotnet-runtime-resolution': true,
-        'dotnet-target-framework': targetFramework,
-        useFixForImprovedDotnetFalsePositives: true,
-        useImprovedDotnetWithoutPublish: true,
+        const result = await plugin.inspect(
+          absoluteProjectPath,
+          manifestFilePath,
+          {
+            'dotnet-runtime-resolution': true,
+            'dotnet-target-framework': targetFramework,
+            useFixForImprovedDotnetFalsePositives: true,
+            useImprovedDotnetWithoutPublish: true,
+          },
+        );
+
+        if (!pluginApi.isMultiResult(result)) {
+          throw new Error('expected a multiResult response from inspection');
+        }
+
+        expect(result.scannedProjects.length).toEqual(1);
+
+        const expectedGraph = JSON.parse(
+          fs.readFileSync(path.resolve('expected_depgraph-v3.json'), 'utf-8'),
+        );
+        expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
+          expectedGraph.depGraph,
+        );
       });
-
-      if (!pluginApi.isMultiResult(result)) {
-        throw new Error('expected a multiResult response from inspection');
-      }
-
-      expect(result.scannedProjects.length).toEqual(1);
-
-      const expectedGraph = JSON.parse(
-        fs.readFileSync(
-          path.resolve(projectPath, 'expected_depgraph-v3.json'),
-          'utf-8',
-        ),
-      );
-      expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
-        expectedGraph.depGraph,
-      );
     },
     100000,
   );
@@ -426,39 +454,38 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
   ])(
     'succeeds given a project file and returns multiple dependency graphs for multi-targetFramework projects: $description',
     async ({ projectPath, expectedDepGraphs }) => {
-      // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-      await dotnet.restore(projectPath);
+      await runInProjectDir(projectPath, async (absoluteProjectPath) => {
+        // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
+        await dotnet.restore('dotnet_6_and_7.csproj');
 
-      const manifestFile = 'obj/project.assets.json';
+        const manifestFile = 'obj/project.assets.json';
 
-      const result = await plugin.inspect(projectPath, manifestFile, {
-        'dotnet-runtime-resolution': true,
-        useFixForImprovedDotnetFalsePositives: true,
+        const result = await plugin.inspect(absoluteProjectPath, manifestFile, {
+          'dotnet-runtime-resolution': true,
+          useFixForImprovedDotnetFalsePositives: true,
+        });
+
+        if (!pluginApi.isMultiResult(result)) {
+          throw new Error('expected a multiResult response from inspection');
+        }
+
+        expect(result.scannedProjects.length).toEqual(expectedDepGraphs);
+
+        const expectedGraphs = JSON.parse(
+          fs.readFileSync(path.resolve('expected_depgraphs.json'), 'utf-8'),
+        );
+
+        const toJson = result.scannedProjects.map((result) =>
+          result.depGraph?.toJSON(),
+        );
+        expect(toJson).toEqual(expectedGraphs);
       });
-
-      if (!pluginApi.isMultiResult(result)) {
-        throw new Error('expected a multiResult response from inspection');
-      }
-
-      expect(result.scannedProjects.length).toEqual(expectedDepGraphs);
-
-      const expectedGraphs = JSON.parse(
-        fs.readFileSync(
-          path.resolve(projectPath, 'expected_depgraphs.json'),
-          'utf-8',
-        ),
-      );
-
-      const toJson = result.scannedProjects.map((result) =>
-        result.depGraph?.toJSON(),
-      );
-      expect(toJson).toEqual(expectedGraphs);
     },
   );
 
   it('does not include ignored packages in the resulting depGraph', async () => {
     const projectPath = './test/fixtures/dotnetcore/dotnet_6';
-    await dotnet.restore(projectPath);
+    await dotnet.restore('dotnet_6.csproj', projectPath);
     const manifestFile = 'obj/project.assets.json';
     const result = await plugin.inspect(projectPath, manifestFile, {
       'dotnet-runtime-resolution': true,
