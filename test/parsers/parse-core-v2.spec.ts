@@ -4,7 +4,9 @@ import * as path from 'path';
 import * as plugin from '../../lib';
 import * as dotnet from '../../lib/nuget-parser/cli/dotnet';
 import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
-import { FILTERED_DEPENDENCY_PREFIX } from '../../lib/nuget-parser/parsers/dotnet-core-v2-parser';
+
+// Dependencies that start with these prefixes are filtered out during graph generation
+const FILTERED_DEPENDENCY_PREFIX = ['runtime'];
 
 const ISWINDOWS = process.platform === 'win32';
 
@@ -28,7 +30,7 @@ async function runInProjectDir<T>(
   }
 }
 
-describe('when generating depGraphs and runtime assemblies using the v2 parser', () => {
+describe('when generating depGraphs with runtime resolution', () => {
   const dotnetCoreProjectList = [
     {
       description: 'parse dotnet 6.0',
@@ -211,91 +213,6 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     },
   ];
 
-  it.each(dotnetCoreProjectList)(
-    'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
-    async ({
-      projectPath,
-      projectFile,
-      manifestFilePath,
-      targetFramework,
-      projectNamePrefix,
-    }) => {
-      await runInProjectDir(projectPath, async (absoluteProjectPath) => {
-        // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-        await dotnet.restore(path.resolve(projectFile));
-
-        const result = await plugin.inspect(
-          absoluteProjectPath,
-          manifestFilePath,
-          {
-            'dotnet-runtime-resolution': true,
-            'dotnet-target-framework': targetFramework,
-            ...(projectNamePrefix
-              ? { 'project-name-prefix': projectNamePrefix }
-              : {}),
-          },
-        );
-
-        if (!pluginApi.isMultiResult(result)) {
-          throw new Error('expected a multiResult response from inspection');
-        }
-
-        expect(result.scannedProjects.length).toEqual(1);
-
-        const expectedGraph = JSON.parse(
-          fs.readFileSync(path.resolve('expected_depgraph.json'), 'utf-8'),
-        );
-        expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
-          expectedGraph.depGraph,
-        );
-      });
-    },
-    100000,
-  );
-
-  it.each(dotnetCoreProjectList)(
-    'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description - FP FF on',
-    async ({
-      projectPath,
-      projectFile,
-      manifestFilePath,
-      targetFramework,
-      projectNamePrefix,
-    }) => {
-      await runInProjectDir(projectPath, async (absoluteProjectPath) => {
-        // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
-        await dotnet.restore(path.resolve(projectFile));
-
-        const result = await plugin.inspect(
-          absoluteProjectPath,
-          manifestFilePath,
-          {
-            'dotnet-runtime-resolution': true,
-            'dotnet-target-framework': targetFramework,
-            useFixForImprovedDotnetFalsePositives: true,
-            ...(projectNamePrefix
-              ? { 'project-name-prefix': projectNamePrefix }
-              : {}),
-          },
-        );
-
-        if (!pluginApi.isMultiResult(result)) {
-          throw new Error('expected a multiResult response from inspection');
-        }
-
-        expect(result.scannedProjects.length).toEqual(1);
-
-        const expectedGraph = JSON.parse(
-          fs.readFileSync(path.resolve('expected_depgraph-v2.json'), 'utf-8'),
-        );
-        expect(result.scannedProjects[0].depGraph?.toJSON()).toEqual(
-          expectedGraph.depGraph,
-        );
-      });
-    },
-    100000,
-  );
-
   it.each([
     ...dotnetCoreProjectList,
     {
@@ -352,7 +269,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       manifestFilePath: 'obj/project.assets.json',
     },
   ])(
-    'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description - new Parser',
+    'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({
       projectPath,
       projectFile,
@@ -370,8 +287,6 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
           {
             'dotnet-runtime-resolution': true,
             'dotnet-target-framework': targetFramework,
-            useFixForImprovedDotnetFalsePositives: true,
-            useImprovedDotnetWithoutPublish: true,
             ...(projectNamePrefix
               ? { 'project-name-prefix': projectNamePrefix }
               : {}),
@@ -411,7 +326,7 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       manifestFilePath: 'obj/project.assets.json',
     },
   ])(
-    'succeeds given a project file and returns a single dependency graph for .net framework on v3: $description ',
+    'succeeds given a project file and returns a single dependency graph for .NET Framework projects: $description',
     async ({ projectPath, projectFile, manifestFilePath, targetFramework }) => {
       await runInProjectDir(projectPath, async (absoluteProjectPath) => {
         // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
@@ -423,8 +338,6 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
           {
             'dotnet-runtime-resolution': true,
             'dotnet-target-framework': targetFramework,
-            useFixForImprovedDotnetFalsePositives: true,
-            useImprovedDotnetWithoutPublish: true,
           },
         );
 
@@ -462,7 +375,6 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
 
         const result = await plugin.inspect(absoluteProjectPath, manifestFile, {
           'dotnet-runtime-resolution': true,
-          useFixForImprovedDotnetFalsePositives: true,
         });
 
         if (!pluginApi.isMultiResult(result)) {
@@ -489,7 +401,6 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
     const manifestFile = 'obj/project.assets.json';
     const result = await plugin.inspect(projectPath, manifestFile, {
       'dotnet-runtime-resolution': true,
-      useFixForImprovedDotnetFalsePositives: true,
     });
 
     if (!pluginApi.isMultiResult(result)) {
@@ -511,13 +422,6 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
   });
 
   it.each([
-    {
-      description: 'net472 - with package.assets.json',
-      projectPath: './test/fixtures/target-framework/no-dependencies/',
-      manifestFile: 'obj/project.assets.json',
-      requiresRestore: true,
-      expectedErrorMessage: /not able to find any supported TargetFrameworks/,
-    },
     {
       description: 'net461 - no package.assets.json',
       projectPath: './test/fixtures/packages-config/repositories-config/',
@@ -542,7 +446,6 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
         async () =>
           await plugin.inspect(projectPath, manifestFile, {
             'dotnet-runtime-resolution': true,
-            useFixForImprovedDotnetFalsePositives: true,
           }),
       ).rejects.toThrow(expectedErrorMessage);
     },
