@@ -114,9 +114,11 @@ export type Overrides = {
   overrideVersion: string | undefined;
 };
 
+// The key is the lowercased package name, for case-insensitive lookup.
 export type ResolvedPackagesMap = Record<
   string,
   {
+    readonly name: string;
     readonly resolvedVersion: string;
     readonly target: Target;
   }

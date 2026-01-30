@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Json.Net" Version="1.0.33" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference
+      Include="System.Text.Json"
+      Version="10.0.0-preview.5.25277.114"
+    />
+    <PackageReference Include="ServiceStack" Version="8.6.0" />
+    <PackageReference Include="dotnetnuke.core" Version="7.0.0" />
+  </ItemGroup>
+</Project>
