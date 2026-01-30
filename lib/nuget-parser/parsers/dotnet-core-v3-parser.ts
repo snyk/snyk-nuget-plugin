@@ -43,7 +43,9 @@ function recursivelyPopulateNodes(
 
     // Find the actual resolved version and target for this package name
     // NuGet may resolve to a different version than what's declared in transitive dependencies
-    const resolvedPackage = resolvedPackages[childName];
+    // and use the lowercased name as NuGet packages are case-insensitive
+    const lowercaseChildName = childName.toLowerCase();
+    const resolvedPackage = resolvedPackages[lowercaseChildName];
     if (!resolvedPackage) {
       debug(
         `Child package ${childName} not found in lock file packages for framework.`,
@@ -51,8 +53,11 @@ function recursivelyPopulateNodes(
       continue;
     }
 
-    const { resolvedVersion: actualResolvedVersion, target: childPkgEntry } =
-      resolvedPackage;
+    const {
+      name: actualPkgName,
+      resolvedVersion: actualResolvedVersion,
+      target: childPkgEntry,
+    } = resolvedPackage;
 
     if (childResolvedVersion !== actualResolvedVersion) {
       debug(
@@ -60,7 +65,7 @@ function recursivelyPopulateNodes(
       );
     }
 
-    const childID = `${childName}@${actualResolvedVersion}`;
+    const childID = `${actualPkgName}@${actualResolvedVersion}`;
 
     let finalVersion = actualResolvedVersion;
 
@@ -69,8 +74,8 @@ function recursivelyPopulateNodes(
     if (
       overrides.overrideVersion &&
       +actualResolvedVersion.split('.')[0] < 6 &&
-      childName in overrides.overridesAssemblies &&
-      +overrides.overridesAssemblies[childName].split('.')[0] < 6
+      actualPkgName in overrides.overridesAssemblies &&
+      +overrides.overridesAssemblies[actualPkgName].split('.')[0] < 6
     ) {
       finalVersion = overrides.overrideVersion;
     }
@@ -78,7 +83,7 @@ function recursivelyPopulateNodes(
     if (localVisited.has(childID)) {
       const prunedID = `${childID}:pruned`;
       depGraphBuilder.addPkgNode(
-        { name: childName, version: finalVersion },
+        { name: actualPkgName, version: finalVersion },
         prunedID,
         {
           labels: { pruned: 'true' },
@@ -90,7 +95,7 @@ function recursivelyPopulateNodes(
     }
 
     depGraphBuilder.addPkgNode(
-      { name: childName, version: finalVersion },
+      { name: actualPkgName, version: finalVersion },
       childID,
     );
     depGraphBuilder.connectDep(parentID, childID);
@@ -162,7 +167,12 @@ function buildDepGraph(
   const resolvedPackages: ResolvedPackagesMap = {};
   for (const [key, target] of Object.entries(allPackagesForFramework)) {
     const [name, version] = key.split('/');
-    resolvedPackages[name] = { resolvedVersion: version, target };
+    // Use the lowercased name for lookups as NuGet packages are case-insensitive.
+    resolvedPackages[name.toLowerCase()] = {
+      name,
+      resolvedVersion: version,
+      target,
+    };
   }
 
   // Identify direct dependencies for the selected framework

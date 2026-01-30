@@ -211,6 +211,13 @@ describe('when generating depGraphs with runtime resolution', () => {
       targetFramework: 'net6.0-windows10.0.19041.0',
       manifestFilePath: 'obj/project.assets.json',
     },
+    {
+      description: 'parse .NET project with case-insensitive package names',
+      projectPath: './test/fixtures/dotnetcore/dotnet_8_case_insensitive',
+      projectFile: 'dotnet_8.csproj',
+      targetFramework: 'net8.0',
+      manifestFilePath: 'obj/project.assets.json',
+    },
   ];
 
   it.each([
