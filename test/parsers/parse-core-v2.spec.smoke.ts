@@ -25,16 +25,27 @@ async function runInProjectDir<T>(
   }
 }
 
-describe('generating v3 depgraphs using all supported .NET SDKs', () => {
+describe('generating v2 depgraphs using all supported .NET SDKs', () => {
   it.each([
+    {
+      description: 'parse dotnet 6.0 with publish',
+      projectPath: './test/fixtures/dotnetcore/dotnet_6',
+      useImprovedDotnetWithoutPublish: false,
+      expectedGraphFileName: 'expected_depgraph-v2.json',
+    },
     {
       description: 'parse dotnet 6.0 without publish',
       projectPath: './test/fixtures/dotnetcore/dotnet_6',
+      useImprovedDotnetWithoutPublish: true,
       expectedGraphFileName: 'expected_depgraph-v3.json',
     },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
-    async ({ projectPath, expectedGraphFileName }) => {
+    async ({
+      projectPath,
+      useImprovedDotnetWithoutPublish,
+      expectedGraphFileName,
+    }) => {
       await runInProjectDir(projectPath, async (absoluteProjectPath) => {
         // Run a dotnet restore beforehand, in order to be able to supply a project.assets.json file
         await dotnet.restore('.');
@@ -45,6 +56,8 @@ describe('generating v3 depgraphs using all supported .NET SDKs', () => {
           manifestFilePath,
           {
             'dotnet-runtime-resolution': true,
+            useFixForImprovedDotnetFalsePositives: true,
+            useImprovedDotnetWithoutPublish,
           },
         );
 
