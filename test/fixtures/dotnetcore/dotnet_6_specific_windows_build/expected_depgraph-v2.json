@@ -1,0 +1,59 @@
+{
+  "depGraph": {
+    "schemaVersion": "1.3.0",
+    "pkgManager": {
+      "name": "nuget"
+    },
+    "pkgs": [
+      {
+        "id": "dotnet_6_specific_windows_build@1.0.0",
+        "info": {
+          "name": "dotnet_6_specific_windows_build",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "id": "NSubstitute@4.3.0",
+        "info": {
+          "name": "NSubstitute",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "Castle.Core@4.4.1",
+        "info": {
+          "name": "Castle.Core",
+          "version": "4.4.1"
+        }
+      }
+    ],
+    "graph": {
+      "rootNodeId": "root-node",
+      "nodes": [
+        {
+          "nodeId": "root-node",
+          "pkgId": "dotnet_6_specific_windows_build@1.0.0",
+          "deps": [
+            {
+              "nodeId": "NSubstitute@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "NSubstitute@4.3.0",
+          "pkgId": "NSubstitute@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Castle.Core@4.4.1"
+            }
+          ]
+        },
+        {
+          "nodeId": "Castle.Core@4.4.1",
+          "pkgId": "Castle.Core@4.4.1",
+          "deps": []
+        }
+      ]
+    }
+  }
+}

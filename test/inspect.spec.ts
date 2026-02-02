@@ -8,7 +8,9 @@ import * as depGraphLegacyLib from '@snyk/dep-graph/dist/legacy';
 import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
 import { NotSupportedEcosystem } from '../lib/errors';
 
-const INSPECT_OPTIONS = {};
+const INSPECT_OPTIONS = {
+  useFixForImprovedDotnetFalsePositives: true,
+};
 
 describe('when calling plugin.inspect with various configs', () => {
   it.each([
