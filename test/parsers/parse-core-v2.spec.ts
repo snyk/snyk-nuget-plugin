@@ -554,4 +554,47 @@ describe('when generating depGraphs and runtime assemblies using the v2 parser',
       ).rejects.toThrow(expectedErrorMessage);
     },
   );
+
+  it('canary test: dotnet_6_no_global succeeds across different SDK versions', async () => {
+    // This is a canary test that verifies basic runtime resolution works across SDK versions.
+    // Unlike other tests, we don't assert exact dependency graph contents since runtime assembly
+    // versions vary depending on the host SDK. We only care that the scan completes successfully.
+    const projectPath = './test/fixtures/dotnetcore/dotnet_6_no_global';
+
+    await runInProjectDir(projectPath, async (absoluteProjectPath) => {
+      await dotnet.restore('dotnet_6.csproj');
+
+      const result = await plugin.inspect(
+        absoluteProjectPath,
+        'obj/project.assets.json',
+        {
+          'dotnet-runtime-resolution': true,
+        },
+      );
+
+      if (!pluginApi.isMultiResult(result)) {
+        throw new Error('expected a multiResult response from inspection');
+      }
+
+      // Assert basic structure without checking exact content
+      expect(result.scannedProjects.length).toEqual(1);
+      expect(result.scannedProjects[0].depGraph).toBeDefined();
+      expect(result.scannedProjects[0].targetFile).toContain(
+        'project.assets.json',
+      );
+
+      const depGraph = result.scannedProjects[0].depGraph;
+      if (!depGraph) {
+        throw new Error('expected depGraph to be defined');
+      }
+
+      // Verify the project targets net6.0
+      expect(depGraph.pkgManager.name).toBe('nuget');
+      expect(depGraph.pkgManager.version).toBe('6.0');
+
+      // Verify NSubstitute dependency is present (from the .csproj)
+      const pkgNames = depGraph.getDepPkgs().map((pkg) => pkg.name);
+      expect(pkgNames).toContain('NSubstitute');
+    });
+  });
 });
