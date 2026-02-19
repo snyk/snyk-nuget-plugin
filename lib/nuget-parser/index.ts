@@ -63,16 +63,35 @@ function getPackagesFolder(packagesFolder, projectRootFolder) {
   return path.resolve(projectRootFolder, 'packages');
 }
 
-function getRootName(
-  root?: string,
-  projectRootFolder?: string,
-  projectNamePrefix?: string,
-): string {
-  const defaultRootName = path.basename(root || projectRootFolder || '');
-  if (projectNamePrefix) {
-    return projectNamePrefix + defaultRootName;
+function getRootName({
+  root,
+  projectRootFolder,
+  projectNamePrefix,
+  fileContentPath,
+  manifestType,
+}: {
+  root?: string;
+  projectRootFolder?: string;
+  projectNamePrefix?: string;
+  fileContentPath?: string;
+  manifestType?: ManifestType;
+}): string {
+  let name = path.basename(root || projectRootFolder || '');
+
+  // Fallback (e.g. when root is `/` and basename is ''): derive name from manifest path.
+  if (!name && fileContentPath) {
+    let dir = path.dirname(fileContentPath);
+    if (
+      manifestType === ManifestType.DOTNET_CORE &&
+      path.basename(dir).toLowerCase() === 'obj'
+    ) {
+      // project.assets.json files often live inside an `obj/` build-artifact directory: in this case use the parent dir
+      dir = path.dirname(dir);
+    }
+    name = path.basename(dir);
   }
-  return defaultRootName;
+
+  return (projectNamePrefix || '') + (name || 'root');
 }
 
 function getFileContents(fileContentPath: string): string {
@@ -286,7 +305,13 @@ manifest file. Available targetFrameworks detected was \x1b[1m${targetFrameworks
 Will attempt to build dependency graph anyway, but the operation might fail.`);
   }
 
-  let resolvedProjectName = getRootName(root, safeRoot, projectNamePrefix);
+  let resolvedProjectName = getRootName({
+    root,
+    projectRootFolder: safeRoot,
+    projectNamePrefix,
+    fileContentPath,
+    manifestType,
+  });
 
   const projectNameFromManifestFile =
     projectAssets?.project?.restore?.projectName;
@@ -387,7 +412,13 @@ export async function buildDepTreeFromFiles(
   const tree = {
     dependencies: {},
     meta: {},
-    name: getRootName(root, projectRootFolder, projectNamePrefix),
+    name: getRootName({
+      root,
+      projectRootFolder,
+      projectNamePrefix,
+      fileContentPath,
+      manifestType,
+    }),
     packageFormatVersion: 'nuget:0.0.0',
     version: '0.0.0',
   };

@@ -97,6 +97,50 @@ describe('when calling plugin.inspect with various configs', () => {
     expect(result.package.dependencies['Moment.js']).toBeTruthy();
   });
 
+  it('should not return an empty project name when scanning from filesystem root', async () => {
+    const fixtureProjectPath = './test/fixtures/packages-config/config-only/';
+
+    const absManifestPath = path.resolve(fixtureProjectPath, 'packages.config');
+    const filesystemRoot = path.parse(absManifestPath).root;
+    const targetFileFromRoot = path.relative(filesystemRoot, absManifestPath);
+
+    const result = await plugin.inspect(
+      filesystemRoot,
+      targetFileFromRoot,
+      INSPECT_OPTIONS,
+    );
+
+    expect(pluginApi.isMultiResult(result)).toBe(false);
+    const pkg = (result as pluginApi.SinglePackageResult).package;
+    expect(pkg).toBeDefined();
+    expect(pkg!.dependencies).toBeDefined();
+    expect(pkg!.name).toBe('config-only');
+  });
+
+  it('should derive the project name (not "obj") for dotnet-core assets when scanning from filesystem root', async () => {
+    const projectPath = './test/fixtures/dotnetcore/netcoreapp31/';
+    await dotnet.restore(projectPath);
+
+    const absManifestPath = path.resolve(
+      projectPath,
+      'obj/project.assets.json',
+    );
+    const filesystemRoot = path.parse(absManifestPath).root;
+    const targetFileFromRoot = path.relative(filesystemRoot, absManifestPath);
+
+    const result = await plugin.inspect(
+      filesystemRoot,
+      targetFileFromRoot,
+      INSPECT_OPTIONS,
+    );
+
+    expect(pluginApi.isMultiResult(result)).toBe(false);
+    const pkg = (result as pluginApi.SinglePackageResult).package;
+    expect(pkg).toBeDefined();
+    expect(pkg!.dependencies).toBeDefined();
+    expect(pkg!.name).toBe('netcoreapp31');
+  });
+
   it('should parse dotnet-cli project with packages.config containing net4 as target framework', async () => {
     const packageConfigWithNet4TFPath = './test/fixtures/packages-config/net4/';
     const packageConfigWithNet4TFManifestFile = 'packages.config';
