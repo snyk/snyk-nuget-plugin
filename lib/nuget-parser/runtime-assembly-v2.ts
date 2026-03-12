@@ -9,11 +9,7 @@ type SdkInfo = {
 export const PACKAGE_OVERRIDES_FILE = 'data/PackageOverrides.txt';
 export const PACKS_PATH = '/packs/Microsoft.NETCore.App.Ref/';
 
-// Relying on dotnet to fetch the right version that the project will use.
-// Details: https://learn.microsoft.com/en-us/dotnet/core/versions/selection#the-sdk-uses-the-latest-installed-version
-// And here: https://learn.microsoft.com/en-us/dotnet/core/tools/global-json#matching-rules
-export async function extractSdkInfo(projectPath: string): Promise<SdkInfo> {
-  const infoOutput = await dotnet.execute(['--info'], projectPath);
+export function parseSdkInfoFromDotnetOutput(infoOutput: string): SdkInfo {
   const regex =
     /Version:\s*([\d.]+).*?\.NET SDKs installed:\s*([\s\S]*?)(?:\n\s*\1\s+\[(.*?)\])/s;
   const match = infoOutput.match(regex);
@@ -26,6 +22,14 @@ export async function extractSdkInfo(projectPath: string): Promise<SdkInfo> {
   }
 
   return { sdkVersion: match[1], sdkPath: match[3] };
+}
+
+// Relying on dotnet to fetch the right version that the project will use.
+// Details: https://learn.microsoft.com/en-us/dotnet/core/versions/selection#the-sdk-uses-the-latest-installed-version
+// And here: https://learn.microsoft.com/en-us/dotnet/core/tools/global-json#matching-rules
+export async function extractSdkInfo(projectPath: string): Promise<SdkInfo> {
+  const infoOutput = await dotnet.execute(['--info'], projectPath);
+  return parseSdkInfoFromDotnetOutput(infoOutput);
 }
 
 export function findLatestMatchingVersion(
