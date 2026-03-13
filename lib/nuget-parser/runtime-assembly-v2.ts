@@ -11,7 +11,7 @@ export const PACKS_PATH = '/packs/Microsoft.NETCore.App.Ref/';
 
 export function parseSdkInfoFromDotnetOutput(infoOutput: string): SdkInfo {
   const regex =
-    /Version:\s*([\d.]+).*?\.NET SDKs installed:\s*([\s\S]*?)(?:\n\s*\1\s+\[(.*?)\])/s;
+    /Version:\s*(\d+)\.[\d.]+.*?\.NET SDKs installed:\s*([\s\S]*?)(?:\n\s*\1\.([\d.]+)\s+\[([^\]]*)\])/s;
   const match = infoOutput.match(regex);
 
   if (!match) {
@@ -21,7 +21,7 @@ export function parseSdkInfoFromDotnetOutput(infoOutput: string): SdkInfo {
     );
   }
 
-  return { sdkVersion: match[1], sdkPath: match[3] };
+  return { sdkVersion: `${match[1]}.${match[3]}`, sdkPath: match[4] };
 }
 
 // Relying on dotnet to fetch the right version that the project will use.
