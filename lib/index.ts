@@ -73,6 +73,14 @@ export async function inspect(
   }
 
   if (
+    options.cliDotnetRuntimeResolutionEnabled &&
+    manifestType === ManifestType.DOTNET_CORE &&
+    options['dotnet-runtime-resolution'] === undefined
+  ) {
+    options['dotnet-runtime-resolution'] = true;
+  }
+
+  if (
     options['dotnet-target-framework'] &&
     !options['dotnet-runtime-resolution']
   ) {
