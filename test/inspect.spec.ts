@@ -10,6 +10,8 @@ import { NotSupportedEcosystem } from '../lib/errors';
 
 const INSPECT_OPTIONS = {};
 
+import * as nugetParser from '../lib/nuget-parser';
+
 describe('when calling plugin.inspect with various configs', () => {
   it.each([
     {
@@ -187,4 +189,65 @@ describe('when calling plugin.inspect with various configs', () => {
       expect(result.package.name).toEqual(`custom-prefix/${defaultName}`);
     },
   );
+
+  describe('cliDotnetRuntimeResolutionEnabled option', () => {
+    let buildDepGraphSpy: any;
+    let buildDepTreeSpy: any;
+
+    beforeEach(() => {
+      buildDepGraphSpy = jest
+        .spyOn(nugetParser, 'buildDepGraphFromFiles')
+        .mockResolvedValue([]);
+      buildDepTreeSpy = jest
+        .spyOn(nugetParser, 'buildDepTreeFromFiles')
+        .mockResolvedValue({ dependencies: {}, meta: {} });
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('sets dotnet-runtime-resolution to true if cliDotnetRuntimeResolutionEnabled is true and manifest is DOTNET_CORE', async () => {
+      const projectPath = './test/fixtures/dotnetcore/netcoreapp31/';
+      const manifestFile = 'obj/project.assets.json';
+      const options = {
+        cliDotnetRuntimeResolutionEnabled: true,
+      };
+
+      await plugin.inspect(projectPath, manifestFile, options);
+
+      expect(options['dotnet-runtime-resolution']).toBe(true);
+      expect(buildDepGraphSpy).toHaveBeenCalled();
+      expect(buildDepTreeSpy).not.toHaveBeenCalled();
+    });
+
+    it('does not set dotnet-runtime-resolution to true if it is explicitly false, even if cliDotnetRuntimeResolutionEnabled is true', async () => {
+      const projectPath = './test/fixtures/dotnetcore/netcoreapp31/';
+      const manifestFile = 'obj/project.assets.json';
+      const options = {
+        cliDotnetRuntimeResolutionEnabled: true,
+        'dotnet-runtime-resolution': false,
+      };
+
+      await plugin.inspect(projectPath, manifestFile, options);
+
+      expect(options['dotnet-runtime-resolution']).toBe(false);
+      expect(buildDepGraphSpy).not.toHaveBeenCalled();
+      expect(buildDepTreeSpy).toHaveBeenCalled();
+    });
+
+    it('does not set dotnet-runtime-resolution to true if manifest is not DOTNET_CORE', async () => {
+      const projectPath = './test/fixtures/packages-config/config-only/';
+      const manifestFile = 'packages.config';
+      const options = {
+        cliDotnetRuntimeResolutionEnabled: true,
+      };
+
+      await plugin.inspect(projectPath, manifestFile, options);
+
+      expect(options['dotnet-runtime-resolution']).toBeUndefined();
+      expect(buildDepGraphSpy).not.toHaveBeenCalled();
+      expect(buildDepTreeSpy).toHaveBeenCalled();
+    });
+  });
 });
