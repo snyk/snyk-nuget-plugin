@@ -42,7 +42,7 @@
     "debug": "^4.3.4",
     "dotnet-deps-parser": "6.1.0",
     "jszip": "3.10.1",
-    "lodash": "^4.17.21",
+    "lodash": "^4.18.1",
     "node-cache": "^5.1.2",
     "snyk-paket-parser": "1.6.0",
     "tslib": "^2.6.2",
