@@ -98,9 +98,11 @@ async function handle(
       );
     }
 
-    const message = error.stderr || error.stdout;
+    const fullMessage = [error.stderr, error.stdout]
+      .filter(Boolean)
+      .join('\nSTDOUT:\n');
     throw new CliCommandError(
-      `dotnet ${operation} failed with error: ${message}. Command: ${command}, Args: ${JSON.stringify(sanitizeForLogging(args))}, Options: ${JSON.stringify(sanitizeForLogging(options))}`,
+      `dotnet ${operation} failed with error: ${fullMessage}. Command: ${command}, Args: ${JSON.stringify(sanitizeForLogging(args))}, Options: ${JSON.stringify(sanitizeForLogging(options))}`,
     );
   }
 }
