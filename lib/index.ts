@@ -112,6 +112,12 @@ export async function inspect(
       .then(createPackageTree);
   }
 
+  // Capture whether the customer explicitly requested runtime resolution before the
+  // implicit, server-side enablement below can set it. An explicit request is a hard
+  // requirement that must not be silently downgraded when dotnet is missing.
+  const runtimeResolutionExplicitlyRequested =
+    !!options['dotnet-runtime-resolution'];
+
   if (
     options.cliDotnetRuntimeResolutionEnabled &&
     manifestType === ManifestType.DOTNET_CORE &&
@@ -154,7 +160,17 @@ export async function inspect(
       );
     }
 
-    // dotnet is not installed: degrade to the legacy scan so we don't break
+    // An explicit --dotnet-runtime-resolution request cannot be honoured without dotnet.
+    // Fail loudly rather than silently returning a lower-fidelity legacy result.
+    if (runtimeResolutionExplicitlyRequested) {
+      return Promise.reject(
+        new CliCommandError(
+          'The --dotnet-runtime-resolution flag was set, but the dotnet CLI was not found on the PATH. Install the .NET SDK, or remove the flag to fall back to the legacy scan.',
+        ),
+      );
+    }
+
+    // Implicit (server-side) enablement: degrade to the legacy scan so we don't break
     // environments that worked before runtime resolution was enabled for them.
     if (!dotnetFallbackWarned) {
       dotnetFallbackWarned = true;

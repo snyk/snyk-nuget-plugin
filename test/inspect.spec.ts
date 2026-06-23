@@ -281,5 +281,22 @@ describe('when calling plugin.inspect with various configs', () => {
       expect(buildDepGraphSpy).not.toHaveBeenCalled();
       expect(buildDepTreeSpy).toHaveBeenCalled();
     });
+
+    it('errors when --dotnet-runtime-resolution is explicitly set but dotnet is not installed', async () => {
+      jest.spyOn(dotnet, 'isInstalled').mockResolvedValue(false);
+
+      const projectPath = './test/fixtures/dotnetcore/netcoreapp31/';
+      const manifestFile = 'obj/project.assets.json';
+      const options = {
+        'dotnet-runtime-resolution': true,
+      };
+
+      await expect(
+        plugin.inspect(projectPath, manifestFile, options),
+      ).rejects.toThrow('the dotnet CLI was not found');
+
+      expect(buildDepGraphSpy).not.toHaveBeenCalled();
+      expect(buildDepTreeSpy).not.toHaveBeenCalled();
+    });
   });
 });
