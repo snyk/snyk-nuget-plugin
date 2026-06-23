@@ -120,6 +120,19 @@ export async function validate(): Promise<string> {
   }
 }
 
+// Non-throwing check for whether the dotnet CLI is available on the system.
+// The underlying error is logged for diagnostics (visible with `-d`) so a failure
+// that isn't a plain "not on PATH" (e.g. a broken install) can be told apart.
+export async function isInstalled(): Promise<boolean> {
+  try {
+    await validate();
+    return true;
+  } catch (error: unknown) {
+    debug(`dotnet availability check failed: ${error}`);
+    return false;
+  }
+}
+
 export async function execute(
   args: string[],
   projectPath: string,

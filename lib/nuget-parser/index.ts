@@ -345,9 +345,6 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     );
   }
 
-  // Ensure `dotnet` is installed on the system or fail trying.
-  await dotnet.validate();
-
   // Write a .NET Framework Parser to a temporary directory for validating TargetFrameworks.
   const nugetFrameworksParserLocation = nugetFrameworksParser.generate();
   await dotnet.restore(nugetFrameworksParserLocation);

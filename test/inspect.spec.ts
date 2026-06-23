@@ -201,6 +201,9 @@ describe('when calling plugin.inspect with various configs', () => {
       buildDepTreeSpy = jest
         .spyOn(nugetParser, 'buildDepTreeFromFiles')
         .mockResolvedValue({ dependencies: {}, meta: {} });
+      // Default to dotnet being available so routing is deterministic regardless of
+      // the test environment. Tests covering the missing-dotnet path override this.
+      jest.spyOn(dotnet, 'isInstalled').mockResolvedValue(true);
     });
 
     afterEach(() => {
@@ -248,6 +251,52 @@ describe('when calling plugin.inspect with various configs', () => {
       expect(options['dotnet-runtime-resolution']).toBeUndefined();
       expect(buildDepGraphSpy).not.toHaveBeenCalled();
       expect(buildDepTreeSpy).toHaveBeenCalled();
+    });
+
+    it('uses runtime resolution when --dotnet-runtime-resolution is explicitly set and dotnet is installed', async () => {
+      const projectPath = './test/fixtures/dotnetcore/netcoreapp31/';
+      const manifestFile = 'obj/project.assets.json';
+      const options = {
+        'dotnet-runtime-resolution': true,
+      };
+
+      await plugin.inspect(projectPath, manifestFile, options);
+
+      expect(buildDepGraphSpy).toHaveBeenCalled();
+      expect(buildDepTreeSpy).not.toHaveBeenCalled();
+    });
+
+    it('falls back to the legacy scan when cliDotnetRuntimeResolutionEnabled but dotnet is not installed', async () => {
+      jest.spyOn(dotnet, 'isInstalled').mockResolvedValue(false);
+
+      const projectPath = './test/fixtures/dotnetcore/netcoreapp31/';
+      const manifestFile = 'obj/project.assets.json';
+      const options = {
+        cliDotnetRuntimeResolutionEnabled: true,
+      };
+
+      await plugin.inspect(projectPath, manifestFile, options);
+
+      expect(options['dotnet-runtime-resolution']).toBe(true);
+      expect(buildDepGraphSpy).not.toHaveBeenCalled();
+      expect(buildDepTreeSpy).toHaveBeenCalled();
+    });
+
+    it('errors when --dotnet-runtime-resolution is explicitly set but dotnet is not installed', async () => {
+      jest.spyOn(dotnet, 'isInstalled').mockResolvedValue(false);
+
+      const projectPath = './test/fixtures/dotnetcore/netcoreapp31/';
+      const manifestFile = 'obj/project.assets.json';
+      const options = {
+        'dotnet-runtime-resolution': true,
+      };
+
+      await expect(
+        plugin.inspect(projectPath, manifestFile, options),
+      ).rejects.toThrow('the dotnet CLI was not found');
+
+      expect(buildDepGraphSpy).not.toHaveBeenCalled();
+      expect(buildDepTreeSpy).not.toHaveBeenCalled();
     });
   });
 });
