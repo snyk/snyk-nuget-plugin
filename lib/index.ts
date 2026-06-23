@@ -1,4 +1,5 @@
 import * as nugetParser from './nuget-parser';
+import * as dotnet from './nuget-parser/cli/dotnet';
 import * as path from 'path';
 import * as paketParser from 'snyk-paket-parser';
 import { ManifestType } from './nuget-parser/types';
@@ -9,6 +10,13 @@ import {
   InvalidTargetFile,
 } from './errors';
 import { MultiProjectResult } from '@snyk/cli-interface/legacy/plugin';
+import * as debugModule from 'debug';
+
+const debug = debugModule('snyk');
+
+// Surface the dotnet-missing fallback to the customer at most once per process —
+// inspect() runs per project, so a multi-project scan would otherwise repeat it.
+let dotnetFallbackWarned = false;
 
 function determineManifestType(filename: string): ManifestType {
   switch (true) {
@@ -30,6 +38,38 @@ function determineManifestType(filename: string): ManifestType {
       );
     }
   }
+}
+
+// Runs the dotnet-backed runtime resolution scan and shapes the result into a
+// MultiProjectResult for the CLI or the SCM scanner. Requires the dotnet CLI.
+async function buildRuntimeResolutionResult(
+  root,
+  targetFile,
+  manifestType: ManifestType,
+  options,
+): Promise<MultiProjectResult> {
+  const results = await nugetParser.buildDepGraphFromFiles(
+    root,
+    targetFile,
+    manifestType,
+    options['assets-project-name'],
+    options['project-name-prefix'],
+    options['dotnet-target-framework'],
+  );
+
+  return {
+    plugin: {
+      name: 'snyk-nuget-plugin',
+      targetFile,
+    },
+    scannedProjects: results.map((result) => ({
+      targetFile,
+      depGraph: result.dependencyGraph,
+      meta: {
+        targetRuntime: result.targetFramework,
+      },
+    })),
+  };
 }
 
 export async function inspect(
@@ -100,35 +140,36 @@ export async function inspect(
       );
     }
 
-    const results = await nugetParser.buildDepGraphFromFiles(
-      root,
-      targetFile,
-      manifestType,
-      options['assets-project-name'],
-      options['project-name-prefix'],
-      options['dotnet-target-framework'],
-    );
-
-    // Construct a MultiProjectResult to send to either the CLI or the SCM scanner.
-    const multiProjectResult: MultiProjectResult = {
-      plugin: {
-        name: 'snyk-nuget-plugin',
+    // The runtime resolution flow depends on the dotnet CLI for restore, runtime
+    // assembly resolution and target framework parsing. When dotnet is unavailable
+    // (e.g. a CI step that runs after the build), fall back to the legacy scan of the
+    // existing project.assets.json so we don't break environments that worked before
+    // this flow was enabled.
+    if (await dotnet.isInstalled()) {
+      return buildRuntimeResolutionResult(
+        root,
         targetFile,
-      },
-      scannedProjects: [],
-    };
-
-    for (const result of results) {
-      multiProjectResult.scannedProjects.push({
-        targetFile: targetFile,
-        depGraph: result.dependencyGraph,
-        meta: {
-          targetRuntime: result.targetFramework,
-        },
-      });
+        manifestType,
+        options,
+      );
     }
 
-    return multiProjectResult;
+    // dotnet is not installed: degrade to the legacy scan so we don't break
+    // environments that worked before runtime resolution was enabled for them.
+    if (!dotnetFallbackWarned) {
+      dotnetFallbackWarned = true;
+      console.warn(
+        `\x1b[33m⚠ WARNING\x1b[0m: The dotnet CLI was not found on your PATH. Falling back to a static scan for SDK-style .NET projects — results will not include runtime dependency resolution and may be less complete. Install the .NET SDK and ensure dotnet is on your PATH for full results.`,
+      );
+    }
+
+    if (options['dotnet-target-framework']) {
+      debug(
+        'the dotnet-target-framework flag is ignored when falling back to the legacy scan.',
+      );
+    }
+
+    // fall through to the legacy scan below.
   }
 
   return nugetParser
