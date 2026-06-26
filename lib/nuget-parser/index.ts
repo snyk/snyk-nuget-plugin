@@ -345,8 +345,12 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
     );
   }
 
+  // At this point we already know `dotnet` is installed on the system, this will not error.
+  const sdkVersion = await dotnet.validate();
+
   // Write a .NET Framework Parser to a temporary directory for validating TargetFrameworks.
-  const nugetFrameworksParserLocation = nugetFrameworksParser.generate();
+  const nugetFrameworksParserLocation =
+    nugetFrameworksParser.generate(sdkVersion);
   await dotnet.restore(nugetFrameworksParserLocation);
 
   // Access the path of this project, to ensure we get the right .csproj file, in case of multiples present

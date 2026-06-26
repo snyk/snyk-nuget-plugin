@@ -1,7 +1,14 @@
 import * as types from '../types';
 import * as generator from './generator';
 
-export function generate(): string {
+function targetFrameworkFromSdkVersion(sdkVersion: string): string {
+  const major = parseInt(sdkVersion.split('.')[0], 10);
+  return `net${major}.0`;
+}
+
+export function generate(sdkVersion: string): string {
+  const targetFramework = targetFrameworkFromSdkVersion(sdkVersion);
+
   const files: types.DotNetFile[] = [
     {
       name: 'Parse.csproj',
@@ -9,7 +16,7 @@ export function generate(): string {
 <Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>${targetFramework}</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>ShortNameToLongName</RootNamespace>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
