@@ -120,7 +120,8 @@ class TestFixture {
   ])(
     'parses ShortName TFM to LongName using Nuget.Frameworks successfully',
     async ({ shortName, expected }) => {
-      const location = nugetFrameworksParser.generate();
+      const sdkVersion = await dotnet.validate();
+      const location = nugetFrameworksParser.generate(sdkVersion);
       await dotnet.restore(location);
       const response = await dotnet.run(location, [shortName]);
 
