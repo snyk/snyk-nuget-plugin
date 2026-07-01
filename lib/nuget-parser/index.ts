@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as csProjParser from './parsers/csproj-parser';
-import * as debugModule from 'debug';
+import debugModule from 'debug';
 import * as depsParser from 'dotnet-deps-parser';
 import * as dotnetCoreV3Parser from './parsers/dotnet-core-v3-parser';
 import * as dotnetCoreParser from './parsers/dotnet-core-parser';

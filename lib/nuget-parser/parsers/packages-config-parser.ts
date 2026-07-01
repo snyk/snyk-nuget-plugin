@@ -1,5 +1,5 @@
 import * as parseXML from 'xml2js';
-import * as debugModule from 'debug';
+import debugModule from 'debug';
 import { Dependency, TargetFramework } from '../types';
 import * as depsParser from 'dotnet-deps-parser';
 import { toReadableFramework } from '../framework';

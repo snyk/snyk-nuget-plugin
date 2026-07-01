@@ -1,4 +1,4 @@
-import * as debugModule from 'debug';
+import debugModule from 'debug';
 import { CliCommandError } from '../../errors';
 import * as path from 'path';
 import * as subprocess from './subprocess';
@@ -85,14 +85,12 @@ async function handle(
   try {
     return await subprocess.execute(command, args, options);
   } catch (error: unknown) {
-    if (
-      !(
-        typeof error === 'object' &&
-        error !== null &&
-        'stdout' in error &&
-        'stderr' in error
-      )
-    ) {
+    if (!(
+      typeof error === 'object' &&
+      error !== null &&
+      'stdout' in error &&
+      'stderr' in error
+    )) {
       throw new CliCommandError(
         `dotnet ${operation} failed with error: ${error}. Command: ${command}, Args: ${JSON.stringify(sanitizeForLogging(args))}, Options: ${JSON.stringify(sanitizeForLogging(options))}`,
       );

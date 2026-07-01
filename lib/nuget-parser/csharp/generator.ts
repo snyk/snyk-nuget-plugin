@@ -2,8 +2,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as types from '../types';
-import * as debugModule from 'debug';
-import * as NodeCache from 'node-cache';
+import debugModule from 'debug';
+import NodeCache from 'node-cache';
 import * as crypto from 'crypto';
 
 const debug = debugModule('snyk');
@@ -71,7 +71,7 @@ export function tearDown(dirs: string[]) {
 
     try {
       fs.rmSync(dir, { recursive: true });
-    } catch (error: unknown) {
+    } catch {
       // Ignore it, test was tearing down anyway, and it seems Windows boxes especially don't like this.
     }
   }

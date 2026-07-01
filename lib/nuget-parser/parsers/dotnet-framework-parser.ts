@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as debugModule from 'debug';
+import debugModule from 'debug';
 import { parseNuspec } from './nuspec-parser';
 import { Dependency } from '../types';
 import { InvalidFolderFormatError } from '../../errors/invalid-folder-format-error';

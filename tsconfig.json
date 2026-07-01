@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
+    "rootDir": "./lib",
     "pretty": true,
     "target": "es2021",
     "module": "commonjs",
@@ -9,9 +10,8 @@
     "strict": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "types": ["node", "jest"]
   },
-  "include": [
-    "./lib/*"
-  ]
+  "include": ["./lib/*"]
 }
