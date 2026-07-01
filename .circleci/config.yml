@@ -21,10 +21,10 @@ defaults_test: &defaults_test
       enum: [ "unit", "smoke" ]
 
 matrix_unix_node_version: &matrix_unix_node_version
-  node_version: [ "16.20.0", "18.16.0", "20.3.1" ]
+  node_version: [ "18.16.0", "20.3.1", '22.23.1', '24.16.0' ]
 
 matrix_windows_node_version: &matrix_windows_node_version
-  node_version: [ "16.20.0", "18.16.0", "20.3.1" ]
+  node_version: [ "18.16.0", "20.3.1", '22.23.1', '24.16.0' ]
 
 filters_branches_only_main: &filters_branches_only_main
   filters:
@@ -228,7 +228,7 @@ workflows:
 
       - security-scans:
           name: Security Scans
-          node_version: "16.20"
+          node_version: "lts"
           context:
             - open_source-managed
             - nodejs-install
@@ -236,7 +236,7 @@ workflows:
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: "16.20"
+          node_version: "lts"
 
       - test-unix:
           matrix:

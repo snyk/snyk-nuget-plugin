@@ -1,4 +1,4 @@
-import * as debugModule from 'debug';
+import debugModule from 'debug';
 import * as depGraphLib from '@snyk/dep-graph';
 import { DepGraphBuilder } from '@snyk/dep-graph';
 import { InvalidManifestError } from '../../errors';

@@ -10,7 +10,7 @@ import {
   InvalidTargetFile,
 } from './errors';
 import { MultiProjectResult } from '@snyk/cli-interface/legacy/plugin';
-import * as debugModule from 'debug';
+import debugModule from 'debug';
 
 const debug = debugModule('snyk');
 
