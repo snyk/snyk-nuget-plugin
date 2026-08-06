@@ -1,4 +1,5 @@
 import * as path from 'path';
+import * as fs from 'fs';
 import * as types from '../types';
 import * as generator from './generator';
 
@@ -17,29 +18,48 @@ function xmlAttributeEscape(value: string): string {
     .replace(/"/g, '&quot;');
 }
 
-export function generate(sdkVersion: string): string {
-  const targetFramework = targetFrameworkFromSdkVersion(sdkVersion);
+// The bundled `nupkgs` folder normally lives on disk next to this module. But when this
+// plugin runs inside the Snyk CLI's packaged binary, `pkg` mounts everything under `dist`
+// into a virtual snapshot filesystem, so `path.join(__dirname, 'nupkgs')` resolves to a
+// snapshot-only path (e.g. `/snapshot/...`) that only the packaged Node process itself can
+// read. `dotnet restore` runs as a separate OS process and can't see into that snapshot at
+// all, so instead of pointing nuget.config there directly, we copy the offline packages
+// into the same real, on-disk directory generator.generate() already created below for
+// Parse.csproj/Program.cs, and point nuget.config at that.
+function writeOfflinePackagesInto(tempDir: string): void {
+  const nugetConfigPath = path.join(tempDir, 'nuget.config');
+  if (fs.existsSync(nugetConfigPath)) {
+    // Already populated by a previous call that hit generator.generate()'s content cache
+    // and got back this same tempDir.
+    return;
+  }
 
-  // Offline support: we ship the (single, dependency-free) NuGet.Frameworks package
-  // alongside this module — in `lib` for tests, and copied into `dist` at build time.
-  // A generated nuget.config points `dotnet restore` at this folder as its only source,
-  // so projects without internet access can still be scanned.
-  const offlinePackagesSource = xmlAttributeEscape(
-    path.join(__dirname, 'nupkgs'),
-  );
+  const bundledNupkgsDir = path.join(__dirname, 'nupkgs');
+  fs.mkdirSync(path.join(tempDir, 'nupkgs'));
+  for (const fileName of fs.readdirSync(bundledNupkgsDir)) {
+    fs.writeFileSync(
+      path.join(tempDir, 'nupkgs', fileName),
+      fs.readFileSync(path.join(bundledNupkgsDir, fileName)),
+    );
+  }
 
-  const files: types.DotNetFile[] = [
-    {
-      name: 'nuget.config',
-      contents: `<?xml version="1.0" encoding="utf-8"?>
+  fs.writeFileSync(
+    nugetConfigPath,
+    `<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
     <clear />
-    <add key="snyk-nuget-plugin-offline" value="${offlinePackagesSource}" />
+    <add key="snyk-nuget-plugin-offline" value="${xmlAttributeEscape(tempDir)}/nupkgs" />
   </packageSources>
 </configuration>
 `,
-    },
+  );
+}
+
+export function generate(sdkVersion: string): string {
+  const targetFramework = targetFrameworkFromSdkVersion(sdkVersion);
+
+  const files: types.DotNetFile[] = [
     {
       name: 'Parse.csproj',
       contents: `
@@ -113,5 +133,7 @@ class Program
     },
   ];
 
-  return generator.generate('csharp', files);
+  const tempDir = generator.generate('csharp', files);
+  writeOfflinePackagesInto(tempDir);
+  return tempDir;
 }
