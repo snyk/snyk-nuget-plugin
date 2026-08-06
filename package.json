@@ -11,7 +11,8 @@
     "lint:eslint": "eslint '{lib,test}/**/*.ts'",
     "lint:prettier": "prettier --check '{lib,test}/**/*.{ts,csproj,json}' --log-level 'warn'",
     "lint:fix": "prettier --write '{lib,test}/**/*.{ts,csproj,json}' && eslint --fix '{lib,test}/**/*.ts'",
-    "build": "tsc",
+    "build": "tsc && npm run copy-nupkgs",
+    "copy-nupkgs": "node -e \"require('fs').cpSync('lib/nuget-parser/csharp/nupkgs','dist/nuget-parser/csharp/nupkgs',{recursive:true})\"",
     "build:watch": "tsc -w",
     "prepare": "npm run build"
   },

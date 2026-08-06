@@ -1,3 +1,4 @@
+import * as path from 'path';
 import * as types from '../types';
 import * as generator from './generator';
 
@@ -6,10 +7,39 @@ function targetFrameworkFromSdkVersion(sdkVersion: string): string {
   return `net${major}.0`;
 }
 
+// Escape a filesystem path so it can be safely embedded in a double-quoted XML
+// attribute value (Windows user paths can legitimately contain '&', etc.).
+function xmlAttributeEscape(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 export function generate(sdkVersion: string): string {
   const targetFramework = targetFrameworkFromSdkVersion(sdkVersion);
 
+  // Offline support: we ship the (single, dependency-free) NuGet.Frameworks package
+  // alongside this module — in `lib` for tests, and copied into `dist` at build time.
+  // A generated nuget.config points `dotnet restore` at this folder as its only source,
+  // so projects without internet access can still be scanned.
+  const offlinePackagesSource = xmlAttributeEscape(
+    path.join(__dirname, 'nupkgs'),
+  );
+
   const files: types.DotNetFile[] = [
+    {
+      name: 'nuget.config',
+      contents: `<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <clear />
+    <add key="snyk-nuget-plugin-offline" value="${offlinePackagesSource}" />
+  </packageSources>
+</configuration>
+`,
+    },
     {
       name: 'Parse.csproj',
       contents: `
@@ -24,8 +54,7 @@ export function generate(sdkVersion: string): string {
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include='Newtonsoft.Json' Version='13.0.3' />
-    <PackageReference Include='NuGet.Frameworks' Version='6.7.0' />
+    <PackageReference Include='NuGet.Frameworks' Version='6.14.3' />
   </ItemGroup>
 </Project>
 `,
@@ -34,8 +63,8 @@ export function generate(sdkVersion: string): string {
       name: 'Program.cs',
       contents: `
 using System;
+using System.Text.Json;
 using NuGet.Frameworks;
-using Newtonsoft.Json;
 
 class Program
 {
@@ -52,12 +81,12 @@ class Program
         try
         {
             NuGetFramework framework = NuGetFramework.Parse(shortName);
-            string json = JsonConvert.SerializeObject(new
+            string json = JsonSerializer.Serialize(new
             {
                 framework.Framework,
-                framework.Version,
+                Version = framework.Version.ToString(),
                 framework.Platform,
-                framework.PlatformVersion,
+                PlatformVersion = framework.PlatformVersion?.ToString(),
                 framework.HasPlatform,
                 framework.HasProfile,
                 framework.Profile,
@@ -71,7 +100,7 @@ class Program
                 framework.IsAny,
                 framework.IsSpecificFramework,
                 ShortName = shortName
-            }, Formatting.None);
+            });
             Console.Write(json);
         }
         catch (Exception ex)
@@ -84,6 +113,5 @@ class Program
     },
   ];
 
-  const tempDir = generator.generate('csharp', files);
-  return tempDir;
+  return generator.generate('csharp', files);
 }
