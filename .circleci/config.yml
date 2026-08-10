@@ -222,6 +222,7 @@ workflows:
           name: Scan repository for secrets
           context:
             - snyk-bot-slack
+            - prodsec-orb-runtime
           channel: snyk-vuln-alerts-sca
           trusted-branch: main
           <<: *filters_branches_ignore_main
@@ -232,6 +233,7 @@ workflows:
           context:
             - open_source-managed
             - nodejs-install
+            - prodsec-orb-runtime
 
       - lint:
           name: Lint
