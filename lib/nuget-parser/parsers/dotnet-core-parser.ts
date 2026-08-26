@@ -1,5 +1,5 @@
 import { InvalidManifestError } from '../../errors';
-import * as debugModule from 'debug';
+import debugModule from 'debug';
 import type { Dependency } from '../types';
 import * as _ from 'lodash';
 

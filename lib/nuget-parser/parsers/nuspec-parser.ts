@@ -1,8 +1,8 @@
-import * as JSZip from 'jszip';
+import JSZip from 'jszip';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as parseXML from 'xml2js';
-import * as debugModule from 'debug';
+import debugModule from 'debug';
 import {
   Dependency,
   DependencyInfo,

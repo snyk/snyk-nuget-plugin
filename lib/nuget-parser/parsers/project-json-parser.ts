@@ -1,4 +1,4 @@
-import * as debugModule from 'debug';
+import debugModule from 'debug';
 import { Dependency } from '../types';
 
 const debug = debugModule('snyk');

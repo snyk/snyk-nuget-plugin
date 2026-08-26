@@ -1,0 +1,1322 @@
+{
+  "depGraph": {
+    "schemaVersion": "1.3.0",
+    "pkgManager": {
+      "name": "nuget"
+    },
+    "pkgs": [
+      {
+        "id": "netstandard21_no_assemply_overrides@1.0.0",
+        "info": {
+          "name": "netstandard21_no_assemply_overrides",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "id": "System.Drawing.Common@4.7.2",
+        "info": {
+          "name": "System.Drawing.Common",
+          "version": "4.7.2"
+        }
+      },
+      {
+        "id": "System.Net.Http@4.3.4",
+        "info": {
+          "name": "System.Net.Http",
+          "version": "4.3.4"
+        }
+      },
+      {
+        "id": "Microsoft.NETCore.Platforms@1.1.1",
+        "info": {
+          "name": "Microsoft.NETCore.Platforms",
+          "version": "1.1.1"
+        }
+      },
+      {
+        "id": "System.Collections@4.3.0",
+        "info": {
+          "name": "System.Collections",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "Microsoft.NETCore.Targets@1.1.0",
+        "info": {
+          "name": "Microsoft.NETCore.Targets",
+          "version": "1.1.0"
+        }
+      },
+      {
+        "id": "System.Runtime@4.3.0",
+        "info": {
+          "name": "System.Runtime",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Diagnostics.Debug@4.3.0",
+        "info": {
+          "name": "System.Diagnostics.Debug",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Diagnostics.DiagnosticSource@4.3.0",
+        "info": {
+          "name": "System.Diagnostics.DiagnosticSource",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Diagnostics.Tracing@4.3.0",
+        "info": {
+          "name": "System.Diagnostics.Tracing",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Reflection@4.3.0",
+        "info": {
+          "name": "System.Reflection",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.IO@4.3.0",
+        "info": {
+          "name": "System.IO",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Text.Encoding@4.3.0",
+        "info": {
+          "name": "System.Text.Encoding",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Threading.Tasks@4.3.0",
+        "info": {
+          "name": "System.Threading.Tasks",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Reflection.Primitives@4.3.0",
+        "info": {
+          "name": "System.Reflection.Primitives",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Threading@4.3.0",
+        "info": {
+          "name": "System.Threading",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Globalization@4.3.0",
+        "info": {
+          "name": "System.Globalization",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Globalization.Extensions@4.3.0",
+        "info": {
+          "name": "System.Globalization.Extensions",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Resources.ResourceManager@4.3.0",
+        "info": {
+          "name": "System.Resources.ResourceManager",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Runtime.Extensions@4.3.0",
+        "info": {
+          "name": "System.Runtime.Extensions",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Runtime.InteropServices@4.3.0",
+        "info": {
+          "name": "System.Runtime.InteropServices",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Runtime.Handles@4.3.0",
+        "info": {
+          "name": "System.Runtime.Handles",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.IO.FileSystem@4.3.0",
+        "info": {
+          "name": "System.IO.FileSystem",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.IO.FileSystem.Primitives@4.3.0",
+        "info": {
+          "name": "System.IO.FileSystem.Primitives",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Net.Primitives@4.3.0",
+        "info": {
+          "name": "System.Net.Primitives",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.Algorithms@4.3.0",
+        "info": {
+          "name": "System.Security.Cryptography.Algorithms",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Runtime.Numerics@4.3.0",
+        "info": {
+          "name": "System.Runtime.Numerics",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.Encoding@4.3.0",
+        "info": {
+          "name": "System.Security.Cryptography.Encoding",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Collections.Concurrent@4.3.0",
+        "info": {
+          "name": "System.Collections.Concurrent",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Linq@4.3.0",
+        "info": {
+          "name": "System.Linq",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.Primitives@4.3.0",
+        "info": {
+          "name": "System.Security.Cryptography.Primitives",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.OpenSsl@4.3.0",
+        "info": {
+          "name": "System.Security.Cryptography.OpenSsl",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.X509Certificates@4.3.0",
+        "info": {
+          "name": "System.Security.Cryptography.X509Certificates",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Globalization.Calendars@4.3.0",
+        "info": {
+          "name": "System.Globalization.Calendars",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.Cng@4.3.0",
+        "info": {
+          "name": "System.Security.Cryptography.Cng",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.Csp@4.3.0",
+        "info": {
+          "name": "System.Security.Cryptography.Csp",
+          "version": "4.3.0"
+        }
+      }
+    ],
+    "graph": {
+      "rootNodeId": "root-node",
+      "nodes": [
+        {
+          "nodeId": "root-node",
+          "pkgId": "netstandard21_no_assemply_overrides@1.0.0",
+          "deps": [
+            {
+              "nodeId": "System.Drawing.Common@4.7.2"
+            },
+            {
+              "nodeId": "System.Net.Http@4.3.4"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Drawing.Common@4.7.2",
+          "pkgId": "System.Drawing.Common@4.7.2",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Net.Http@4.3.4",
+          "pkgId": "System.Net.Http@4.3.4",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1"
+            },
+            {
+              "nodeId": "System.Collections@4.3.0"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0"
+            },
+            {
+              "nodeId": "System.Diagnostics.DiagnosticSource@4.3.0"
+            },
+            {
+              "nodeId": "System.Diagnostics.Tracing@4.3.0"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0"
+            },
+            {
+              "nodeId": "System.Globalization.Extensions@4.3.0"
+            },
+            {
+              "nodeId": "System.IO@4.3.0"
+            },
+            {
+              "nodeId": "System.IO.FileSystem@4.3.0"
+            },
+            {
+              "nodeId": "System.Net.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Algorithms@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.OpenSsl@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.X509Certificates@4.3.0"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.NETCore.Platforms@1.1.1",
+          "pkgId": "Microsoft.NETCore.Platforms@1.1.1",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Collections@4.3.0",
+          "pkgId": "System.Collections@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned",
+          "pkgId": "Microsoft.NETCore.Platforms@1.1.1",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "Microsoft.NETCore.Targets@1.1.0",
+          "pkgId": "Microsoft.NETCore.Targets@1.1.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Runtime@4.3.0",
+          "pkgId": "System.Runtime@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned",
+          "pkgId": "Microsoft.NETCore.Targets@1.1.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Diagnostics.Debug@4.3.0",
+          "pkgId": "System.Diagnostics.Debug@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Diagnostics.DiagnosticSource@4.3.0",
+          "pkgId": "System.Diagnostics.DiagnosticSource@4.3.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Tracing@4.3.0"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Collections@4.3.0:pruned",
+          "pkgId": "System.Collections@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Diagnostics.Tracing@4.3.0",
+          "pkgId": "System.Diagnostics.Tracing@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Reflection@4.3.0",
+          "pkgId": "System.Reflection@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            },
+            {
+              "nodeId": "System.IO@4.3.0"
+            },
+            {
+              "nodeId": "System.Reflection.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.IO@4.3.0",
+          "pkgId": "System.IO@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Text.Encoding@4.3.0",
+          "pkgId": "System.Text.Encoding@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Runtime@4.3.0:pruned",
+          "pkgId": "System.Runtime@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Threading.Tasks@4.3.0",
+          "pkgId": "System.Threading.Tasks@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Reflection.Primitives@4.3.0",
+          "pkgId": "System.Reflection.Primitives@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Threading@4.3.0",
+          "pkgId": "System.Threading@4.3.0",
+          "deps": [
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Globalization@4.3.0",
+          "pkgId": "System.Globalization@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Globalization.Extensions@4.3.0",
+          "pkgId": "System.Globalization.Extensions@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Globalization@4.3.0:pruned",
+          "pkgId": "System.Globalization@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Resources.ResourceManager@4.3.0",
+          "pkgId": "System.Resources.ResourceManager@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Runtime.Extensions@4.3.0",
+          "pkgId": "System.Runtime.Extensions@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Runtime.InteropServices@4.3.0",
+          "pkgId": "System.Runtime.InteropServices@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0"
+            },
+            {
+              "nodeId": "System.Reflection.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Runtime.Handles@4.3.0",
+          "pkgId": "System.Runtime.Handles@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.IO.FileSystem@4.3.0",
+          "pkgId": "System.IO.FileSystem@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.FileSystem.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.IO@4.3.0:pruned",
+          "pkgId": "System.IO@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.IO.FileSystem.Primitives@4.3.0",
+          "pkgId": "System.IO.FileSystem.Primitives@4.3.0",
+          "deps": [
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Net.Primitives@4.3.0",
+          "pkgId": "System.Net.Primitives@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Runtime.Handles@4.3.0:pruned",
+          "pkgId": "System.Runtime.Handles@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Algorithms@4.3.0",
+          "pkgId": "System.Security.Cryptography.Algorithms@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Numerics@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Resources.ResourceManager@4.3.0:pruned",
+          "pkgId": "System.Resources.ResourceManager@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Runtime.Extensions@4.3.0:pruned",
+          "pkgId": "System.Runtime.Extensions@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Runtime.InteropServices@4.3.0:pruned",
+          "pkgId": "System.Runtime.InteropServices@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Runtime.Numerics@4.3.0",
+          "pkgId": "System.Runtime.Numerics@4.3.0",
+          "deps": [
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Encoding@4.3.0",
+          "pkgId": "System.Security.Cryptography.Encoding@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Collections.Concurrent@4.3.0"
+            },
+            {
+              "nodeId": "System.Linq@4.3.0"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Collections.Concurrent@4.3.0",
+          "pkgId": "System.Collections.Concurrent@4.3.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Tracing@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Diagnostics.Debug@4.3.0:pruned",
+          "pkgId": "System.Diagnostics.Debug@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Diagnostics.Tracing@4.3.0:pruned",
+          "pkgId": "System.Diagnostics.Tracing@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Linq@4.3.0",
+          "pkgId": "System.Linq@4.3.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Primitives@4.3.0",
+          "pkgId": "System.Security.Cryptography.Primitives@4.3.0",
+          "deps": [
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading.Tasks@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.OpenSsl@4.3.0",
+          "pkgId": "System.Security.Cryptography.OpenSsl@4.3.0",
+          "deps": [
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Numerics@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Algorithms@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Algorithms@4.3.0:pruned",
+          "pkgId": "System.Security.Cryptography.Algorithms@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned",
+          "pkgId": "System.Security.Cryptography.Encoding@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.X509Certificates@4.3.0",
+          "pkgId": "System.Security.Cryptography.X509Certificates@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "System.Collections@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Diagnostics.Debug@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Globalization.Calendars@4.3.0"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.FileSystem@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.IO.FileSystem.Primitives@4.3.0"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Numerics@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Algorithms@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Cng@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Csp@4.3.0"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.OpenSsl@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Globalization.Calendars@4.3.0",
+          "pkgId": "System.Globalization.Calendars@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "Microsoft.NETCore.Targets@1.1.0"
+            },
+            {
+              "nodeId": "System.Globalization@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.IO.FileSystem@4.3.0:pruned",
+          "pkgId": "System.IO.FileSystem@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Cng@4.3.0",
+          "pkgId": "System.Security.Cryptography.Cng@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Algorithms@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned",
+          "pkgId": "System.Security.Cryptography.Primitives@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        },
+        {
+          "nodeId": "System.Security.Cryptography.Csp@4.3.0",
+          "pkgId": "System.Security.Cryptography.Csp@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.1:pruned"
+            },
+            {
+              "nodeId": "System.IO@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Reflection@4.3.0"
+            },
+            {
+              "nodeId": "System.Resources.ResourceManager@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Extensions@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.Handles@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Runtime.InteropServices@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Algorithms@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Encoding@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Security.Cryptography.Primitives@4.3.0:pruned"
+            },
+            {
+              "nodeId": "System.Text.Encoding@4.3.0"
+            },
+            {
+              "nodeId": "System.Threading@4.3.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.OpenSsl@4.3.0:pruned",
+          "pkgId": "System.Security.Cryptography.OpenSsl@4.3.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

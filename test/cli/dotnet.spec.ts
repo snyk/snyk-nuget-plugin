@@ -120,7 +120,8 @@ class TestFixture {
   ])(
     'parses ShortName TFM to LongName using Nuget.Frameworks successfully',
     async ({ shortName, expected }) => {
-      const location = nugetFrameworksParser.generate();
+      const sdkVersion = await dotnet.validate();
+      const location = nugetFrameworksParser.generate(sdkVersion);
       await dotnet.restore(location);
       const response = await dotnet.run(location, [shortName]);
 
@@ -254,6 +255,22 @@ describe('dotnet error handling', () => {
       expect(error.message).toContain('Args: ["--version"]');
       expect(error.message).toContain('Options: {}');
     }
+  });
+
+  it('isInstalled returns true when dotnet is available', async () => {
+    jest
+      .spyOn(subprocess, 'execute')
+      .mockResolvedValue({ stdout: '8.0.100', stderr: '' });
+
+    expect(await dotnet.isInstalled()).toBe(true);
+  });
+
+  it('isInstalled returns false when dotnet is not available', async () => {
+    jest
+      .spyOn(subprocess, 'execute')
+      .mockRejectedValue(new Error('command not found: dotnet'));
+
+    expect(await dotnet.isInstalled()).toBe(false);
   });
 
   it('sanitizes sensitive information in error messages', async () => {

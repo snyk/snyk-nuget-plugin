@@ -1,4 +1,4 @@
-import * as debugModule from 'debug';
+import debugModule from 'debug';
 import { CliCommandError } from '../../errors';
 import * as path from 'path';
 import * as subprocess from './subprocess';
@@ -50,8 +50,11 @@ function sanitizePath(filePath: string): string {
     // Ignore errors, continue with original path
   }
 
-  // Restore quotes if they were present
-  return isQuoted ? `"${cleanPath}"` : cleanPath;
+  // Add quotes around paths that look like project/solution files for better readability in error messages
+  // or restore quotes if they were originally present
+  const shouldQuote =
+    isQuoted || /\.(csproj|sln|fsproj|vbproj|props|targets)$/i.test(cleanPath);
+  return shouldQuote ? `"${cleanPath}"` : cleanPath;
 }
 
 function sanitizeForLogging(value: any): any {
@@ -82,22 +85,22 @@ async function handle(
   try {
     return await subprocess.execute(command, args, options);
   } catch (error: unknown) {
-    if (
-      !(
-        typeof error === 'object' &&
-        error !== null &&
-        'stdout' in error &&
-        'stderr' in error
-      )
-    ) {
+    if (!(
+      typeof error === 'object' &&
+      error !== null &&
+      'stdout' in error &&
+      'stderr' in error
+    )) {
       throw new CliCommandError(
         `dotnet ${operation} failed with error: ${error}. Command: ${command}, Args: ${JSON.stringify(sanitizeForLogging(args))}, Options: ${JSON.stringify(sanitizeForLogging(options))}`,
       );
     }
 
-    const message = error.stderr || error.stdout;
+    const fullMessage = [error.stderr, error.stdout]
+      .filter(Boolean)
+      .join('\nSTDOUT:\n');
     throw new CliCommandError(
-      `dotnet ${operation} failed with error: ${message}. Command: ${command}, Args: ${JSON.stringify(sanitizeForLogging(args))}, Options: ${JSON.stringify(sanitizeForLogging(options))}`,
+      `dotnet ${operation} failed with error: ${fullMessage}. Command: ${command}, Args: ${JSON.stringify(sanitizeForLogging(args))}, Options: ${JSON.stringify(sanitizeForLogging(options))}`,
     );
   }
 }
@@ -112,6 +115,19 @@ export async function validate(): Promise<string> {
   } catch (error: unknown) {
     debug('dotnet tool not found, did you install dotnet core?');
     throw error;
+  }
+}
+
+// Non-throwing check for whether the dotnet CLI is available on the system.
+// The underlying error is logged for diagnostics (visible with `-d`) so a failure
+// that isn't a plain "not on PATH" (e.g. a broken install) can be told apart.
+export async function isInstalled(): Promise<boolean> {
+  try {
+    await validate();
+    return true;
+  } catch (error: unknown) {
+    debug(`dotnet availability check failed: ${error}`);
+    return false;
   }
 }
 
@@ -141,7 +157,7 @@ export async function restore(
     // Useful for customers to attempt self-debugging before raising support requests.
     '--verbosity',
     'normal',
-    `"${projectPath}"`,
+    projectPath, // No quotes needed - spawn passes arguments directly without shell interpretation
     '--p=MSBuildEnableWorkloadResolver=true;TreatWarningsAsErrors=false;WarningsAsErrors=',
   ];
   await handle('restore', command, args, workingDirectory);
@@ -168,7 +184,7 @@ export async function getBaseIntermediateOutputPath(
   const args = [
     'msbuild',
     '-getProperty:BaseIntermediateOutputPath',
-    `"${projectPath}"`,
+    projectPath,
   ];
 
   try {
@@ -189,6 +205,12 @@ export async function publish(
 ): Promise<string> {
   const command = 'dotnet';
   const args = ['publish', '--nologo'];
+
+  // Explicitly use Debug configuration to ensure full dependency tree is included.
+  // .NET 10 changed the default to Release for .NET 8+ projects, which can result in
+  // trimmed dependencies that are needed for complete vulnerability scanning.
+  args.push('-c', 'Debug');
+
   // Self-contained: Create all required .dlls for version investigation, don't rely on the environment.
   args.push('--sc');
 
@@ -225,13 +247,16 @@ export async function publish(
 
   // Some projects may include duplicate files in the publish output due to shared dependencies or multi-targeting,
   // causing build failures. We're disabling <ErrorOnDuplicatePublishOutputFiles> to allow publish to proceed without errors.
+
+  // Also explicitly set Configuration=Debug in MSBuild properties to ensure it's not overridden by .NET 10 SDK defaults.
   args.push(
-    `--p:PublishDir=${tempDir};SnykTest=true;IsPublishable=true;PublishSingleFile=false;TreatWarningsAsErrors=false;ErrorOnDuplicatePublishOutputFiles=false;WarningsAsErrors=`,
+    `--p:PublishDir=${tempDir};Configuration=Debug;SnykTest=true;IsPublishable=true;PublishSingleFile=false;TreatWarningsAsErrors=false;ErrorOnDuplicatePublishOutputFiles=false;WarningsAsErrors=`,
   );
 
   // The path that contains either some form of project file, or a .sln one.
   // See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish#arguments
-  args.push(`"${projectPath}"`);
+  // Note: No quotes needed - spawn passes arguments directly without shell interpretation
+  args.push(projectPath);
 
   await handle('publish', command, args);
 

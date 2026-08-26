@@ -1,0 +1,121 @@
+{
+  "depGraph": {
+    "schemaVersion": "1.3.0",
+    "pkgManager": {
+      "name": "nuget"
+    },
+    "pkgs": [
+      {
+        "id": "dotnet_10@1.0.0",
+        "info": {
+          "name": "dotnet_10",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "id": "AWSSDK.Core@4.0.0.10",
+        "info": {
+          "name": "AWSSDK.Core",
+          "version": "4.0.0.10"
+        }
+      },
+      {
+        "id": "NSubstitute@4.3.0",
+        "info": {
+          "name": "NSubstitute",
+          "version": "4.3.0"
+        }
+      },
+      {
+        "id": "Castle.Core@4.4.1",
+        "info": {
+          "name": "Castle.Core",
+          "version": "4.4.1"
+        }
+      },
+      {
+        "id": "NETStandard.Library@1.6.1",
+        "info": {
+          "name": "NETStandard.Library",
+          "version": "1.6.1"
+        }
+      },
+      {
+        "id": "Microsoft.NETCore.Platforms@1.1.0",
+        "info": {
+          "name": "Microsoft.NETCore.Platforms",
+          "version": "1.1.0"
+        }
+      },
+      {
+        "id": "Newtonsoft.Json@13.0.3",
+        "info": {
+          "name": "Newtonsoft.Json",
+          "version": "13.0.3"
+        }
+      }
+    ],
+    "graph": {
+      "rootNodeId": "root-node",
+      "nodes": [
+        {
+          "nodeId": "root-node",
+          "pkgId": "dotnet_10@1.0.0",
+          "deps": [
+            {
+              "nodeId": "AWSSDK.Core@4.0.0.10"
+            },
+            {
+              "nodeId": "NSubstitute@4.3.0"
+            },
+            {
+              "nodeId": "Newtonsoft.Json@13.0.3"
+            }
+          ]
+        },
+        {
+          "nodeId": "AWSSDK.Core@4.0.0.10",
+          "pkgId": "AWSSDK.Core@4.0.0.10",
+          "deps": []
+        },
+        {
+          "nodeId": "NSubstitute@4.3.0",
+          "pkgId": "NSubstitute@4.3.0",
+          "deps": [
+            {
+              "nodeId": "Castle.Core@4.4.1"
+            }
+          ]
+        },
+        {
+          "nodeId": "Castle.Core@4.4.1",
+          "pkgId": "Castle.Core@4.4.1",
+          "deps": [
+            {
+              "nodeId": "NETStandard.Library@1.6.1"
+            }
+          ]
+        },
+        {
+          "nodeId": "NETStandard.Library@1.6.1",
+          "pkgId": "NETStandard.Library@1.6.1",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@1.1.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.NETCore.Platforms@1.1.0",
+          "pkgId": "Microsoft.NETCore.Platforms@1.1.0",
+          "deps": []
+        },
+        {
+          "nodeId": "Newtonsoft.Json@13.0.3",
+          "pkgId": "Newtonsoft.Json@13.0.3",
+          "deps": []
+        }
+      ]
+    }
+  }
+}

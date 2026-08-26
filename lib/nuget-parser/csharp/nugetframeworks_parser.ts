@@ -1,7 +1,64 @@
+import * as path from 'path';
+import * as fs from 'fs';
 import * as types from '../types';
 import * as generator from './generator';
 
-export function generate(): string {
+function targetFrameworkFromSdkVersion(sdkVersion: string): string {
+  const major = parseInt(sdkVersion.split('.')[0], 10);
+  return `net${major}.0`;
+}
+
+// Escape a filesystem path so it can be safely embedded in a double-quoted XML
+// attribute value (Windows user paths can legitimately contain '&', etc.).
+function xmlAttributeEscape(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// The bundled `nupkgs` folder normally lives on disk next to this module. But when this
+// plugin runs inside the Snyk CLI's packaged binary, `pkg` mounts everything under `dist`
+// into a virtual snapshot filesystem, so `path.join(__dirname, 'nupkgs')` resolves to a
+// snapshot-only path (e.g. `/snapshot/...`) that only the packaged Node process itself can
+// read. `dotnet restore` runs as a separate OS process and can't see into that snapshot at
+// all, so instead of pointing nuget.config there directly, we copy the offline packages
+// into the same real, on-disk directory generator.generate() already created below for
+// Parse.csproj/Program.cs, and point nuget.config at that.
+function writeOfflinePackagesInto(tempDir: string): void {
+  const nugetConfigPath = path.join(tempDir, 'nuget.config');
+  if (fs.existsSync(nugetConfigPath)) {
+    // Already populated by a previous call that hit generator.generate()'s content cache
+    // and got back this same tempDir.
+    return;
+  }
+
+  const bundledNupkgsDir = path.join(__dirname, 'nupkgs');
+  fs.mkdirSync(path.join(tempDir, 'nupkgs'));
+  for (const fileName of fs.readdirSync(bundledNupkgsDir)) {
+    fs.writeFileSync(
+      path.join(tempDir, 'nupkgs', fileName),
+      fs.readFileSync(path.join(bundledNupkgsDir, fileName)),
+    );
+  }
+
+  fs.writeFileSync(
+    nugetConfigPath,
+    `<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <clear />
+    <add key="snyk-nuget-plugin-offline" value="${xmlAttributeEscape(tempDir)}/nupkgs" />
+  </packageSources>
+</configuration>
+`,
+  );
+}
+
+export function generate(sdkVersion: string): string {
+  const targetFramework = targetFrameworkFromSdkVersion(sdkVersion);
+
   const files: types.DotNetFile[] = [
     {
       name: 'Parse.csproj',
@@ -9,7 +66,7 @@ export function generate(): string {
 <Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>${targetFramework}</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>ShortNameToLongName</RootNamespace>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
@@ -17,8 +74,7 @@ export function generate(): string {
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include='Newtonsoft.Json' Version='13.0.3' />
-    <PackageReference Include='NuGet.Frameworks' Version='6.7.0' />
+    <PackageReference Include='NuGet.Frameworks' Version='6.14.3' />
   </ItemGroup>
 </Project>
 `,
@@ -27,8 +83,8 @@ export function generate(): string {
       name: 'Program.cs',
       contents: `
 using System;
+using System.Text.Json;
 using NuGet.Frameworks;
-using Newtonsoft.Json;
 
 class Program
 {
@@ -45,12 +101,12 @@ class Program
         try
         {
             NuGetFramework framework = NuGetFramework.Parse(shortName);
-            string json = JsonConvert.SerializeObject(new
+            string json = JsonSerializer.Serialize(new
             {
                 framework.Framework,
-                framework.Version,
+                Version = framework.Version.ToString(),
                 framework.Platform,
-                framework.PlatformVersion,
+                PlatformVersion = framework.PlatformVersion?.ToString(),
                 framework.HasPlatform,
                 framework.HasProfile,
                 framework.Profile,
@@ -64,7 +120,7 @@ class Program
                 framework.IsAny,
                 framework.IsSpecificFramework,
                 ShortName = shortName
-            }, Formatting.None);
+            });
             Console.Write(json);
         }
         catch (Exception ex)
@@ -78,5 +134,6 @@ class Program
   ];
 
   const tempDir = generator.generate('csharp', files);
+  writeOfflinePackagesInto(tempDir);
   return tempDir;
 }
