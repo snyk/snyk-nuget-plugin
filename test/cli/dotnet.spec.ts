@@ -273,6 +273,17 @@ describe('dotnet error handling', () => {
     expect(await dotnet.isInstalled()).toBe(false);
   });
 
+  it('isInstalled returns false when dotnet is not on the PATH', async () => {
+    const originalPath = process.env.PATH;
+    process.env.PATH = '';
+
+    try {
+      expect(await dotnet.isInstalled()).toBe(false);
+    } finally {
+      process.env.PATH = originalPath;
+    }
+  });
+
   it('sanitizes sensitive information in error messages', async () => {
     const mockError = {
       stdout: '',

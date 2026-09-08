@@ -51,6 +51,12 @@ function writeOfflinePackagesInto(tempDir: string): void {
     <clear />
     <add key="snyk-nuget-plugin-offline" value="${xmlAttributeEscape(tempDir)}/nupkgs" />
   </packageSources>
+  <packageSourceMapping>
+    <clear />
+    <packageSource key="snyk-nuget-plugin-offline">
+      <package pattern="*" />
+    </packageSource>
+  </packageSourceMapping>
 </configuration>
 `,
   );

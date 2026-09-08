@@ -51,6 +51,12 @@ export function execute(
     let stderr = '';
 
     const proc = spawn(command, args, spawnOptions);
+
+    // Emitted when the process cannot be started at all: binary not on the PATH,
+    // missing working directory, or not executable. No process means no 'close' event,
+    // so without this the promise never settles and node throws the unhandled 'error'.
+    proc.on('error', reject);
+
     proc.stdout?.on('data', (data) => {
       stdout = stdout + data;
     });

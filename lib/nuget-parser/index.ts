@@ -166,6 +166,26 @@ async function resolveAssetsFilePath(
   return assetsFile;
 }
 
+// The project path in project.assets.json is absolute and belongs to whichever machine ran
+// the restore, so it can be gone by the time we scan. Spawning dotnet there fails with a
+// misleading `spawn dotnet ENOENT`, and the queries made from here report on the installed
+// SDK rather than the project, so the scanned root serves just as well.
+function resolveProjectFolder(projectPath: string, safeRoot: string): string {
+  if (!projectPath) {
+    return safeRoot;
+  }
+
+  const projectFolder = path.dirname(projectPath);
+  if (fs.existsSync(projectFolder)) {
+    return projectFolder;
+  }
+
+  debug(
+    `the project folder ${projectFolder} recorded in the assets file does not exist, running dotnet in ${safeRoot} instead`,
+  );
+  return safeRoot;
+}
+
 async function getResultsWithoutPublish(
   decidedTargetFrameworks: string[],
   projectPath: string,
@@ -176,7 +196,7 @@ async function getResultsWithoutPublish(
 ): Promise<DotnetCoreV2Results> {
   const parser = PARSERS['dotnet-core-v3'];
 
-  const projectFolder = projectPath ? path.dirname(projectPath) : safeRoot;
+  const projectFolder = resolveProjectFolder(projectPath, safeRoot);
 
   // Check if any target frameworks need runtime assembly overrides
   const needsRuntimeOverrides = decidedTargetFrameworks.some(
