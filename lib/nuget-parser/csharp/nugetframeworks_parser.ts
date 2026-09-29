@@ -72,6 +72,10 @@ export function generate(sdkVersion: string): string {
 <Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    <!-- We only ever run this via 'dotnet run', never the native launcher. Without this, restore
+         needs the Microsoft.NETCore.App.Host.<rid> pack, which some SDK installs (e.g. distro
+         packages) don't ship and our offline source can't provide (NU1101). -->
+    <UseAppHost>false</UseAppHost>
     <TargetFramework>${targetFramework}</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>ShortNameToLongName</RootNamespace>
