@@ -2,6 +2,8 @@ import { getTargetFrameworksFromProjFile } from '../../lib/nuget-parser/parsers/
 import { describe, expect, it } from '@jest/globals';
 import * as plugin from '../../lib';
 import { legacyPlugin as pluginApi } from '@snyk/cli-interface';
+import { readFileSync } from 'fs';
+import { buildDepTreeFromProjectFile } from 'dotnet-deps-parser';
 
 describe('parse .csproj', () => {
   describe('getTargetFrameworksFromProjFile', () => {
@@ -90,6 +92,22 @@ describe('parse .csproj', () => {
             'obj/project.assets.json',
           ),
       ).rejects.toThrow('No frameworks were found in project.assets.json');
+    });
+  });
+
+  describe('PackageReference metadata case', () => {
+    it('keeps a package whose Version attribute is lowercase (OSM-3544)', async () => {
+      const manifest = readFileSync(
+        './test/fixtures/package-reference-case/lowercase-version.csproj',
+        'utf8',
+      );
+
+      const tree = await buildDepTreeFromProjectFile(manifest, false);
+
+      expect(tree.dependencies['Newtonsoft.Json']).toMatchObject({
+        name: 'Newtonsoft.Json',
+        version: '13.0.3',
+      });
     });
   });
 });
