@@ -20,13 +20,11 @@ import {
   ManifestType,
   ProjectAssets,
   TargetFramework,
-  TargetFrameworkInfo,
   Overrides,
 } from './types';
 import * as dotnet from './cli/dotnet';
-import * as nugetFrameworksParser from './csharp/nugetframeworks_parser';
+import * as dotnetCache from './cli/dotnet-cache';
 import {
-  extractSdkInfo,
   findLatestMatchingVersion,
   PACKAGE_OVERRIDES_FILE,
   PACKS_PATH,
@@ -208,11 +206,8 @@ async function getResultsWithoutPublish(
 
   // Only load runtime overrides if we have frameworks that need them (exclude netstandard and netcoreapp)
   if (needsRuntimeOverrides) {
-    const { sdkVersion, sdkPath } = await extractSdkInfo(projectFolder);
-    const localRuntimes = await dotnet.execute(
-      ['--list-runtimes'],
-      projectFolder,
-    );
+    const { sdkVersion, sdkPath } = await dotnetCache.sdkInfo(projectFolder);
+    const localRuntimes = await dotnetCache.listRuntimes(projectFolder);
     const runtimeVersion = findLatestMatchingVersion(localRuntimes, sdkVersion);
 
     try {
@@ -237,10 +232,10 @@ async function getResultsWithoutPublish(
   for (const decidedTargetFramework of decidedTargetFrameworks) {
     // Parse the TargetFramework using Nuget.Frameworks itself, instead of trying to reinvent the wheel, thus ensuring
     // we have maximum context to use later when building the depGraph.
-    const response = await dotnet.run(nugetFrameworksParserLocation, [
+    const targetFrameworkInfo = await dotnetCache.parseTargetFramework(
+      nugetFrameworksParserLocation,
       decidedTargetFramework,
-    ]);
-    const targetFrameworkInfo: TargetFrameworkInfo = JSON.parse(response);
+    );
     if (targetFrameworkInfo.IsUnsupported) {
       throw new InvalidManifestError(
         `dotnet was not able to parse the target framework ${decidedTargetFramework}, it was reported unsupported by the dotnet runtime`,
@@ -370,8 +365,7 @@ Will attempt to build dependency graph anyway, but the operation might fail.`);
 
   // Write a .NET Framework Parser to a temporary directory for validating TargetFrameworks.
   const nugetFrameworksParserLocation =
-    nugetFrameworksParser.generate(sdkVersion);
-  await dotnet.restore(nugetFrameworksParserLocation);
+    await dotnetCache.buildFrameworksParser(sdkVersion);
 
   // Access the path of this project, to ensure we get the right .csproj file, in case of multiples present
   const projectPath = projectAssets.project.restore.projectPath;
