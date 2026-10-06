@@ -122,7 +122,7 @@ class TestFixture {
     async ({ shortName, expected }) => {
       const sdkVersion = await dotnet.validate();
       const location = nugetFrameworksParser.generate(sdkVersion);
-      await dotnet.restore(location);
+      await dotnet.build(location);
       const response = await dotnet.run(location, [shortName]);
 
       const targetFrameworkInfo: types.TargetFrameworkInfo =
@@ -137,6 +137,8 @@ class TestFixture {
 describe('dotnet error handling', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    // validate() keeps the SDK version for the process; these tests mock each spawn.
+    dotnet.resetVersionCache();
   });
 
   afterEach(() => {

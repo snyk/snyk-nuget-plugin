@@ -64,7 +64,7 @@ describe('offline restore against a client machine with PackageSourceMapping ena
       );
       expect(nugetConfig).toContain('<packageSourceMapping>');
 
-      await dotnet.restore(projectDir);
+      await dotnet.build(projectDir);
       const response = await dotnet.run(projectDir, ['net6.0']);
       const targetFrameworkInfo: types.TargetFrameworkInfo =
         JSON.parse(response);

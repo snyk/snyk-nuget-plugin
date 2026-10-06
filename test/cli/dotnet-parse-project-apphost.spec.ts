@@ -10,9 +10,9 @@ import * as types from '../../lib/nuget-parser/types';
 // SDK installs without the apphost pack cannot restore an Exe project from our offline
 // source, so the probe must not require an apphost. We assert on the generated project
 // (the pack is present on most dev machines, so a restore alone would not catch this)
-// and check the probe still restores and runs.
+// and check the probe still builds and runs.
 describe('Parse.csproj apphost', () => {
-  it('opts out of the apphost and still restores and runs', async () => {
+  it('opts out of the apphost and still builds and runs', async () => {
     let projectDir: string | undefined;
     try {
       const sdkVersion = await dotnet.validate();
@@ -24,7 +24,7 @@ describe('Parse.csproj apphost', () => {
       );
       expect(csproj).toContain('<UseAppHost>false</UseAppHost>');
 
-      await dotnet.restore(projectDir);
+      await dotnet.build(projectDir);
       const response = await dotnet.run(projectDir, ['net6.0']);
       const info: types.TargetFrameworkInfo = JSON.parse(response);
       expect(info.ShortName).toEqual('net6.0');
