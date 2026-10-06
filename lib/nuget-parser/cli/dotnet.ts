@@ -7,6 +7,11 @@ import * as os from 'os';
 
 const debug = debugModule('snyk');
 
+// SelfContained=false: the probe opts out of the apphost, which the SDK rejects (NETSDK1067)
+// if SelfContained=true leaks in from the customer's environment or pipeline variables.
+const MSBUILD_PROPERTIES =
+  '--p=MSBuildEnableWorkloadResolver=true;TreatWarningsAsErrors=false;WarningsAsErrors=;SelfContained=false';
+
 function sanitizePath(filePath: string): string {
   if (!filePath || typeof filePath !== 'string') {
     return filePath;
@@ -105,7 +110,7 @@ async function handle(
   }
 }
 
-export async function validate(): Promise<string> {
+async function fetchSdkVersion(): Promise<string> {
   const command = 'dotnet';
   const args = ['--version'];
 
@@ -116,6 +121,28 @@ export async function validate(): Promise<string> {
     debug('dotnet tool not found, did you install dotnet core?');
     throw error;
   }
+}
+
+// The SDK doesn't change during a scan, so `dotnet --version` runs once per process rather
+// than once (or twice) per project. It's keyed by working directory because a global.json
+// there can select a different SDK. A failure isn't kept, so a later call can retry.
+const sdkVersions = new Map<string, Promise<string>>();
+
+export function resetVersionCache(): void {
+  sdkVersions.clear();
+}
+
+export function validate(): Promise<string> {
+  const cwd = process.cwd();
+  let version = sdkVersions.get(cwd);
+  if (!version) {
+    version = fetchSdkVersion().catch((error: unknown) => {
+      sdkVersions.delete(cwd);
+      throw error;
+    });
+    sdkVersions.set(cwd, version);
+  }
+  return version;
 }
 
 // Non-throwing check for whether the dotnet CLI is available on the system.
@@ -158,22 +185,44 @@ export async function restore(
     '--verbosity',
     'normal',
     projectPath, // No quotes needed - spawn passes arguments directly without shell interpretation
-    // SelfContained=false: the probe opts out of the apphost, which the SDK rejects (NETSDK1067)
-    // if SelfContained=true leaks in from the customer's environment or pipeline variables.
-    '--p=MSBuildEnableWorkloadResolver=true;TreatWarningsAsErrors=false;WarningsAsErrors=;SelfContained=false',
+    MSBUILD_PROPERTIES,
   ];
   await handle('restore', command, args, workingDirectory);
   return;
 }
 
+// Restores and compiles a project so it can be started with run(), which doesn't build.
+export async function build(projectPath: string): Promise<void> {
+  const command = 'dotnet';
+  const args = [
+    'build',
+    '--nologo',
+    // Same verbosity as restore() so a failing build is as debuggable.
+    '--verbosity',
+    'normal',
+    // run() expects the Debug output, so pin it rather than rely on the SDK default.
+    '-c',
+    'Debug',
+    projectPath,
+    MSBUILD_PROPERTIES,
+  ];
+  await handle('build', command, args);
+}
+
+// Starts a project already compiled by build(). Skipping the implicit restore and compile
+// saves most of the cost of each call.
 export async function run(
   projectPath: string,
   options: string[],
 ): Promise<string> {
   const command = 'dotnet';
-  // Must match restore: an ambient SelfContained=true fails the run's build too.
+  // SelfContained=false must match build(), so run evaluates the same output path
+  // even when an ambient SelfContained=true leaks in.
   const args = [
     'run',
+    '--no-build',
+    '-c',
+    'Debug',
     '--project',
     projectPath,
     '--property:SelfContained=false',
