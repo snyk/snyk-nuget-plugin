@@ -158,7 +158,9 @@ export async function restore(
     '--verbosity',
     'normal',
     projectPath, // No quotes needed - spawn passes arguments directly without shell interpretation
-    '--p=MSBuildEnableWorkloadResolver=true;TreatWarningsAsErrors=false;WarningsAsErrors=',
+    // SelfContained=false: the probe opts out of the apphost, which the SDK rejects (NETSDK1067)
+    // if SelfContained=true leaks in from the customer's environment or pipeline variables.
+    '--p=MSBuildEnableWorkloadResolver=true;TreatWarningsAsErrors=false;WarningsAsErrors=;SelfContained=false',
   ];
   await handle('restore', command, args, workingDirectory);
   return;
@@ -169,7 +171,13 @@ export async function run(
   options: string[],
 ): Promise<string> {
   const command = 'dotnet';
-  const args = ['run', '--project', projectPath].concat(options);
+  // Must match restore: an ambient SelfContained=true fails the run's build too.
+  const args = [
+    'run',
+    '--project',
+    projectPath,
+    '--property:SelfContained=false',
+  ].concat(options);
   const response = await handle('run', command, args);
   const stdout = response.stdout;
   return stdout.slice(
