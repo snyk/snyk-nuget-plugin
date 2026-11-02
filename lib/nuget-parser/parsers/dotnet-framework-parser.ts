@@ -58,13 +58,29 @@ function injectPath(dep, packagesFolder) {
   }
 }
 
+// NuGet package ids are case-insensitive, so lookups go through a
+// lowercase id -> canonical name index over the installed package list.
+function buildCanonicalNameIndex(
+  flattenedPackageList: Record<string, any>,
+): Map<string, string> {
+  const index = new Map<string, string>();
+  for (const name of Object.keys(flattenedPackageList)) {
+    index.set(name.toLowerCase(), name);
+  }
+  return index;
+}
+
 function scanInstalled(installedPackages, packagesFolder) {
   const flattenedPackageList = {};
+  const canonicalNames = new Map<string, string>();
   debug('Located ' + installedPackages.length + ' packages in manifest');
   installedPackages.forEach((entry) => {
     injectPath(entry, packagesFolder);
-    flattenedPackageList[entry.name] =
-      flattenedPackageList[entry.name] || entry;
+    const existingName = canonicalNames.get(entry.name.toLowerCase());
+    if (existingName === undefined) {
+      flattenedPackageList[entry.name] = entry;
+      canonicalNames.set(entry.name.toLowerCase(), entry.name);
+    }
     debug('Entry: ' + entry.name + ' -> ' + entry.path);
   });
   try {
@@ -83,23 +99,32 @@ function scanInstalled(installedPackages, packagesFolder) {
       .forEach((dep) => {
         if (dep) {
           injectPath(dep, packagesFolder);
-          // only add a package from packages folder if version is different
+          const existingName = canonicalNames.get(dep.name.toLowerCase());
+          const existing =
+            existingName !== undefined
+              ? flattenedPackageList[existingName]
+              : undefined;
+          // only add a package from packages folder if version or casing is different
           if (
-            flattenedPackageList[dep.name] &&
-            flattenedPackageList[dep.name].version !== dep.version
+            existing &&
+            (existing.version !== dep.version || existingName !== dep.name)
           ) {
             // prefer found from packages folder (dep) over existing
             debug(
               'For package ' +
                 dep.name +
                 ' the version ' +
-                flattenedPackageList[dep.name].version +
+                existing.version +
                 ' was extracted from manifest file.' +
                 '\nWe are overwriting it with version ' +
                 dep.version +
                 ' from the packages folder',
             );
+            if (existingName !== dep.name) {
+              delete flattenedPackageList[existingName as string];
+            }
             flattenedPackageList[dep.name] = dep;
+            canonicalNames.set(dep.name.toLowerCase(), dep.name);
           }
         }
       });
@@ -151,14 +176,14 @@ function buildTree(
   requiredChildren,
   flattenedPackageList,
   nuspecResolutions,
+  canonicalNames: Map<string, string>,
 ) {
   for (const requiredChild of requiredChildren) {
     let transitiveDependency: Dependency;
-    if (flattenedPackageList[requiredChild.name]) {
-      // fetch from repo
-      transitiveDependency = cloneShallow(
-        flattenedPackageList[requiredChild.name],
-      );
+    const installedName = canonicalNames.get(requiredChild.name.toLowerCase());
+    if (installedName !== undefined) {
+      // fetch from repo, keeping the installed package's casing
+      transitiveDependency = cloneShallow(flattenedPackageList[installedName]);
     } else {
       // create as new (uninstalled)
       transitiveDependency = {
@@ -176,6 +201,7 @@ function buildTree(
       transitiveChildren,
       flattenedPackageList,
       nuspecResolutions,
+      canonicalNames,
     );
     node.dependencies[transitiveDependency.name] = transitiveDependency;
   }
@@ -196,6 +222,7 @@ export async function parse(tree, manifest, targetFramework, packagesFolder) {
   // now the flat list should be rebuilt as a tree
   debug('Building dependency tree');
 
+  const canonicalNames = buildCanonicalNameIndex(flattenedPackageList);
   const nugetKeys = Object.keys(nuspecResolutions);
   Object.keys(flattenedPackageList).forEach((packageName) => {
     tree.dependencies[packageName] = cloneShallow(
@@ -212,6 +239,7 @@ export async function parse(tree, manifest, targetFramework, packagesFolder) {
         resolution.children,
         flattenedPackageList,
         nuspecResolutions,
+        canonicalNames,
       );
       tree.dependencies[node.name] = node;
     }
