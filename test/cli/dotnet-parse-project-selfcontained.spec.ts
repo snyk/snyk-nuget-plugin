@@ -6,9 +6,9 @@ import * as types from '../../lib/nuget-parser/types';
 
 // Regression test for NETSDK1067 "Self-contained applications are required to use the
 // application host": the probe opts out of the apphost, so an ambient SelfContained=true
-// (env var or CI pipeline variable) fails both restore and run unless we override it.
+// (env var or CI pipeline variable) fails both build and run unless we override it.
 describe('Parse.csproj with ambient SelfContained=true', () => {
-  it('still restores and runs', async () => {
+  it('still builds and runs', async () => {
     let projectDir: string | undefined;
     const previous = process.env.SelfContained;
     process.env.SelfContained = 'true';
@@ -16,7 +16,7 @@ describe('Parse.csproj with ambient SelfContained=true', () => {
       const sdkVersion = await dotnet.validate();
       projectDir = nugetFrameworksParser.generate(sdkVersion);
 
-      await dotnet.restore(projectDir);
+      await dotnet.build(projectDir);
       const response = await dotnet.run(projectDir, ['net6.0']);
       const info: types.TargetFrameworkInfo = JSON.parse(response);
       expect(info.ShortName).toEqual('net6.0');

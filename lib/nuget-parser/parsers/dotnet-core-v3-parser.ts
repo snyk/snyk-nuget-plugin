@@ -16,12 +16,38 @@ export const FILTERED_DEPENDENCY_PREFIX = [
   'runtime',
 ];
 
+// Tallied while a graph is built and logged once per graph. Logging every edge as it was
+// walked wrote tens of thousands of lines per project under -d, which on CI agents piping the
+// output to a console cost as much time as the scan itself (OSM-3889).
+interface GraphStats {
+  added: number;
+  pruned: number;
+  ignored: Set<string>;
+  missing: Set<string>;
+  versionMismatches: Set<string>;
+}
+
+function newGraphStats(): GraphStats {
+  return {
+    added: 0,
+    pruned: 0,
+    ignored: new Set(),
+    missing: new Set(),
+    versionMismatches: new Set(),
+  };
+}
+
+function summariseNames(names: Set<string>): string {
+  return names.size === 0 ? 'none' : [...names].sort().join(', ');
+}
+
 function recursivelyPopulateNodes(
   depGraphBuilder: DepGraphBuilder,
   resolvedPackages: ResolvedPackagesMap,
   parentID: string,
   dependencies: Record<string, string>,
   overrides: Overrides,
+  stats: GraphStats,
   visited?: Set<string>,
 ) {
   if (!dependencies) {
@@ -37,7 +63,7 @@ function recursivelyPopulateNodes(
     if (
       FILTERED_DEPENDENCY_PREFIX.some((prefix) => childName.startsWith(prefix))
     ) {
-      debug(`${childName} matched a prefix we ignore, not adding to graph`);
+      stats.ignored.add(childName);
       continue;
     }
 
@@ -47,9 +73,7 @@ function recursivelyPopulateNodes(
     const lowercaseChildName = childName.toLowerCase();
     const resolvedPackage = resolvedPackages[lowercaseChildName];
     if (!resolvedPackage) {
-      debug(
-        `Child package ${childName} not found in lock file packages for framework.`,
-      );
+      stats.missing.add(childName);
       continue;
     }
 
@@ -60,8 +84,8 @@ function recursivelyPopulateNodes(
     } = resolvedPackage;
 
     if (childResolvedVersion !== actualResolvedVersion) {
-      debug(
-        `Version mismatch for ${childName}: declared ${childResolvedVersion}, using resolved ${actualResolvedVersion}`,
+      stats.versionMismatches.add(
+        `${childName} (declared ${childResolvedVersion}, resolved ${actualResolvedVersion})`,
       );
     }
 
@@ -90,7 +114,7 @@ function recursivelyPopulateNodes(
         },
       );
       depGraphBuilder.connectDep(parentID, prunedID);
-      debug(`Pruning duplicate dependency: ${parentID} -> ${childID}`);
+      stats.pruned++;
       continue;
     }
 
@@ -100,8 +124,7 @@ function recursivelyPopulateNodes(
     );
     depGraphBuilder.connectDep(parentID, childID);
     localVisited.add(childID);
-
-    debug(`Adding dependency: ${parentID} -> ${childID}`);
+    stats.added++;
 
     recursivelyPopulateNodes(
       depGraphBuilder,
@@ -109,6 +132,7 @@ function recursivelyPopulateNodes(
       childID,
       childPkgEntry.dependencies,
       overrides,
+      stats,
       localVisited,
     );
   }
@@ -197,12 +221,21 @@ function buildDepGraph(
   }
 
   // Start recursive population from direct dependencies
+  const stats = newGraphStats();
   recursivelyPopulateNodes(
     depGraphBuilder,
     resolvedPackages,
     'root-node',
     directDependencies, // Pass the direct dependencies object
     overrides,
+    stats,
+  );
+
+  debug(
+    `Built ${assetsTargetFramework} dep graph for ${projectName}: ${stats.added} dependencies added, ${stats.pruned} pruned as duplicates. ` +
+      `Ignored by prefix: ${summariseNames(stats.ignored)}. ` +
+      `Not in lock file: ${summariseNames(stats.missing)}. ` +
+      `Version mismatches: ${summariseNames(stats.versionMismatches)}.`,
   );
 
   return depGraphBuilder.build();
