@@ -21,10 +21,10 @@ defaults_test: &defaults_test
       enum: [ "unit", "smoke" ]
 
 matrix_unix_node_version: &matrix_unix_node_version
-  node_version: [ "18.16.0", "20.3.1", '22.23.1', '24.16.0' ]
+  node_version: [ '22', '24', '26' ]
 
 matrix_windows_node_version: &matrix_windows_node_version
-  node_version: [ "18.16.0", "20.3.1", '22.23.1', '24.16.0' ]
+  node_version: [ '22', '24', '26' ]
 
 filters_branches_only_main: &filters_branches_only_main
   filters:
@@ -173,7 +173,12 @@ jobs:
       - install_dotnet:
           os: "windows"
       - show_dotnet_version
-      - node/install
+      - run:
+          name: Install Node.js << parameters.node_version >>
+          command: nvm install << parameters.node_version >>
+      - run:
+          name: Use Node.js << parameters.node_version >>
+          command: nvm use << parameters.node_version >>
       - node_install_packages
       - show_node_version
       - run:
@@ -229,7 +234,7 @@ workflows:
 
       - security-scans:
           name: Security Scans
-          node_version: "lts"
+          node_version: "24"
           context:
             - engines_sca-scanners
             - nodejs-install
@@ -238,7 +243,7 @@ workflows:
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: "lts"
+          node_version: "24"
 
       - test-unix:
           matrix:
@@ -257,7 +262,7 @@ workflows:
             alias: test-unix-smoke
             parameters:
               test_type: [ "smoke" ]
-              node_version: [ "lts" ]
+              node_version: [ '22' ]
           name: Unix Smoke Tests for Node=<< matrix.node_version >>
           context: nodejs-install
           node_version: "<< matrix.node_version >>"
@@ -281,7 +286,7 @@ workflows:
             alias: test-windows-smoke
             parameters:
               test_type: [ "smoke" ]
-              node_version: [ "lts" ]
+              node_version: [ '22' ]
           name: Windows Smoke Tests for Node=<< matrix.node_version >>
           context: nodejs-install
           node_version: "<< matrix.node_version >>"
@@ -293,7 +298,7 @@ workflows:
           context:
             - nodejs-install
             - github-release
-          node_version: "lts"
+          node_version: "24"  # npm 11+ (Node 24) is needed for OIDC trusted publishing
           requires:
             - test-unix-unit
             - test-unix-smoke
