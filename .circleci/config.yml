@@ -48,7 +48,7 @@ commands:
           command: touch package-lock.json
       - node/install-packages:
           cache-only-lockfile: false
-          override-ci-command: npm i
+          override-ci-command: npm ci
 
   show_node_version:
     description: Log Node and npm version
@@ -140,7 +140,7 @@ jobs:
       - node_install_packages
       - run:
           name: Generate package-lock.json (Required for snyk OS scanning)
-          command: npm install --package-lock
+          command: npm ci
       - show_node_version
       - prodsec/security_scans:
           mode: auto

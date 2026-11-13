@@ -2,7 +2,6 @@
 
 dist
 node_modules
-package-lock.json
 !test/fixtures/**/package-lock.json
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
