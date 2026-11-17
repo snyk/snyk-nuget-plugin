@@ -1,4 +1,5 @@
 import { spawn, SpawnOptions } from 'child_process';
+import { cleanSnykEnv } from '@snyk/cli-interface';
 
 interface ProcessOptions {
   cwd?: string;
@@ -25,17 +26,7 @@ function makeSpawnOptions(options?: ProcessOptions) {
     spawnOptions.env = { ...spawnOptions.env };
   }
 
-  // Before spawning an external process, we check if we need to
-  // restore the system proxy configuration, which overrides the CLI internal proxy configuration.
-  if (process.env.SNYK_SYSTEM_HTTP_PROXY !== undefined) {
-    spawnOptions.env.HTTP_PROXY = process.env.SNYK_SYSTEM_HTTP_PROXY;
-  }
-  if (process.env.SNYK_SYSTEM_HTTPS_PROXY !== undefined) {
-    spawnOptions.env.HTTPS_PROXY = process.env.SNYK_SYSTEM_HTTPS_PROXY;
-  }
-  if (process.env.SNYK_SYSTEM_NO_PROXY !== undefined) {
-    spawnOptions.env.NO_PROXY = process.env.SNYK_SYSTEM_NO_PROXY;
-  }
+  spawnOptions.env = cleanSnykEnv(spawnOptions.env, process.env);
 
   return spawnOptions;
 }
