@@ -44,7 +44,9 @@ function isScanned(nodes: Dependency[], pkg: Dependency): boolean {
 }
 
 function isFreqDep(packageName: string): boolean {
-  return packageName in freqDeps;
+  return Object.keys(freqDeps).some(
+    (name) => name.toLowerCase() === packageName.toLowerCase(),
+  );
 }
 
 function pick(obj: Record<string, unknown>, keys: string[]) {
@@ -74,7 +76,7 @@ function findPackage(targetDeps, depName: string): Dependency | undefined {
       currentResolvedName.split(PACKAGE_DELIMITER);
     if (currentDepName.toLowerCase() === depNameLowerCase) {
       return {
-        name: depName,
+        name: currentDepName,
         version: currentDepVersion,
         dependencies: targetDeps[currentDep].dependencies,
       };
@@ -86,15 +88,18 @@ function findPackage(targetDeps, depName: string): Dependency | undefined {
 
 function constructTree(roots: string[], nodes: Dependency[], links: DepLink[]) {
   const treeMap = {};
+  const resolvedNames = new Map<string, string>();
   for (const node of nodes) {
     const { name, version } = node;
     const treeNode = { name, version, dependencies: {} };
     treeMap[name] = treeNode;
+    resolvedNames.set(name.toLowerCase(), name);
   }
 
   for (const link of links) {
     const parentName = link.from.name;
-    const childName = link.to.name;
+    const childName =
+      resolvedNames.get(link.to.name.toLowerCase()) ?? link.to.name;
     const parentNode = treeMap[parentName];
     const childNode = treeMap[childName];
     if (!isFreqDep(childName)) {
@@ -104,8 +109,11 @@ function constructTree(roots: string[], nodes: Dependency[], links: DepLink[]) {
     }
   }
 
-  const tree = pick(treeMap, roots);
-  const freqSysDeps = pick(treeMap, Object.keys(freqDeps));
+  const resolvedRoots = roots.map(
+    (name) => resolvedNames.get(name.toLowerCase()) ?? name,
+  );
+  const tree = pick(treeMap, resolvedRoots);
+  const freqSysDeps = pick(treeMap, Object.keys(treeMap).filter(isFreqDep));
   if (Object.keys(freqSysDeps).length > 0) {
     tree['freqSystemDependencies'] = {
       name: 'freqSystemDependencies',

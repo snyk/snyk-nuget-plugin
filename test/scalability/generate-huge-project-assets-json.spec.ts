@@ -231,12 +231,12 @@ describe('parse large dependency tree', () => {
 
     const result = parse(tree, manifest);
 
-    expect(Object.keys(result.dependencies.jquery.dependencies).length).toBe(
+    expect(Object.keys(result.dependencies.jQuery.dependencies).length).toBe(
       rootDepNum,
     );
     expect(
       Object.keys(
-        result.dependencies.jquery.dependencies['generated_root_dep_num_0']
+        result.dependencies.jQuery.dependencies['generated_root_dep_num_0']
           .dependencies,
       ).length,
     ).toBe(duplicationNumber);
