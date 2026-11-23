@@ -1,5 +1,8 @@
 import { describe, expect, it } from '@jest/globals';
-import { parseSdkInfoFromDotnetOutput } from '../../lib/nuget-parser/runtime-assembly-v2';
+import {
+  parsePackageOverrides,
+  parseSdkInfoFromDotnetOutput,
+} from '../../lib/nuget-parser/runtime-assembly-v2';
 
 describe('parseSdkInfoFromDotnetOutput', () => {
   it('parses SDK version and path when Host Version equals SDK version', () => {
@@ -129,5 +132,33 @@ describe('parseSdkInfoFromDotnetOutput', () => {
     expect(() => parseSdkInfoFromDotnetOutput(infoOutput)).toThrow(
       'Could not fetch details about the dotnet SDK',
     );
+  });
+});
+
+describe('parsePackageOverrides', () => {
+  it('reads each package and its version, trimming carriage returns', () => {
+    expect(
+      parsePackageOverrides('System.Memory|5.0.0\r\nSystem.Runtime|4.3.1\n'),
+    ).toEqual({ 'System.Memory': '5.0.0', 'System.Runtime': '4.3.1' });
+  });
+
+  // SDK 11's list adds meta-packages so it can prune them. The shared framework ships no
+  // assembly for them, so rewriting their version to the runtime's invents versions such
+  // as NETStandard.Library@8.0.0.
+  it('skips meta-packages the shared framework ships no assembly for', () => {
+    const sdk11Entries = [
+      'NETStandard.Library|2.0.3',
+      'Microsoft.NETCore.App|2.2.8',
+      'Microsoft.NETCore.Targets|5.0.0',
+      'Microsoft.NETCore.Platforms|11.0.0',
+      'Microsoft.NETCore.Jit|2.0.8',
+      'Microsoft.NETCore.Runtime.CoreCLR|2.0.8',
+      'Microsoft.NETCore.Windows.ApiSets|1.0.1',
+      'runtime.native.System|4.3.1',
+    ].join('\n');
+
+    expect(parsePackageOverrides(sdk11Entries)).toEqual({
+      'runtime.native.System': '4.3.1',
+    });
   });
 });
