@@ -316,3 +316,65 @@ describe('dotnet error handling', () => {
     }
   });
 });
+
+describe('dotnet child environment', () => {
+  const saved = process.env.MSBUILDUSESERVER;
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+    if (saved === undefined) {
+      delete process.env.MSBUILDUSESERVER;
+    } else {
+      process.env.MSBUILDUSESERVER = saved;
+    }
+  });
+
+  // restore and build are the commands that start the server, so test through them rather
+  // than through a command that never would.
+  const serverCommands: [string, () => Promise<unknown>][] = [
+    ['restore', () => dotnet.restore('project.csproj', os.tmpdir())],
+    ['build', () => dotnet.build('project.csproj')],
+  ];
+
+  function mockExecute() {
+    return jest
+      .spyOn(subprocess, 'execute')
+      .mockResolvedValue({ stdout: '', stderr: '' });
+  }
+
+  it.each(serverCommands)(
+    'turns off the MSBuild server for %s, which SDK 11 would otherwise leave running',
+    async (_name, run) => {
+      delete process.env.MSBUILDUSESERVER;
+      const spy = mockExecute();
+
+      await run();
+
+      expect(spy.mock.calls[0][2]?.env?.MSBUILDUSESERVER).toBe('0');
+    },
+  );
+
+  it.each(serverCommands)(
+    'treats an empty MSBUILDUSESERVER as unset for %s',
+    async (_name, run) => {
+      process.env.MSBUILDUSESERVER = '';
+      const spy = mockExecute();
+
+      await run();
+
+      expect(spy.mock.calls[0][2]?.env?.MSBUILDUSESERVER).toBe('0');
+    },
+  );
+
+  it.each(serverCommands)(
+    'keeps an MSBuild server setting the user chose for %s',
+    async (_name, run) => {
+      process.env.MSBUILDUSESERVER = '1';
+      const spy = mockExecute();
+
+      await run();
+
+      expect(spy.mock.calls[0][2]?.env?.MSBUILDUSESERVER).toBe('1');
+    },
+  );
+});

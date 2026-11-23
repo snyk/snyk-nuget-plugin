@@ -275,6 +275,20 @@ describe('when generating depGraphs with runtime resolution', () => {
       targetFramework: 'net10.0-windows',
       manifestFilePath: 'obj/project.assets.json',
     },
+    {
+      description: 'parse dotnet 11.0',
+      projectPath: './test/fixtures/dotnetcore/dotnet_11',
+      projectFile: 'dotnet_11.csproj',
+      targetFramework: 'net11.0',
+      manifestFilePath: 'obj/project.assets.json',
+    },
+    {
+      description: 'parse dotnet 11.0 with windows workload',
+      projectPath: './test/fixtures/dotnetcore/dotnet_11_windows_workload',
+      projectFile: 'dotnet_11_windows_workload.csproj',
+      targetFramework: 'net11.0-windows',
+      manifestFilePath: 'obj/project.assets.json',
+    },
   ])(
     'succeeds given a project file and returns a single dependency graph for single-targetFramework projects: $description',
     async ({
