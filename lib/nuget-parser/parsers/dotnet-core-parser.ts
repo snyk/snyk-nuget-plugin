@@ -7,6 +7,9 @@ const debug = debugModule('snyk');
 
 const PACKAGE_DELIMITER = '@';
 
+// The synthetic node that groups frequent system packages under the root.
+export const FREQ_SYSTEM_DEPENDENCIES = 'freqSystemDependencies';
+
 // TODO: any convention for global vars? (gFreqDeps)
 interface FreqDepParent {
   dependencies: any;
@@ -115,8 +118,8 @@ function constructTree(roots: string[], nodes: Dependency[], links: DepLink[]) {
   const tree = pick(treeMap, resolvedRoots);
   const freqSysDeps = pick(treeMap, Object.keys(treeMap).filter(isFreqDep));
   if (Object.keys(freqSysDeps).length > 0) {
-    tree['freqSystemDependencies'] = {
-      name: 'freqSystemDependencies',
+    tree[FREQ_SYSTEM_DEPENDENCIES] = {
+      name: FREQ_SYSTEM_DEPENDENCIES,
       version: '0.0.0',
       dependencies: freqSysDeps,
     };

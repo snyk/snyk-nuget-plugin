@@ -196,6 +196,7 @@ export async function inspect(
       manifestType,
       options['assets-project-name'],
       options['project-name-prefix'],
+      !!options.includeComponentMetadata,
     )
     .then(createPackageTree);
 }

@@ -23,6 +23,7 @@ import {
   Overrides,
 } from './types';
 import * as dotnet from './cli/dotnet';
+import * as componentMetadata from './component-metadata-labels';
 import * as dotnetCache from './cli/dotnet-cache';
 import {
   findLatestMatchingVersion,
@@ -392,6 +393,7 @@ export async function buildDepTreeFromFiles(
   manifestType: ManifestType,
   useProjectNameFromAssetsFile: boolean,
   projectNamePrefix?: string,
+  includeComponentMetadata?: boolean,
 ) {
   const safeRoot = root || '.';
   const safeTargetFile = targetFile || '.';
@@ -493,10 +495,35 @@ export async function buildDepTreeFromFiles(
     }
   }
 
-  return parser.depParser.parse(
+  const depTree = await parser.depParser.parse(
     tree,
     manifest,
     targetFramework,
     packagesFolder,
   );
+
+  // project.json is left out: it restores to the v3 global packages folder,
+  // not the packages folder this parser reads.
+  if (includeComponentMetadata) {
+    if (manifestType === ManifestType.DOTNET_CORE) {
+      const packageFolders =
+        componentMetadata.packageFoldersFromAssets(manifest);
+      const packages = componentMetadata.packageLibrariesFromAssets(manifest);
+      componentMetadata.labelDepTree(depTree, (id, version) =>
+        packages.has(`${id}/${version}`.toLowerCase())
+          ? componentMetadata.packageReferenceLabels(
+              id,
+              version,
+              packageFolders,
+            )
+          : {},
+      );
+    } else if (manifestType === ManifestType.PACKAGES_CONFIG) {
+      componentMetadata.labelDepTree(depTree, (id, version) =>
+        componentMetadata.packagesConfigLabels(id, version, packagesFolder),
+      );
+    }
+  }
+
+  return depTree;
 }
