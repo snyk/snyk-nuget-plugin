@@ -286,11 +286,16 @@ export function labelDepTree(
   labelsFor: (id: string, version: string) => ComponentMetadataLabels,
 ): void {
   const cache = new Map<string, ComponentMetadataLabels>();
+  // The parsers share a package's node across every edge that reaches it, and
+  // a dependency cycle reaches it again from below, so each node object is
+  // walked once.
+  const visited = new Set<object>();
   const visit = (node: any) => {
     for (const child of Object.values<any>(node?.dependencies || {})) {
-      if (!child) {
+      if (!child || visited.has(child)) {
         continue;
       }
+      visited.add(child);
       if (child.name !== FREQ_SYSTEM_DEPENDENCIES && child.version) {
         const key = `${child.name}@${child.version}`;
         let labels = cache.get(key);

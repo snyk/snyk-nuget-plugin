@@ -10,6 +10,7 @@ import * as plugin from '../../lib';
 import {
   base64Sha512ToHex,
   distributionUrl,
+  labelDepTree,
   sanitizeUrl,
 } from '../../lib/nuget-parser/component-metadata-labels';
 
@@ -644,5 +645,46 @@ describe('component metadata labels', () => {
       );
       expect(distributionUrl(undefined, 'a', '1.0.0')).toBeUndefined();
     });
+  });
+});
+
+describe('labelDepTree on shared and cyclic trees', () => {
+  // The core parser shares each package's dependencies object across edges,
+  // so the walk must visit each node once.
+  it('labels a cyclic tree without looping', () => {
+    const a: any = { name: 'A', version: '1.0.0', dependencies: {} };
+    const b: any = { name: 'B', version: '1.0.0', dependencies: {} };
+    a.dependencies.B = b;
+    b.dependencies.A = a;
+    const root: any = {
+      name: 'root',
+      version: '0.0.0',
+      dependencies: { A: a },
+    };
+
+    labelDepTree(root, (id) => ({ 'hash:sha-512': `h-${id}` }));
+
+    expect(a.labels).toEqual({ 'hash:sha-512': 'h-A' });
+    expect(b.labels).toEqual({ 'hash:sha-512': 'h-B' });
+  });
+
+  it('walks a shared subtree once', () => {
+    const shared: any = { name: 'S', version: '1.0.0', dependencies: {} };
+    const root: any = {
+      name: 'root',
+      version: '0.0.0',
+      dependencies: {
+        X: { name: 'X', version: '1.0.0', dependencies: { S: shared } },
+        Y: { name: 'Y', version: '1.0.0', dependencies: { S: shared } },
+      },
+    };
+    const calls: string[] = [];
+
+    labelDepTree(root, (id) => {
+      calls.push(id);
+      return {};
+    });
+
+    expect(calls.sort()).toEqual(['S', 'X', 'Y']);
   });
 });
