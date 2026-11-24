@@ -132,6 +132,15 @@ describe('when generating depGraphs with runtime resolution', () => {
       manifestFilePath: 'obj/project.assets.json',
     },
     {
+      description:
+        'parse dotnet 8.0 with a ProjectReference to a local project named like a public package',
+      projectPath:
+        './test/fixtures/dotnetcore/dotnet_8_project_reference_name_clash/Consumer',
+      projectFile: 'Consumer.csproj',
+      targetFramework: 'net8.0',
+      manifestFilePath: 'obj/project.assets.json',
+    },
+    {
       description: 'parse dotnet 8.0 with PublishSingleFile turned on',
       projectPath: './test/fixtures/dotnetcore/dotnet_8_publish_single_file',
       projectFile: 'dotnet_8_publish_single_file.csproj',

@@ -216,13 +216,6 @@
         }
       },
       {
-        "id": "dotnet_8_second_project@1.0.0",
-        "info": {
-          "name": "dotnet_8_second_project",
-          "version": "1.0.0"
-        }
-      },
-      {
         "id": "System.Formats.Asn1@8.0.1",
         "info": {
           "name": "System.Formats.Asn1",
@@ -244,7 +237,7 @@
               "nodeId": "System.Text.Json@8.0.4"
             },
             {
-              "nodeId": "dotnet_8_second_project@1.0.0"
+              "nodeId": "System.Formats.Asn1@8.0.1"
             }
           ]
         },
@@ -683,31 +676,9 @@
           "deps": []
         },
         {
-          "nodeId": "dotnet_8_second_project@1.0.0",
-          "pkgId": "dotnet_8_second_project@1.0.0",
-          "deps": [
-            {
-              "nodeId": "System.Formats.Asn1@8.0.1"
-            },
-            {
-              "nodeId": "System.Text.Json@8.0.4:pruned"
-            }
-          ]
-        },
-        {
           "nodeId": "System.Formats.Asn1@8.0.1",
           "pkgId": "System.Formats.Asn1@8.0.1",
           "deps": []
-        },
-        {
-          "nodeId": "System.Text.Json@8.0.4:pruned",
-          "pkgId": "System.Text.Json@8.0.4",
-          "deps": [],
-          "info": {
-            "labels": {
-              "pruned": "true"
-            }
-          }
         }
       ]
     }

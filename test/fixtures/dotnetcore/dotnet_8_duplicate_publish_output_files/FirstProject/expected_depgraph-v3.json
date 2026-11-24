@@ -11,13 +11,6 @@
           "name": "FirstProject",
           "version": "1.0.0"
         }
-      },
-      {
-        "id": "dotnet_8_duplicate_publish_output_second@1.0.0",
-        "info": {
-          "name": "dotnet_8_duplicate_publish_output_second",
-          "version": "1.0.0"
-        }
       }
     ],
     "graph": {
@@ -26,15 +19,6 @@
         {
           "nodeId": "root-node",
           "pkgId": "FirstProject@1.0.0",
-          "deps": [
-            {
-              "nodeId": "dotnet_8_duplicate_publish_output_second@1.0.0"
-            }
-          ]
-        },
-        {
-          "nodeId": "dotnet_8_duplicate_publish_output_second@1.0.0",
-          "pkgId": "dotnet_8_duplicate_publish_output_second@1.0.0",
           "deps": []
         }
       ]

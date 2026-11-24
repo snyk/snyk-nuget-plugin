@@ -1,0 +1,151 @@
+{
+  "depGraph": {
+    "schemaVersion": "1.3.0",
+    "pkgManager": {
+      "name": "nuget"
+    },
+    "pkgs": [
+      {
+        "id": "Consumer@1.0.0",
+        "info": {
+          "name": "Consumer",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "id": "log4net@2.0.17",
+        "info": {
+          "name": "log4net",
+          "version": "2.0.17"
+        }
+      },
+      {
+        "id": "System.Configuration.ConfigurationManager@4.5.0",
+        "info": {
+          "name": "System.Configuration.ConfigurationManager",
+          "version": "4.5.0"
+        }
+      },
+      {
+        "id": "System.Security.Cryptography.ProtectedData@4.5.0",
+        "info": {
+          "name": "System.Security.Cryptography.ProtectedData",
+          "version": "4.5.0"
+        }
+      },
+      {
+        "id": "System.Security.Permissions@4.5.0",
+        "info": {
+          "name": "System.Security.Permissions",
+          "version": "4.5.0"
+        }
+      },
+      {
+        "id": "System.Security.AccessControl@8.0.0",
+        "info": {
+          "name": "System.Security.AccessControl",
+          "version": "8.0.0"
+        }
+      },
+      {
+        "id": "Microsoft.NETCore.Platforms@2.0.0",
+        "info": {
+          "name": "Microsoft.NETCore.Platforms",
+          "version": "2.0.0"
+        }
+      },
+      {
+        "id": "System.Security.Principal.Windows@8.0.0",
+        "info": {
+          "name": "System.Security.Principal.Windows",
+          "version": "8.0.0"
+        }
+      }
+    ],
+    "graph": {
+      "rootNodeId": "root-node",
+      "nodes": [
+        {
+          "nodeId": "root-node",
+          "pkgId": "Consumer@1.0.0",
+          "deps": [
+            {
+              "nodeId": "log4net@2.0.17"
+            }
+          ]
+        },
+        {
+          "nodeId": "log4net@2.0.17",
+          "pkgId": "log4net@2.0.17",
+          "deps": [
+            {
+              "nodeId": "System.Configuration.ConfigurationManager@4.5.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Configuration.ConfigurationManager@4.5.0",
+          "pkgId": "System.Configuration.ConfigurationManager@4.5.0",
+          "deps": [
+            {
+              "nodeId": "System.Security.Cryptography.ProtectedData@4.5.0"
+            },
+            {
+              "nodeId": "System.Security.Permissions@4.5.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.Cryptography.ProtectedData@4.5.0",
+          "pkgId": "System.Security.Cryptography.ProtectedData@4.5.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Security.Permissions@4.5.0",
+          "pkgId": "System.Security.Permissions@4.5.0",
+          "deps": [
+            {
+              "nodeId": "System.Security.AccessControl@4.5.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "System.Security.AccessControl@4.5.0",
+          "pkgId": "System.Security.AccessControl@8.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@2.0.0"
+            },
+            {
+              "nodeId": "System.Security.Principal.Windows@4.5.0"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.NETCore.Platforms@2.0.0",
+          "pkgId": "Microsoft.NETCore.Platforms@2.0.0",
+          "deps": []
+        },
+        {
+          "nodeId": "System.Security.Principal.Windows@4.5.0",
+          "pkgId": "System.Security.Principal.Windows@8.0.0",
+          "deps": [
+            {
+              "nodeId": "Microsoft.NETCore.Platforms@2.0.0:pruned"
+            }
+          ]
+        },
+        {
+          "nodeId": "Microsoft.NETCore.Platforms@2.0.0:pruned",
+          "pkgId": "Microsoft.NETCore.Platforms@2.0.0",
+          "deps": [],
+          "info": {
+            "labels": {
+              "pruned": "true"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
