@@ -629,6 +629,15 @@ describe('component metadata labels', () => {
         'https://feed.example/oauth/authors/v3/index.json',
         'https://feed.example/oauth/authors/v3/index.json',
       ],
+      // A package or feed can be called auth; only /F/<feed>/auth/<key>/ carries a key.
+      [
+        'https://api.nuget.org/v3-flatcontainer/auth/1.0.0/auth.1.0.0.nupkg',
+        'https://api.nuget.org/v3-flatcontainer/auth/1.0.0/auth.1.0.0.nupkg',
+      ],
+      [
+        'https://feed.example/F/auth/api/v3/index.json',
+        'https://feed.example/F/auth/api/v3/index.json',
+      ],
     ])('sanitizes %s', (input, expected) => {
       expect(sanitizeUrl(input)).toEqual(expected);
     });

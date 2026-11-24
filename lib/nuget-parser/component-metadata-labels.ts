@@ -25,23 +25,32 @@ const MAX_SHA512_FILE_BYTES = 1024;
 const MAX_METADATA_FILE_BYTES = 1024 * 1024;
 
 // MyGet's pre-authenticated feeds carry the API key in the path:
-// /F/<feed>/auth/<key>/api/v3/index.json. Matches the Go producer's
-// hasAuthSegment (cli-extension-dep-graph pkg/ecosystems/componentmetadata).
+// /F/<feed>/auth/<key>/api/v3/index.json. Only that shape matches: a package or
+// feed can itself be called auth, and its URL must keep working. Matches the Go
+// producer's hasAuthSegment (cli-extension-dep-graph pkg/ecosystems/componentmetadata).
 function hasAuthSegment(pathname: string): boolean {
-  return pathname.split('/').some((segment) => {
-    let decoded = segment;
+  const segments = pathname.split('/').map((segment) => {
     try {
-      decoded = decodeURIComponent(segment);
+      return decodeURIComponent(segment);
     } catch {
-      // keep the raw segment
+      return segment;
     }
-    return decoded.toLowerCase() === 'auth';
   });
+  for (let i = 2; i + 1 < segments.length; i++) {
+    if (
+      segments[i].toLowerCase() === 'auth' &&
+      segments[i - 2].toLowerCase() === 'f' &&
+      segments[i + 1] !== ''
+    ) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // Reduce a URL to its identity: drop credentials, query and fragment, any of
 // which can carry authentication material. Only absolute http(s) URLs qualify,
-// which rules out local folder and UNC feeds. A URL with an `auth` path segment
+// which rules out local folder and UNC feeds. A MyGet pre-authenticated feed URL
 // is rejected outright, since a missing URL costs far less than a leaked key.
 // Other tokens embedded in a path cannot be recognised and are kept.
 export function sanitizeUrl(rawUrl: string): string | undefined {
