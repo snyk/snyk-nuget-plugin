@@ -56,6 +56,7 @@ function recursivelyPopulateNodes(
   stats: GraphStats,
   visitedCopy: Set<string>,
   reparenting = false,
+  expandedProjects: Set<string> = new Set(),
 ) {
   if (!dependencies) {
     return;
@@ -90,14 +91,14 @@ function recursivelyPopulateNodes(
       isProject,
     } = resolvedPackage;
 
-    // A local project is not a NuGet package. Its own dependencies are attached to the project's parent.
+    // A local project is not a NuGet package. It is replaced by its own dependencies, which attach to its parent.
+    // A project reached twice or in a cycle is expanded once per dependency list.
     if (isProject) {
-      const projectID = `${actualPkgName}@${actualResolvedVersion}`;
-      stats.projects.add(projectID);
-      if (localVisited.has(projectID)) {
+      stats.projects.add(`${actualPkgName}@${actualResolvedVersion}`);
+      if (expandedProjects.has(lowercaseChildName)) {
         continue;
       }
-      localVisited.add(projectID);
+      expandedProjects.add(lowercaseChildName);
       recursivelyPopulateNodes(
         depGraphBuilder,
         resolvedPackages,
@@ -107,6 +108,7 @@ function recursivelyPopulateNodes(
         stats,
         localVisited,
         true,
+        expandedProjects,
       );
       continue;
     }
@@ -236,9 +238,7 @@ function buildDepGraph(
       name,
       resolvedVersion: version,
       target,
-      isProject:
-        target.type === 'project' ||
-        projectAssets.libraries?.[key]?.type === 'project',
+      isProject: target.type?.toLowerCase() === 'project',
     };
   }
 

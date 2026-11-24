@@ -68,42 +68,81 @@ describe('v3 parser with project references', () => {
     expect(childrenOf(graph, 'log4net@2.0.17')).toEqual(['Leaf@1.0.0']);
   });
 
-  it('reads the project type from libraries when the target entry has none', () => {
+  it('flattens nested projects onto the nearest package or root', () => {
     const graph = parse(
       assets(
         {
-          ...log4net,
-          'Communicator/1.0.0': { dependencies: { log4net: '2.0.17' } },
-        },
-        ['Communicator >= 1.0.0'],
-        { 'Communicator/1.0.0': { type: 'project' } },
-      ),
-    );
-
-    expect(names(graph)).toEqual(['Leaf@1.0.0', 'log4net@2.0.17']);
-  });
-
-  it('re-parents through a chain of projects onto the nearest package', () => {
-    const graph = parse(
-      assets(
-        {
-          'Pkg/1.0.0': { type: 'package', dependencies: { Inner: '1.0.0' } },
-          'Inner/1.0.0': {
-            type: 'project',
-            dependencies: { Outer: '1.0.0' },
-          },
           'Outer/1.0.0': {
+            type: 'project',
+            dependencies: { Inner: '1.0.0', Serilog: '3.1.1' },
+          },
+          'Inner/1.0.0': {
             type: 'project',
             dependencies: { log4net: '2.0.17' },
           },
+          'Serilog/3.1.1': { type: 'package' },
           ...log4net,
         },
-        ['Pkg >= 1.0.0'],
+        ['Outer >= 1.0.0'],
       ),
     );
 
-    expect(names(graph)).toEqual(['Leaf@1.0.0', 'Pkg@1.0.0', 'log4net@2.0.17']);
-    expect(childrenOf(graph, 'Pkg@1.0.0')).toEqual(['log4net@2.0.17']);
+    expect(names(graph)).toEqual([
+      'Leaf@1.0.0',
+      'Serilog@3.1.1',
+      'log4net@2.0.17',
+    ]);
+    expect(childrenOf(graph, 'root-node')).toEqual([
+      'Serilog@3.1.1',
+      'log4net@2.0.17',
+    ]);
+    expect(childrenOf(graph, 'log4net@2.0.17')).toEqual(['Leaf@1.0.0']);
+  });
+
+  it('expands a project reached twice once', () => {
+    const graph = parse(
+      assets(
+        {
+          ...log4net,
+          'A/1.0.0': { type: 'project', dependencies: { Shared: '1.0.0' } },
+          'B/1.0.0': {
+            type: 'project',
+            dependencies: { Shared: '1.0.0', log4net: '2.0.17' },
+          },
+          'Shared/1.0.0': {
+            type: 'project',
+            dependencies: { Serilog: '3.1.1' },
+          },
+          'Serilog/3.1.1': { type: 'package' },
+        },
+        ['A >= 1.0.0', 'B >= 1.0.0'],
+      ),
+    );
+
+    expect(names(graph)).toEqual([
+      'Leaf@1.0.0',
+      'Serilog@3.1.1',
+      'log4net@2.0.17',
+    ]);
+    expect(childrenOf(graph, 'root-node')).toEqual([
+      'Serilog@3.1.1',
+      'log4net@2.0.17',
+    ]);
+  });
+
+  it('treats an entry with a missing or unknown type as a package', () => {
+    const graph = parse(
+      assets({ 'NoType/1.0.0': {}, 'Other/1.0.0': { type: 'unknown' } }, [
+        'NoType >= 1.0.0',
+        'Other >= 1.0.0',
+      ]),
+    );
+
+    expect(names(graph)).toEqual(['NoType@1.0.0', 'Other@1.0.0']);
+    expect(childrenOf(graph, 'root-node')).toEqual([
+      'NoType@1.0.0',
+      'Other@1.0.0',
+    ]);
   });
 
   it('does not duplicate a package that is also referenced directly', () => {
@@ -142,6 +181,7 @@ describe('v3 parser with project references', () => {
     );
 
     expect(names(graph)).toEqual(['Leaf@1.0.0', 'log4net@2.0.17']);
+    expect(childrenOf(graph, 'root-node')).toEqual(['log4net@2.0.17']);
   });
 
   it('gives a project with no dependencies an empty graph', () => {
