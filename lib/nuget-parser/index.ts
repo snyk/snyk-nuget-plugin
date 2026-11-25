@@ -28,6 +28,7 @@ import {
   findLatestMatchingVersion,
   PACKAGE_OVERRIDES_FILE,
   PACKS_PATH,
+  parsePackageOverrides,
 } from './runtime-assembly-v2';
 
 const debug = debugModule('snyk');
@@ -202,7 +203,7 @@ async function getResultsWithoutPublish(
       !framework.includes('netstandard') && !framework.includes('netcoreapp'),
   );
 
-  const overridesAssemblies: AssemblyVersions = {};
+  let overridesAssemblies: AssemblyVersions = {};
 
   // Only load runtime overrides if we have frameworks that need them (exclude netstandard and netcoreapp)
   if (needsRuntimeOverrides) {
@@ -213,13 +214,7 @@ async function getResultsWithoutPublish(
     try {
       const overridesPath: string = `${path.dirname(sdkPath)}${PACKS_PATH}${runtimeVersion}/${PACKAGE_OVERRIDES_FILE}`;
       const overridesText: string = fs.readFileSync(overridesPath, 'utf-8');
-      for (const pkg of overridesText.split('\n')) {
-        if (pkg) {
-          const [name, version] = pkg.split('|');
-          // Trim any carriage return
-          overridesAssemblies[name] = version.trim();
-        }
-      }
+      overridesAssemblies = parsePackageOverrides(overridesText);
     } catch (err) {
       throw new FileNotProcessableError(
         `Failed to read PackageOverrides.txt, error: ${err}`,
