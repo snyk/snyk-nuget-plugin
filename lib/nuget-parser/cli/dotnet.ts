@@ -77,6 +77,14 @@ function sanitizeForLogging(value: any): any {
   return value;
 }
 
+// SDK 11 starts an MSBuild server by default and leaves it running after the command exits.
+// A scan has no use for it, so opt out unless the user chose a setting. An empty value counts
+// as no setting, since the SDK treats it that way and would start the server. It is kept out
+// of `options`, which error messages print.
+function childEnv(): { [name: string]: string } {
+  return { MSBUILDUSESERVER: process.env.MSBUILDUSESERVER || '0' };
+}
+
 async function handle(
   operation: string,
   command: string,
@@ -88,7 +96,10 @@ async function handle(
   const options = projectPath ? { cwd: projectPath } : {};
 
   try {
-    return await subprocess.execute(command, args, options);
+    return await subprocess.execute(command, args, {
+      ...options,
+      env: childEnv(),
+    });
   } catch (error: unknown) {
     if (!(
       typeof error === 'object' &&

@@ -66,7 +66,7 @@ commands:
       - restore_cache:
           name: Restore Dotnet executable
           keys:
-            - dotnet-cli-{{ arch }}-v11
+            - dotnet-cli-{{ arch }}-v12
       - when:
           condition:
             equal: [ "unix", << parameters.os >> ]
@@ -74,7 +74,7 @@ commands:
             - run:
                 name: Download and install dotnet
                 command: |
-                      DOTNET_VERSIONS=("10.0.100" "9.0.201" "8.0.406" "7.0.410" "6.0.428")
+                      DOTNET_VERSIONS=("11.0.100" "10.0.100" "9.0.201" "8.0.406" "7.0.410" "6.0.428")
 
                       echo "dotnet could not be found or was of wrong version, removing existing and downloading new"
                       echo 
@@ -91,7 +91,7 @@ commands:
 
                       export PATH="$HOME/.local/bin:$PATH"
             - save_cache:
-                key: dotnet-cli-{{ arch }}-v11
+                key: dotnet-cli-{{ arch }}-v12
                 paths:
                   - ~/.local/apps/dotnet
                   - ~/.local/bin/dotnet
@@ -103,7 +103,7 @@ commands:
                 name: Download and install dotnet
                 # dotnet is already installed on Windows, removing it and install the desired versions.
                 command: |
-                      $DOTNET_VERSIONS = @("10.0.100", "9.0.201", "8.0.406", "7.0.410", "6.0.428")
+                      $DOTNET_VERSIONS = @("11.0.100", "10.0.100", "9.0.201", "8.0.406", "7.0.410", "6.0.428")
 
                       # Remove existing dotnet installation
                       Remove-Item -Path "C:\Program Files\dotnet" -Recurse -Force -ErrorAction SilentlyContinue
@@ -114,7 +114,7 @@ commands:
                       }
                 shell: powershell.exe
             - save_cache:
-                key: dotnet-cli-{{ arch }}-v11
+                key: dotnet-cli-{{ arch }}-v12
                 paths:
                   - C:\Program Files\dotnet
 
