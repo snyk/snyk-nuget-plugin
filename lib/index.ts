@@ -152,6 +152,11 @@ export async function inspect(
     // existing project.assets.json so we don't break environments that worked before
     // this flow was enabled.
     if (await dotnet.isInstalled()) {
+      if (options.includeComponentMetadata) {
+        debug(
+          'component metadata labels are not added on the runtime resolution path; skipping them.',
+        );
+      }
       return buildRuntimeResolutionResult(
         root,
         targetFile,

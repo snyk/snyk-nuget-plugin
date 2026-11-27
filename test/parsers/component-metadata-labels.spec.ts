@@ -9,6 +9,7 @@ import { legacy } from '@snyk/dep-graph';
 import * as plugin from '../../lib';
 import {
   base64Sha512ToHex,
+  sha512FileHex,
   distributionUrl,
   labelDepTree,
   sanitizeUrl,
@@ -584,6 +585,22 @@ describe('component metadata labels', () => {
   });
 
   describe('label helpers', () => {
+    it('hashes a .nupkg that spans several read chunks', () => {
+      const file = path.join(tmp, 'big.nupkg');
+      // 200 KB of random bytes spans several 64 KB chunks and a partial one.
+      const data = crypto.randomBytes(200 * 1024 + 123);
+      fs.writeFileSync(file, data);
+
+      expect(sha512FileHex(file)).toEqual(
+        crypto.createHash('sha512').update(data).digest('hex'),
+      );
+    });
+
+    it('returns no hash for a missing or non-regular .nupkg', () => {
+      expect(sha512FileHex(path.join(tmp, 'missing.nupkg'))).toBeUndefined();
+      expect(sha512FileHex(tmp)).toBeUndefined();
+    });
+
     it('converts a real .nupkg.sha512 value to lowercase hex', () => {
       // anglesharp 0.14.0 from nuget.org; hex computed with `base64 -d | xxd -p`.
       expect(

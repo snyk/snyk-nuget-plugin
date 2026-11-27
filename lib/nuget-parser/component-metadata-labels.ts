@@ -20,9 +20,10 @@ const NUGET_ORG_FLAT_CONTAINER = 'https://api.nuget.org/v3-flatcontainer';
 const SHA512_BYTES = 64;
 
 // Companion files are tiny; the caps stop a hostile repository pointing them at
-// something huge. A .nupkg is read whole, so Node's 2 GB read limit still applies.
+// something huge. A .nupkg is hashed in chunks rather than read whole.
 const MAX_SHA512_FILE_BYTES = 1024;
 const MAX_METADATA_FILE_BYTES = 1024 * 1024;
+const HASH_CHUNK_BYTES = 64 * 1024;
 
 // MyGet's pre-authenticated feeds carry the API key in the path:
 // /F/<feed>/auth/<key>/api/v3/index.json. Only that shape matches: a package or
@@ -111,12 +112,32 @@ function readRegularFile(
   }
 }
 
-function sha512FileHex(filePath: string): string | undefined {
-  const data = readRegularFile(filePath);
-  if (data === undefined) {
+export function sha512FileHex(filePath: string): string | undefined {
+  let fd: number | undefined;
+  try {
+    const stat = fs.statSync(filePath);
+    if (!stat.isFile()) {
+      debug(`Ignoring ${filePath}: not a regular file`);
+      return undefined;
+    }
+    fd = fs.openSync(filePath, 'r');
+    const hash = crypto.createHash('sha512');
+    const chunk = Buffer.alloc(HASH_CHUNK_BYTES);
+    let bytesRead: number;
+    while ((bytesRead = fs.readSync(fd, chunk, 0, chunk.length, null)) > 0) {
+      hash.update(chunk.subarray(0, bytesRead));
+    }
+    return hash.digest('hex');
+  } catch (error: unknown) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+      debug(`Could not read ${filePath}: ${error}`);
+    }
     return undefined;
+  } finally {
+    if (fd !== undefined) {
+      fs.closeSync(fd);
+    }
   }
-  return crypto.createHash('sha512').update(data).digest('hex');
 }
 
 function readSha512File(filePath: string): string | undefined {
