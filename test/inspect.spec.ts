@@ -11,6 +11,7 @@ import { NotSupportedEcosystem } from '../lib/errors';
 const INSPECT_OPTIONS = {};
 
 import * as nugetParser from '../lib/nuget-parser';
+import debugModule from 'debug';
 
 describe('when calling plugin.inspect with various configs', () => {
   it.each([
@@ -264,6 +265,38 @@ describe('when calling plugin.inspect with various configs', () => {
 
       expect(buildDepGraphSpy).toHaveBeenCalled();
       expect(buildDepTreeSpy).not.toHaveBeenCalled();
+    });
+
+    it('logs that component metadata labels are skipped on the runtime resolution path', async () => {
+      const logged: string[] = [];
+      const previousNamespaces = debugModule.disable();
+      debugModule.enable('snyk');
+      jest.spyOn(debugModule, 'log').mockImplementation((...args) => {
+        logged.push(args.join(' '));
+      });
+
+      try {
+        await plugin.inspect(
+          './test/fixtures/dotnetcore/netcoreapp31/',
+          'obj/project.assets.json',
+          {
+            'dotnet-runtime-resolution': true,
+            includeComponentMetadata: true,
+          },
+        );
+      } finally {
+        debugModule.disable();
+        if (previousNamespaces) {
+          debugModule.enable(previousNamespaces);
+        }
+      }
+
+      expect(buildDepGraphSpy).toHaveBeenCalled();
+      expect(
+        logged.some((line) =>
+          line.includes('component metadata labels are not added'),
+        ),
+      ).toBe(true);
     });
 
     it('falls back to the legacy scan when cliDotnetRuntimeResolutionEnabled but dotnet is not installed', async () => {
