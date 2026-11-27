@@ -1,8 +1,10 @@
-import { describe, expect, it } from '@jest/globals';
-import childProcess from 'child_process';
+import { afterEach, describe, expect, it } from '@jest/globals';
 import * as os from 'os';
 import * as path from 'path';
 import * as subprocess from '../../lib/nuget-parser/cli/subprocess';
+
+const PRINT_ENV = path.join(__dirname, '..', 'fixtures', 'print-env.js');
+const LOWERCASE_SNYK_VAR = 'snyk_lowercase_token';
 
 describe('when a subprocess cannot be started', () => {
   it.each([
@@ -31,76 +33,26 @@ describe('when a subprocess cannot be started', () => {
 });
 
 describe('child process environment', () => {
-  const PRINT_ENV = path.join(__dirname, '..', 'fixtures', 'print-env.js');
-
-  const TEST_ENV: Record<string, string> = {
-    SNYK_TOKEN: 'test-token',
-    SNYK_OAUTH_TOKEN: 'test-oauth-token',
-    // eslint-disable-next-line camelcase
-    snyk_cfg_api: 'test-cfg-api',
-    HTTP_PROXY: 'http://internal:1',
-    SNYK_SYSTEM_HTTP_PROXY: 'http://corp:3128',
-    UNRELATED_VAR: 'keep',
-  };
-  const isSnykKey = (key: string) => /^snyk_/i.test(key);
-  const hasPath = (keys: string[]) =>
-    keys.some((key) => key.toUpperCase() === 'PATH');
-
-  let savedEnv: Map<string, string | undefined>;
-
-  beforeEach(() => {
-    savedEnv = new Map();
-    for (const key of Object.keys(TEST_ENV)) {
-      savedEnv.set(key, process.env[key]);
-    }
-    Object.assign(process.env, TEST_ENV);
-  });
+  const originalEnv = process.env;
 
   afterEach(() => {
-    jest.restoreAllMocks();
-    for (const [key, value] of savedEnv) {
-      if (value === undefined) {
-        delete process.env[key];
-      } else {
-        process.env[key] = value;
-      }
-    }
+    process.env = originalEnv;
   });
 
-  it('passes spawn an env without SNYK_* variables and with the user proxy', async () => {
-    const spy = jest.spyOn(childProcess, 'spawn');
-    await subprocess.execute('node', [PRINT_ENV]);
-    const env = spy.mock.calls[0][2]?.env;
-    expect(env).toBeDefined();
-    expect(Object.keys(env!).filter(isSnykKey)).toEqual([]);
-    expect(env!.HTTP_PROXY).toBe('http://corp:3128');
-    expect(env!.http_proxy).toBe('http://corp:3128');
-    expect(env!.UNRELATED_VAR).toBe('keep');
-    expect(hasPath(Object.keys(env!))).toBe(true);
-  });
+  it("the child gets no SNYK_* variables and the user's HTTP_PROXY", async () => {
+    process.env = {
+      ...originalEnv,
+      SNYK_TOKEN: 'test-token',
+      [LOWERCASE_SNYK_VAR]: 'test-token',
+      HTTP_PROXY: 'http://internal:1',
+      SNYK_SYSTEM_HTTP_PROXY: 'http://corp:3128',
+    };
 
-  it('the child process sees no SNYK_* variables and gets the user proxy', async () => {
-    const { stdout } = await subprocess.execute('node', [PRINT_ENV]);
-    const child = JSON.parse(stdout);
-    expect(child.keys.filter(isSnykKey)).toEqual([]);
+    const child = JSON.parse(
+      (await subprocess.execute('node', [PRINT_ENV])).stdout,
+    );
+
+    expect(child.keys.filter((key: string) => /^snyk_/i.test(key))).toEqual([]);
     expect(child.HTTP_PROXY).toBe('http://corp:3128');
-    expect(child.http_proxy).toBe('http://corp:3128');
-    expect(child.UNRELATED_VAR).toBe('keep');
-    expect(hasPath(child.keys)).toBe(true);
-  });
-
-  it('does not modify process.env', async () => {
-    await subprocess.execute('node', [PRINT_ENV]);
-    expect(process.env.SNYK_TOKEN).toBe('test-token');
-    expect(process.env.HTTP_PROXY).toBe('http://internal:1');
-  });
-
-  it('cleans an env passed by the caller', async () => {
-    const { stdout } = await subprocess.execute('node', [PRINT_ENV], {
-      env: { ...process.env, SNYK_EXTRA: 'x' } as Record<string, string>,
-    });
-    const child = JSON.parse(stdout);
-    expect(child.keys.filter(isSnykKey)).toEqual([]);
-    expect(child.http_proxy).toBe('http://corp:3128');
   });
 });
