@@ -13,13 +13,6 @@
         }
       },
       {
-        "id": "BaseProj@1.0.0",
-        "info": {
-          "name": "BaseProj",
-          "version": "1.0.0"
-        }
-      },
-      {
         "id": "Microsoft.NET.Test.Sdk@17.10.0",
         "info": {
           "name": "Microsoft.NET.Test.Sdk",
@@ -91,19 +84,10 @@
           "pkgId": "SecondaryProj@1.0.0",
           "deps": [
             {
-              "nodeId": "BaseProj@1.0.0"
+              "nodeId": "Microsoft.NET.Test.Sdk@17.10.0"
             },
             {
               "nodeId": "Moq@4.20.70"
-            }
-          ]
-        },
-        {
-          "nodeId": "BaseProj@1.0.0",
-          "pkgId": "BaseProj@1.0.0",
-          "deps": [
-            {
-              "nodeId": "Microsoft.NET.Test.Sdk@17.10.0"
             }
           ]
         },

@@ -121,6 +121,7 @@ export type ResolvedPackagesMap = Record<
     readonly name: string;
     readonly resolvedVersion: string;
     readonly target: Target;
+    readonly isProject?: boolean;
   }
 >;
 

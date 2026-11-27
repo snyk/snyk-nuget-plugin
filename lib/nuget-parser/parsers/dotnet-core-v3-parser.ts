@@ -25,6 +25,9 @@ interface GraphStats {
   ignored: Set<string>;
   missing: Set<string>;
   versionMismatches: Set<string>;
+  projects: Set<string>;
+  edges: Set<string>;
+  reparentedEdges: Set<string>;
 }
 
 function newGraphStats(): GraphStats {
@@ -34,6 +37,9 @@ function newGraphStats(): GraphStats {
     ignored: new Set(),
     missing: new Set(),
     versionMismatches: new Set(),
+    projects: new Set(),
+    edges: new Set(),
+    reparentedEdges: new Set(),
   };
 }
 
@@ -48,12 +54,13 @@ function recursivelyPopulateNodes(
   dependencies: Record<string, string>,
   overrides: Overrides,
   stats: GraphStats,
-  visited?: Set<string>,
+  visitedCopy: Set<string>,
+  reparenting = false,
+  expandedProjects: Set<string> = new Set(),
 ) {
   if (!dependencies) {
     return;
   }
-  const visitedCopy = new Set(visited);
   for (const [childName, childResolvedVersion] of Object.entries(
     dependencies,
   )) {
@@ -81,7 +88,30 @@ function recursivelyPopulateNodes(
       name: actualPkgName,
       resolvedVersion: actualResolvedVersion,
       target: childPkgEntry,
+      isProject,
     } = resolvedPackage;
+
+    // A local project is not a NuGet package. It is replaced by its own dependencies, which attach to its parent.
+    // A project reached twice or in a cycle is expanded once per dependency list.
+    if (isProject) {
+      stats.projects.add(`${actualPkgName}@${actualResolvedVersion}`);
+      if (expandedProjects.has(lowercaseChildName)) {
+        continue;
+      }
+      expandedProjects.add(lowercaseChildName);
+      recursivelyPopulateNodes(
+        depGraphBuilder,
+        resolvedPackages,
+        parentID,
+        childPkgEntry.dependencies,
+        overrides,
+        stats,
+        localVisited,
+        true,
+        expandedProjects,
+      );
+      continue;
+    }
 
     if (childResolvedVersion !== actualResolvedVersion) {
       stats.versionMismatches.add(
@@ -104,6 +134,14 @@ function recursivelyPopulateNodes(
       finalVersion = overrides.overrideVersion;
     }
 
+    const edgeKey = `${parentID}\u0000${childID}`;
+    if (
+      stats.edges.has(edgeKey) &&
+      (reparenting || stats.reparentedEdges.has(edgeKey))
+    ) {
+      continue;
+    }
+
     if (localVisited.has(childID)) {
       const prunedID = `${childID}:pruned`;
       depGraphBuilder.addPkgNode(
@@ -123,6 +161,10 @@ function recursivelyPopulateNodes(
       childID,
     );
     depGraphBuilder.connectDep(parentID, childID);
+    stats.edges.add(edgeKey);
+    if (reparenting) {
+      stats.reparentedEdges.add(edgeKey);
+    }
     localVisited.add(childID);
     stats.added++;
 
@@ -133,7 +175,7 @@ function recursivelyPopulateNodes(
       childPkgEntry.dependencies,
       overrides,
       stats,
-      localVisited,
+      new Set(localVisited),
     );
   }
 }
@@ -196,6 +238,7 @@ function buildDepGraph(
       name,
       resolvedVersion: version,
       target,
+      isProject: target.type?.toLowerCase() === 'project',
     };
   }
 
@@ -229,11 +272,13 @@ function buildDepGraph(
     directDependencies, // Pass the direct dependencies object
     overrides,
     stats,
+    new Set(),
   );
 
   debug(
     `Built ${assetsTargetFramework} dep graph for ${projectName}: ${stats.added} dependencies added, ${stats.pruned} pruned as duplicates. ` +
       `Ignored by prefix: ${summariseNames(stats.ignored)}. ` +
+      `Local projects skipped: ${summariseNames(stats.projects)}. ` +
       `Not in lock file: ${summariseNames(stats.missing)}. ` +
       `Version mismatches: ${summariseNames(stats.versionMismatches)}.`,
   );
