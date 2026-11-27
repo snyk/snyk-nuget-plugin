@@ -135,7 +135,11 @@ export function sha512FileHex(filePath: string): string | undefined {
     return undefined;
   } finally {
     if (fd !== undefined) {
-      fs.closeSync(fd);
+      try {
+        fs.closeSync(fd);
+      } catch (error: unknown) {
+        debug(`Could not close ${filePath}: ${error}`);
+      }
     }
   }
 }
